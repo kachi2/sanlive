@@ -51,9 +51,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
-
-
     <meta name="p:domain_verify" content="41e4054dd47a348a28e771a36e9e5092"/>
 
 
@@ -106,8 +103,15 @@
 
   gtag('config', 'G-0QPD7YQNP1');
 </script> --}}
+
+@vite('resources/js/app.js')
+@inertiaHead
 </head>
 <body>
+
+    @inertia
+
+    
     <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MSKX7LHR"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

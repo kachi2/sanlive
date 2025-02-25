@@ -13,10 +13,8 @@
         <div class="ps-shopping__content" >
             <div class="row" >
                 <div class="col-12 col-md-7 col-lg-9 mt-5" style="background: #fff">
-
                 <h1 class="m-4" style="font-size:12px">Cart ({{Cart::count()}})</h1> 
                 <div class="ps-categogy--list">
-                  
                 @forelse ($carts as $cart)
                 <form action="{{route('carts.update')}}" method="post" id="cartUpdate">
                     @csrf
@@ -44,14 +42,9 @@
 
                            <span style="floar:right"> <a href="{{route('carts.delete', $cart->rowId)}}"   class="btn btn-danger"> Remove</a></span>
                         </div>
-
-                 
                     </div>
                 </form>
-                </div>
-            
-
-                    
+                </div>   
                 @empty
                 <div class="ps-product ps-product--li">
                     <div class="ps-prod" style="border-right:0px">
