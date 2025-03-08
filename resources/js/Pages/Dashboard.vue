@@ -1,22 +1,51 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import  AppTemplate from "../AppTemplate.vue"
 </script>
-
 <template>
-    <Head title="Dashboard" />
+    <AppTemplate> 
+    <Head title="Sanlive Pharmacy" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-        </template>
+    <template #content> 
+        <div class="ps-home ps-home--8">
+        <div class="ps-home__content">
+            <div class="container">
+                <section class="ps-section--banner ps-banner--container">
+                    <div class="ps-section__overlay">
+                        <div class="ps-section__loading"></div>
+                    </div>
+                    <div class="owl-carousel" data-owl-auto="true" data-owl-loop="true" data-owl-speed="4000"
+                        data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1"
+                        data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000"
+                        data-owl-mousedrag="on">
+                        <!-- @forelse ($sliders as $slider) -->
+                            <div class="ps-banner" style="background:#306A53;">
+                                <div class="container-no-round">
+                                    <div class="ps-banner__block">
+                                        <div class="ps-banner__content">
+                                           
+                                  
+                                        </div>
+                                         <div class="ps-banner__thumnail ps-banner__fluid">
+                                             <a style="position:inherit" href="">
+                                           <img class="ps-banner__image" src="" />
+                                             </a>
+                                        </div>
+                                  
+                                    </div>
+                                </div>
+                            </div>
+                        <!-- @empty
+                        @endforelse -->
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">You're logged in!</div>
-                </div>
+                    </div>
+                </section>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </div>
+    </template>
+    
+
+</AppTemplate>
 </template>
+

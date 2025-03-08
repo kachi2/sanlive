@@ -1,6 +1,5 @@
 <template>
-
-<div class="ps-menu--slidebar">
+    <div class="ps-menu--slidebar">
     <div class="ps-menu__content">
         <ul class="menu--mobile">
             <li><a href="{{route('users.account.index')}}">My account</a></li>
@@ -25,7 +24,7 @@
             </ul>
         </div>
         <div class="ps-menu__item">
-            <div class="ps-menu__contact">Need help? <strong>{{'asasasas'}}</strong></div>
+            <div class="ps-menu__contact">Need help? <strong>{{'$settings->site_phone'}}</strong></div>
         </div>
     </div>
 </div>
