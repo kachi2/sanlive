@@ -2,12 +2,12 @@
     <header class="ps-header ps-header--8 ps-header--mobile">
     <div class="ps-noti">
         <div class="container">
-            <p class="m-0"> <marquee> </marquee> </p>
+            <p class="m-0"> <marquee> hjjhhjh</marquee> </p>
         </div><a class="ps-noti__close"><i class="icon-cross"></i></a>
     </div>
     <div class="ps-header__middle">
         <div class="container">
-            <div class="ps-logo"><a href="{{route('users.index')}}"> <img src="{{asset('images/'.$settings->site_logo)}}" alt=""></a></div>
+            <div class="ps-logo"><a href="{{route('users.index')}}"> <img src="" alt=""></a></div>
             <div class="ps-header__right">
                 <ul class="ps-header__icons">
                 </ul>

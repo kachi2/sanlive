@@ -1,23 +1,23 @@
 <template>
    <header class="ps-header ps-header--1">
-    <div class="ps-noti p-2" style="background: #f1641e!important">
+    <div class="ps-noti p-2">
         <div class="container" >
-            <p class="m-0" style="color:#000"> we wre here to serve you</p>
+            <p class="m-0" style="color:#fff; font-weight:bold;"> <marquee> we wre here to serve yowe wre here to serve yowe wre</marquee></p>
         </div>
 
     </div>
     <div class="ps-header__middle">
         <div class="container">
             <div class="ps-logo"><a href=""> 
-                <img src="/images/1701970549logos.png" style="width: 120px" alt>
+                <img src="/images/logo.png" style="width: 160px" alt>
             <img class="sticky-logo" src="" alt=""></a>
      
         </div>
             <div class="ps-header__right">
                 <ul class="ps-header__icons">
                    
-                    <li><a class="ps-header__item open-search" href="{{route('login')}}"><i class="icon-magnifier"></i></a></li>
-                    <a class="" href="{{route('login')}}">Sign in</a> 
+                    <li><a class="ps-header__item open-search" href=""><i class="icon-magnifier"></i></a></li>
+                    <a class="" href="">Sign in</a> 
                     
                     <!-- <li >
                         <a   class="ps-header__item" style="width:120px; font-size:0.85em; border:1px solid #eeeeee5f; color:#5b6c8f"  href="{{route('users.account.index')}}" > 
@@ -25,10 +25,10 @@
                     </li> -->
                    
             
-                    <li><a class="ps-header__item" href="{{route('carts.index')}}" id="cart-mini"><i class="icon-cart-empty"></i> <span class="badge cartReload" >2</span></a></li>
+                    <li><a class="ps-header__item" href="" id="cart-mini"><i class="icon-cart-empty"></i> <span class="badge cartReload" >2</span></a></li>
                 </ul>
                 <div class="ps-header__search">
-                    <form action="{{route('products.search')}}" method="get">
+                    <form action="" method="get">
                         <div class="ps-search-table">
                             <div class="input-group">
                                 <input class="form-control ps-input" type="text"  name="q" placeholder="Search for anti-malaria, antibiotics, asthma, cough and cold,  eyes drops, fitness and vitality, anti-cancer,">

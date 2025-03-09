@@ -138,7 +138,8 @@ a {
 }
 
 a:hover {
-  color: #FD8D27;
+  /* color: #FD8D27; */
+  color: #73c2fb;
 }
 
 a,
@@ -705,14 +706,14 @@ body {
 }
 
 .ps-btn--warning {
-  border: 1px solid #FD8D27 !important;
-  background-color: #FD8D27 !important;
+  border: 1px solid #73c2fb !important;
+  background-color: #73c2fb !important;
   color: white !important;
 }
 
 .ps-btn--warning:hover {
   background-color: white !important;
-  color: #FD8D27 !important;
+  color: #73c2fb !important;
 }
 
 .ps-btn--primary {
@@ -769,8 +770,8 @@ body {
 
 .ps-btn--outline, button.ps-btn--outline {
   background-color: white !important;
-  border: 1px solid #FD8D27 !important;
-  color: #FD8D27 !important;
+  border: 1px solid #73c2fb !important;
+  color: #73c2fb !important;
 }
 
 .ps-btn--outline:hover, button.ps-btn--outline:hover {
@@ -8800,7 +8801,7 @@ textarea.form-control {
 }
 
 .ps-category--image .ps-category__thumbnail img {
-  max-width: 60%;
+  max-width: 100%;
 }
 
 .ps-category--image .row {
@@ -13074,7 +13075,7 @@ textarea.form-control {
 }
 
 .menu > li > a:hover {
-  color: #FD8D27;
+  color: rgb(115, 194, 251);
 }
 
 .menu > li > a > i {
@@ -13131,7 +13132,7 @@ textarea.form-control {
 
 @media (min-width: 992px) {
   .menu > li {
-    padding: 15px 0px 0px 25px;
+    padding: 0px 15px 0px 15px;
   }
   .menu > li > a {
     font-size: 13px;
@@ -13906,8 +13907,8 @@ textarea.form-control {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color:#f1641e;
-  /* background-color: #103178; */
+  /* background-color:#f1641e; */
+  background-color: #103178;
   color: white;
 }
 

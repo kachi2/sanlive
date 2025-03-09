@@ -24,7 +24,7 @@
             </ul>
         </div>
         <div class="ps-menu__item">
-            <div class="ps-menu__contact">Need help? <strong>{{'$settings->site_phone'}}</strong></div>
+            <div class="ps-menu__contact">Need help? <strong></strong></div>
         </div>
     </div>
 </div>

@@ -27,7 +27,7 @@
                             <h5 class="ps-footer__title">Need help</h5>
                             <div class="ps-footer__work" style="color:#000"><i class="icon-telephone"></i></div>
                             <p class="ps-footer__work" style="color:#000"></p>
-                          
+                        
                   
                         </div>
                     </div>
@@ -75,11 +75,11 @@
     </div>
     <div class="ps-footer--bottom">
         <div class="row">
-            <div class="col-12 col-md-5" style="background: #">
+            <div class="col-12 col-md-5">
                 <p style="color:#000"></p>
             </div> 
-            <div class="col-12 col-md-7 text-right" style="background: #">
-                <img src="'/images/paystack_logo.png'"  width="50px" alt="">
+            <div class="col-12 col-md-7 text-right" >
+                <img src="/images/paystack_logo.png"  width="50px" alt="">
                 <img class="payment-light" src="/images/paystack.png"      width="50px"alt="">
                 <img class="payment-light" src="/images/nafdac.png"      width="50px"alt="">
                 <img class="payment-light" src="/images/secure_ssl.png"  width="50px" alt="">

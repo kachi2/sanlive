@@ -4,13 +4,13 @@
         <div class="" style="text-align: center;">
             <nav class="ps-main-menu" >
                 <ul class="menu">
-                    <li><a   href="{{ route('index')}}">Home</a></li>
-                    <li><a href="{{route('products.search')}}">Products</a></li>
-                    <li><a   href="{{route('products.search')}}">Our Services</a></li>
-                    <li><a  href="{{ route('AboutUs')}}">About Us</a></li>
-                    <li><a   href="{{ route('contactUs')}}">Contact Us</a></li>
-                    <li><a  href="{{ route('blogs.index')}}">Blog</a></li>
-                    <li><a  href="{{ route('faq.index')}}">FAQ</a></li>
+                    <li><a   href="">Home</a></li>
+                    <li><a href="">Products</a></li>
+                    <li><a   href="">Our Services</a></li>
+                    <li><a  href="">About Us</a></li>
+                    <li><a   href="">Contact Us</a></li>
+                    <li><a  href="">Blog</a></li>
+                    <li><a  href="">FAQ</a></li>
 
                 </ul>
             </nav>
