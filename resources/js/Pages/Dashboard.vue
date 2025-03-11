@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/vue3';
 import  AppTemplate from "../AppTemplate.vue"
 import Slider from '@/Components/Slider.vue';
 import Category from './Home/category.vue';
+import ProductList from './Home/ProductList.vue';
 </script>
 <template>
     <AppTemplate> 
@@ -13,6 +14,12 @@ import Category from './Home/category.vue';
         <div class="ps-home__content">
               <Slider />
               <Category />
+
+              
+              <ProductList />
+              <ProductList />
+              <ProductList />
+              <ProductList />
         </div>
     </div>
     </template>
