@@ -16,7 +16,7 @@
                                     <div class="ps-category__thumbnail"> <a class="ps-category__image" href="category-grid.html"><img src="/images/slid.jpg" alt=""></a></div>
                                     <div class="ps-category__thumbnail"> <a class="ps-category__image" href="category-grid.html"><img src="/images/slid.jpg" alt=""></a></div>
                                     <div class="ps-category__thumbnail"> <a class="ps-category__image" href="category-grid.html"><img src="/images/slid.jpg" alt=""></a></div>
-                                    <div class="ps-category__thumbnail"> <a class="ps-category__image" href="category-grid.html"><img src="i/images/slid.jpg" alt=""></a>   </div>
+                                    <div class="ps-category__thumbnail"> <a class="ps-category__image" href="category-grid.html"><img src="/images/slid.jpg" alt=""></a>   </div>
                             </div>
                         </div>
                       </div>

@@ -4,13 +4,13 @@
         <div class="" style="text-align: center;">
             <nav class="ps-main-menu" >
                 <ul class="menu">
-                    <li><a   href="">Home</a></li>
-                    <li><a href="">Products</a></li>
-                    <li><a   href="">Our Services</a></li>
-                    <li><a  href="">About Us</a></li>
-                    <li><a   href="">Contact Us</a></li>
-                    <li><a  href="">Blog</a></li>
-                    <li><a  href="">FAQ</a></li>
+                    <li><Link   href="/">Home</Link></li>
+                    <li><Link href="/catalogs">Products</Link></li>
+                    <li><Link   href="">Our Services</Link></li>
+                    <li><Link href="/pages/about">About Us</Link></li>
+                    <li><Link   href="pages/contactus">Contact Us</Link></li>
+                    <li><Link href="/blogs">Blog</Link></li>
+                    <li><Link href="/faq">FAQ</Link></li>
 
                 </ul>
             </nav>
@@ -20,3 +20,7 @@
 </div>
 
 </template>
+
+<script setup>
+import { Link } from '@inertiajs/vue3'
+</script>

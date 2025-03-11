@@ -19,19 +19,14 @@ use Inertia\Inertia;
 */
 
 // require __DIR__.'/auth.php';
-// require __DIR__.'/admin.php';
-// require __DIR__.'/user.php';
+require __DIR__.'/admin.php';
+require __DIR__.'/user.php';
 
 
 Route::get('/process/products/names', [ProductController::class, 'processImages'])->name('processImages');
 Route::get('manual/payment/processes', [ManualPaymentController::class, 'ProcessPayment']);
 
 
-
-
-Route::get('/', function () {
-    return Inertia::render('Dashboard');
-});
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

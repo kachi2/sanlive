@@ -15,6 +15,7 @@ use Vinkla\Hashids\Facades\Hashids;
 
 
 use Illuminate\Support\ServiceProvider;
+use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
              $view->with('advert_top', Advert::where('placement', 'top')->first());
              $view->with('unread_notify', AdminNotification::latest()->get());
         });
+
+        Inertia::share('settings', function(){ return Setting::latest()->first();  });
       
         // View::share('announcment', Annoucement::first());
         // View::share('settings', function(){ return Setting::latest()->first();

@@ -39,22 +39,18 @@ class HomeController extends Controller
     //   }
     
         $slider = Slider::latest()->get();
+
+        $data['category'] = Category::with('products')->whereHas('products', function($query){
+            $query->raw('count()* > 5');
+        })->take(5)->get();
+
         $data['latest'] = Product::latest()->inRandomOrder()->take(6)->get();
-        $data['topProducts1'] = Product::orderBy('views', 'DESC')->take(6)->get();
-        $data['productCat1'] = Product::where('category_id', 24)->inRandomOrder()->take(9)->get();
-        $data['productCat2'] = Product::where('category_id', 3)->inRandomOrder()->take(9)->get();
-        $data['productCat3'] = Product::where('category_id', 1)->inRandomOrder()->take(9)->get();
-        $data['productCat4'] = Product::where('category_id', 4)->inRandomOrder()->take(9)->get();
-        $data['advert'] = Product::inRandomOrder()->take(3)->get();
-        addHashId($data['latest']);
-        addHashId($data['topProducts1']);
-        addHashId( $data['productCat1']);
-        addHashId( $data['productCat2']);
-        addHashId( $data['productCat3']);
-        addHashId( $data['productCat4']);
-        addHashId($data['advert']);
-        return view('users.dashboard', $data, [
+        $data['categories'] = Category::get();
+        addHashId($data['category']);
+        addHashId($data['categories']);
+        return inertia('Dashboard', [
             'sliders' => $slider,
+            $data,
         ]);
     }
 }
