@@ -14,4 +14,9 @@ class Category extends Model
     public function products(){
         return $this->hasMany(Product::class);
     }
+
+    public function randomProduct()
+    {
+        return $this->hasMany(Product::class)->take(5);
+    }
 }

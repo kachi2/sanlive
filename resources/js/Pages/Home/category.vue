@@ -1,3 +1,12 @@
+<script setup>
+import { Link } from '@inertiajs/vue3';
+
+const props = defineProps({'categories':Array})
+
+// console.log(props.categories, 'categories')
+
+</script>
+
 <template>
      <div class="container p-2">
         <div class="ps-noti p-2" style="border-radius:5px">
@@ -11,31 +20,28 @@
                         <div class="ps-section__content">
                           <div class="ps-section__carousel">
                             <div class="owl-carousel" data-owl-auto="true" data-owl-loop="true" data-owl-speed="12000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="5" data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="5" data-owl-item-xl="5" data-owl-duration="1000" data-owl-mousedrag="on">
-                                    <div class="ps-category__thumbnail"> <a class="ps-category__image" href="category-grid.html"><img src="/images/slid.jpg" alt=""></a> </div>
-                                    <div class="ps-category__thumbnail"> <a class="ps-category__image" href="category-grid.html"><img src="/images/slid.jpg" alt=""></a> </div>
-                                    <div class="ps-category__thumbnail"> <a class="ps-category__image" href="category-grid.html"><img src="/images/slid.jpg" alt=""></a></div>
-                                    <div class="ps-category__thumbnail"> <a class="ps-category__image" href="category-grid.html"><img src="/images/slid.jpg" alt=""></a></div>
-                                    <div class="ps-category__thumbnail"> <a class="ps-category__image" href="category-grid.html"><img src="/images/slid.jpg" alt=""></a></div>
-                                    <div class="ps-category__thumbnail"> <a class="ps-category__image" href="category-grid.html"><img src="/images/slid.jpg" alt=""></a>   </div>
+                              <div v-for="category in categories">
+                              <div class="ps-category__thumbnail"> <Link class="ps-category__image" :href="`/catalogs/${category.hashid}`"><img :src="`/images/category/${category.image_path}`" :alt="category.name"></Link> </div>
+                            </div>
                             </div>
                         </div>
                       </div>
                     </section>
                     <div class="button-container">
-                        <button class="custom-btn">
+                        <Link href="/catalogs" class="custom-btn">
                             <span class="btn-icon">📂</span> 
                             <span class="btn-text">All Categories</span>
-                        </button>
+                        </Link>
 
-                        <button class="custom-btn">
+                        <Link  href="/pages/contactus" class="custom-btn">
                             <span class="btn-icon">⭐</span>
                             <span class="btn-text">Special Medication Request</span>
-                        </button>
+                        </Link>
 
-                        <button class="custom-btn">
+                        <Link href="/upload/prescription" class="custom-btn">
                             <span class="btn-icon">📤</span>
                             <span class="btn-text">Upload Doctor's Prescription</span>
-                        </button>
+                        </Link>
                         </div>
 
             </div>

@@ -40,17 +40,22 @@ class HomeController extends Controller
     
         $slider = Slider::latest()->get();
 
-        $data['category'] = Category::with('products')->whereHas('products', function($query){
-            $query->raw('count()* > 5');
-        })->take(5)->get();
+        $category = Category::whereHas('products', function($query){
+            $query->havingRaw('COUNT(*) > 5');
+        })->take(5)->inRandomOrder()->get();
+        foreach($category as $cat)
+        {
+            $cat->products = $cat->products()->take(4)->get();
+        }
 
-        $data['latest'] = Product::latest()->inRandomOrder()->take(6)->get();
-        $data['categories'] = Category::get();
-        addHashId($data['category']);
-        addHashId($data['categories']);
+        // dd($category);
+        $categories = Category::inRandomOrder()->get();
+        addHashId($category);
+        addHashId($categories);
         return inertia('Dashboard', [
             'sliders' => $slider,
-            $data,
+            'category' => $category,
+            'categories' => $categories
         ]);
     }
 }

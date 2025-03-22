@@ -7,11 +7,11 @@
                 <div class="row">
                     <div class="col-12 col-md-4">
                         <div class="ps-footer--address">
-                            <div class="ps-logo"><a href="">  <img src="/images/logo.png" alt="">
-                                <img class="logo-white" src="/images/logo.png"  style="border-radius: 5px" alt="">
+                            <div class="ps-logo"><a href="">  <img src="/images/1731168076sdsds.png" alt="">
+                                <img class="logo-white" src="/images/1731168076sdsds.png"  style="border-radius: 5px" alt="">
                                 <img class="logo-black" src="" style="border-radius: 5px"  alt="">
-                                <img class="logo-white-all" src="/images/logo.png"  style="border-radius: 5px" alt="">
-                                <img class="logo-green" src="/images/logo.png" style="border-radius: 5px"  alt="" >
+                                <img class="logo-white-all" src="/images/1731168076sdsds.png"  style="border-radius: 5px" alt="">
+                                <img class="logo-green" src="/images/1731168076sdsds.png" style="border-radius: 5px"  alt="" >
                             </a></div>
                         
                             <p >Follow Us</p>

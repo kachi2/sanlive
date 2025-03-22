@@ -8,10 +8,11 @@ import ProductList from './Home/ProductList.vue';
 
 const props = defineProps({
     'sliders': Array,
-    'data': Array
+    'categories': Array,
+    'category': Array
 });
 
-console.log(props.sliders)
+// console.log(props.categories)
 </script>
 <template>
     <AppTemplate> 
@@ -23,14 +24,11 @@ console.log(props.sliders)
         <div class="ps-home ps-home--8">
         <div class="ps-home__content">
             
-              <Slider  :slider="props.sliders"/>
-              <Category :category="props.data"/>
-
-              
-              <ProductList />
-              <ProductList />
-              <ProductList />
-              <ProductList />
+              <Slider  :slider="sliders"/>
+              <Category :categories="categories"/>
+             
+              <ProductList v-for="cat in category"  :products="cat" />
+            
         </div>
     </div>
     </template>

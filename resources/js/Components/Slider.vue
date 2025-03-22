@@ -1,7 +1,9 @@
 
 <script setup>
-defineProps({
-    'sliders': Array
+import { Link } from '@inertiajs/vue3';
+
+const props = defineProps({
+    'slider': Array
 })
 
 </script>
@@ -16,25 +18,26 @@ defineProps({
         data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1"
         data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
     
-            <div class="ps-banner" v-for="slider in sliders " :key="slider.id">
+        <div v-for="slide in slider " :key="slide.index">
+            <div class="ps-banner" >
                 <div class="container-no-round">
                     <div class="ps-banner__block">
-                        <div class="ps-banner__content">
-                            <h4 class="ps-banner__title text-black">hasasas</h4>
+                        <div class="ps-banner__coMntent">
+                            <!-- <h4 class="ps-banner__title text-black">{{ slide.title }}</h4> -->
                             <div class="ps-banner__desc text-"></div>
                             <div class="ps-banner__btn-group">
                             </div>
-                           
                         </div>
                          <div class="ps-banner__thumnail ps-banner__fluid">
-                             <a style="position:inherit" href="">
-                           <img class="ps-banner__image" src="/images/sliders/{{ slider.image_path }}" alt="{{ slider.name }}" />
-                             </a>
+                             <Link style="position:inherit" href="/catalogs"> 
+                           <img class="ps-banner__image" :src="`images/sliders/${slide.image_path}`" :alt="slide.title" />
+                          </Link>
                         </div>
                   
                     </div>
                 </div>
             </div>
+        </div>
 
     </div>
 

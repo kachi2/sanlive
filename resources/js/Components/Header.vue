@@ -2,14 +2,14 @@
    <header class="ps-header ps-header--1">
     <div class="ps-noti p-2">
         <div class="container" >
-            <p class="m-0" style="color:#fff; font-weight:bold;"> <marquee> we wre here to serve yowe wre here to serve yowe wre</marquee></p>
+            <!-- <p class="m-0" style="color:#fff; font-weight:bold;"> <marquee> we wre here to serve yowe wre here to serve yowe wre</marquee></p> -->
         </div>
 
     </div>
     <div class="ps-header__middle">
         <div class="container">
             <div class="ps-logo"><a href=""> 
-                <img src="/images/logo.png" style="width: 160px" alt>
+                <img src="/images/1731168076sdsds.png" style="width: 160px" alt>
             <img class="sticky-logo" src="" alt=""></a>
      
         </div>
