@@ -29,15 +29,19 @@ class ProductDetailsController extends Controller
         $prod->hashid = Hashids::connection('products')->encode($prod->id);
         $prod->productUrl =  trimInput($prod->name);
       }
-      return view('users.carts.products', $data)
-       ->with('metaTitle', Str::slug($product->name))
-      ->with('metaDescription', Str::slug($product->description, ' '))
-      ->with('ogTitle', Str::slug($product->name, ' '))
-      ->with('ogDescription', Str::slug($product->description, ''))
-      ->with('ogImage',asset('images/products/'.$product->image_path))
-      ->with('twitterTitle', Str::slug($product->name, ''))
-      ->with('twitterDescription', Str::slug($product->description, ' '))
-      ->with('twitterImage', asset('images/products/'.$product->image_path));
-
+      return inertia('Products/ProductDetails', 
+      [
+        'data' => $data,
+        'metaTitle' => Str::slug($product->name),
+        'metaTitle' => Str::slug($product->name),
+        'metaDescription' => Str::slug($product->description, ' '),
+        'metaDescription' => Str::slug($product->description, ' '),
+        'ogTitle' => Str::slug($product->name, ' '),
+        'ogDescription' => Str::slug($product->description, ''),
+        'ogImage' => asset('images/products/'.$product->image_path),
+        'twitterTitle' => Str::slug($product->name, ''),
+        'twitterDescription' => Str::slug($product->description, ' '),
+        'twitterImage' => asset('images/products/'.$product->image_path)
+      ]);
     }
 }
