@@ -10,14 +10,12 @@ use Illuminate\Support\Str;
 
 class ProductDetailsController extends Controller
 {
-    //
-
     public function __invoke($id, $url)
     {
       $ss =   Hashids::connection('products')->decode($id);
       $product = Product::findorfail($ss[0]);
       session()->push('products.recently_viewed', $product->getKey());
-      $data['latest'] = Product::where('category_id', $product->category->id)->take(10)->get();
+      $data['related'] = Product::where('category_id', $product->category->id)->take(10)->get();
       $product->hashid = Hashids::connection('products')->encode($product->id);
       $product->productUrl =  trimInput($product->name);
       $data['product'] = $product;
@@ -25,7 +23,7 @@ class ProductDetailsController extends Controller
       $datas = array_slice(array_unique($products), -5, 5, true);
       $data['recent'] = Product::whereIn('id', $datas)->take(5)->get();
      
-      foreach($data['latest']  as $prod){
+      foreach($data['related']  as $prod){
         $prod->hashid = Hashids::connection('products')->encode($prod->id);
         $prod->productUrl =  trimInput($prod->name);
       }

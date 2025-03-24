@@ -18,9 +18,9 @@ console.log(props.products, 'category products')
          </div>
         <div class="ps-section__content">
         <div class="row m-0">
-        
-       <div class="col-12 col-md-6 col-lg-3 pt-4" v-for=" product in products.products " >
-                    <div class="ps-section__product shadow-sm "  >
+         
+             <div class="col-12 col-md-6 col-lg-3 pt-4" v-for=" product in products.products " >
+                     <div class="ps-section__product shadow-sm "  >
                         <div class="ps-product ps-product--standard cart-card  border-gray-800 " style="background-color:#fff">
                             <div class="ps-product__thumbnail ">
                                 <Link class="ps-product__image" :href="`/products/${product.hashid}/${product.productUrl}`" style="min-height:250px">
