@@ -11,10 +11,10 @@ data : Object
 
 let product =  props.data.product
 const form = reactive({
-    'image':String,
-    'qty':Number,
-    'cartId': String,
-    'amount':Number
+    image:'',
+    qty:0,
+    cartId: '',
+    amount:0
 
 })
 
@@ -27,7 +27,7 @@ const addSubstract = function (oprand)  {
         return form 
     }else if(oprand == "-")
     {
-        if(calNum.value <= 0) return
+        if(form.qty <= 0) return
         form.qty--
         return form;
     }else 
@@ -44,7 +44,9 @@ const ImageFile = ref('')
 
 function handleFileUpload(event)
 {
-    ImageFile.value = event.target.file[0]
+    ImageFile.value = event.target.files[0]
+
+    console.log(ImageFile.value, 'ImageFile.value')
 }
 </script>
 
@@ -106,10 +108,13 @@ function handleFileUpload(event)
                         
                                             <div v-if="product.requires_prescription != 1">
                                             <label for="precription_upload" > <span id="fileName" style="color:red" hidden> Upload file </span>
-                                            <div class="pb-3"><img src="/frontend/upload.png">
+                                            <div class="pb-1"><img src="/frontend/upload.png">
+                                                {{ ImageFile.name }}
                                             </div> 
                                             <input type="file" id="precription_upload" @change="handleFileUpload" style="border: none; visibility:hidden" > 
-                                            </label>
+                                      
+                                        </label>
+                                        
                                             <br>
                                              </div>
 
