@@ -65,7 +65,7 @@ function handleFileUpload(event)
             <li class="ps-breadcrumb__item"><a href="">{{ product.category.name }}</a></li>
             <li class="ps-breadcrumb__item active" aria-current="page">{{ product.name }}</li>
         </ul>
-       
+    
         <div class="ps-page__content">
             <div class="row">
                 <div class="col-12 col-md-12">
