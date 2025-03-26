@@ -57,7 +57,6 @@ function handleFileUpload(event)
     </Head>
 
     <template #content>
-
     <div class="ps-page--product ps-page--product1">
     <div class="container ">
         <ul class="ps-breadcrumb">
