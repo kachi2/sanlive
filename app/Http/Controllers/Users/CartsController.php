@@ -35,12 +35,11 @@ use imageUpload;
             'image' => $file??'',
             'modelImage' => $product->image_path
           ]),
-          'associatedModel' => $product->with('category')
+          'associatedModel' => $product->load('category')
       ]);
     
          if($response){
         return redirect()->back();
-
          }
      }
 
@@ -59,6 +58,7 @@ use imageUpload;
       }
         return inertia('Users/Carts/Cart', [
           'carts' => \Cart::getContent(),
+          'total' => \Cart::getTotal(),
           'latest' => $prod,
           'cartSession' => Hashids::connection('products')->encode(rand(11,99))
         ]);
@@ -70,7 +70,7 @@ use imageUpload;
     public function destroy( $id)
     {
       //dd($id.' '.$request->rowId);
-        Cart::remove($id);
+        \Cart::remove($id);
         Session::flash('alert', 'error');
         Session::flash('msg', 'Cart Successfully removed');
         return back();
@@ -79,8 +79,10 @@ use imageUpload;
     public function update(Request $request){
         $cartItemId = $request->cartId;
         $quantity = $request->qty;
-        // Update the cart item quantity
-        Cart::update($cartItemId, $quantity);
+        // dd($cartItemId);
+        if($request->action == "+") \Cart::update($cartItemId, array('quantity' => +1));
+        if($request->action == "-" && $quantity > 1 ) \Cart::update($cartItemId, array('quantity' => -1));
+  
         Session::flash('alert', 'success');
         Session::flash('msg', 'Cart item quantity updated successfully');
         return back();

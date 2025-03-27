@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import AppTemplate from '@/AppTemplate.vue';
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive,ref } from 'vue';
+import { router,Link } from '@inertiajs/vue3';
+import useFxt from '../useFunctions';
+
+
 
 const props = defineProps({
     carts:Object,
-    latest:Array,
-    cartSession:String
+    latest:Object,
+    cartSession:String,
+    total:Number
 
-})
-
-const form = reactive({
-    qty:0,
 })
 
 
@@ -19,23 +20,51 @@ const form = reactive({
 
 // });
 
-console.log(props.carts, 'carts items' )
+function updateAction(param:any)
+{
+    if(param == "+")cartForm.action = "+"
+    if(param == "-") cartForm.action = "-"
+
+}
+
+
+const cartForm = reactive({
+    qty:0,
+    cartId:0,
+    action:''
+})
+
+
+
+
+
+function updateCart(cartsData:any){
+    // console.log(cartsData, 'cartsData')
+    cartForm.qty = cartsData.quantity;
+    cartForm.cartId = cartsData.id
+    router.post('/updatecart', cartForm)
+}
+
+function deleteCart(CartData:any)
+{
+router.get('/delete/'+CartData.id,)
+}
 </script>
 
 <template>
 
 <AppTemplate>
     <template #content>
-<div class="ps-shopping" style="background: #eee">
+<div class="ps-shopping" style="background: #fff">
     <div class="container">
         <div class="ps-shopping__content" >
             <div class="row" >
                 <div class="col-12 col-md-7 col-lg-9 mt-5" style="background: #fff">
                 <h1 class="m-4" style="font-size:12px"></h1> 
-                <div class="ps-categogy--list">
+                <div class="ps-categogy--list" v-if="carts">
                     <div v-for="cart in carts" :key="cart.id">  
-                        {{ console.log(cart, 'cartsi sinder') }}
-                <form action="" method="post" id="cartUpdate">
+                        <!-- {{ console.log(cart, 'cartsi sinder') }} -->
+                <form  id="cartUpdate" @submit.prevent="updateCart(cart)">
                 <div class="ps-product ps-product--list" style="border:2px solid #d1d5dad4; border-radius:10px">
                     <div class="ps-product__content" style="border-right:0px">
                         <div class="ps-product__thumbnail"><a class="ps-product__image" href="">
@@ -51,9 +80,9 @@ console.log(props.carts, 'carts items' )
                                 {{cart.name}}
                             </a></h3>
                             <div class="ps-product__meta"><span class="ps-product__price" style="font-size:15px"> </span>
-                                {{cart?.associatedModel?.sale_price}}
+                                ₦{{ useFxt.addSeperator(cart?.associatedModel?.sale_price)}}
                                 <span class="ps-product__del" style="font-size:15px">
-                                    {{cart?.associatedModel?.price}}
+                                    ₦{{ useFxt.addSeperator(cart?.associatedModel?.price)}}
                                 </span>
                             </div>
                             <ul class="ps-product__list">
@@ -62,19 +91,19 @@ console.log(props.carts, 'carts items' )
                                 </a>
                                 </li>
                             </ul>
-                            <button  type="submit" name="qty" value="{{$cart->qty -1 }}" class="ps-btn--success  decrement-btn" style="width: 30px; border-radius:3px; height:30px"> - </button> 
+                            <button  type="submit"  @click="updateAction('-')" value="decrement" class="ps-btn--success  decrement-btn" style="width: 30px; border-radius:3px; height:30px"> - </button> 
                             <input type="text" :value="cart.quantity"  class="qty" style="border: 1px solid #8c8a8a53; height:30px; width:30px; text-align:center"> 
-                            <input type="hidden" min="0" name="cartId" value="{{$cart->rowId}}">
-                            <button  type="submit" name="qty" value="{{$cart->qty + 1}}" class="ps-btn--success  increment-btn" style="width: 30px; border-radius:3px; height:30px"> + </button> 
+                            <input type="hidden" :value="cartForm.cartId">
+                            <button  type="submit"  @click="updateAction('+')"  value="increment" class="ps-btn--success  increment-btn" style="width: 30px; border-radius:3px; height:30px"> + </button> 
 
-                           <span style="padding-left:10px"> <a href="{{route('carts.delete', $cart->rowId)}}"   class="btn btn-danger"> Remove</a></span>
+                           <span style="padding-left:10px"> <Link href=""  @click="deleteCart(cart)"  class="btn btn-danger"> Remove</Link></span>
                         </div>
                     </div>
                 </div>
                 </form>
             </div>
                 </div>   
-                <div class="ps-product ps-product--li">
+                <div class="ps-product ps-product--li" v-else>
                     <div class="ps-prod" style="border-right:0px">
               <p style="text-align: center"> 
                 <i  style="font-size:50px; padding-right:2px; font-weight:800" class="icon-cart-empty"></i> 
@@ -102,13 +131,12 @@ console.log(props.carts, 'carts items' )
                         </div>
                         <div class="ps-shopping__row">
                             <div class="ps-shopping__label">Total</div>
-                            <div class="ps-shopping__price">₦</div>
+                            <div class="ps-shopping__price">₦{{ useFxt.addSeperator(total) }}</div>
                         </div>
                         <div class="ps-shopping__text">Shipping options will be updated during checkout.</div> 
-                       
                         <div class="ps-shopping__checkout">
-                        <a class="ps-btn ps-btn--success"  style="border-radius:5px" href="{{route('checkout.index',$cartSession)}}">Proceed to checkout</a>
-                            <a class="ps-shopping__link" href="{{route('products.search')}}">Continue Shopping</a></div>
+                        <Link class="ps-btn ps-btn--success"  style="border-radius:5px" href="/checkout">Proceed to checkout</Link>
+                            <Link class="ps-shopping__link" href="/catalogs">Continue Shopping</Link></div>
                     </div>
                 </div>
             </div>
@@ -118,45 +146,49 @@ console.log(props.carts, 'carts items' )
         </div>
 <div style="height: 2em; background:#eee"></div>
 <section class="ps-section--latest" style="margin-top:5px">
-    <div class="container" style="background: #f4f3f33f; padding:10px; border:5px solid #ede8e836">
-        <h1 class="" style="font-size: 20px; color:#000;">Latest Products</h1>
-        <div class="ps-section__carousel">
+        <div class="container" style="background: #f4f3f33f; padding:10px; border:5px solid #ede8e836">
+                <div class="ps-noti p-2" style="border-radius:5px">
+                <p class="ml-2" style="color:#fff; font-weight:bold; text-align:left"> Related Products </p>
+                </div>
+            <div class="ps-section__carousel">
             <div class="owl-carousel" data-owl-auto="false" data-owl-loop="true" data-owl-speed="13000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="5" data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="5" data-owl-item-xl="5" data-owl-duration="1000" data-owl-mousedrag="on">
-                @forelse ($latest as $prod)
-                <div class="ps-section__product">
-                    <div class="ps-product ps-product--standard">
-                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product1.html">
-                                    <figure><img src="{{asset('images/products/'.$prod->image_path)}}" alt="{{$prod->name}}" /><img src="{{asset('images/products/'.$prod->image_path)}}" alt="{{$prod->name}}" />
-                                </figure>
-                            </a>
-                            <div class="ps-product__badge" style="right:20px; ">
-                                <div class="ps-badge ps-badge--hot" style="background: rgb(225, 136, 136); border-radius:3px; padding:0 0;">
-                                    <!-- -{{number_format($prod->discount)}}% -->
+            <div v-for="products in latest" > 
+                     <div class="ps-section__product shadow-sm"  >
+                        <div class="ps-product ps-product--standard cart-card  border-gray-800 " style="background-color:#fff">
+                            <div class="ps-product__thumbnail ">
+                                <Link class="ps-product__image" :href="`/products/${products?.hashid}/${products?.productUrl}`" style="min-height:250px">
+                                    <figure>
+                                        <img :src="`/images/products/${products?.image_path}`" alt="" style="max-height:200px" /><img :src="`/images/products/${products?.image_path}`" :alt="products?.name">
+                                    </figure>
+                                </Link>
+                            </div>
+                            <div class="ps-product__content">
+                                <h5 class=""><Link :href="`/products/${products?.hashid}/${products?.productUrl}`"> {{ products?.name }}</Link>
+                                </h5>
+                                <div class="ps-product__meta"><span class="ps-product__price sale"> N{{ products?.sale_price }}</span><span class="ps-product__del">N{{products?.price}}</span>
+                                   <!-- <small style="color:#434242b5"> -20%</small>  -->
+                              
                                 </div>
+                                <span class="download-note"> 
+                                    <span >  <Link  class=" btn btn-lg"  :href="`/products/${products?.hashid}/${products?.productUrl}`"  style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; width:100px="> <i class="fa fa-plus"> </i> Add to basket</Link>  
+                                    
+                                    <a target="_blank" rel="noopener noreferrer" href="https://wa.me/+2348058885913?text=Please i need , the  price on your website is  ">
+                                                           <i class="fa fa-whatsapp" aria-hidden="true" style="font-size:23px;  padding-left:15px; color:#73c2fb; float:right "> 
+                                        </i></a>
+                                  </span> 
+                                </span> 
                             </div>
                         </div>
-                        <div class="ps-product__content">
-                            <h5 class="ps-p"><a href="product1.html">
-                                <!-- {{$prod->name}} -->
-                            </a></h5>
-                            <div class="ps-product__meta"><span class="ps-pr">
-                                <!-- {{moneyFormat($prod->sale_price)}}    -->
-                                <span style="font-size:15px"> <del>
-                                     <!-- {{moneyFormat($prod->price)}} -->
-                                    </del></span></span>
-                            </div>
-                            <div class="ps-product__actions ps-product__group-mobile">
-                                <div class="ps-product__cart"> <a class="ps-btn ps-btn--warning" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a></div>
-                            </div>
-                           <center> <a href="{{route('users.products',[$prod->hashid, $prod->productUrl])}}" class="btn btn-success"> Add to Cart</a></center> 
-                        </div>
-                    
                     </div>
-                </div> 
+                    
+                </div>
+               
             </div>
         </div>
-    </div>
-</section>
+               
+            </div>
+   
+    </section>
 </template>
 </ AppTemplate>
 </template>

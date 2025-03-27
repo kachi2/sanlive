@@ -2,32 +2,26 @@
 
 namespace App\Listeners;
 
-use App\Events\CartItemsEvent;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Models\CartItem;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class AddCartItems implements ShouldQueue
+class AddCartItems
 {
     /**
      * Create the event listener.
-     *
-     * @return void
      */
     public function __construct()
     {
-        
+        //
     }
 
     /**
      * Handle the event.
-     *
-     * @param  \App\Events\CartItemsEvent  $event
-     * @return void
      */
-    public function handle(CartItemsEvent $events)
-    {    
-            foreach($events->carts as $cart){
+    public function handle(object $events): void
+    {
+        foreach($events->carts as $cart){
             $data = [
                 'user_id' => auth_user()->id,
                 'product_id' => $cart->model->id,

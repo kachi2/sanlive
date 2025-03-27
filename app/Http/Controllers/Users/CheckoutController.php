@@ -21,7 +21,6 @@ use App\Mail\RegMail;
 use App\Models\CountryCurrency;
 use App\Traits\CalculateShipping;
 use Carbon\Carbon;
-use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CheckoutController extends Controller
 {
@@ -39,8 +38,8 @@ class CheckoutController extends Controller
             $check = new RegisterUser;
            return  $check->viewCheckout();
         }
-        if(count(Cart::content()) <= 0 || empty(Cart::content())){
-            return redirect()->intended(route('users.index'));
+        if(count(\Cart::content()) <= 0 || empty(\Cart::content())){
+            return to_route('users.index');
         }
         $userData =   getUserLocationData();
         $currency = CountryCurrency::where('country', $userData['country'])->first();
@@ -54,7 +53,7 @@ class CheckoutController extends Controller
         }else {
             $shipping_fee = '6500';
           }
-        $carts = Cart::content();
+        $carts = \Cart::content();
         $orderNo = rand(111111111,999999999);
   
         if(!isset($address)){

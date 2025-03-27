@@ -15,7 +15,6 @@ const form = reactive({
     qty:1,
 })
 
-
 const addSubstract = function (oprand)  { 
    
     if(oprand == "+"){
@@ -34,10 +33,8 @@ const addSubstract = function (oprand)  {
 
 function addToCart(id)
     {
-
         console.log(form, 'form items')
         router.post('/cart/'+id,form)
-
     }
 
 const ImageFile = ref('')
@@ -86,14 +83,13 @@ function handleFileUpload(event)
                                 <div class="ps-product__info">
                                     <div class="ps-product__badge"><span class="ps-badge ps-badge--outstock" v-if="product.status == 1">OUT OF STOCK</span>
                                     </div>
-                                    <div class="ps-product__branch"><Link :href="`/products/${product.hashid}/${product.productUrl}`">{{product.category.name}}</Link></div>
-                                    <div class="ps-product__title"><a href="#">{{product.name}}</a></div>
-                                
-                                    <div class="ps-product__meta"><span class="ps-product__price" style="font-size:25px">₦{{product.sale_price}} </span>
-                                        <span class="ps-product__del">₦{{product.price}}</span>
+                                    <div class="ps-product__branch" style="font-size:13px">Category: <Link :href="`/products/${product.hashid}/${product.productUrl}`">{{product.category.name}}</Link></div>
+                                    <div class="ps-product__title" style="font-size:20px"><a href="#">{{product.name}}</a>
+                                    <p> <span class="ps-product__price" style="font-size:20px">₦{{product.sale_price}} </span> <span class="ps-product__del"> ₦{{product.price}} </span> </p>
                                     </div>
-                                    <h3 class="ps-product__desc"> Description</h3>
-                                    <div class="ps-product__desc" v-html="product.description">
+                                
+                                    <div class="ps-product__meta">
+                                        <p v-html="product.tagline"> </p>
                                     </div>
 
                                     <form enctype="multipart/form-data"  @submit.prevent="addToCart(product.id)">
@@ -104,7 +100,7 @@ function handleFileUpload(event)
                                              <input type="text"   v-model="form.qty"  id="qty" style="border: 1px solid #8c8a8a53; height:30px; width:30px; text-align:center"> 
                                              <button  type="button" @click="addSubstract('+')" class="ps-btn--primary  increment-btn" style="width: 30px; border-radius:3px; height:30px"> + </button>  </h6>
                         
-                                            <div v-if="product.requires_prescription != 1">
+                                            <div v-if="product.requires_prescription == 1">
                                             <label for="precription_upload" > <span id="fileName" style="color:red" hidden> Upload file </span>
                                             <div class="pb-1"><img src="/frontend/upload.png">
                                                 {{ ImageFile.name }}
@@ -145,6 +141,23 @@ function handleFileUpload(event)
                     </div>
                 </div>
             </div>
+
+            <div class="ps-product__content">
+                            <ul class="nav nav-tabs ps-tab-list" id="productContentTabs" role="tablist">
+                                <li class="nav-item" role="presentation"><a class="nav-link active" id="description-tab" data-toggle="tab" href="#description-content" role="tab" aria-controls="description-content" aria-selected="true">Description</a></li>
+                            </ul>
+                            <div class="tab-content" id="productContent">
+                                <div class="tab-pane fade show active" id="description-content" role="tabpanel" aria-labelledby="description-tab">
+                                    <div class="ps-document">
+                                        <div class="row row-reverse">
+                                            <div class="col-12 col-md-12">
+                                                <p class="p-4" v-html="product.description "> </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
         </div>
     </div>
     <section class="ps-section--latest" style="margin-top:5px">

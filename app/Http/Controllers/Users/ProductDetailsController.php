@@ -18,6 +18,8 @@ class ProductDetailsController extends Controller
       $data['related'] = Product::where('category_id', $product->category->id)->take(10)->get();
       $product->hashid = Hashids::connection('products')->encode($product->id);
       $product->productUrl =  trimInput($product->name);
+       preg_match('/<p>(.*?)<\/p>/s', $product->description, $matches);
+       $product->tagline =$matches[0]??'';
       $data['product'] = $product;
       $products = session()->get('products.recently_viewed');
       $datas = array_slice(array_unique($products), -5, 5, true);
