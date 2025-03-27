@@ -178,6 +178,7 @@ return [
         // CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
         Vinkla\Hashids\HashidsServiceProvider::class,
         Unicodeveloper\Paystack\PaystackServiceProvider::class,
+        Darryldecode\Cart\CartServiceProvider::class
     ])->toArray(),
 
     /*
@@ -195,6 +196,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         'hashids' => Vinkla\Hashids\HashidsServiceProvider::class,
         'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class
         // 'Cloudinary' => CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::class,
     ])->toArray(),
 

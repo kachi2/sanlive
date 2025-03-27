@@ -4,7 +4,7 @@ use Intervention\Image\Facades\Image;
 
 trait imageUpload{
 
-    function UploadImage($request, $path, $width = null, $height=null){
+    function UploadImage($request, $path, $width = 340, $height=200){
 
        
     //     $image_url = cloudinary()->upload($request->file('image')->getRealPath(), [
@@ -28,7 +28,7 @@ trait imageUpload{
     }
 
     function UploadImages($request, $path, $width = null, $height=null){
-        // $file = $request->file('images');
+        $file = $request->file('images');
         // foreach ($file as $image) {
         //     $image_url = cloudinary()->upload($image->getRealPath(), [
         //         'folder' => $path,
@@ -39,13 +39,13 @@ trait imageUpload{
         //     ])->getSecurePath();
       $file = $request->file('images');
         foreach ($file as $image) {
-          $name = $file->getClientOriginalName();
+          $name = $image->getClientOriginalName();
         $FileName = \pathinfo($name, PATHINFO_FILENAME);
-        $ext = $file->getClientOriginalExtension();
+        $ext = $image->getClientOriginalExtension();
         $time = time() . $FileName;
         $fileName = $time . '.' . $ext;
-        Image::make($file)->resize($width,$height)->save($path.$fileName);
-            $images[] = $image_url;
+        Image::make($image)->resize($width,$height)->save($path.$fileName);
+            $images[] = $fileName;
         }
        return $images;
     }

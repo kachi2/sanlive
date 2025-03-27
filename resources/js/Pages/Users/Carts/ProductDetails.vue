@@ -2,7 +2,7 @@
 
 <script setup >
 import AppTemplate from '@/AppTemplate.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 import { computed, reactive, ref } from 'vue';
 
 const props = defineProps({
@@ -12,14 +12,10 @@ data : Object
 let product =  props.data.product
 const form = reactive({
     image:'',
-    qty:0,
-    cartId: '',
-    amount:0
-
+    qty:1,
 })
 
-const initial = ref(1)
-let calNum = ref(1)
+
 const addSubstract = function (oprand)  { 
    
     if(oprand == "+"){
@@ -34,19 +30,23 @@ const addSubstract = function (oprand)  {
     {
         // console.log(oprand)
     }
-
-
-
 }
 
+function addToCart(id)
+    {
+
+        console.log(form, 'form items')
+        router.post('/cart/'+id,form)
+
+    }
 
 const ImageFile = ref('')
 
 function handleFileUpload(event)
 {
     ImageFile.value = event.target.files[0]
-
-    console.log(ImageFile.value, 'ImageFile.value')
+    form.image = ImageFile.value
+    // console.log(ImageFile.value, 'ImageFile.value')
 }
 </script>
 
@@ -96,7 +96,7 @@ function handleFileUpload(event)
                                     <div class="ps-product__desc" v-html="product.description">
                                     </div>
 
-                                    <form id="myForm" enctype="multipart/form-data">
+                                    <form enctype="multipart/form-data"  @submit.prevent="addToCart(product.id)">
                                     <div class="ps-product__quantity">
                                         <h6>Quantity:   
 
@@ -119,7 +119,7 @@ function handleFileUpload(event)
                                             
                                         <div class="d-md-flex align-items-center">
                                             <div class="def-number-input number-input safari_only">
-                                            </div><button type="button" style="border-radius:5px" class="ps-btn ps-btn--primary w-50"  id="add2cart"> 
+                                            </div><button  style="border-radius:5px" class="ps-btn ps-btn--primary w-50"  id="add2cart"> 
                                                 Add to Cart
                                         </button>
                                             <span class="p-2"></span>

@@ -29,11 +29,14 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        return [
+
+    
+        return array_merge([
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
             ],
-        ];
+            'cartItem' => \Cart::getTotalQuantity()
+        ]);
     }
 }

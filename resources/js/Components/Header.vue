@@ -25,7 +25,7 @@
                     </li> -->
                    
             
-                    <li><a class="ps-header__item" href="" id="cart-mini"><i class="icon-cart-empty"></i> <span class="badge cartReload" >2</span></a></li>
+                    <li><Link class="ps-header__item" href="/carts/index" id="cart-mini"><i class="icon-cart-empty"></i> <span class="badge cartReload" >{{page.props.cartItem}}</span></Link></li>
                 </ul>
                 <div class="ps-header__search">
                     <form action="" method="get">
@@ -47,6 +47,10 @@
 
 <script setup="">
 import TopNav from "./TopNav.vue"
+import {usePage, Link} from '@inertiajs/vue3'
+
+
+const page = usePage();
 
 
 </script>

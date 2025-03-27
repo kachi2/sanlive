@@ -7,9 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Product;
 use Vinkla\Hashids\Facades\Hashids;
-use Gloudemans\Shoppingcart\Facades\Cart;
-
 use App\Traits\imageUpload;
+use Illuminate\Support\Facades\Auth;
 
 class CartsController extends Controller
 {
@@ -17,25 +16,30 @@ class CartsController extends Controller
 use imageUpload;
     public function add(Request $request, $id)
      {   
-      // return response()->json($request);
          $product = Product::find($id);
          if(isset($request->image)){
-            $file = $this->UploadImage($request, '/carts/images');
+            $file = $this->UploadImage($request, 'images/carts/');
          }
-         $response = Cart::add([
-             'id' => $product->id,
-             'name' => $product->name,
-             'price' => $product->sale_price,
-             'options' => [
-              'image' => $file??null
-              ],
-             'qty' => $request->qty,
-             'image' => $product->image, 
-             'weight'=>1, 
-         ])->associate(Product::class);
-       
+         $id = Auth::user()?->id;
+         if(!$id)
+         {
+          $id = rand(11,99);
+         }
+
+       $response =  \Cart::add([
+          'id' => $product->id,
+          'name' => $product->name,
+          'price' => $product->sale_price,
+          'quantity' => $request->qty,
+          'attributes' => array([
+            'image' => $file??'',
+            'modelImage' => $product->image_path
+          ]),
+          'associatedModel' => $product->with('category')
+      ]);
+    
          if($response){
-          return response()->json($response);
+        return redirect()->back();
 
          }
      }
@@ -53,11 +57,11 @@ use imageUpload;
         $pp->productUrl = trimInput($pp->name);
         $pp->hashid = Hashids::connection('products')->encode($pp->id);
       }
-        return view('users.carts.carts') 
-        ->with('carts', Cart::content())
-        ->with('latest', $prod)
-        ->with('cartSession', Hashids::connection('products')->encode(rand(11,99)))
-        ->with('breadcrumb', 'Shopping Cart');
+        return inertia('Users/Carts/Cart', [
+          'carts' => \Cart::getContent(),
+          'latest' => $prod,
+          'cartSession' => Hashids::connection('products')->encode(rand(11,99))
+        ]);
     }
 
 

@@ -27,7 +27,7 @@ class ProductDetailsController extends Controller
         $prod->hashid = Hashids::connection('products')->encode($prod->id);
         $prod->productUrl =  trimInput($prod->name);
       }
-      return inertia('Products/ProductDetails', 
+      return inertia('Users/Carts/ProductDetails', 
       [
         'data' => $data,
         'metaTitle' => Str::slug($product->name),
