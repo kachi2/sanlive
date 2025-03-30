@@ -39,7 +39,8 @@ use imageUpload;
       ]);
     
          if($response){
-        return redirect()->back();
+          Session::flash('success', 'Cart Added Successfully');
+        return redirect()->back()->with('message', 'Cart Added Successfully');
          }
      }
 

@@ -1,7 +1,13 @@
 <template>
-   <header class="ps-header ps-header--1">
+       
+   <header class="ps-header ps-header--1" >
+
     <div class="ps-noti p-2">
         <div class="container" >
+     
+                <!-- <CartAlert :message="page.props.flash" />  -->
+        
+        
             <!-- <p class="m-0" style="color:#fff; font-weight:bold;"> <marquee> we wre here to serve yowe wre here to serve yowe wre</marquee></p> -->
         </div>
 
@@ -46,11 +52,11 @@
     </template>
 
 <script setup="">
+import CartAlert from "./CartAlert.vue";
 import TopNav from "./TopNav.vue"
-import {usePage, Link} from '@inertiajs/vue3'
+import { usePage } from "@inertiajs/vue3";
 
-
-const page = usePage();
+const page = usePage()
 
 
 </script>

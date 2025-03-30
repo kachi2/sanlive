@@ -1,8 +1,9 @@
-<script setup lang="ts">
+<script setup >
 import AppTemplate from '@/AppTemplate.vue';
 import { onMounted, reactive,ref } from 'vue';
 import { router,Link } from '@inertiajs/vue3';
 import useFxt from '../useFunctions';
+import CartAlert from '@/Components/CartAlert.vue';
 
 
 
@@ -10,17 +11,13 @@ const props = defineProps({
     carts:Object,
     latest:Object,
     cartSession:String,
-    total:Number
+    total:Number,
+    message:String
 
 })
 
 
-// onMounted( () => {
-//     form.qty = 
-
-// });
-
-function updateAction(param:any)
+function updateAction(param)
 {
     if(param == "+")cartForm.action = "+"
     if(param == "-") cartForm.action = "-"
@@ -31,21 +28,20 @@ function updateAction(param:any)
 const cartForm = reactive({
     qty:0,
     cartId:0,
-    action:''
+    action:'',
 })
 
 
 
 
 
-function updateCart(cartsData:any){
-    // console.log(cartsData, 'cartsData')
+function updateCart(cartsData){
     cartForm.qty = cartsData.quantity;
     cartForm.cartId = cartsData.id
     router.post('/updatecart', cartForm)
 }
 
-function deleteCart(CartData:any)
+function deleteCart(CartData)
 {
 router.get('/delete/'+CartData.id,)
 }
@@ -54,6 +50,7 @@ router.get('/delete/'+CartData.id,)
 <template>
 
 <AppTemplate>
+    <CartAlert  :message="message" />  
     <template #content>
 <div class="ps-shopping" style="background: #fff">
     <div class="container">
@@ -135,7 +132,7 @@ router.get('/delete/'+CartData.id,)
                         </div>
                         <div class="ps-shopping__text">Shipping options will be updated during checkout.</div> 
                         <div class="ps-shopping__checkout">
-                        <Link class="ps-btn ps-btn--success"  style="border-radius:5px" href="/checkout">Proceed to checkout</Link>
+                        <Link class="ps-btn ps-btn--primary"  style="border-radius:5px" :href="`/checkout/${cartSession}`">Proceed to checkout</Link>
                             <Link class="ps-shopping__link" href="/catalogs">Continue Shopping</Link></div>
                     </div>
                 </div>

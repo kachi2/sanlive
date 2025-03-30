@@ -2,12 +2,17 @@
 
 <script setup >
 import AppTemplate from '@/AppTemplate.vue';
-import { Head, Link, router } from '@inertiajs/vue3';
-import { computed, reactive, ref } from 'vue';
+import CartAlert from '@/Components/CartAlert.vue';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
+import { computed, onMounted, reactive, ref } from 'vue';
 
+const page = usePage()
 const props = defineProps({
-data : Object
+data : Object,
+flash:String
 });
+
+
 
 let product =  props.data.product
 const form = reactive({
@@ -25,16 +30,22 @@ const addSubstract = function (oprand)  {
         if(form.qty <= 0) return
         form.qty--
         return form;
-    }else 
-    {
-        // console.log(oprand)
     }
+    return false
 }
 
 function addToCart(id)
     {
-        console.log(form, 'form items')
-        router.post('/cart/'+id,form)
+        router.post('/cart/'+id,form, {
+            onSuccess: (page) => {
+                toastr.success(page.props.flash.success, { position: 'toast-top-full-width' });
+                toastr.options.preventDuplicates = true;
+                toastr.options.progressBar = true;
+            },
+        })
+  
+     
+        
     }
 
 const ImageFile = ref('')
@@ -43,19 +54,22 @@ function handleFileUpload(event)
 {
     ImageFile.value = event.target.files[0]
     form.image = ImageFile.value
-    // console.log(ImageFile.value, 'ImageFile.value')
 }
+
+
+
 </script>
 
 <template>
-    <AppTemplate> 
+   
+    <AppTemplate>     
     <Head>
         <title>Product details</title>
     </Head>
 
     <template #content>
     <div class="ps-page--product ps-page--product1">
-    <div class="container ">
+    <div class="container " >
         <ul class="ps-breadcrumb">
             <li class="ps-breadcrumb__item"><a href="">Home</a></li>
             <li class="ps-breadcrumb__item"><a href="">{{ product.category.name }}</a></li>

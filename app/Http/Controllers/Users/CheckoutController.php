@@ -25,12 +25,10 @@ use Carbon\Carbon;
 class CheckoutController extends Controller
 {
     use CalculateShipping;
- 
-    //
 
     public function __construct()
     {
-        // $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     public function Index($cartSession = null){
@@ -38,7 +36,7 @@ class CheckoutController extends Controller
             $check = new RegisterUser;
            return  $check->viewCheckout();
         }
-        if(count(\Cart::content()) <= 0 || empty(\Cart::content())){
+        if(count(\Cart::getContent()) <= 0 || empty(\Cart::getContent())){
             return to_route('users.index');
         }
         $userData =   getUserLocationData();
@@ -53,13 +51,13 @@ class CheckoutController extends Controller
         }else {
             $shipping_fee = '6500';
           }
-        $carts = \Cart::content();
+        $carts = \Cart::getContent();
         $orderNo = rand(111111111,999999999);
   
         if(!isset($address)){
             Session::flash('alert', 'error');
             Session::flash('msg', 'Please add a shipping address before you can proceed');
-            return redirect()->intended(route('users.account.address'));
+            return to_route('users.account.address');
         }
     
     //     $states = ShipmentLocation::where('states', 'LIKE', ucfirst($address->state))->first();
@@ -100,11 +98,14 @@ class CheckoutController extends Controller
          $date['start'] = Carbon::now();
          $date['end'] = Carbon::now()->addDay(1);
 
-        return view('users.carts.checkout', $date)
-        ->with('carts', $carts)
-        ->with('address', $address)
-        ->with('orderNo', $orderNo)
-        ->with('shipping_fee',  $shipping_fee);
+        return inertia('Users/Carts/Checkout', 
+        [
+            'data' => $date,
+            'carts' => $carts,
+            'address' => $address,
+            'orderNo' => $orderNo,
+            'shipping_fee' => $shipping_fee
+        ]);
     }
 
     public function RegisterUser(Request $request){
@@ -112,12 +113,12 @@ class CheckoutController extends Controller
             'name' => 'required',
             'phone' => 'required',
             'address' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
         ]);
         if ($valid->fails()) {
             Session::flash('alert', 'error');
             Session::flash('message', $valid->errors()->first());
-            return redirect()->back()->withErrors($valid)->withInput($request->all());
+            return redirect()->back()->withErrors($valid);
         }
         $userck = User::where('email', $request->email)->first();
         if($userck){

@@ -1,6 +1,6 @@
 export default({
 
-     addSeperator: ( (num:any) => 
+     addSeperator: ( (num) => 
     {
         if(!num) return false;
        let number = !num?[0]:num.toString().split(".");
