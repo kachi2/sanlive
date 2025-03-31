@@ -55,8 +55,7 @@ class CheckoutController extends Controller
         $orderNo = rand(111111111,999999999);
   
         if(!isset($address)){
-            Session::flash('alert', 'error');
-            Session::flash('msg', 'Please add a shipping address before you can proceed');
+            Session::flash('error', 'Please add a shipping address before you can proceed');
             return to_route('users.account.address');
         }
     
@@ -111,21 +110,15 @@ class CheckoutController extends Controller
     public function RegisterUser(Request $request){
          $valid = Validator::make($request->all(), [
             'name' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|unique:users|min:11',
             'address' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
         ]);
         if ($valid->fails()) {
-            Session::flash('alert', 'error');
-            Session::flash('message', $valid->errors()->first());
-            return redirect()->back()->withErrors($valid);
+            return back()->withErrors($valid);
         }
-        $userck = User::where('email', $request->email)->first();
-        if($userck){
-            Session::flash('alert', 'error');
-            Session::flash('msg', 'This email address is already taken');
-            return back()->withInput($request->all());
-        }
+  
+
         $register = new RegisterUser;
        $reg = $register->UserRegister($request);
     

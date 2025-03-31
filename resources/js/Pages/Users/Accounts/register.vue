@@ -20,6 +20,7 @@
                                         <label for="name" style="color:rgb(114, 111, 111)"> Full Name</label>
                                         <input style="border-radius: 5px"  :class="{'is-invalid': form.errors.name}" class="form-control  ps-form__input" type="text"
                                              placeholder="Full name"  name="name" v-model="form.name">
+                                             <span class="badge bg-warning"> {{form.errors.name}} </span>
 
                                     </div>
                                 </div>
@@ -28,7 +29,8 @@
                                         <label for="phone" style="color:rgb(114, 111, 111)"> Phone Number</label>
                                         <input class="form-control ps-form__input" type="text"
                                             placeholder="Phone Number"   :class="{'is-invalid': form.errors.phone}"  id="phone"  v-model="form.phone" name="phone">
-                                    </div>
+                                            <span class="badge bg-warning"> {{form.errors.phone}} </span>
+                                        </div>
                                 </div>
                             </div>
                             <div class="row m-3">
@@ -38,13 +40,15 @@
                                         <label for="email" style="color:rgb(114, 111, 111)"> Email Address</label>
                                         <input class="form-control ps-form__input " type="email"
                                             placeholder="Email Address"  id="email"   :class="{'is-invalid': form.errors.email}"  v-model="form.email" name="email">
-                                    </div>
+                                            <span class="badge bg-warning"> {{form.errors.email}} </span>
+                                        </div>
                                 </div>
                                 <div class="col-12 col-md-6 mt-1">
                                     <div class="ps-form__group">
                                         <label id="address" style="color:rgb(114, 111, 111)"> Full Address </label>
                                         <input  class="form-control ps-form__input " type="text"
                                             placeholder="Full Address" id="address"   :class="{'is-invalid': form.errors.address}"  v-model="form.address" name="address">
+                                            <span class="badge bg-warning"> {{form.errors.address}} </span>
                                     </div>
                                 </div>
                                
@@ -139,7 +143,17 @@ const form = useForm({
 
 function CreateUser()
 {
-    form.post('/checkout/shippinginformation')
+    form.post('/checkout/shippinginformation', {
+        onSuccess: (page) => {
+            if(page.props.flash.success){
+                toastr.success(page.props.flash.success);
+        }else{
+            toastr.error(page.props.flash.error);
+        }
+                toastr.options.preventDuplicates = true;
+                toastr.options.progressBar = true;
+            }
+})
 }
 </script>
 

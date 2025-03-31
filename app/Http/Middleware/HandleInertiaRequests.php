@@ -39,8 +39,9 @@ class HandleInertiaRequests extends Middleware
             ],
             'cartItem' => \Cart::getTotalQuantity(),
             'flash' => [
-                'success' => Session('success'),
-                'error' => Session('error')
+                'success' => session('success'),
+                'error' => session('error'),
+                'warning'=> session('warning')
             ]
         ]);
     }

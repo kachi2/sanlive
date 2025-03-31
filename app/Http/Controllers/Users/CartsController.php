@@ -72,8 +72,7 @@ use imageUpload;
     {
       //dd($id.' '.$request->rowId);
         \Cart::remove($id);
-        Session::flash('alert', 'error');
-        Session::flash('msg', 'Cart Successfully removed');
+        Session::flash('error', '1 Item removed from the Cart');
         return back();
     }
 
@@ -81,11 +80,16 @@ use imageUpload;
         $cartItemId = $request->cartId;
         $quantity = $request->qty;
         // dd($cartItemId);
-        if($request->action == "+") \Cart::update($cartItemId, array('quantity' => +1));
-        if($request->action == "-" && $quantity > 1 ) \Cart::update($cartItemId, array('quantity' => -1));
-  
-        Session::flash('alert', 'success');
-        Session::flash('msg', 'Cart item quantity updated successfully');
+        if($request->action == "+")
+        { \Cart::update($cartItemId, array('quantity' => +1));
+        Session::flash('success', '1 Item added to the Cart');
         return back();
+        }
+  
+        if($request->action == "-" && $quantity > 1 ) {
+        \Cart::update($cartItemId, array('quantity' => -1));
+        Session::flash('error', '1 list Item removed from the Cart');
+        return back();
+        }
     }
 }

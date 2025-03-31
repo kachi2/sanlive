@@ -34,11 +34,17 @@ const addSubstract = function (oprand)  {
     return false
 }
 
+
 function addToCart(id)
     {
         router.post('/cart/'+id,form, {
             onSuccess: (page) => {
-                toastr.success(page.props.flash.success, { position: 'toast-top-full-width' });
+            if(page.props.flash.success){
+                toastr.success(page.props.flash.success);
+            }else
+            {
+                toastr.error(page.props.flash.error);
+            }
                 toastr.options.preventDuplicates = true;
                 toastr.options.progressBar = true;
             },

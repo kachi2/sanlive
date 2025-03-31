@@ -38,12 +38,26 @@ const cartForm = reactive({
 function updateCart(cartsData){
     cartForm.qty = cartsData.quantity;
     cartForm.cartId = cartsData.id
-    router.post('/updatecart', cartForm)
+    router.post('/updatecart', cartForm, {
+        onSuccess: (page) => {
+            if(page.props.flash.success){
+                toastr.success(page.props.flash.success);
+        }else{
+            toastr.error(page.props.flash.error);
+        }
+                toastr.options.preventDuplicates = true;
+                toastr.options.progressBar = true;
+            },
+    })
 }
 
 function deleteCart(CartData)
 {
-router.get('/delete/'+CartData.id,)
+router.get('/delete/'+CartData.id,{
+    onSuccess:(page) =>{
+        toastr.error(page.props.flash.error);
+    }
+})
 }
 </script>
 
@@ -58,7 +72,7 @@ router.get('/delete/'+CartData.id,)
             <div class="row" >
                 <div class="col-12 col-md-7 col-lg-9 mt-5" style="background: #fff">
                 <h1 class="m-4" style="font-size:12px"></h1> 
-                <div class="ps-categogy--list" v-if="carts">
+                <div class="ps-categogy--list" v-if="Object.entries(carts).length > 0">
                     <div v-for="cart in carts" :key="cart.id">  
                         <!-- {{ console.log(cart, 'cartsi sinder') }} -->
                 <form  id="cartUpdate" @submit.prevent="updateCart(cart)">
@@ -109,7 +123,7 @@ router.get('/delete/'+CartData.id,)
                     </div>
                 </div>
                 </div>
-                <div class="col-12 col-md-5 col-lg-3">
+                <div class="col-12 col-md-5 col-lg-3" v-if="Object.entries(carts).length > 0">
                     <div class="ps-shopping__box mt-5" style="background: #fff">
                         <div class="ps-shopping__row" >
                             <div class="ps-shopping__label">Cart Summary</div>

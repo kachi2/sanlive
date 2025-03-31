@@ -54,9 +54,10 @@
 <script setup="">
 import CartAlert from "./CartAlert.vue";
 import TopNav from "./TopNav.vue"
-import { usePage } from "@inertiajs/vue3";
+import { usePage, Link } from "@inertiajs/vue3";
 
 const page = usePage()
+
 
 
 </script>
