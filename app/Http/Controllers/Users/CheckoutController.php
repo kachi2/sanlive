@@ -31,7 +31,7 @@ class CheckoutController extends Controller
         //$this->middleware('auth');
     }
 
-    public function Index($cartSession = null){
+    public function Index($cartSession){
     if(!auth::check()){
             $check = new RegisterUser;
            return  $check->viewCheckout();

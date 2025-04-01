@@ -59,10 +59,10 @@
                                             <label for="delivery" style=" width: 100%; background: #fff; ">
                                                 <div style=" border: 0px solid #00000031; border-radius: 10px;">
                                                     <div class="ps-categogy--ist p-4" style="display: flex">
-                                                        <input type="radio" id="delivery" name="delivery"
+                                                        <input type="radio" id="delivery" name="delivery" ref="pickup" @click="checkSelected"
                                                             value="pickup_delivery" data-amount="0" checked />
                                                         <label for="delivery" class="pl-2">
-                                                            Pick up Station
+                                                            Pick up Station - N0 fee
                                                         </label>
                                                     </div>
                                                 </div>
@@ -80,7 +80,7 @@
                                                         <input type="radio" id="home" name="delivery"
                                                             value="home_delivery" data-amount="0" checked />
                                                         <label for="home" class="pl-2">
-                                                            Home Delivery - N20,000 fee
+                                                            Home Delivery - N{{useFunctions.addSeperator(shipping_fee)}} fee
                                                         </label>
                                                     </div>
                                                 </div>
@@ -192,7 +192,7 @@
                                             <div class="ps-shopping__label">
                                                 Delivery Fee
                                             </div>
-                                            <div class="ps-shopping__price" id="fee"></div>
+                                            <div class="ps-shopping__price" id="fee" v-if="checkSelected"> {{ shipping_fee }}</div>
                                         </div>
                                         <div class="ps-shopping__row">
                                             <div class="ps-shopping__label">
@@ -225,6 +225,10 @@
 <script setup>
 import AppTemplate from "@/AppTemplate.vue";
 import { Link } from "@inertiajs/vue3";
+import useFunctions from "../useFunctions";
+import { computed, ref} from "vue";
+
+
 
 const props = defineProps({
         data: Object,
@@ -233,4 +237,13 @@ const props = defineProps({
         orderNo: String,
         shipping_fee: String
 })
+
+const checkSelected = (() => {
+        return true
+});
+
+
+
+
+
 </script>
