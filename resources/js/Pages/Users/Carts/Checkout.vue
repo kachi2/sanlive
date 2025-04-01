@@ -1,104 +1,103 @@
 <template>
-
     <appTemplate>
-
         <template #content>
-
             <div class="ps-shopping" style="background: #fff">
                 <form action="" method="post">
                     <div class="container">
                         <div class="ps-shopping__content">
                             <div class="row">
-                                <div class="col-12 col-md-7 col-lg-9 mt-5">
+                                <div class="col-12 col-md-7 col-lg-9 mt-5 p-5">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12 mb-0 box-shadow border-r-amber-50"
-                                            style="background: #eee;  border-radius: 10px 10px 0px 0px">
-                                            <p class="m-4" style="color:#000; font-weight:bolder"> Shipping Address
-                                                <span style="float:right">
-                                                    <a href="{{ route('checkouts.changeAddress') }}"> </a> </span>
+                                        <div class="col-12 col-md-12 col-lg-12" 
+                                              style="
+                                                background: #fff;
+                                                border-radius: 10px;
+                                                border: 2px solid #eee;">
+                                            <p class="m-4" style="color: #332d2d">
+                                                <i class="fa fa-check-square-o" style="color: rgb(79, 81, 79); "></i>
+                                                Customer Address
+                                                <span style="float: right">
+                                                    <Link href="/checkout/address/index"> </Link> 
+                                                </span>
                                             </p>
-                                        </div>
-                                        <div class="col-6 mb-2 card" style="background: #fff;  border:none">
-                                            <p style="color:#76717a">Name: </p>
-                                            <p style="color:#76717a">Address:
-                                                <!-- {{ $address->address?$address->address.',': '' }} {{ $address->city?$address->city.',': '' }} 
-                    {{ $address->state?$address->state.',':'' }} {{ $address->country?$address->country.',':'' }} -->
-                                            </p>
-                                        </div>
-                                        <div class="col-6 mb-2" style="background: #fff">
-                                            <p style="color:#76717a"> {{ 'Phone:' }}</p>
-                                            <p style="color:#76717a"> {{ 'Email: ' }}</p>
-                                        </div>
-
-
-                                        <div class="col-12 col-md-12 col-lg-12 mb-0 border-r-amber-50"
-                                            style="background: #eee;  border-radius: 10px 10px 0px 0px">
-                                            <p class="m-4" style="color:#000; font-weight:bolder"> Delivery Details
-                                            </p>
-                                        </div>
-                                        <div class="card" style="background:#fff; border:none;width: 100%;">
-                                            <div class="card-header" id="">
-                                                <label for="delivery" style="width: 100%; background: #fff">
-                                                    <div style="border:0px solid #00000031; border-radius:10px">
-                                                        <div class="ps-categogy--ist p-4" style="display: flex; ">
-                                                            <input type="radio" id="delivery" name="delivery"
-                                                                value="pickup_delivery" data-amount="0" checked>
-                                                            <label for="delivery" class="pl-2"> Pick-up Delivery
-                                                            </label>
-                                                        </div>
-
-                                                        <div style="">
-                                                            <p class="p-4 delivery"> -
-                                                                <span style="float:right; color:green"> N0 </span>
-                                                            </p>
-                                                            <p class="p-4 delivery"> You have to visit our office at to
-                                                                pick your item</p>
-                                                            <input type="hidden" name="address_id"
-                                                                value="{{$address->id}}">
-                                                            <input type="hidden" name="orderNo" value="{{$orderNo}}">
-                                                            <input type="hidden" name="fee" value="0">
-                                                        </div>
+                                            <hr />
+                                            <div class="row m-3">
+                                                <div class="col-12 col-md-6">
+                                                    <div class="ps-form__group">
+                                                        <p style="color: #76717a;">
+                                                            <span style="font-weight: bold;">Name:  </span>{{ address.name }}
+                                                        </p>
+                                                        <p style=" color: #76717a;">
+                                                            <span style="font-weight: bold;"> Address: </span>
+                                                            {{ address.address?address.address: '' }} {{ address.city?address.city: '' }} 
+                                                            {{ address.state?address.tate:'' }} {{ address.country?address.country:'' }}
+                                                        </p>
                                                     </div>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="card" style="background:#fff; border:none; width: 100%;">
-                                            <div class="card-header" id="">
-                                                <label for="home" style="width: 100%">
-                                                    <div style=" border-radius:10px">
-                                                        <div class="ps-categogy--ist p-4" style="display: flex; ">
-                                                            <input type="radio" name="delivery" id="home"
-                                                                value="home_delivery" data-amount="{{$shipping_fee}}">
-                                                            <input type="hidden" value="{{$shipping_fee}}"
-                                                                name="shipping_cost">
-                                                            <label for="home" class="pl-2"> Home Delivery Delivery
-                                                            </label>
-                                                        </div>
-                                                        <div class="mb-5">
-                                                            <p class="p-4 delivery"> Delivery between- <span
-                                                                    style="float:right; color:green"> </span></p>
-                                                            <p class="p-4 delivery"> Item will be shipped to your
-                                                                location at
-                                                                <!-- {{ $address->address?$address->address.',': '' }} {{ $address->city?$address->city.',': '' }} 
-                        {{ $address->state?$address->state.',':'' }} {{ $address->country?$address->country.',':'' }}  -->
-                                                            </p>
-                                                            <input type="hidden" name="fee" value="{{$shipping_fee}}">
-                                                        </div>
+                                                </div>
+                                                <div class="col-12 col-md-6 mt-1">
+                                                    <div class="ps-form__group">
+                                                        <p style="color: #76717a; ">
+                                                            <span style="font-weight: bold;">Phone: </span> {{address.phone }}
+                                                        </p>
+                                                        <p style=" color: #76717a;">
+                                                            <span style="font-weight: bold;">Email: </span>  {{address.email }}
+                                                        </p>
                                                     </div>
-                                                </label>
-
+                                                </div>
                                             </div>
                                         </div>
 
-
-                                        <div class="col-12 col-md-12 col-lg-12 mt-0"
-                                            style="background: #eee;  border-radius: 10px 10px 0px 0px">
-                                            <p class="m-4" style="color:#000; font-weight:bolder"> Select Payment
-                                                Method
+                                        <div class="col-12 col-md-12 col-lg-12 mt-3" style="
+                                                background: #fff;
+                                                border-radius: 10px;
+                                                border: 2px solid #eee;">
+                                            <p class="m-4" style="color: rgb(114, 111, 111); ">
+                                                <i class="fa fa-check-square-o" style="color: rgb(114,111,111);"></i>
+                                                Delivery Details
                                             </p>
+                                            <hr />
+                                            <label for="delivery" style=" width: 100%; background: #fff; ">
+                                                <div style=" border: 0px solid #00000031; border-radius: 10px;">
+                                                    <div class="ps-categogy--ist p-4" style="display: flex">
+                                                        <input type="radio" id="delivery" name="delivery"
+                                                            value="pickup_delivery" data-amount="0" checked />
+                                                        <label for="delivery" class="pl-2">
+                                                            Pick up Station
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <span class="card ml-3">
+                                                    <span class="card-body">
+                                                        <small style=" border-bottom: 1px solid #000; padding: 2px; ">You can pick your Item</small>
+                                                        <p> No 29, Doyin Omololu Street, Alapere, Ketu,Lagos, Nigeria.</p>
+                                                    </span>
+                                                </span>
+                                            </label>
 
+                                            <label for="home" style=" width: 100%; background: #fff; ">
+                                                <div style=" border: 0px solid #00000031; border-radius: 10px;">
+                                                    <div class="ps-categogy--ist p-4" style="display: flex">
+                                                        <input type="radio" id="home" name="delivery"
+                                                            value="home_delivery" data-amount="0" checked />
+                                                        <label for="home" class="pl-2">
+                                                            Home Delivery - N20,000 fee
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <span class="card ml-3">
+                                                    <span class="card-body">
+                                                        <small style=" border-bottom: 1px solid #000; padding: 2px; ">Item will be shipped to your address</small>
+                                                        <p> No 12 odo isuti road, igando, lagos</p>
+                                                    </span>
+                                                </span>
+                                            </label>
                                         </div>
-                                        <div class="col-12 col-md-12 col-lg-12  pb-3 pt-3" style="background:#fff">
+
+                                        <div class="col-12 col-md-12 col-lg-12 mt-3" style=" background: #fff; border-radius: 10px; border: 2px solid #eee;">
+                                            <p class="m-4" style="  color: rgb(114, 111, 111); ">
+                                                <i class="fa fa-check-square-o" style="color: rgb(114,111,111);"></i>
+                                                Payment Method
+                                            </p>
                                             <div class="accordion" id="accordionExample">
                                                 <div class="card">
                                                     <div class="card-header" id="headingOne">
@@ -117,7 +116,7 @@
                                                                     </strong>
                                                                 </div>
                                                                 <div class="col-md-2 col-lg-2 col-2">
-                                                                    <img src="{{ asset('frontend/paystack.webp') }}">
+                                                                    <img src="/frontend/paystack.webp">
                                                                 </div>
 
                                                             </div>
@@ -152,7 +151,7 @@
                                                                         Flutterwave</strong>
                                                                 </div>
                                                                 <div class="col-md-2 col-lg-2 col-2">
-                                                                    <img src="{{ asset('frontend/FLUTTER.webp') }}">
+                                                                    <img src="/frontend/FLUTTER.webp">
                                                                 </div>
 
                                                             </div>
@@ -172,57 +171,66 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-5 col-lg-3">
                                     <div class="ps-shopping__box mt-5" style="background: #fff">
                                         <div class="ps-shopping__row">
-                                            <div class="ps-shopping__label">Cart Summary</div>
+                                            <div class="ps-shopping__label">
+                                                Cart Summary
+                                            </div>
                                         </div>
                                         <div class="ps-shopping__row">
-                                            <div class="ps-shopping__label">Item Total</div>
-                                            <div class="ps-shopping__price">₦</div>
+                                            <div class="ps-shopping__label">
+                                                Item Total
+                                            </div>
+                                            <div class="ps-shopping__price">
+                                                ₦
+                                            </div>
                                         </div>
                                         <div class="ps-shopping__row">
-                                            <div class="ps-shopping__label">Delivery Fee</div>
+                                            <div class="ps-shopping__label">
+                                                Delivery Fee
+                                            </div>
                                             <div class="ps-shopping__price" id="fee"></div>
-
                                         </div>
                                         <div class="ps-shopping__row">
-                                            <div class="ps-shopping__label">Total</div>
+                                            <div class="ps-shopping__label">
+                                                Total
+                                            </div>
                                             <div class="ps-shopping__price" id="total"></div>
-                                            <input type="hidden" id="sub_total" value={{\Cart::priceTotalFloat()}}>
+                                            <input type="hidden" id="sub_total" value="{{\Cart::priceTotalFloat()}}" />
                                         </div>
                                         <input type="hidden" id="amount" name="amount"
-                                            value="{{\Cart::priceTotalFloat()}}">
+                                            value="{{\Cart::priceTotalFloat()}}" />
                                         <div class="ps-shopping__checkout">
-                                            <button class="ps-btn ps-btn--primary" style="border-radius:5px"
-                                                href="{{route('checkout.index')}}">Complete Order</button>
+                                            <button class="ps-btn ps-btn--primary" style="border-radius: 5px"
+                                                href="{{route('checkout.index')}}">
+                                                Complete Order
+                                            </button>
                                             <a class="ps-shopping__link" href="{{route('shops.index')}}">Continue
                                                 Shopping</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </form>
             </div>
         </template>
-
     </appTemplate>
-
 </template>
 
+<script setup>
+import AppTemplate from "@/AppTemplate.vue";
+import { Link } from "@inertiajs/vue3";
 
-
-
-<script  setup>
-import AppTemplate from '@/AppTemplate.vue';
-
-
-
+const props = defineProps({
+        data: Object,
+        carts: Array,
+        address: String,
+        orderNo: String,
+        shipping_fee: String
+})
 </script>

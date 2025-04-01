@@ -90,7 +90,7 @@ class CheckoutController extends Controller
     // }
 
         $cart = Hashids::connection('products')->decode($cartSession);
-        $check = CartItem::where(['user_id' => auth_user()->id, 'cartSession' => $cart])->first();
+        $check = CartItem::where(['user_id' => auth_user()->id, 'cartSession' => $cart[0]])->first();
         if(!isset($check) || empty($check)){
             event(new CartItemsEvent($carts, $orderNo, $cartSession));
         }

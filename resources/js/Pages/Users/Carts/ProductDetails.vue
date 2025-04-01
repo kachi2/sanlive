@@ -40,7 +40,7 @@ function addToCart(id)
         router.post('/cart/'+id,form, {
             onSuccess: (page) => {
             if(page.props.flash.success){
-                toastr.success(page.props.flash.success);
+                toastr.success(page.props.flash.success, {'position': 'toast-top-left'});
             }else
             {
                 toastr.error(page.props.flash.error);

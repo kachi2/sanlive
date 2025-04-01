@@ -88,7 +88,7 @@ use imageUpload;
   
         if($request->action == "-" && $quantity > 1 ) {
         \Cart::update($cartItemId, array('quantity' => -1));
-        Session::flash('error', '1 list Item removed from the Cart');
+        Session::flash('error', '1  Item removed from the Cart');
         return back();
         }
     }
