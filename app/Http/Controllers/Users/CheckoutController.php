@@ -31,7 +31,9 @@ class CheckoutController extends Controller
         //$this->middleware('auth');
     }
 
-    public function Index($cartSession){
+    public function Index($cartSession = null){
+
+        Session::put('cartSession', $cartSession);
     if(!auth::check()){
             $check = new RegisterUser;
            return  $check->viewCheckout();
@@ -41,16 +43,12 @@ class CheckoutController extends Controller
         }
         $userData =   getUserLocationData();
         $currency = CountryCurrency::where('country', $userData['country'])->first();
-        $address = ShippingAddress::where(['user_id' => auth_user()->id, 'is_default' =>1])->first();
+        $address = ShippingAddress::where(['user_id' => auth_user()->id, 'is_default' => 1])->first();
         if($currency){
             if($currency['country'] == "NG" && Str::contains(strtolower($address->address), 'lagos')){
                 $shipping_fee = '8000';
-            }else{
-                $shipping_fee = $currency['shipping_fee']; 
-          }
-        }else {
-            $shipping_fee = '6500';
-          }
+            }else{$shipping_fee = $currency['shipping_fee'];}
+         }else {$shipping_fee = '6500';}
         $carts = \Cart::getContent();
         $orderNo = rand(111111111,999999999);
   
@@ -58,8 +56,50 @@ class CheckoutController extends Controller
             Session::flash('error', 'Please add a shipping address before you can proceed');
             return to_route('users.account.address');
         }
-    
-    //     $states = ShipmentLocation::where('states', 'LIKE', ucfirst($address->state))->first();
+        $cartSession =  Session::get('cartSession');
+        $cart = Hashids::connection('products')->decode($cartSession);
+        $check = CartItem::where(['user_id' => auth_user()->id, 'cartSession' => $cart[0]])->first();
+        if(!isset($check) || empty($check)){
+            event(new CartItemsEvent($carts, $orderNo, $cartSession));
+        }
+         $date['start'] = Carbon::now();
+         $date['end'] = Carbon::now()->addDay(1);
+
+        return inertia('Users/Carts/Checkout', 
+        [
+            'data' => $date,
+            'carts' => $carts,
+            'address' => $address,
+            'orderNo' => $orderNo,
+            'shipping_fee' => $shipping_fee,
+            'total' => \Cart::getTotal()
+        ]);
+    }
+
+
+    public function RegisterUser(Request $request){
+         $valid = Validator::make($request->all(), [
+            'name' => 'required',
+            'phone' => 'required|unique:users|min:11',
+            'address' => 'required',
+            'email' => 'required|email|unique:users',
+        ]);
+        if ($valid->fails()) {
+            return back()->withErrors($valid);
+        }
+
+        $register = new RegisterUser;
+        $reg = $register->UserRegister($request);
+        if($reg){
+            return redirect()->intended(route('checkout.index'));
+        }
+       
+        Session::flash('alert', 'error');
+        Session::flash('msg', 'Something went wrong with your request');
+        return back();
+    }
+
+       //     $states = ShipmentLocation::where('states', 'LIKE', ucfirst($address->state))->first();
     //         if(isset($states)){
     //     if(ucfirst(strtolower($states->states)) == 'Lagos'){  
     //         $gidi = [
@@ -88,47 +128,5 @@ class CheckoutController extends Controller
     //     Session::flash('alert', 'success');
     //     Session::flash('msg', 'Please proceed to checkout');
     // }
-
-        $cart = Hashids::connection('products')->decode($cartSession);
-        $check = CartItem::where(['user_id' => auth_user()->id, 'cartSession' => $cart[0]])->first();
-        if(!isset($check) || empty($check)){
-            event(new CartItemsEvent($carts, $orderNo, $cartSession));
-        }
-         $date['start'] = Carbon::now();
-         $date['end'] = Carbon::now()->addDay(1);
-
-        return inertia('Users/Carts/Checkout', 
-        [
-            'data' => $date,
-            'carts' => $carts,
-            'address' => $address,
-            'orderNo' => $orderNo,
-            'shipping_fee' => $shipping_fee
-        ]);
-    }
-
-    public function RegisterUser(Request $request){
-         $valid = Validator::make($request->all(), [
-            'name' => 'required',
-            'phone' => 'required|unique:users|min:11',
-            'address' => 'required',
-            'email' => 'required|email|unique:users',
-        ]);
-        if ($valid->fails()) {
-            return back()->withErrors($valid);
-        }
-  
-
-        $register = new RegisterUser;
-       $reg = $register->UserRegister($request);
-    
-        if($reg){
-            return redirect()->intended(route('checkout.index'));
-        }
-       
-        Session::flash('alert', 'error');
-        Session::flash('msg', 'Something went wrong with your request');
-        return back();
-    }
 
 }

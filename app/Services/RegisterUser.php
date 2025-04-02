@@ -40,6 +40,7 @@ class RegisterUser {
         $data['state'] = $request->state;
         $data['country'] = $request->country;
         $data['email'] = $request->email;
+        $data['phone'] = $request->phone;
         $data['user_id'] = $user->id;
         $data['is_default'] = 1;
         $data['name'] = $user->first_name.''.$user->last_name;

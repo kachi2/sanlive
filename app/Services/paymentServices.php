@@ -16,6 +16,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 use stdClass;
 use Unicodeveloper\Paystack\Facades\Paystack;
 
@@ -50,7 +51,7 @@ class paymentServices extends baseFuncs implements paymentInterface
 
     public function initiateFlutterCheckout($request)
     {
-        try {
+        // try {
             $userData =   getUserLocationData();
             $settins = Setting::first();
             // dd($userData);
@@ -65,8 +66,8 @@ class paymentServices extends baseFuncs implements paymentInterface
                 'tx_ref' =>  $txRef,
                 'amount' => isset($currency->exchange_rate) ? $request->amount * $currency->exchange_rate : $request->amount,
                 'currency' => $currency->currency ?? 'USD',
-                'redirect_url' => url('flutter/callback'),
-                // 'redirect_url' => 'https://api.flutterwave.com/v3/payments',
+                // 'redirect_url' => url('flutter/callback'),
+                'redirect_url' => 'https://api.flutterwave.com/v3/payments',
                 'customer' => [
                     'email' => auth_user()->email,
                     'name' => auth_user()->first_name . ' ' . auth_user()->first_name,
@@ -84,14 +85,15 @@ class paymentServices extends baseFuncs implements paymentInterface
             // if (isset($res) && $res['status'] === 'success') {
             Session::put('order_No', $request->orderNo);
             Session::put('amount', $request->amount);
-            return redirect($res['data']['link'])
-                ->header('Content-Type', 'text/html');
-        } catch (\Exception $e) {
+            // dd($res);
+            return Inertia::location($res['data']['link']);
+                // ->header('Content-Type', 'text/html');
+        // } catch (\Exception $e) {
             Session::flash('alert', 'error');
             Session::flash('msg', 'Unable to initialize payment ' . $e->getMessage());
             return back()->with('error', 'Unable to initialize payment');
         }
-    }
+    // }
 
     public function HanglePaystackPayment($request)
     {

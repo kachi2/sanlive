@@ -39,7 +39,7 @@ class baseFuncs
                 'phone' =>  $addrs->phone, 
                 'email' => $addrs->email,
                 'address' => $addrs->address.' '.$addrs->city.' '.$addrs->state.' '.$addrs->country,
-                'order_items' => Cart::content(),
+                'order_items' => \Cart::getContent(),
                 'total' =>  $req->amount,
                 'amount' => $req->amount,
                 'shipment' => $req->fee

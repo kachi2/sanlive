@@ -2,17 +2,13 @@
     <appTemplate>
         <template #content>
             <div class="ps-shopping" style="background: #fff">
-                <form action="" method="post">
+                <form action=""  @submit.prevent="proceedToCheckout">
                     <div class="container">
                         <div class="ps-shopping__content">
                             <div class="row">
                                 <div class="col-12 col-md-7 col-lg-9 mt-5 p-5">
                                     <div class="row">
-                                        <div class="col-12 col-md-12 col-lg-12" 
-                                              style="
-                                                background: #fff;
-                                                border-radius: 10px;
-                                                border: 2px solid #eee;">
+                                        <div class="col-12 col-md-12 col-lg-12" style="background: #fff; border-radius: 10px; border: 2px solid #eee;">
                                             <p class="m-4" style="color: #332d2d">
                                                 <i class="fa fa-check-square-o" style="color: rgb(79, 81, 79); "></i>
                                                 Customer Address
@@ -59,8 +55,8 @@
                                             <label for="delivery" style=" width: 100%; background: #fff; ">
                                                 <div style=" border: 0px solid #00000031; border-radius: 10px;">
                                                     <div class="ps-categogy--ist p-4" style="display: flex">
-                                                        <input type="radio" id="delivery" name="delivery" ref="pickup" @click="checkSelected"
-                                                            value="pickup_delivery" data-amount="0" checked />
+                                                        <input type="radio" id="delivery" name="delivery"  @click="isSelected('pickup')" 
+                                                            value="pickup_delivery" data-amount="0"  required/>
                                                         <label for="delivery" class="pl-2">
                                                             Pick up Station - N0 fee
                                                         </label>
@@ -77,8 +73,8 @@
                                             <label for="home" style=" width: 100%; background: #fff; ">
                                                 <div style=" border: 0px solid #00000031; border-radius: 10px;">
                                                     <div class="ps-categogy--ist p-4" style="display: flex">
-                                                        <input type="radio" id="home" name="delivery"
-                                                            value="home_delivery" data-amount="0" checked />
+                                                        <input type="radio" id="home" name="delivery"   @click="isSelected('delivery')"
+                                                            value="home_delivery" data-amount="0"  />
                                                         <label for="home" class="pl-2">
                                                             Home Delivery - N{{useFunctions.addSeperator(shipping_fee)}} fee
                                                         </label>
@@ -106,10 +102,11 @@
                                                             <div class="row">
                                                                 <div style="width: 50px; padding-left:10px">
                                                                     <input style="border-radius: 5px"
-                                                                        class="@error('payment_method') is-invalid @enderror"
+                                                                        :class="{'is-invalid':form.errors.payment_method}"
                                                                         type="radio"
-                                                                        value="{{ old('payment_method', 'paystack') }}"
-                                                                        id="paystack" name="payment_method">
+                                                                        value="paystack"
+                                                                        v-model="form.payment_method"
+                                                                        id="paystack" name="payment_method" required>
                                                                 </div>
                                                                 <div class="col-md-6 col-lg-6 col-12">
                                                                     <strong> Secured Local Payment with Paystack
@@ -141,9 +138,10 @@
                                                             <div class="row">
                                                                 <div style="width: 50px; padding-left:10px">
                                                                     <input style="border-radius: 5px"
-                                                                        class="@error('payment_method') is-invalid @enderror"
+                                                                        :class="{'is-invalid':form.errors.payment_method}"
                                                                         type="radio"
-                                                                        value="{{ old('payment_method', 'flutter') }}"
+                                                                        value="flutter"
+                                                                        v-model="form.payment_method"
                                                                         id="paystack" name="payment_method">
                                                                 </div>
                                                                 <div class="col-md-6 col-lg-6 col-12">
@@ -185,31 +183,30 @@
                                                 Item Total
                                             </div>
                                             <div class="ps-shopping__price">
-                                                ₦
+                                                ₦{{ useFunctions.addSeperator(total)}}
                                             </div>
                                         </div>
                                         <div class="ps-shopping__row">
                                             <div class="ps-shopping__label">
                                                 Delivery Fee
                                             </div>
-                                            <div class="ps-shopping__price" id="fee" v-if="checkSelected"> {{ shipping_fee }}</div>
+                                            <div class="ps-shopping__price" id="fee"> ₦{{  useFunctions.addSeperator(shipping_fees)??0 }}</div>
                                         </div>
                                         <div class="ps-shopping__row">
                                             <div class="ps-shopping__label">
                                                 Total
                                             </div>
-                                            <div class="ps-shopping__price" id="total"></div>
-                                            <input type="hidden" id="sub_total" value="{{\Cart::priceTotalFloat()}}" />
+                                            <div class="ps-shopping__price" id="total">₦{{  useFunctions.addSeperator(CartTotal) }}</div>
+                                            <input type="hidden" id="sub_total" :value="CartTotal" />
                                         </div>
                                         <input type="hidden" id="amount" name="amount"
-                                            value="{{\Cart::priceTotalFloat()}}" />
+                                            v-model="form.amount"  />
                                         <div class="ps-shopping__checkout">
-                                            <button class="ps-btn ps-btn--primary" style="border-radius: 5px"
-                                                href="{{route('checkout.index')}}">
+                                            <button class="ps-btn ps-btn--primary" style="border-radius: 5px">
                                                 Complete Order
                                             </button>
-                                            <a class="ps-shopping__link" href="{{route('shops.index')}}">Continue
-                                                Shopping</a>
+                                            <Link class="ps-shopping__link" href="/catalogs">Continue
+                                                Shopping</Link>
                                         </div>
                                     </div>
                                 </div>
@@ -224,26 +221,63 @@
 
 <script setup>
 import AppTemplate from "@/AppTemplate.vue";
-import { Link } from "@inertiajs/vue3";
+import {router, Link, useForm} from "@inertiajs/vue3"
 import useFunctions from "../useFunctions";
-import { computed, ref} from "vue";
-
+import { computed, reactive, ref, watch} from "vue";
 
 
 const props = defineProps({
         data: Object,
-        carts: Array,
-        address: String,
-        orderNo: String,
-        shipping_fee: String
+        address: Object,
+        orderNo: Number,
+        shipping_fee: String,
+        total:Number
 })
 
-const checkSelected = (() => {
-        return true
-});
+const shipping_fees = ref(0)
+
+
+let CartTotal = ref(props.total)
+const amounts = ref(CartTotal.value)
+
+
+function isSelected(param){
+    if(param == "delivery")
+        {
+        shipping_fees.value = props.shipping_fee
+         CartTotal.value = parseInt(props.total) + parseInt(props.shipping_fee)
+         amounts.value = CartTotal.value
+           
+        }else{    
+            CartTotal.value = parseInt(props.total)
+            shipping_fees.value = 0
+            amounts.value = CartTotal.value
+        } 
+    return  CartTotal.value
+    }
+
+
+    const form = useForm({
+        delivery:'',
+        payment_method: '',
+        amount:computed(() =>  amounts.value)
+
+    })
 
 
 
-
+    function proceedToCheckout()
+    {
+        form.post('/checkout/payment', {
+            onSuccess:(page) => {
+            if(page.props.flash.success){
+                toastr.error(page.props.flash.success)
+            }else{
+            toastr.error(page.props.flash.error)
+            }
+            }
+        
+        })
+    }
 
 </script>
