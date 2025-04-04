@@ -30,7 +30,7 @@ class UserController extends Controller
     public function Index()
     {
 
-        return view('users.accounts.account')
+        return view('users/accounts/account')
             ->with('address', ShippingAddress::where(['user_id' => auth_user()->id, 'is_default' => 1])->first())
             ->with('account', User::where('id', auth_user()->id)->first());
     }
@@ -42,7 +42,7 @@ class UserController extends Controller
             ->orderBy('orders.created_at', 'DESC')
             ->simplePaginate(5);
         addHashId($orders);
-        return view('users.accounts.orders')
+        return inertia('Users/Accounts/orders')
             ->with('orders',  $orders);
     }
 

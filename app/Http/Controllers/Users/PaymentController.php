@@ -62,10 +62,10 @@ class PaymentController extends Controller
     public function handleFlutterCallback(Request $request)
     {
         try{
-           $res = $this->paymentServic->ProcessFlutterPayment($request);
+        $ss = $this->paymentServic->ProcessFlutterPayment($request);
         Session::flash('alert', 'success');
         Session::flash('msg', 'Order completed successfully');
-        return redirect(route('users.orders'));
+        return to_route('users.orders');
         }catch(\Exception $e)
         {
             Session::flash('alert', 'error');

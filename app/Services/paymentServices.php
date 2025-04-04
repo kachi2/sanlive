@@ -51,6 +51,8 @@ class paymentServices extends baseFuncs implements paymentInterface
 
     public function initiateFlutterCheckout($request)
     {
+
+        
         // try {
             $userData =   getUserLocationData();
             $settins = Setting::first();
@@ -85,7 +87,7 @@ class paymentServices extends baseFuncs implements paymentInterface
             // if (isset($res) && $res['status'] === 'success') {
             Session::put('order_No', $request->orderNo);
             Session::put('amount', $request->amount);
-            // dd($res);
+        
             return Inertia::location($res['data']['link']);
                 // ->header('Content-Type', 'text/html');
         // } catch (\Exception $e) {
@@ -101,7 +103,6 @@ class paymentServices extends baseFuncs implements paymentInterface
         if ($request['status'] == true) {
             $order_no =  Session::get('order_No');
             $orders = Order::where('order_no', $order_no)->first();
-
             $orders->update([
                 'external_ref' => $request['reference'],
                 'is_paid' => 1,
@@ -113,7 +114,7 @@ class paymentServices extends baseFuncs implements paymentInterface
                 event(new OrderShipment($address, $order_no));
             }
             $this->sendPaymentEmail($request, $order_no, $ref);
-            Cart::destroy();
+            \Cart::destroy();
             return true;
         } else {
             return false;
@@ -133,13 +134,16 @@ class paymentServices extends baseFuncs implements paymentInterface
                 'is_paid' => 1,
                 'channel' => 'Flutterwave'
             ]);
-            $this->storePaymentInfo($order_no, $res['data'], $ref, 'Flutterwave');
+          $ss =  $this->storePaymentInfo($order_no, $res['data'], $ref, 'Flutterwave');
+           
             if ($orders->shipping_method == 'home_delivery') {
                 event(new OrderShipment($address, $order_no));
             }
-            $this->sendPaymentEmail($request, $order_no, $ref);
-            Cart::destroy();
+         $this->sendPaymentEmail($request, $order_no, $ref);
+         \Cart::clear();
+            Session::flash('success', 'Payment completed successfully');
         }
+        Session::flash('error', 'An error occured with your payment, contact support');
         return false;
     }
 

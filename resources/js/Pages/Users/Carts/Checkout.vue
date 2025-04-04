@@ -201,6 +201,7 @@
                                         </div>
                                         <input type="hidden" id="amount" name="amount"
                                             v-model="form.amount"  />
+                                        <input type="hidden" name="orderNo" :value="orderNo">
                                         <div class="ps-shopping__checkout">
                                             <button class="ps-btn ps-btn--primary" style="border-radius: 5px">
                                                 Complete Order
@@ -260,7 +261,8 @@ function isSelected(param){
     const form = useForm({
         delivery:'',
         payment_method: '',
-        amount:computed(() =>  amounts.value)
+        amount:computed(() =>  amounts.value),
+        orderNo:props.orderNo
 
     })
 

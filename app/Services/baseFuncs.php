@@ -9,6 +9,7 @@ use App\Models\ShippingAddress;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class baseFuncs 
 {
@@ -52,7 +53,7 @@ class baseFuncs
     public function storePaymentInfo($order_no, $request, $ref, $channel)
     {
             
-        Payment::create([
+      return  Payment::create([
             'user_id' => auth_user()->id, 
             'order_id' => $order_no, 
             'payment_ref' => $ref, 
@@ -66,12 +67,18 @@ class baseFuncs
 
     public function sendPaymentEmail($request, $order_no, $ref)
     {
-        Mail::to(auth_user()->email)->send(new paymentMail([
+        try{
+        return  Mail::to(auth_user()->email)->send(new paymentMail([
             'amount' => ($request['amount']),
             'order_No' => $order_no,
             'payment_ref' => $ref,
             'external_ref' => $request['reference'],
            ]));
+        }catch(\Exception $e)
+        {
+            Session::flash('error', 'Email not sent');
+        }
+    
     }
 
     public function getFlutterPaymentLink($url,$jsonBody)
