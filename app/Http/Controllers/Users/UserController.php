@@ -30,9 +30,10 @@ class UserController extends Controller
     public function Index()
     {
 
-        return view('users/accounts/account')
-            ->with('address', ShippingAddress::where(['user_id' => auth_user()->id, 'is_default' => 1])->first())
-            ->with('account', User::where('id', auth_user()->id)->first());
+        return inertia('Users/Accounts/account', [
+            'address' => ShippingAddress::where(['user_id' => auth_user()->id, 'is_default' => 1])->first(),
+            'account' => User::where('id', auth_user()->id)->first()
+        ]);
     }
 
     public function Orders()
@@ -40,10 +41,13 @@ class UserController extends Controller
         $orders = DB::table('orders')->join('cart_items', 'orders.order_no', '=', 'cart_items.Order_no')
             ->where('orders.user_id', auth_user()->id)
             ->orderBy('orders.created_at', 'DESC')
-            ->simplePaginate(5);
+            ->get();
         addHashId($orders);
-        return inertia('Users/Accounts/orders')
-            ->with('orders',  $orders);
+
+        return inertia('Users/Accounts/orders',
+        [
+            'orders' =>  $orders
+        ]);
     }
 
     public function OrderDetails($order_no)
@@ -57,11 +61,12 @@ class UserController extends Controller
         $order_items = CartItem::where('Order_no', $order_no)->get();
         $shipping = ShippingAddress::where('id', $orders->address_id)->first();
         $delivery = CreateShipment::where('order_id', $order_no)->first();
-        return view('users.accounts.order_details')
-            ->with('orders', $orders)
-            ->with('order_items', $order_items)
-            ->with('shipping', $shipping)
-            ->with('delivery', $delivery);
+        return inertia('Users/Accounts/orderDetails', [
+            'orders' => $orders,
+            'order_items' => $order_items,
+            'shipping' => $shipping,
+            'delivery' => $delivery
+        ]);
     }
 
     public function Addresses()

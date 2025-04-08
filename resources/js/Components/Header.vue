@@ -23,14 +23,17 @@
                 <ul class="ps-header__icons">
                    
                     <li><a class="ps-header__item open-search" href=""><i class="icon-magnifier"></i></a></li>
-                    <a class="" href="">Sign in</a> 
-                    
-                    <!-- <li >
-                        <a   class="ps-header__item" style="width:120px; font-size:0.85em; border:1px solid #eeeeee5f; color:#5b6c8f"  href="{{route('users.account.index')}}" > 
-                        <i class="icon-user"  style="font-size:0.95em; padding-right:2px; font-weight:800; background:#eef"></i>kachi </a>
-                    </li> -->
-                   
+                  
+                    <span v-if="!page.props.auth">
+                    <Link class="" href="/login">Sign in</Link> 
+                
+                    </span>
+                    <li v-else>
+                        <a   class="ps-header__item" style="width:120px; font-size:0.85em; color:#5b6c8f"  href="accounts/index" > 
+                        <i class="icon-user"  style="font-size:1.4em; padding-right:2px; font-weight:800;"></i>Hi, {{page.props.auth.user.first_name.toUpperCase()}} </a>
+                    </li>
             
+                    <li><a class="ps-header__item" target="_blank"   href="https://wa.me/+2348058885913?text='Good day, please i want to make enquiries'" id="cart-mini"><i class="icon-phone-bubble"></i></a></li>
                     <li><Link class="ps-header__item" href="/carts/index" id="cart-mini"><i class="icon-cart-empty"></i> <span class="badge cartReload" >{{page.props.cartItem}}</span></Link></li>
                 </ul>
                 <div class="ps-header__search">

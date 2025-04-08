@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('unread_notify', AdminNotification::latest()->get());
        });
 
-       Inertia::share('settings', function(){ return Setting::latest()->first();  });
+    //    Inertia::share('settings', function(){ return Setting::latest()->first();  });
      
        // View::share('announcment', Annoucement::first());
        // View::share('settings', function(){ return Setting::latest()->first();

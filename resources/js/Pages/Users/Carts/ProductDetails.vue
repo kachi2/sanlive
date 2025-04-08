@@ -34,12 +34,16 @@ const addSubstract = function (oprand)  {
     return false
 }
 
-
+const isLoading = ref(false)
 function addToCart(id)
     {
+        isLoading.value = true
         router.post('/cart/'+id,form, {
             onSuccess: (page) => {
+                setTimeout(() => { 
             if(page.props.flash.success){
+                
+                isLoading.value = false
                 toastr.success(page.props.flash.success, {'position': 'toast-top-left'});
             }else
             {
@@ -47,6 +51,7 @@ function addToCart(id)
             }
                 toastr.options.preventDuplicates = true;
                 toastr.options.progressBar = true;
+            }, 2000);
             },
         })
   
@@ -135,8 +140,13 @@ function handleFileUpload(event)
                                             
                                         <div class="d-md-flex align-items-center">
                                             <div class="def-number-input number-input safari_only">
-                                            </div><button  style="border-radius:5px" class="ps-btn ps-btn--primary w-50"  id="add2cart"> 
+                                            </div>
+                                            <button v-if="!isLoading"  style="border-radius:5px" class="ps-btn ps-btn--primary w-50"  id="add2cart"> 
                                                 Add to Cart
+                                        </button>
+
+                                        <button v-else="!isLoading"  style="border-radius:5px" class="ps-btn ps-btn--primary w-50"  id="add2cart"> 
+                                              Please wait...
                                         </button>
                                             <span class="p-2"></span>
                                           <a target="_blank" class="btn btn-primary" rel="noopener noreferrer"

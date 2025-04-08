@@ -203,8 +203,11 @@
                                             v-model="form.amount"  />
                                         <input type="hidden" name="orderNo" :value="orderNo">
                                         <div class="ps-shopping__checkout">
-                                            <button class="ps-btn ps-btn--primary" style="border-radius: 5px">
+                                            <button v-if="!isLoading" class="ps-btn ps-btn--primary" style="border-radius: 5px">
                                                 Complete Order
+                                            </button>
+                                            <button v-else class="ps-btn ps-btn--primary" style="border-radius: 5px">
+                                               Please wait ....
                                             </button>
                                             <Link class="ps-shopping__link" href="/catalogs">Continue
                                                 Shopping</Link>
@@ -241,7 +244,7 @@ const shipping_fees = ref(0)
 let CartTotal = ref(props.total)
 const amounts = ref(CartTotal.value)
 
-
+const isLoading = ref(false)
 function isSelected(param){
     if(param == "delivery")
         {
@@ -270,9 +273,11 @@ function isSelected(param){
 
     function proceedToCheckout()
     {
+        isLoading.value = true
         form.post('/checkout/payment', {
             onSuccess:(page) => {
             if(page.props.flash.success){
+                isLoading.value = false
                 toastr.error(page.props.flash.success)
             }else{
             toastr.error(page.props.flash.error)

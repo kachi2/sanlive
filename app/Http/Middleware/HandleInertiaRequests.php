@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Annoucement;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Inertia\Middleware;
@@ -42,7 +44,9 @@ class HandleInertiaRequests extends Middleware
                 'success' => session('success'),
                 'error' => session('error'),
                 'warning'=> session('warning')
-            ]
+            ],
+            'settings' => Setting::latest()->first(),
+            'announcment', Annoucement::first()
         ]);
     }
 }

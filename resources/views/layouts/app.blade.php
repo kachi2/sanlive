@@ -118,7 +118,6 @@
 @include('partials.header_mobile')
 @yield('content')
 
-
 @include('partials.footer')
 @include('partials.mobile_nav')
 @include('partials.search_modal')

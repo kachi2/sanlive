@@ -31,6 +31,8 @@ const cartForm = reactive({
     action:'',
 })
 
+const isLoading = ref(false)
+
 
 
 
@@ -38,10 +40,13 @@ const cartForm = reactive({
 function updateCart(cartsData){
     cartForm.qty = cartsData.quantity;
     cartForm.cartId = cartsData.id
+    isLoading.value = true;
     router.post('/updatecart', cartForm, {
         onSuccess: (page) => {
             if(page.props.flash.success){
                 toastr.success(page.props.flash.success);
+            sleep(2)
+            isLoading.value = false;
         }else{
             toastr.error(page.props.flash.error);
         }
