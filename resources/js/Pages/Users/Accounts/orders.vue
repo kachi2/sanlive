@@ -1,8 +1,6 @@
 <template>
     <AppTemplate> 
         <template #content>
-
-            {{ console.log(orders)  }}
 <div class="ps-shopping" style="background: #eee; ">
     <div class="container">
         <div class="ps-shopping__content">

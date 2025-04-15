@@ -73,8 +73,9 @@ class UserController extends Controller
     {
         $address = ShippingAddress::where('user_id', auth_user()->id)->get();
         addHashId($address);
-        return view('users.accounts.address')
-            ->with('addresses', $address);
+        return inertia('Users/Accounts/address', [
+            'addresses' => $address
+        ]);
     }
 
     public function EditAddress($id)
@@ -82,8 +83,10 @@ class UserController extends Controller
         $id = Hashids::connection('products')->decode($id);
         $address = ShippingAddress::where('id', $id)->first();
         $address->hashid = Hashids::connection('products')->encode($address->id);
-        return view('users.accounts.addressEdit')
-            ->with('address', $address);
+      
+        return inertia('Users/Accounts/editAddress', [
+            'address' => $address
+        ]);
     }
 
     public function UpdateAddress(Request $req, $id)
@@ -95,9 +98,6 @@ class UserController extends Controller
             'phone' => $req->phone,
             'email' => $req->email,
             'address' => $req->address,
-            'city' => $req->city,
-            'country' => $req->country,
-            'state' => $req->state,
             'is_default' => $req->is_default ?? '0',
         ];
 
@@ -110,18 +110,14 @@ class UserController extends Controller
         $check = ShippingAddress::where(['user_id' => auth_user()->id, 'is_default' => 1])->first();
         if (!isset($check)) {
             ShippingAddress::where(['user_id' => auth_user()->id, 'id' =>  $id])->update(['is_default' => 1]);
-            Session::flash('alert', 'error');
-            Session::flash('msg', 'Request Failed, you must have one default address');
-            return back();
         }
-        Session::flash('alert', 'success');
-        Session::flash('msg', 'Address Updated Successfully');
+        Session::flash('success', 'Address Updated Successfully');
         return back();
     }
 
     public function CreateAddress()
     {
-        return view('users.accounts.address_create');
+        return inertia('Users/Accounts/createAddress');
     }
 
     public function storeAddress(Request $req)
@@ -130,9 +126,7 @@ class UserController extends Controller
             'name' => 'required',
             'phone' => 'required',
             'address' => 'required',
-            'city' => 'nullable',
-            'country' => 'nullable',
-            'state' => 'nullable'
+            'email' => 'required'
         ]);
         if ($valid->fails()) {
             return back()->withInput($req->all())->withErrors($valid);
@@ -145,15 +139,10 @@ class UserController extends Controller
             'name' => $req->name,
             'phone' => $req->phone,
             'address' => $req->address,
-            'city' => $req->city,
-            'email' => $req->email,
-            'country' => $req->country,
-            'state' => $req->state,
             'is_default' => $req->is_default ?? 0
         ];
         ShippingAddress::create($data);
-        Session::flash('alert', 'success');
-        Session::flash('msg', 'Address Added successfully');
+        Session::flash('success', 'Address Added successfully');
         return redirect()->intended(route('users.account.address'));
     }
 
@@ -188,20 +177,23 @@ class UserController extends Controller
         } else {
             $products['recent'] = [];
         }
-        return view('users.accounts.recent_views', $products);
+        return inertia('Users/Accounts/recentViewed',
+        ['recent' => $products]);
     }
 
     public function OrderPayments()
     {
-        return view('users.accounts.payments')
-            ->with('payments', Payment::where('user_id', auth_user()->id)->get());
+        return inertia('Users/Accounts/payments',[
+            'payments' => Payment::where('user_id', auth_user()->id)->get()
+        ]);
     }
 
 
     public function AccountSettings()
     {
-        return view('users.accounts.settings')
-            ->with('user', User::where('id', auth_user()->id)->first());
+        return inertia('Users/Accounts/settings',
+            ['user' => User::where('id', auth_user()->id)->first()
+    ]);
     }
 
     public function UpdateAccountSettings(Request $req)
@@ -224,8 +216,7 @@ class UserController extends Controller
             if(Hash::check($req->oldpassword , auth_user()->password)){
                 $data['password'] = Hash::make($req->password);
             }else{
-                Session::flash('alert', 'error');
-                Session::flash('msg', 'Old password is incorrect');
+                Session::flash('error', 'Old password is incorrect');
                 return back();
             }
         }if(isset($req->city)){
@@ -239,8 +230,7 @@ class UserController extends Controller
         }
 
       $user->fill($data)->save();
-      Session::flash('alert', 'success');
-      Session::flash('msg', 'Account Updated successfully');
+      Session::flash('success', 'Account Updated successfully');
       return back();
     }
 }

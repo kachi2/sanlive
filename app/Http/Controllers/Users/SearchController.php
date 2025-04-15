@@ -16,16 +16,17 @@ class SearchController extends Controller
 
     public function __invoke(Request $request, $id=null, $products = [], $data = [])
     {  
+        $searchterm = '';
         if(isset($id)){
             $cat = Category::findOrFail(decodeHashid($id));
         }
         if(isset($request->q)){
             $products = Product::where('name', 'LIKE', "%$request->q%")->orWhere('description', 'LIKE', "%$request->q%")->simplePaginate(18);
-            $data['searchterm'] = "Showing Results for ".$request->q;
+            $searchterm = "Showing Results for ".$request->q;
             addHashId($products);
         }elseif(isset($id)){
             $products = Product::where('category_id', decodeHashid($id))->get();
-            $data['searchterm'] = "Showing Results for ".ucfirst(strtolower($cat->name));
+            $searchterm = "Showing Results for ".ucfirst(strtolower($cat->name));
             addHashId($products);
         }else{
             $products = Product::latest()->take(20)->get();
@@ -36,9 +37,10 @@ class SearchController extends Controller
             addHashId($cats->products);
         }
         addHashId($categories);
-        return view('users.pages.products',$data, [
+        return inertia('Users/Pages/products', [
             'products' => $products,
             'categories' => $categories,
+            'searchterm' => $searchterm
         ])
         ->with('metaTitle', Str::slug($cat->name??' ', ' '). ' | Sanlive Pharmacy: Online Pharmacy in Nigeria')
         ->with('ogTitle', Str::slug($cat->name?? '', ' ') . ' | Sanlive Pharmacy: Online Pharmacy in Nigeria')

@@ -17,7 +17,7 @@ class BlogController extends Controller
         foreach($blogs as $Blog){
             $Blog->hashid = Hashids::connection('products')->encode($Blog->id);
         }
-        return view('users.pages.blogs')->with('blogs',$blogs);
+        return inertia('Users/Pages/blogs', ['blogs' => $blogs]);
     }
 
     public function Details($id){
@@ -27,9 +27,10 @@ class BlogController extends Controller
         }
         $id = Hashids::connection('products')->decode($id);
         $blogs = Blog::findorfail($id[0]);
-    return view('users.pages.blog_details')
-    ->with('blogs', $latest)
-    ->with('blog', $blogs);
+    return inertia('Users/Pages/blogDetails', [
+'blogs' => $latest,
+'blog' => $blogs,
+    ]);
+}
 
-    }
 }

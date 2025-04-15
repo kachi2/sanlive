@@ -12,23 +12,25 @@ class PageController extends Controller
 {
     public function privacypolicy(){
         $privacypolicy = Privacypolicy::first();
-        return  view('users.pages.privacy')
-        ->with('policy', $privacypolicy);
+        return  inertia('Users/Pages/privacy',
+        ['policy' => $privacypolicy 
+        ]);
     }
 
     public function Terms(){
         $termscondition = TermsCondition::first();
-        return  view('users.pages.terms')
-        ->with('terms', $termscondition);
+        return  inertia('Users/Pages/terms',
+        ['terms' => $termscondition ]);
     }
 
     public function aboutUs(){
-        return  view('users.pages.aboutUs')
-        ->with('aboutUs', AboutUs::latest()->first());
+        return  inertia('Users/Pages/aboutUs',
+        ['aboutUs' => AboutUs::latest()->first()
+    ]);
     }
 
     public function contactUs(){
-        return view('users.pages.contactUs');
+        return inertia('Users/Pages/contactUs');
     }
 
 }

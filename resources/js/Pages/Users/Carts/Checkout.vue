@@ -278,7 +278,7 @@ function isSelected(param){
             onSuccess:(page) => {
             if(page.props.flash.success){
                 isLoading.value = false
-                toastr.error(page.props.flash.success)
+                toastr.success(page.props.flash.success)
             }else{
             toastr.error(page.props.flash.error)
             }

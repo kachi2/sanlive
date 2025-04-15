@@ -13,8 +13,6 @@
                     Orders</Link></li>
             <li><Link class="dropdown-item navIL" href="/account/address"> <i class="icon-book"> </i> &nbsp; Address
                     Book</Link></li>
-            <li><Link class="dropdown-item navIL" href="/account/recent/products/"><i class="icon-clock"> </i> &nbsp;
-                    Recently Viewed</Link></li>
             <li><Link class="dropdown-item navIL" href="/account/order/payments"> <i class="icon-wallet"> </i>&nbsp; Card
                     Payments</Link></li>
             <li><Link class="dropdown-item navIL" href="/accounts/settings"><i class="icon-cog"> </i>&nbsp; Update

@@ -26,7 +26,7 @@ require __DIR__.'/user.php';
 Route::get('/process/products/names', [ProductController::class, 'processImages'])->name('processImages');
 Route::get('manual/payment/processes', [ManualPaymentController::class, 'ProcessPayment']);
 
-
+ 
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

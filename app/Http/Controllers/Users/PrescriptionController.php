@@ -14,7 +14,7 @@ class PrescriptionController extends Controller
 use imageUpload;
     public function Index()
     {
-        return view('users.pages.prescription');
+        return inertia('Users/Pages/prescription');
     }
 
     public function PrescriptionStore(Request $request)
@@ -34,8 +34,7 @@ use imageUpload;
         ];
 
         Prescription::create($data);
-        Session::flash('alert', 'success');
-        Session::flash('msg', 'Prescription Uploaded successfully');
+        Session::flash('success', 'Prescription Uploaded successfully');
         return back();
     }
 }

@@ -203,7 +203,7 @@ function handleFileUpload(event)
                             <div class="ps-product__thumbnail ">
                                 <Link class="ps-product__image" :href="`/products/${products.hashid}/${products.productUrl}`" style="min-height:250px">
                                     <figure>
-                                        <img :src="`/images/products/${products.image_path}`" alt="" style="max-height:200px" /><img :src="`/images/products/${products.image_path}`" :alt="product.name">
+                                        <img :src="`/images/products/${products.image_path}`" :alt="products.name" style="max-height:200px" /><img :src="`/images/products/${products.image_path}`" :alt="product.name">
                                     </figure>
                                 </Link>
                             </div>

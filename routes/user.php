@@ -54,7 +54,7 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/account/address', 'Addresses')->name('users.account.address');
     Route::get('/account/address/edit/{id}', 'EditAddress')->name('users.address.edit');
     Route::post('/account/address/update/{id}', 'UpdateAddress')->name('users.address.update');
-    Route::get('/account/address/create', 'CreateAddress')->name('users.address.create');
+    Route::get('/account/address/create', 'CreateAddress')->name('users.address.create'); 
     Route::post('/account/address/store/', 'storeAddress')->name('users.address.store');
     Route::get('/account/address/delete/{id}', 'AddressDelete')->name('users.address.delete');
     Route::get('/account/recent/products/', 'recentViews')->name('users.recent.views');

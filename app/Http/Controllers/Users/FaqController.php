@@ -13,7 +13,7 @@ class FaqController extends Controller
 
     public function __invoke()
     {
-        return view('users.pages.faq')
-         ->with('faq', Faq::latest()->first());
+        return inertia('Users/Pages/faq',
+         ['faq' => Faq::latest()->first()]);
     }
 }

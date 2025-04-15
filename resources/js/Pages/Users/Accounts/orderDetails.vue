@@ -1,7 +1,6 @@
 <template>
 
     <AppTemplate>
-
         <template #content>
 
             <div class="ps-shopping" style="background: #eee; ">
@@ -15,7 +14,7 @@
                        
                         <span class="pt-5 pl-5"> <a href="#" onclick="history.back()"> Back </a>  
                              &nbsp;  &nbsp; &nbsp; 
-                              <button  id="downloadBtn" class="btn btn-outline-info" style=" left:50px"> Download Receipt</button>  
+                              <button  onclick="window.print()" class="btn btn-outline-info" style=" left:50px"> Print Receipt</button>  
                              </span>
                                <hr style="width:100%"/> 
                         
