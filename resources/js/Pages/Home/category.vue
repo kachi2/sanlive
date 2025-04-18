@@ -1,7 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 
-const props = defineProps({'categories':Array})
+const props = defineProps({'categories':Object})
 
 // console.log(props.categories, 'categories')
 

@@ -3,7 +3,7 @@ import AppTemplate from '@/AppTemplate.vue';
 import { onMounted, reactive,ref } from 'vue';
 import { router,Link } from '@inertiajs/vue3';
 import useFxt from '../useFunctions';
-import CartAlert from '@/Components/CartAlert.vue';
+import CartAlert from '@/Components/old/CartAlert.vue';
 
 
 

@@ -7,9 +7,9 @@ import ProductList from './Home/ProductList.vue';
 
 
 const props = defineProps({
-    'sliders': Array,
-    'categories': Array,
-    'category': Array
+    'sliders': Object,
+    'categories': Object,
+    'category': Object
 });
 
 // console.log(props.categories)

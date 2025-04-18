@@ -4,7 +4,8 @@ import { Link } from '@inertiajs/vue3';
 
 
 const props = defineProps({
-    blogs: Array,
+    blog: Object,
+    blogs:Object
 
 })
 
@@ -32,7 +33,7 @@ const props = defineProps({
                         <a class="ps-blog__author" href="">{{_('By'). ' '.$settings->site_name}}</a>
                     </div> -->
                     
-                    <p class="ps-blog__text">{{ blog.content}}</p>
+                    <p class="ps-blog__text" v-html="blog.content"></p>
                 </div>
                 <div class="col-12 col-md-3">
                     <div class="ps-widget ps-widget--blog">
@@ -41,10 +42,10 @@ const props = defineProps({
                             <div class="ps-widget__content">
                                 <div class="ps-widget__product">
 
-                                    <div  v-for="item in blogs" class="ps-product ps-product--standard">
+                                    <div v-if="blogs.data.length > 0"  v-for="item in blogs.data" class="ps-product ps-product--standard">
                                         <div class="ps-product__thumbnail">
-                                            <Link class="ps-product__image" :href="`blogs/${item.hashid}`">
-                                                <figure><img :src="`/images/blog/${item.image}`" :alt="$item.title"><img :src="`/images/blog/'${item.image}`" :alt="item.title">
+                                            <Link class="ps-product__image" :href="`blogs/details/${item.hashid}`">
+                                                <figure><img :src="`/images/blog/${item.image}`" :alt="item.title"><img :src="`/images/blog/'${item.image}`" :alt="item.title">
                                                 </figure>
                                             </Link>
                                         </div>

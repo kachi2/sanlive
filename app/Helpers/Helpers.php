@@ -4,6 +4,7 @@ use App\Models\CountryCurrency;
 use Flutterwave\Util\Currency;
 use Vinkla\Hashids\Facades\Hashids;
 use GuzzleHttp\Client;
+use Illuminate\Support\Str;
 
 
 if(!function_exists('ClientRequest'))
@@ -50,7 +51,7 @@ if(!function_exists('addHashId')){
     function addHashId($data){
         foreach($data as $dd){
             $dd->hashid = Hashids::connection('products')->encode($dd->id);
-            $dd->productUrl = trimInput($dd->name??null);
+            $dd->productUrl = Str::slug($dd->name??null);
         }
     return $data;
     }

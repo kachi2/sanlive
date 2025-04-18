@@ -86,3 +86,5 @@ Route::get('upload/sitemap', [SiteMapController::class, 'SiteMap'])->name('site.
 Route::get('blogs', [BlogController::class, 'Index'])->name('blogs.index');
 Route::get('blogs/details/{id}', [BlogController::class, 'Details'])->name('blogs.details');
 Route::get('/faq', [FaqController::class, '__invoke'])->name('faq.index');
+Route::post('/contact/us/submit', [PageController::class, 'contactUsSubmit']);
+Route::get('/page/services', [PageController::class, 'viewService']);

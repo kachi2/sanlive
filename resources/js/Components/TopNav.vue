@@ -6,9 +6,9 @@
                 <ul class="menu">
                     <li><Link   href="/">Home</Link></li>
                     <li><Link href="/catalogs">Products</Link></li>
-                    <li><Link   href="">Our Services</Link></li>
+                    <li><Link   href="/page/services">Our Services</Link></li>
                     <li><Link href="/pages/about">About Us</Link></li>
-                    <li><Link   href="pages/contactus">Contact Us</Link></li>
+                    <li><Link   href="/pages/contactus">Contact Us</Link></li>
                     <li><Link href="/blogs">Blog</Link></li>
                     <li><Link href="/faq">FAQ</Link></li>
 

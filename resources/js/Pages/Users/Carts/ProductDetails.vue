@@ -2,14 +2,14 @@
 
 <script setup >
 import AppTemplate from '@/AppTemplate.vue';
-import CartAlert from '@/Components/CartAlert.vue';
+import CartAlert from '@/Components/old/CartAlert.vue';
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { computed, onMounted, reactive, ref } from 'vue';
+import useFunctions from '../useFunctions';
 
 const page = usePage()
 const props = defineProps({
 data : Object,
-flash:String
 });
 
 
@@ -42,9 +42,8 @@ function addToCart(id)
             onSuccess: (page) => {
                 setTimeout(() => { 
             if(page.props.flash.success){
-                
                 isLoading.value = false
-                toastr.success(page.props.flash.success, {'position': 'toast-top-left'});
+                toastr.success(page.props.flash.success);
             }else
             {
                 toastr.error(page.props.flash.error);
@@ -68,6 +67,7 @@ function handleFileUpload(event)
 }
 
 
+console.log(props.data, 'let see what is loaded')
 
 </script>
 
@@ -83,7 +83,7 @@ function handleFileUpload(event)
     <div class="container " >
         <ul class="ps-breadcrumb">
             <li class="ps-breadcrumb__item"><a href="">Home</a></li>
-            <li class="ps-breadcrumb__item"><a href="">{{ product.category.name }}</a></li>
+            <li class="ps-breadcrumb__item"><a href="/catalogs">{{ product.category.name }}</a></li>
             <li class="ps-breadcrumb__item active" aria-current="page">{{ product.name }}</li>
         </ul>
         <div class="ps-page__content">
@@ -108,9 +108,13 @@ function handleFileUpload(event)
                                 <div class="ps-product__info">
                                     <div class="ps-product__badge"><span class="ps-badge ps-badge--outstock" v-if="product.status == 1">OUT OF STOCK</span>
                                     </div>
-                                    <div class="ps-product__branch" style="font-size:13px">Category: <Link :href="`/products/${product.hashid}/${product.productUrl}`">{{product.category.name}}</Link></div>
+                                    <div class="ps-product__branch" style="font-size:13px">Category: <Link href="/catalogs">{{product.category.name}}</Link></div>
                                     <div class="ps-product__title" style="font-size:20px"><a href="#">{{product.name}}</a>
-                                    <p> <span class="ps-product__price" style="font-size:20px">₦{{product.sale_price}} </span> <span class="ps-product__del"> ₦{{product.price}} </span> </p>
+                                    <p> 
+                                        <span class="ps-product__price sale"> {{useFunctions.addSeperator(product.sale_price)  }}</span>
+                                        <span class="ps-product__del">{{useFunctions.addSeperator(product.price)  }}</span>
+                                        <!-- <span class="ps-product__price" style="font-size:20px">{{useFunctions.addSeperator(product.sale_price)}} </span> <span class="ps-product__del"> {{useFunctions.addSeperator(product.price)}} </span>  -->
+                                    </p>
                                     </div>
                                 
                                     <div class="ps-product__meta">
@@ -210,7 +214,7 @@ function handleFileUpload(event)
                             <div class="ps-product__content">
                                 <h5 class=""><Link :href="`/products/${products.hashid}/${products.productUrl}`"> {{ products.name }}</Link>
                                 </h5>
-                                <div class="ps-product__meta"><span class="ps-product__price sale"> N{{ products.sale_price }}</span><span class="ps-product__del">N{{products.price}}</span>
+                                <div class="ps-product__meta"><span class="ps-product__price sale"> {{ useFunctions.addSeperator(products.sale_price) }}</span><span class="ps-product__del">{{useFunctions.addSeperator(products.price)}}</span>
                                    <!-- <small style="color:#434242b5"> -20%</small>  -->
                               
                                 </div>

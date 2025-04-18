@@ -27,7 +27,7 @@ class AddCartItems
                 'product_id' => $cart->model->id,
                 'Order_no' => $events->orderNo,
                 'qty' => $cart->qty,
-                'payable' => $cart->price * $cart->qty,
+                'payable' => $cart->price * $cart->quantity,
                 'status' => 0,
                 'cartSession' => $events->cartSession,
                 'image' => $cart->model->image_path,

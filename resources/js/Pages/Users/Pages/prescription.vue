@@ -1,17 +1,48 @@
-<script setup lang="ts">
+<script setup>
 import AppTemplate from '@/AppTemplate.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 
 
 const props = defineProps({
     blogs: Object
 })
+
+
+
+const form = useForm({
+
+    name:'',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    state: '',
+    image: '',
+    notes: ''
+})
+
+function submitForm()
+{
+    form.post('/doctor/prescription', {
+        onSuccess: (page) => {
+            if(page.props.flash.success){
+                toastr.success(page.props.flash.success);
+            }
+        }
+    })
+}
+
+function UploadFile(event)
+{
+    const image = event.target.files[0]
+    form.image = image;
+}
 </script>
 
 <template>
     <AppTemplate>
 
-        <template $content>
+        <template #content>
 
             <div class="ps-checkout">
     <div class="container">
@@ -20,8 +51,7 @@ const props = defineProps({
             <li class="ps-breadcrumb__item active" aria-current="page"> Doctor's Prescription</li>
         </ul>
         <div class="ps-checkout__content">
-    <form action="{{route('doctores.prescription')}}" method="post" enctype="multipart/form-data">
-        @csrf
+    <form @submit.prevent="submitForm" enctype="multipart/form-data">
         <div class="row">
             <div class="col-12 col-lg-6">
                 <div class="ps-checkout__form">
@@ -30,13 +60,13 @@ const props = defineProps({
                         <div class="col-12 col-md-6">
                             <div class="ps-checkout__group">
                                 <label class="ps-checkout__label">Full name *</label>
-                                <input class="ps-input"  value="{{old('name')}}" name="name" type="text">
+                                <input class="form-control form-data" :class="{'is-invalid': form.name}"  v-model="form.name" name="name" type="text" placeholder="full name">
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="ps-checkout__group">
                                 <label class="ps-checkout__label">Email address *</label>
-                                <input class="ps-input" value="{{old('email')}}" name="email" type="email">
+                                <input class="form-control form-data"  :class="{'is-invalid': form.email}" v-model="form.email" name="email" type="email" placeholder="email">
                             </div>
                         </div>
                     </div>
@@ -44,13 +74,13 @@ const props = defineProps({
                         <div class="col-12 col-md-6">
                             <div class="ps-checkout__group">
                                 <label class="ps-checkout__label">Phone *</label>
-                                <input class="ps-input"  value="{{old('phone')}}" name="phone" type="text">
+                                <input class="form-control form-data"  v-model="form.phone" :class="{'is-invalid': form.phone}"  name="phone" type="text" placeholder="phone">
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="ps-checkout__group">
                                 <label class="ps-checkout__label">Street address *</label>
-                                <input class="ps-input mb-3" value="{{old('address')}}" name="address" type="text" placeholder="House number and street name">
+                                <input class="form-control form-data"v-model="form.address" :class="{'is-invalid': form.address}"  name="address" type="text" placeholder="House number and street name">
                             </div>
                         </div>
                     </div>
@@ -58,25 +88,25 @@ const props = defineProps({
                         <div class="col-12 col-md-6">
                             <div class="ps-checkout__group">
                                 <label class="ps-checkout__label">Town / City *</label>
-                                <input class="ps-input" value="{{old('city')}}" name="city" type="text">
+                                <input class="form-control form-data" v-model="form.city"  :class="{'is-invalid': form.city}"  name="city" type="text" placeholder="town/city">
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="ps-checkout__group">
                                 <label class="ps-checkout__label">State *</label>
-                                <input class="ps-input" value="{{old('state')}}" name="state" type="text">
+                                <input class="form-control form-data" v-model="form.state"  :class="{'is-invalid': form.state}"  name="state" type="text">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="ps-checkout__group">
                                 <label class="ps-checkout__label">Upload Prescription *</label>
-                                <input class="ps-input" name="image" type="file"> 
+                                <input class="ps-input" name="image" type="file"  @change="UploadFile" :class="{'is-invalid': form.image}"  > 
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="ps-checkout__group">
                                 <label class="ps-checkout__label">Notes </label>
-                                <textarea class="ps-textarea" name="notes" rows="7" placeholder="write additional notes about the description.">{{old('notes')}}</textarea>
+                                <textarea class="form-control form-data" name="notes" v-model="form.notes"  :class="{'is-invalid': form.notes}"  rows="7" placeholder="write additional notes about the description."></textarea>
                             </div>
                         </div>
                         
@@ -108,3 +138,9 @@ const props = defineProps({
         </template>
     </AppTemplate>
 </template>
+
+<style>
+.form-data{
+    border-radius: 10px;
+}
+</style>

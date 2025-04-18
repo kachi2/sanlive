@@ -46,7 +46,7 @@ class HandleInertiaRequests extends Middleware
                 'warning'=> session('warning')
             ],
             'settings' => Setting::latest()->first(),
-            'announcment', Annoucement::first()
+            'announcment' => Annoucement::first()
         ]);
     }
 }

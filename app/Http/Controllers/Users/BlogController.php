@@ -13,7 +13,7 @@ class BlogController extends Controller
 {
     public function Index(){
     
-        $blogs =  Blog::latest()->simplePaginate(20);
+        $blogs =  Blog::latest()->paginate(20);
         foreach($blogs as $Blog){
             $Blog->hashid = Hashids::connection('products')->encode($Blog->id);
         }
@@ -21,16 +21,16 @@ class BlogController extends Controller
     }
 
     public function Details($id){
-        $latest =  Blog::latest()->simplePaginate(20);
+        $latest =  Blog::latest()->paginate(7);
         foreach($latest as $bb){
             $bb->hashid = Hashids::connection('products')->encode($bb->id);
         }
         $id = Hashids::connection('products')->decode($id);
         $blogs = Blog::findorfail($id[0]);
     return inertia('Users/Pages/blogDetails', [
-'blogs' => $latest,
-'blog' => $blogs,
-    ]);
+                'blogs' => $latest,
+                'blog' => $blogs
+            ]);
 }
 
 }

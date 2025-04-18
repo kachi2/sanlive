@@ -2,16 +2,20 @@
     <div class="ps-menu--slidebar">
     <div class="ps-menu__content">
         <ul class="menu--mobile">
-            <li><a href="{{route('users.account.index')}}">My account</a></li>
-            <li><a href="{{route('users.orders')}}">My orders</a></li>
-            <li><a href="{{route('users.account.address')}}">Address Book</a></li>
-            <li><a href="{{ route('AboutUs')}}">About Us</a></li>
-            <li><a href="{{ route('PrivacyPolicy')}}">Privacy Policy</a></li>
-            <li><a href="{{route('pages.terms')}}">Terms &amp; Conditions</a></li>
-            <li><a href="{{ route('contactUs')}}">Contact Us</a></li>
-            <li><a href="https://sanlivepharmacy.com/blogs">Blog</a></li>
-            <li><a href="{{ route('faq.index')}}">FAQ</a></li>
-            <li class="nav-item"><a  class="nav-link   pl-3" style="color:#fff; background:#103178"  href="{{route('user.prescription')}}"> UPLOAD PRESCRIPTION</a></li>
+            <div class="pb-5">
+            <img :src="`/images/${page.props.settings?.site_logo}`"  style="width: 160px" alt="sanlive pharmacy">
+        </div>
+            <li style="border-bottom: 1px solid #eee;"><Link href="/accounts/index"> Account</Link></li>
+                <li style="border-bottom: 1px solid #eee;"> <Link href="/accounts/orders">  Orders</Link></li>
+                <li style="border-bottom: 1px solid #eee;"><Link href="/catalogs">Products</Link></li>
+                <li style="border-bottom: 1px solid #eee;"><Link href="/page/services">Our Services</Link></li>
+                <li style="border-bottom: 1px solid #eee;"><Link href="/pages/about">About Us</Link></li>
+                <li style="border-bottom: 1px solid #eee;"><Link href="/pages/contactus">Contact Us</Link></li>
+                <li style="border-bottom: 1px solid #eee;"><Link href="/blogs">Blog</Link></li>
+                <li style="border-bottom: 1px solid #eee;"><Link href="/pages/privacypolicy">Privacy Policy</Link></li>
+                <li style="border-bottom: 1px solid #eee;"><Link href="/pages/terms">Terms &amp; Conditions</Link></li>
+                <li style="border-bottom: 1px solid #eee;"><Link href="/faq">FAQ</Link></li>
+            <li class="nav-item"><a  class="nav-link   pl-3" style="color:#fff; background:#103178"  href="/upload/prescription"> UPLOAD PRESCRIPTION</a></li>
         </ul>
     </div>
     <div class="ps-menu__footer">
@@ -29,3 +33,8 @@
     </div>
 </div>
 </template>
+
+<script setup>
+import { Link, usePage } from '@inertiajs/vue3';
+const page = usePage()
+</script>

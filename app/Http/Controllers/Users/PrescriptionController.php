@@ -19,7 +19,7 @@ use imageUpload;
 
     public function PrescriptionStore(Request $request)
     {
-        
+    
         $image = $this->UploadImage($request, 'images/prescription');
 
         $data = [
@@ -33,7 +33,7 @@ use imageUpload;
             'notes' => $request->notes
         ];
 
-        Prescription::create($data);
+      Prescription::create($data);
         Session::flash('success', 'Prescription Uploaded successfully');
         return back();
     }

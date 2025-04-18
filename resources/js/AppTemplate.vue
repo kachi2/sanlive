@@ -6,7 +6,7 @@
 <slot name="content"></slot>
 
 <MainFooter />
-<MobileNav />
+<!-- <MobileNav /> -->
 <MobileSideBar />
 
 </template>

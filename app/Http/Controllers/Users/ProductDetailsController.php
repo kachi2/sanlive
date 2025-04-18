@@ -16,14 +16,14 @@ class ProductDetailsController extends Controller
       $product = Product::findorfail($ss[0]);
       $data['related'] = Product::where('category_id', $product->category->id)->take(10)->get();
       $product->hashid = Hashids::connection('products')->encode($product->id);
-      $product->productUrl =  trimInput($product->name);
+      $product->productUrl =  Str::slug($product->name);
        preg_match('/<p>(.*?)<\/p>/s', $product->description, $matches);
        $product->tagline =$matches[0]??'';
       $data['product'] = $product;
   
       foreach($data['related']  as $prod){
         $prod->hashid = Hashids::connection('products')->encode($prod->id);
-        $prod->productUrl =  trimInput($prod->name);
+        $prod->productUrl =  Str::slug($prod->name);
       }
       return inertia('Users/Carts/ProductDetails', 
       [

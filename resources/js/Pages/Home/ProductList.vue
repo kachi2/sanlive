@@ -1,5 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
+import useFunctions from '../Users/useFunctions';
 
 
 const props = defineProps({
@@ -7,7 +8,6 @@ const props = defineProps({
     'products': Object
 })
 
-console.log(props.products, 'category products')
 </script>
 
 <template>
@@ -35,9 +35,7 @@ console.log(props.products, 'category products')
                             <div class="ps-product__content">
                                 <h5 class=""><Link :href="`/products/${product.hashid}/${product.productUrl}`"> {{ product.name }}</Link>
                                 </h5>
-                                <div class="ps-product__meta"><span class="ps-product__price sale"> 3599</span><span class="ps-product__del">232323</span>
-                                   <!-- <small style="color:#434242b5"> -20%</small>  -->
-                              
+                                <div class="ps-product__meta"><span class="ps-product__price sale"> {{useFunctions.addSeperator(product.sale_price)  }}</span><span class="ps-product__del">{{useFunctions.addSeperator(product.price)  }}</span>
                                 </div>
                                 <span class="download-note"> 
                                     <span >  <Link  class=" btn btn-lg"  :href="`/products/${product.hashid}/${product.productUrl}`"  style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; width:100px="> <i class="fa fa-plus"> </i> Add to basket</Link>  

@@ -14,21 +14,21 @@
                         <div class="col-12 col-md-12" >
                             <div class="ps-product ps-product--list" style="border:2px solid #d1d5dad4; border-radius:10px; margin-top:15px">
                                 <div class="ps-product__content" style="border-right:0px">
-                                    <div class="ps-product__thumbnail"><a class="ps-product__image" h :href="`/account/orders/details/${order.Order_no}`">
+                                    <div class="ps-product__thumbnail"><a class="ps-product__image" h :href="`/account/orders/details/${order?.Order_no}`">
                                             <figure><img :src="`/images/products/${order.image}`" :alt="order?.product_name">
                                             </figure>
                                         </a>
                                     </div>
                                     <div class="ps-product__info">
                                         <p class="ps-product__tite" style="font-size:16px; color:#262525">
-                                            <Link class="ps-product__branch" :href="`/account/orders/details/${order.Order_no}`">{{ order.product_name }}</Link><br>
-                                            <Link  :href="`/account/orders/details/${order.Order_no}`" style="color:#5e5b5b">Order: {{ order.Order_no }} </Link><br>
-                                           Amount: {{ order.payable }}
+                                            <Link class="ps-product__branch" :href="`/account/orders/details/${order.Order_no}`">{{ order?.product_name }}</Link><br>
+                                            <Link  :href="`/account/orders/details/${order.Order_no}`" style="color:#5e5b5b">Order: {{ order?.Order_no }} </Link><br>
+                                           Amount: {{ useFunctions.addSeperator(order.payable) }}
                                           <br>
-                                            <span class="badge badge-success" v-if="order.dispatch_status == 1"> delivered</span>
-                                          <span class="badge badge-info" v-if="order.dispatch_status == 0"> Awaiting Confirmation</span> 
-                                             <span class="badge badge-danger" v-if="order.dispatch_status == -1"> Cancelled</span>
-                                          <span class="badge badge-primary" v-if="order.dispatch_status == 2"> Shipped</span>
+                                            <span class="badge badge-success" v-if="order?.dispatch_status == 1"> delivered</span>
+                                          <span class="badge badge-info" v-if="order?.dispatch_status == 0"> Awaiting Confirmation</span> 
+                                             <span class="badge badge-danger" v-if="order?.dispatch_status == -1"> Cancelled</span>
+                                          <span class="badge badge-primary" v-if="order?.dispatch_status == 2"> Shipped</span>
                                           
                                             <br>
                                              <span class="badge badge-success" v-if="order.is_paid == 1"> Paid</span>
@@ -89,6 +89,7 @@
 import AppTemplate from '@/AppTemplate.vue';
 import accountSidebar from '@/Components/accountSidebar.vue';
 import { Link } from '@inertiajs/vue3';
+import useFunctions from '../useFunctions';
 
 
 const props = defineProps({

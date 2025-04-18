@@ -16,6 +16,8 @@ class SearchController extends Controller
 
     public function __invoke(Request $request, $id=null, $products = [], $data = [])
     {  
+
+
         $searchterm = '';
         if(isset($id)){
             $cat = Category::findOrFail(decodeHashid($id));

@@ -353,13 +353,17 @@
         $('#open-menu').on('click', function(e) {
             e.preventDefault();
             $('.ps-menu--slidebar').addClass('active');
-            $(this).parent().addClass('active');
+            $('#close-menu').show();
+            $('#open-menu').hide();
+            // $(this).parent().addClass('active');
         });
 
         $('#close-menu').on('click', function(e) {
             e.preventDefault();
             $('.ps-menu--slidebar').removeClass('active');
-            $(this).parent().removeClass('active');
+            $('#close-menu').hide();
+            $('#open-menu').show();
+            // $(this).parent().removeClass('active');
         });
 
         // $('.ps-menu__sticky #menu-slide').on('click', function (e) {

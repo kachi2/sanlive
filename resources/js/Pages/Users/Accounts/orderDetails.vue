@@ -18,9 +18,9 @@
                              </span>
                                <hr style="width:100%"/> 
                         
-                        <div class="col-12 col-md-12 "  id="userDetails"  hidden>
+                        <div class="col-12 col-md-12 "  id="userDetails" >
                             <span style="float:right; padding-right: 20px">
-                                <img src="{{asset('images/'.pape.props.settings->site_logo)}}" width="100px" >
+                                <img :src="`/images/${page.props.settings.site_logo}`" width="100px" >
                             </span>
                            
 
@@ -35,7 +35,7 @@
                            <div class="col-12 col-md-12 "  >
                             <p class="pl-3" style="color:#414040"> Order No: {{orders.order_no}} <br>
                              Placed On: {{orders.created_at}}<br>
-                             Total Amount: {{orders.payable}}</p>  
+                             Total Amount: {{useFunctions.addSeperator(orders.payable)}}</p>  
                           </div>
                      
                        <span class="pt-5 pl-5"> Items in Your Order    </span> 
@@ -54,7 +54,7 @@
                                             <a class="ps-product__branch" href="#">{{order.product_name}}</a><br>
                                             <a style="color:#201c1c">Order: {{order.Order_no}}</a><br>
                                             <a style="color:#1c1818">QTY:  {{order.qty}}</a><br>
-                                            {{order.payable}}
+                                            {{useFunctions.addSeperator(order.payable)}}
                                         </p>
                                     </div>
                                 </div>
@@ -79,9 +79,9 @@
                                                     style="font-size:15px; "> Payment Method: {{orders.payment_method}} </span>
                                             </div>
                                             <ul class="ps-product__list"> Payment Details
-                                                <li> <span class="ps-list__title"> </span> Items Amount: {{orders.payable}} 
+                                                <li> <span class="ps-list__title"> </span> Items Amount: {{useFunctions.addSeperator(orders.payable)}} 
                                                 </li>
-                                                <li> <span class="ps-list__title"> </span>Delivery Fee: {{(delivery.fee)}}
+                                                <li> <span class="ps-list__title"> </span>Delivery Fee: {{useFunctions.addSeperator(delivery?.fee)}}
                                             </li>
                                                 <li> <span class="ps-list__title"> </span>Payment Ref: {{orders.payment_ref}}
                                             </li>
@@ -110,11 +110,11 @@
                                                 style="font-size:15px; "> Delivery Method: {{orders.shipping_method == 'home_delivery' ? "Home delivery":"Pick-up Delivery"}} </span>
                                         </div>
                                         <ul class="ps-product__list">
-                                            <li> <span class="ps-list__title"> {{shipping.name}}</span>
+                                            <li> <span class="ps-list__title"> {{shipping?.name}}</span>
                                             </li>
-                                            <li> <span class="ps-list__title"> {{shipping.phone}}</span>
+                                            <li> <span class="ps-list__title"> {{shipping?.phone}}</span>
                                             </li>
-                                            <li> <span class="ps-list__title"> {{shipping.address??''}}</span>
+                                            <li> <span class="ps-list__title"> {{shipping?.address??''}}</span>
                                             </li>
                                             <!-- <li> <span class="ps-list__title"> {{shipping.city??'' + ' ' + shipping.state??'' + ' '+shipping.country??''}}</span></li> -->
                                             <li> <span class="ps-list__title"> </span>
@@ -153,6 +153,7 @@
 import AppTemplate from '@/AppTemplate.vue'
 import accountSidebar from '@/Components/accountSidebar.vue'
 import {usePage} from '@inertiajs/vue3'
+import useFunctions from '../useFunctions';
 
 const page = usePage();
 const auth = page.props.auth;

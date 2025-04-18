@@ -30,7 +30,7 @@ const props = defineProps({
                         </div>
                          <div class="ps-banner__thumnail ps-banner__fluid">
                              <Link style="position:inherit" href="/catalogs"> 
-                           <img class="ps-banner__image" :src="`images/sliders/${slide.image_path}`" :alt="slide.title" />
+                           <img class="ps-banner__image" :src="`/images/sliders/${slide.image_path}`" :alt="slide.title" />
                           </Link>
                         </div>
                   
