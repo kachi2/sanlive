@@ -7,11 +7,18 @@ import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { computed, onMounted, reactive, ref } from 'vue';
 import useFunctions from '../useFunctions';
 
+
+onMounted(() => {
+    $('.owl-carousel').owlCarousel({
+        items: 5,
+    });
+  });
+
+
 const page = usePage()
 const props = defineProps({
 data : Object,
 });
-
 
 
 let product =  props.data.product
@@ -92,10 +99,9 @@ console.log(props.data, 'let see what is loaded')
                     <div class="ps-product--detail">
                         <div class="row">
                             <div class="col-12 col-xl-6">
-                                <div class="ps-product--gallery">
-                                    <div class="ps-product__thumbnail">
-                                        <div class="slide"><img :src="`/images/products/${product.image_path}`" :alt="product.name" /></div>
-                                        <div class="slide"><img :src="`/images/products/${product.image_path}`" :alt="product.name" /></div>
+                                <div class="">
+                                    <div class="">
+                                       <img :src="`/images/products/${product.image_path}`" :alt="product.name" />
                                     </div>
                                     <!-- <div class="ps-gallery--image">
                                         <div class="slide">

@@ -22,3 +22,5 @@ createInertiaApp({
         delay:5
     },
 });
+
+

@@ -14,7 +14,7 @@ const props = defineProps({
     <div class="ps-section__overlay">
         <div class="ps-section__loading"></div>
     </div>
-    <div class="owl-carousel" data-owl-auto="true" data-owl-loop="true" data-owl-speed="4000"
+    <div class="owl-carousel slider-carousel" data-owl-auto="true" data-owl-loop="true" data-owl-speed="4000"
         data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1"
         data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
     

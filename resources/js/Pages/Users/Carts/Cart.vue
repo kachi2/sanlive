@@ -2,8 +2,15 @@
 import AppTemplate from '@/AppTemplate.vue';
 import { onMounted, reactive,ref } from 'vue';
 import { router,Link } from '@inertiajs/vue3';
-import useFxt from '../useFunctions';
 import CartAlert from '@/Components/old/CartAlert.vue';
+import useFunctions from '../useFunctions';
+
+
+onMounted(() => {
+    $('.owl-carousel').owlCarousel({
+        items: 5,
+    });
+  });
 
 
 
@@ -96,9 +103,9 @@ router.get('/delete/'+CartData.id,{
                                 {{cart.name}}
                             </a></h3>
                             <div class="ps-product__meta"><span class="ps-product__price" style="font-size:15px"> </span>
-                                ₦{{ useFxt.addSeperator(cart?.associatedModel?.sale_price)}}
+                                {{ useFunctions.addSeperator(cart?.associatedModel?.sale_price)}}
                                 <span class="ps-product__del" style="font-size:15px">
-                                    ₦{{ useFxt.addSeperator(cart?.associatedModel?.price)}}
+                                    {{ useFunctions.addSeperator(cart?.associatedModel?.price)}}
                                 </span>
                             </div>
                             <ul class="ps-product__list">
@@ -147,7 +154,7 @@ router.get('/delete/'+CartData.id,{
                         </div>
                         <div class="ps-shopping__row">
                             <div class="ps-shopping__label">Total</div>
-                            <div class="ps-shopping__price">₦{{ useFxt.addSeperator(total) }}</div>
+                            <div class="ps-shopping__price">{{ useFunctions.addSeperator(total) }}</div>
                         </div>
                         <div class="ps-shopping__text">Shipping options will be updated during checkout.</div> 
                         <div class="ps-shopping__checkout">
@@ -181,7 +188,7 @@ router.get('/delete/'+CartData.id,{
                             <div class="ps-product__content">
                                 <h5 class=""><Link :href="`/products/${products?.hashid}/${products?.productUrl}`"> {{ products?.name }}</Link>
                                 </h5>
-                                <div class="ps-product__meta"><span class="ps-product__price sale"> N{{ products?.sale_price }}</span><span class="ps-product__del">N{{products?.price}}</span>
+                                <div class="ps-product__meta"><span class="ps-product__price sale"> {{ useFunctions.addSeperator(products?.sale_price) }}</span><span class="ps-product__del">{{useFunctions.addSeperator(products?.price)}}</span>
                                    <!-- <small style="color:#434242b5"> -20%</small>  -->
                               
                                 </div>
