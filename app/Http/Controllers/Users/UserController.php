@@ -32,7 +32,15 @@ class UserController extends Controller
 
         return inertia('Users/Accounts/account', [
             'address' => ShippingAddress::where(['user_id' => auth_user()->id, 'is_default' => 1])->first(),
-            'account' => User::where('id', auth_user()->id)->first()
+            'account' => User::where('id', auth_user()->id)->first(),
+            'pageMeta' => [
+                'url' => url()->current(),
+                'title' => 'My Account ',
+                'metaTitle' => 'eMedicStore: The largest and biggest online pharmacy marketplace that you can trust.',
+                'description' => 'Order | History',
+                'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
+                'image_url' => websiteLogo()
+                ]
         ]);
     }
 
@@ -46,7 +54,15 @@ class UserController extends Controller
 
         return inertia('Users/Accounts/orders',
         [
-            'orders' =>  $orders
+            'orders' =>  $orders,
+            'pageMeta' => [
+                'url' => url()->current(),
+                'title' => 'Orders ',
+                'metaTitle' => 'Buy medical products, order fast, get fast delivery',
+                'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+                'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
+                'image_url' => websiteLogo()
+            ]
         ]);
     }
 
@@ -65,7 +81,15 @@ class UserController extends Controller
             'orders' => $orders,
             'order_items' => $order_items,
             'shipping' => $shipping,
-            'delivery' => $delivery
+            'delivery' => $delivery,
+            'pageMeta' => [
+                'url' => url()->current(),
+                'title' => 'Order Details ',
+                'metaTitle' => 'Buy medical products, order fast, get fast delivery',
+                'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+                'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
+                'image_url' => websiteLogo()
+            ]
         ]);
     }
 
@@ -74,7 +98,15 @@ class UserController extends Controller
         $address = ShippingAddress::where('user_id', auth_user()->id)->get();
         addHashId($address);
         return inertia('Users/Accounts/address', [
-            'addresses' => $address
+            'addresses' => $address,
+            'pageMeta' => [
+                'url' => url()->current(),
+                'title' => 'Address',
+                'metaTitle' => 'Buy medical products, order fast, get fast delivery',
+                'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+                'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
+                'image_url' => websiteLogo()
+            ]
         ]);
     }
 
@@ -85,7 +117,15 @@ class UserController extends Controller
         $address->hashid = Hashids::connection('products')->encode($address->id);
       
         return inertia('Users/Accounts/editAddress', [
-            'address' => $address
+            'address' => $address,
+            'pageMeta' => [
+                'url' => url()->current(),
+                'title' => 'Edit Address ',
+                'metaTitle' => 'Buy medical products, order fast, get fast delivery',
+                'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+                'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
+                'image_url' => websiteLogo()
+            ]
         ]);
     }
 
@@ -117,7 +157,16 @@ class UserController extends Controller
 
     public function CreateAddress()
     {
-        return inertia('Users/Accounts/createAddress');
+        return inertia('Users/Accounts/createAddress', [
+            'pageMeta' => [
+                'url' => url()->current(),
+                'title' => 'Create Address ',
+                'metaTitle' => 'Buy medical products, order fast, get fast delivery',
+                'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+                'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
+                'image_url' => websiteLogo()
+            ]
+        ]);
     }
 
     public function storeAddress(Request $req)
@@ -178,13 +227,29 @@ class UserController extends Controller
             $products['recent'] = [];
         }
         return inertia('Users/Accounts/recentViewed',
-        ['recent' => $products]);
+        ['recent' => $products,
+        'pageMeta' => [
+            'url' => url()->current(),
+            'title' => 'Recent Viewed ',
+            'metaTitle' => 'Buy medical products, order fast, get fast delivery',
+            'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+            'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
+            'image_url' => websiteLogo()
+        ]]);
     }
 
     public function OrderPayments()
     {
         return inertia('Users/Accounts/payments',[
-            'payments' => Payment::where('user_id', auth_user()->id)->get()
+            'payments' => Payment::where('user_id', auth_user()->id)->get(),
+            'pageMeta' => [
+                'url' => url()->current(),
+                'title' => 'Payment',
+                'metaTitle' => 'Buy medical products, order fast, get fast delivery',
+                'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+                'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
+                'image_url' => websiteLogo()
+            ]
         ]);
     }
 
@@ -192,7 +257,15 @@ class UserController extends Controller
     public function AccountSettings()
     {
         return inertia('Users/Accounts/settings',
-            ['user' => User::where('id', auth_user()->id)->first()
+            ['user' => User::where('id', auth_user()->id)->first(),
+            'pageMeta' => [
+                'url' => url()->current(),
+                'title' => 'Settings ',
+                'metaTitle' => 'Buy medical products, order fast, get fast delivery',
+                'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+                'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
+                'image_url' => websiteLogo()
+            ]
     ]);
     }
 

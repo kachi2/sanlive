@@ -1,16 +1,18 @@
 <script setup>
 import AppTemplate from '@/AppTemplate.vue';
+import HeadTags from '@/Components/headTags.vue';
 import { usePage } from '@inertiajs/vue3';
 
 const page = usePage();
 
 const props = defineProps({
-    aboutUs:Object
+    aboutUs:Object,
+    pageMeta: Object
 })
 </script>
 
 <template>
-
+<HeadTags :pageMeta="pageMeta" />
     <AppTemplate>
 
         <template #content>

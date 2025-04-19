@@ -1,11 +1,13 @@
 <script setup>
 import AppTemplate from '@/AppTemplate.vue';
 import AccountSidebar from '@/Components/accountSidebar.vue';
+import HeadTags from '@/Components/headTags.vue';
 import { useForm } from '@inertiajs/vue3';
 
 
 const props = defineProps({
-    user: Object
+    user: Object,
+    pageMeta: Object
 })
 
 console.log(props.user, 'users data')
@@ -37,7 +39,7 @@ form.post('/accounts/settings/update',{
 </script>
 
 <template>
-
+<HeadTags :pageMeta="pageMeta" />
 <AppTemplate>
 
     <template #content>

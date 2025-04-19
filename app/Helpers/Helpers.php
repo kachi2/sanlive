@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\CountryCurrency;
+use App\Models\Setting;
 use Flutterwave\Util\Currency;
 use Vinkla\Hashids\Facades\Hashids;
 use GuzzleHttp\Client;
@@ -156,5 +157,17 @@ if(!function_exists('getCountryCurrency'))
     $url_close = curl_close($curl);
     $res = json_decode($resp, true);
     return $res;
+   }
+
+   function  websiteLogo()
+   {
+    $settings = Setting::pluck('site_logo');
+   if($settings) return asset('images/'.$settings[0]);
+   }
+
+   function websiteName()
+   {
+    $settings = Setting::pluck('site_name');
+    if($settings) return $settings[0];
    }
 }

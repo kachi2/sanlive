@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import AppTemplate from '@/AppTemplate.vue';
+import HeadTags from '@/Components/headTags.vue';
 import { Link } from '@inertiajs/vue3';
 
 
 const props = defineProps({
-    blogs: Object
+    blogs: Object,
+    pageMeta: Object
 })
 
 console.log(props.blogs, 'asasasas')
 </script>
 
 <template>
+    <HeadTags :pageMeta="pageMeta" />
     <AppTemplate>
 
         <template #content>

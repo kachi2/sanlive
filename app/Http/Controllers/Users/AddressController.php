@@ -20,10 +20,8 @@ class AddressController extends Controller
 
     public function ShippingAddress(){
         $address = ShippingAddress::where(['user_id' => auth_user()->id])->latest()->get();
-        
         addHashId($address);
-
-        return view('users.carts.address')
+        return inertia('users.carts.address')
         ->with('carts', \Cart::content())
         ->with('addresses', $address);
     }

@@ -1,4 +1,5 @@
 <template>
+    <HeadTags :pageMeta="pageMeta" />
     <appTemplate>
         <template #content>
 <div class="ps-shopping" style="background: #fff">
@@ -91,7 +92,7 @@
                             </div>
                             <div class="ps-shopping__row">
                                 <div class="ps-shopping__label">Total</div>
-                                <div class="ps-shopping__price">₦{{useFxt.addSeperator(total)}}</div>
+                                <div class="ps-shopping__price">{{useFxt.addSeperator(total)}}</div>
                             </div>
                             <div class="ps-shopping__text">Shipping options will be updated during checkout.</div>
 
@@ -126,11 +127,13 @@ import AppTemplate from '@/AppTemplate.vue';
 import {reactive} from "vue"
 import useFxt from '../useFunctions';
 import {router, Link, useForm} from "@inertiajs/vue3"
+import HeadTags from '@/Components/headTags.vue';
 
 
 const props = defineProps({
     carts: Object,
-    total: Number
+    total: Number,
+    pageMeta: Object
 })
 
 

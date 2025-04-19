@@ -5,19 +5,13 @@ namespace App\Http\Controllers\Users;
 use App\Events\CartItemsEvent;
 use App\Http\Controllers\Controller;
 use App\Models\CartItem;
-use App\Models\ShipmentLocation;
 use Illuminate\Http\Request;
 use App\Models\ShippingAddress;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 use Illuminate\Support\Facades\Validator;
-use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use App\Services\RegisterUser;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use App\Mail\RegMail;
 use App\Models\CountryCurrency;
 use App\Traits\CalculateShipping;
 use Carbon\Carbon;
@@ -51,14 +45,14 @@ class CheckoutController extends Controller
          }else {$shipping_fee = '6500';}
         $carts = \Cart::getContent();
         $orderNo = rand(111111111,999999999);
-  
         if(!isset($address)){
             Session::flash('error', 'Please add a shipping address before you can proceed');
             return to_route('users.account.address');
         }
         $cartSession =  Session::get('cartSession');
-        $cart = Hashids::connection('products')->decode($cartSession);
-        $check = CartItem::where(['user_id' => auth_user()->id, 'cartSession' => $cart[0]])->first();
+
+        // $cart = Hashids::connection('products')->decode($cartSession)[0];
+        $check = CartItem::where(['user_id' => auth_user()->id, 'cartSession' => $cartSession])->get();
         if(!isset($check) || empty($check)){
             event(new CartItemsEvent($carts, $orderNo, $cartSession));
         }
@@ -72,7 +66,15 @@ class CheckoutController extends Controller
             'address' => $address,
             'orderNo' => $orderNo,
             'shipping_fee' => $shipping_fee,
-            'total' => \Cart::getTotal()
+            'total' => \Cart::getTotal(),
+            'pageMeta' => [
+                'url' => url()->current(),
+                'title' => 'Checkout | fast delivery ',
+                'metaTitle' => 'Buy medical products, order fast, get fast delivery',
+                'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+                'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
+                'image_url' => websiteLogo()
+                ]
         ]);
     }
 

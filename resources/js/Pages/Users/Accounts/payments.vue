@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import AppTemplate from '@/AppTemplate.vue';
 import AccountSidebar from '@/Components/accountSidebar.vue';
+import HeadTags from '@/Components/headTags.vue';
 
 
 const props = defineProps({
-    payments: Object
+    payments: Object,
+    pageMeta: Object
 })
 </script>
 
 <template>
-
+    <HeadTags :pageMeta="pageMeta" />
     <AppTemplate>
 
         <template #content>

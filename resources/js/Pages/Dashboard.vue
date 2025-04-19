@@ -5,6 +5,7 @@ import Slider from '@/Components/Slider.vue';
 import Category from './Home/category.vue';
 import { onMounted } from 'vue';
 import ProductList from './Home/ProductList.vue';
+import HeadTags from '@/Components/headTags.vue';
 
 
 onMounted(() => {
@@ -24,17 +25,14 @@ onMounted(() => {
 const props = defineProps({
     'sliders': Object,
     'categories': Object,
-    'category': Object
+    'category': Object,
+    'pageMeta': Object,
 });
 
-// console.log(props.categories)
 </script>
-<template>
-    <AppTemplate> 
-    <Head>
-        <title> Home</title>
-    </Head>
-
+<template> 
+  <HeadTags :pageMeta="pageMeta" />
+  <AppTemplate>
     <template #content> 
         <div class="ps-home ps-home--8">
         <div class="ps-home__content">

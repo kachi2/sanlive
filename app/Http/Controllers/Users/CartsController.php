@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Product;
+use App\Models\Setting;
 use Vinkla\Hashids\Facades\Hashids;
 use App\Traits\imageUpload;
 use Illuminate\Support\Facades\Auth;
@@ -52,16 +53,28 @@ use imageUpload;
 
     public function Index()
     { 
+      $settings = Setting::first();
+
       $prod = Product::latest()->take(6)->get();
       foreach($prod as $pp){
         $pp->productUrl = trimInput($pp->name);
         $pp->hashid = Hashids::connection('products')->encode($pp->id);
+        $keyworkds[] = $pp->name;
       }
+      $keyworkds = implode(',', $keyworkds);
         return inertia('Users/Carts/Cart', [
           'carts' => \Cart::getContent(),
           'total' => \Cart::getTotal(),
           'latest' => $prod,
-          'cartSession' => Hashids::connection('products')->encode(rand(11,99))
+          'cartSession' => Hashids::connection('products')->encode(rand(11,99)),
+          'pageMeta' => [
+            'url' => url()->current(),
+            'title' => 'Carts | Index',
+            'metaTitle' => 'Buy medical products, order fast, get fast delivery ',
+            'description' => websiteName().' Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+            'keywords' => $keyworkds,
+            'image_url' => websiteLogo()
+            ]
         ]);
     }
 
@@ -70,7 +83,6 @@ use imageUpload;
 
     public function destroy( $id)
     {
-      //dd($id.' '.$request->rowId);
         \Cart::remove($id);
         Session::flash('error', '1 Item removed from the Cart');
         return back();
@@ -79,7 +91,6 @@ use imageUpload;
     public function update(Request $request){
         $cartItemId = $request->cartId;
         $quantity = $request->qty;
-        // dd($cartItemId);
         if($request->action == "+")
         { \Cart::update($cartItemId, array('quantity' => +1));
         Session::flash('success', '1 Item added to the Cart');

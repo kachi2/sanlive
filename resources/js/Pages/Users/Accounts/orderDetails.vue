@@ -1,5 +1,5 @@
 <template>
-
+<HeadTags :pageMeta="pageMeta" />
     <AppTemplate>
         <template #content>
 
@@ -154,6 +154,7 @@ import AppTemplate from '@/AppTemplate.vue'
 import accountSidebar from '@/Components/accountSidebar.vue'
 import {usePage} from '@inertiajs/vue3'
 import useFunctions from '../useFunctions';
+import HeadTags from '@/Components/headTags.vue';
 
 const page = usePage();
 const auth = page.props.auth;
@@ -162,6 +163,7 @@ const props = defineProps({
     order_items: Object,
     orders: Array,
     shipping:Object,
-    delivery:Array
+    delivery:Array,
+    pageMeta:Object
 })
 </script>

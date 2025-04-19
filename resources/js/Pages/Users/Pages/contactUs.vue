@@ -1,5 +1,6 @@
 <script setup>
 import AppTemplate from '@/AppTemplate.vue';
+import HeadTags from '@/Components/headTags.vue';
 import { Link, useForm } from '@inertiajs/vue3';
 import { usePage } from '@inertiajs/vue3';
 
@@ -7,7 +8,8 @@ const page = usePage()
 
 
 const props = defineProps({
-    blogs: Object
+    blogs: Object,
+    pageMeta: Object
 })
 
 
@@ -38,6 +40,7 @@ function SubmitContact()
 </script>
 
 <template>
+        <HeadTags :pageMeta="pageMeta" />
     <AppTemplate>
 
         <template #content>

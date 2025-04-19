@@ -1,5 +1,5 @@
 <template>
-
+<HeadTags :pageMeta="pageMeta" />
     <AppTemplate>
     
         <template #content>
@@ -94,10 +94,12 @@
     <script setup>
     import AppTemplate from '@/AppTemplate.vue';
     import AccountSidebar from '@/Components/accountSidebar.vue';
+import HeadTags from '@/Components/headTags.vue';
     import { router, useForm } from '@inertiajs/vue3';
     
     const props = defineProps({
-        address: Object
+        address: Object,
+        pageMeta: Object
     })
     
     const form = useForm({

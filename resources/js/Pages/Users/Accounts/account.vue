@@ -1,5 +1,5 @@
 <template>
-
+<HeadTags :pageMeta="pageMeta" />
 <AppTemplate>
 
     <template #content>
@@ -111,9 +111,11 @@
 <script setup>
 import AppTemplate from '@/AppTemplate.vue'
 import accountSidebar from '@/Components/accountSidebar.vue'
+import HeadTags from '@/Components/headTags.vue';
 
 const props = defineProps({
     account:Object,
-    address:Object
+    address:Object,
+    pageMeta:Object
 })
 </script>

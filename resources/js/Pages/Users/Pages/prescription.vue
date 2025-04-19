@@ -1,10 +1,12 @@
 <script setup>
 import AppTemplate from '@/AppTemplate.vue';
+import HeadTags from '@/Components/headTags.vue';
 import { Link, useForm } from '@inertiajs/vue3';
 
 
 const props = defineProps({
-    blogs: Object
+    blogs: Object,
+    pageMeta: Object
 })
 
 
@@ -40,6 +42,7 @@ function UploadFile(event)
 </script>
 
 <template>
+        <HeadTags :pageMeta="pageMeta" />
     <AppTemplate>
 
         <template #content>

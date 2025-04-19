@@ -26,26 +26,38 @@ class SearchController extends Controller
             $products = Product::where('name', 'LIKE', "%$request->q%")->orWhere('description', 'LIKE', "%$request->q%")->simplePaginate(18);
             $searchterm = "Showing Results for ".$request->q;
             addHashId($products);
+            $keywords[] =  $products->pluck('name')->implode(',');
         }elseif(isset($id)){
             $products = Product::where('category_id', decodeHashid($id))->get();
             $searchterm = "Showing Results for ".ucfirst(strtolower($cat->name));
             addHashId($products);
+            $keywords[] =  $products->pluck('name')->implode(',');
         }else{
             $products = Product::latest()->take(20)->get();
             addHashId($products);
+            $keywords[] =  $products->pluck('name')->implode(',');
         }
         $categories = Category::latest()->get();
         foreach($categories as $cats){
             addHashId($cats->products);
         }
+        $keywords = implode(',', $keywords);
+
         addHashId($categories);
         return inertia('Users/Pages/products', [
             'products' => $products,
             'categories' => $categories,
-            'searchterm' => $searchterm
-        ])
-        ->with('metaTitle', Str::slug($cat->name??' ', ' '). ' | Sanlive Pharmacy: Online Pharmacy in Nigeria')
-        ->with('ogTitle', Str::slug($cat->name?? '', ' ') . ' | Sanlive Pharmacy: Online Pharmacy in Nigeria')
-        ->with('twitterTitle', Str::slug($cat->name?? '', '') .' | Sanlive Pharmacy: Online Pharmacy in Nigeria');
+            'searchterm' => $searchterm,
+            'pageMeta' => [
+            'url' => url()->current(),
+            'title' => 'Product | Online Health Store, Medicines, Vitamins',
+            'metaTitle' => 'Product | Online Health Store, Medicines, Vitamins',
+            'description' =>  'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices, 
+                '.substr($keywords, 0,80),
+            'keywords' => substr($keywords,0,100),
+            'image_url' => websiteLogo()
+        ]
+
+        ]);
     }
 }

@@ -1,4 +1,5 @@
 <template>
+     <HeadTags :pageMeta="pageMeta" />
     <appTemplate>
         <template #content>
             <div class="ps-shopping" style="background: #fff">
@@ -183,20 +184,20 @@
                                                 Item Total
                                             </div>
                                             <div class="ps-shopping__price">
-                                                ₦{{ useFunctions.addSeperator(total)}}
+                                                {{ useFunctions.addSeperator(total)}}
                                             </div>
                                         </div>
                                         <div class="ps-shopping__row">
                                             <div class="ps-shopping__label">
                                                 Delivery Fee
                                             </div>
-                                            <div class="ps-shopping__price" id="fee"> ₦{{  useFunctions.addSeperator(shipping_fees)??0 }}</div>
+                                            <div class="ps-shopping__price" id="fee"> {{  useFunctions.addSeperator(shipping_fees)??0 }}</div>
                                         </div>
                                         <div class="ps-shopping__row">
                                             <div class="ps-shopping__label">
                                                 Total
                                             </div>
-                                            <div class="ps-shopping__price" id="total">₦{{  useFunctions.addSeperator(CartTotal) }}</div>
+                                            <div class="ps-shopping__price" id="total">{{  useFunctions.addSeperator(CartTotal) }}</div>
                                             <input type="hidden" id="sub_total" :value="CartTotal" />
                                         </div>
                                         <input type="hidden" id="amount" name="amount"
@@ -228,6 +229,7 @@ import AppTemplate from "@/AppTemplate.vue";
 import {router, Link, useForm} from "@inertiajs/vue3"
 import useFunctions from "../useFunctions";
 import { computed, reactive, ref, watch} from "vue";
+import HeadTags from "@/Components/headTags.vue";
 
 
 const props = defineProps({
@@ -235,7 +237,8 @@ const props = defineProps({
         address: Object,
         orderNo: Number,
         shipping_fee: String,
-        total:Number
+        total:Number,
+        pageMeta: Object
 })
 
 const shipping_fees = ref(0)

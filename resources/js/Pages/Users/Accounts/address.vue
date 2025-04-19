@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import AppTemplate from '@/AppTemplate.vue';
 import AccountSidebar from '@/Components/accountSidebar.vue';
+import HeadTags from '@/Components/headTags.vue';
 import { Link } from '@inertiajs/vue3';
 
 
 const props = defineProps({
-    addresses: Object
+    addresses: Object,
+    pageMeta: Object
 })
 
 </script>
 
 <template>
-
+<HeadTags :pageMeta="pageMeta" />
     <AppTemplate>
 
         <template #content>

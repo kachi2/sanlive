@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import AppTemplate from '@/AppTemplate.vue';
+import HeadTags from '@/Components/headTags.vue';
 import { Link } from '@inertiajs/vue3';
 
 
 const props = defineProps({
-    blogs: Object
+    privacy: Object,
+    pageMeta: Object
 })
 </script>
 
 <template>
+      <HeadTags :pageMeta="pageMeta" />
     <AppTemplate>
 
         <template $content>
@@ -23,10 +26,9 @@ const props = defineProps({
     <div class="ps-about__content">
         <section class="ps-about__project">
             <div class="container">
-                {{-- <h2 class="ps-about__title">Your home medical provider now also online</h2> --}}
                 <section class="ps-section">
                     <div class="ps-section__cntent">
-                        <div class="ps-section__desc" style="color:#09376e">    {!! $policy->content !!}</div>
+                        <div class="ps-section__desc" style="color:#09376e"> <span v-html="privacy.content"></span> </div>
                     </div>
                 </section>
             </div>

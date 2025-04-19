@@ -6,6 +6,7 @@ import CartAlert from '@/Components/old/CartAlert.vue';
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { computed, onMounted, reactive, ref } from 'vue';
 import useFunctions from '../useFunctions';
+import HeadTags from '@/Components/headTags.vue';
 
 
 onMounted(() => {
@@ -18,6 +19,7 @@ onMounted(() => {
 const page = usePage()
 const props = defineProps({
 data : Object,
+pageMeta: Object
 });
 
 
@@ -79,7 +81,7 @@ console.log(props.data, 'let see what is loaded')
 </script>
 
 <template>
-   
+   <HeadTags :pageMeta="pageMeta" />
     <AppTemplate>     
     <Head>
         <title>Product details</title>

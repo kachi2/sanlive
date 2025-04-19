@@ -4,11 +4,13 @@ import { Link } from '@inertiajs/vue3';
 
 
 const props = defineProps({
-    blogs: Object
+    terms: Object,
+    pageMeta: Object
 })
 </script>
 
 <template>
+     <HeadTags :pageMeta="pageMeta" />
     <AppTemplate>
 
         <template $content>
@@ -22,10 +24,9 @@ const props = defineProps({
     <div class="ps-about__content">
         <section class="ps-about__project">
             <div class="container">
-                {{-- <h2 class="ps-about__title">Your home medical provider now also online</h2> --}}
                 <section class="ps-section">
                     <div class="ps-section__cntent">
-                        <div class="ps-section__desc" style="color:#09376e">    {!! $terms->content !!}</div>
+                        <div class="ps-section__desc" style="color:#09376e"> <span v-html="terms.content"> </span></div>
                     </div>
                 </section>
             </div>

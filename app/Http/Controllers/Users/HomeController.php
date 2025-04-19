@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\CountryCurrency;
 use App\Models\Product;
+use App\Models\Setting;
 use Carbon\Carbon;
 use Vinkla\Hashids\Facades\Hashids;
 
@@ -39,6 +40,7 @@ class HomeController extends Controller
     //   }
     
     
+    $settings = Setting::first();
         $slider = Slider::latest()->get();
         $category = Category::whereHas('products', function($query){
             $query->havingRaw('COUNT(*) > 5');
@@ -56,7 +58,15 @@ class HomeController extends Controller
         return inertia('Dashboard', [
             'sliders' => $slider,
             'category' => $category,
-            'categories' => $categories
+            'categories' => $categories,
+            'pageMeta' => [
+            'url' => url()->current(),
+            'title' => websiteName().' Online Health Store, Medicines, Vitamins',
+            'metaTitle' => websiteName().' Online Health Store, Medicines, Vitamins',
+            'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+            'keywords' => 'online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
+            'image_url' => websiteLogo()
+            ]
         ]);
     }
 }

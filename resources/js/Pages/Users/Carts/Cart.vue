@@ -4,6 +4,7 @@ import { onMounted, reactive,ref } from 'vue';
 import { router,Link } from '@inertiajs/vue3';
 import CartAlert from '@/Components/old/CartAlert.vue';
 import useFunctions from '../useFunctions';
+import HeadTags from '@/Components/headTags.vue';
 
 
 onMounted(() => {
@@ -19,7 +20,8 @@ const props = defineProps({
     latest:Object,
     cartSession:String,
     total:Number,
-    message:String
+    message:String,
+    pageMeta: Object
 
 })
 
@@ -74,7 +76,7 @@ router.get('/delete/'+CartData.id,{
 </script>
 
 <template>
-
+ <HeadTags :pageMeta="pageMeta" />
 <AppTemplate>
     <CartAlert  :message="message" />  
     <template #content>

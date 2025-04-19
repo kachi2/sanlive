@@ -1,4 +1,5 @@
 <template>
+    <HeadTags :pageMeta="pageMeta" />
     <AppTemplate> 
         <template #content>
 <div class="ps-shopping" style="background: #eee; ">
@@ -90,10 +91,12 @@ import AppTemplate from '@/AppTemplate.vue';
 import accountSidebar from '@/Components/accountSidebar.vue';
 import { Link } from '@inertiajs/vue3';
 import useFunctions from '../useFunctions';
+import HeadTags from '@/Components/headTags.vue';
 
 
 const props = defineProps({
-    orders:Object
+    orders:Object,
+    pageMeta: Object
 });
 
 </script>

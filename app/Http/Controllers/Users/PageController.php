@@ -16,24 +16,58 @@ class PageController extends Controller
     public function privacypolicy(){
         $privacypolicy = Privacypolicy::first();
         return  inertia('Users/Pages/privacy',
-        ['policy' => $privacypolicy 
+        ['policy' => $privacypolicy, 
+        'pageMeta' => [
+            'url' => url()->current(),
+            'title' => websiteName().' Online Health Store, Medicines, Vitamins',
+            'metaTitle' => websiteName().' Online Health Store, Medicines, Vitamins',
+            'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+            'keywords' => 'online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
+            'image_url' => websiteLogo()
+            ]
         ]);
     }
 
     public function Terms(){
         $termscondition = TermsCondition::first();
         return  inertia('Users/Pages/terms',
-        ['terms' => $termscondition ]);
+        ['terms' => $termscondition, 
+        'pageMeta' => [
+            'url' => url()->current(),
+            'title' => websiteName().' Online Health Store, Medicines, Vitamins',
+            'metaTitle' => websiteName().' Online Health Store, Medicines, Vitamins',
+            'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+            'keywords' => 'online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
+            'image_url' => websiteLogo()
+            ]
+    ]);
     }
 
     public function aboutUs(){
         return  inertia('Users/Pages/aboutUs',
-        ['aboutUs' => AboutUs::latest()->first()
+        ['aboutUs' => AboutUs::latest()->first(),
+        'pageMeta' => [
+            'url' => url()->current(),
+            'title' => 'About Us | Online Health Store, Medicines, Vitamins',
+            'metaTitle' => websiteName().' Online Health Store, Medicines, Vitamins',
+            'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+            'keywords' => 'online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
+            'image_url' => websiteLogo()
+            ]
     ]);
     }
 
     public function contactUs(){
-        return inertia('Users/Pages/contactUs');
+        return inertia('Users/Pages/contactUs', [
+            'pageMeta' => [
+            'url' => url()->current(),
+            'title' => 'Contact Us | Online Health Store, Medicines, Vitamins',
+            'metaTitle' => websiteName().' Online Health Store, Medicines, Vitamins',
+            'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+            'keywords' => 'online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
+            'image_url' => websiteLogo()
+            ]
+        ]);
     }
 
     public function contactUsSubmit(Request $request)
@@ -46,7 +80,16 @@ class PageController extends Controller
 
     public function viewService()
     {
-        return inertia('Users/Pages/service');
+        return inertia('Users/Pages/service', [
+            'pageMeta' => [
+            'url' => url()->current(),
+            'title' => 'Services |  Online Health Store, Medicines, Vitamins',
+            'metaTitle' => websiteName().' Online Health Store, Medicines, Vitamins',
+            'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+            'keywords' => 'online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
+            'image_url' => websiteLogo()
+            ]
+        ]);
     }
 
 }

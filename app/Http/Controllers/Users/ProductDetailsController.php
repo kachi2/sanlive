@@ -24,20 +24,19 @@ class ProductDetailsController extends Controller
       foreach($data['related']  as $prod){
         $prod->hashid = Hashids::connection('products')->encode($prod->id);
         $prod->productUrl =  Str::slug($prod->name);
+        $keywords[] = Str::slug($prod->name);
       }
       return inertia('Users/Carts/ProductDetails', 
       [
         'data' => $data,
-        'metaTitle' => Str::slug($product->name),
-        'metaTitle' => Str::slug($product->name),
-        'metaDescription' => Str::slug($product->description, ' '),
-        'metaDescription' => Str::slug($product->description, ' '),
-        'ogTitle' => Str::slug($product->name, ' '),
-        'ogDescription' => Str::slug($product->description, ''),
-        'ogImage' => asset('images/products/'.$product->image_path),
-        'twitterTitle' => Str::slug($product->name, ''),
-        'twitterDescription' => Str::slug($product->description, ' '),
-        'twitterImage' => asset('images/products/'.$product->image_path)
+        'pageMeta' => [
+            'url' => url()->current(),
+            'title' => Str::slug($product->name, ' '),
+            'metaTitle' => Str::slug($product->name, ' '),
+            'description' => Str::slug($product->description, ' '),
+            'keywords' => Str::slug($product->name).', online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
+            'image_url' => asset('images/products/'.$product->image_path)
+        ]
       ]);
     }
 }

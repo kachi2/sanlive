@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Blog;
-use App\Models\Category;
-use App\Models\Product;
 use Vinkla\Hashids\Facades\Hashids;
 
 class BlogController extends Controller
@@ -17,7 +14,16 @@ class BlogController extends Controller
         foreach($blogs as $Blog){
             $Blog->hashid = Hashids::connection('products')->encode($Blog->id);
         }
-        return inertia('Users/Pages/blogs', ['blogs' => $blogs]);
+        return inertia('Users/Pages/blogs', ['blogs' => $blogs,    
+            'pageMeta' => [
+            'url' => url()->current(),
+            'title' => 'Blogs',
+            'metaTitle' => $blogs->first()->title,
+            'description' => websiteName().' '.$blogs->first()->title,
+            'keywords' => $blogs->first()->content,
+            'image_url' => websiteLogo()
+            ]
+        ]);
     }
 
     public function Details($id){
@@ -27,9 +33,17 @@ class BlogController extends Controller
         }
         $id = Hashids::connection('products')->decode($id);
         $blogs = Blog::findorfail($id[0]);
-    return inertia('Users/Pages/blogDetails', [
+        return inertia('Users/Pages/blogDetails', [
                 'blogs' => $latest,
-                'blog' => $blogs
+                'blog' => $blogs,
+                'pageMeta' => [
+                    'url' => url()->current(),
+                    'title' => $blogs->title,
+                    'metaTitle' => $blogs->title,
+                    'description' => websiteName().' '.$blogs->title,
+                    'keywords' => $blogs->content,
+                    'image_url' => websiteLogo()
+                    ]
             ]);
 }
 

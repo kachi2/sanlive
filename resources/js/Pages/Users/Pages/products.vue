@@ -2,19 +2,21 @@
 import AppTemplate from '@/AppTemplate.vue';
 import { Link } from '@inertiajs/vue3';
 import useFunctions from '../useFunctions';
+import HeadTags from '@/Components/headTags.vue';
 
 const props = defineProps({
     
     searchterm:String,
     products:Object,
-    categories: Object
+    categories: Object,
+    pageMeta: Object
 })
 
 
 </script>
 
 <template>
-
+ <HeadTags :pageMeta="pageMeta" />
     <AppTemplate>
 
         <template #content>
