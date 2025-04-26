@@ -115,7 +115,7 @@
                                               @endif
                                             </tbody>
                                         </table>
-                                        <p> @if(count($products) > 0) {{$products->links()}} @endif </p>
+                                        {{-- <p> @if(count($products) > 0) {{$products->links()}} @endif </p> --}}
                                     </div>
                                 </div>
                                 
