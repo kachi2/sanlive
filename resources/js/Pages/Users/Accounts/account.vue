@@ -3,7 +3,6 @@
 <AppTemplate>
 
     <template #content>
-
  <div class="ps-shopping" style="background: #eee; ">
     <div class="container">
         <div class="ps-shopping__content">
@@ -98,14 +97,8 @@
     </div>
 </div>
 <div style="height: 2em; background:#eee"></div>
-
-
-
     </template>
-
-
 </AppTemplate>
-
 </template>
 
 <script setup>

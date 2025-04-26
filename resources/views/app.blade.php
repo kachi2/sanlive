@@ -6,7 +6,7 @@
         <title inertia></title>
         <link href="https://fonts.googleapis.com/css?family=Jost:400,500,600,700&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.gstatic.com/">
-        <link href="" rel="shortcut icon" type="image/png">
+        <link href="{{ asset('images/'.$settings->fav)}}" rel="shortcut icon" type="image/png">
         <link rel="stylesheet" href="{{asset('/frontend/plugins/font-awesome/css/font-awesome.min.css')}}">
         <link rel="stylesheet" href="{{asset('/frontend/fonts/Linearicons/Font/demo-files/demo.css')}}">
         <link rel="preconnect" href="https://fonts.gstatic.com/">
