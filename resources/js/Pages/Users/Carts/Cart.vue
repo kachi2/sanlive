@@ -195,11 +195,14 @@ router.get('/delete/'+CartData.id,{
                               
                                 </div>
                                 <span class="download-note"> 
-                                    <span >  <Link  class=" btn btn-lg"  :href="`/products/${products?.hashid}/${products?.productUrl}`"  style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; width:100px="> <i class="fa fa-plus"> </i> Add to basket</Link>  
+                                    <span >  
+                                    <Link  class=" btn btn-lg"  :href="`/products/${products.hashid}/${products.productUrl}`"  style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; display: inline;"> <i class="fa fa-plus"> </i> Add to basket</Link>  
                                     
-                                    <a target="_blank" rel="noopener noreferrer" href="https://wa.me/+2348058885913?text=Please i need , the  price on your website is  ">
-                                                           <i class="fa fa-whatsapp" aria-hidden="true" style="font-size:23px;  padding-left:15px; color:#73c2fb; float:right "> 
-                                        </i></a>
+                                    <a target="_blank" rel="noopener noreferrer" :href="`https://wa.me/+2348058885913?text=Please i need  to order this product ${products.name} the price is: ${useFunctions.addSeperator(products.sale_price)  } `">
+                                                           <!-- <i class="fa fa-whatsapp" aria-hidden="true" style="font-size:23px;  padding-left:15px; color:#73c2fb; float:right "> 
+                                        </i> -->
+                                        <img src="/frontend/whatsapp.png" style="width: 80px;  float:right;padding: 0px;"> 
+                                    </a>
                                   </span> 
                                 </span> 
                             </div>

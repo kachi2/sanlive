@@ -56,8 +56,8 @@ const props = defineProps({
                     </div>
                     <div class="ps-categogy--grid">
                         <div class="row m-0">
-                            <div  v-if="products.length > 0" v-for="prods in products" class="col-6 col-lg-4 col-xl-3">
-                                <div class="ps-product ps-product--standard">
+                            <div  v-if="products.length > 0" v-for="prods in products" class="col-6 col-lg-4  col-md-4 col-xl-4">
+                                <div class="ps-product ps-product--standard pb-3">
                                     <div class="ps-product__thumbnail"><Link class="ps-product__image" :href="`/products/${prods.hashid}/${prods.productUrl}`">
                                                    <figure><img :src="`/images/products/${prods.image_path}`":alt="prods.name" /><img :src="`/images/products/${prods.image_path}`" :alt="prods.name" /> 
                                             </figure>
@@ -74,11 +74,13 @@ const props = defineProps({
                                         </div>
                                     </div>
                                       <Link :href="`/products/${prods.hashid}/${prods.productUrl}`"
-                                                        class="btn  btn-lg" style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; width:100px"> Add to
-                                                    Cart <i class="fa fa-shopping-basket"></i></Link>
-                                                       <Link target="_blank" rel="noopener noreferrer" :href="`https://wa.me/+2348058885913?text=Please i need ${prods.name }, the  price on your website is ${prods.sale_price}} `">
-                                                             <i class="fa fa-whatsapp" aria-hidden="true" style="font-size:20px; padding:10px; color:#73c2fb "> 
-                                                             </i></Link> 
+                                            class="btn  btn-lg" style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; width:100px"> Add to
+                                        Cart <i class="fa fa-shopping-basket"></i></Link>
+                                            <Link target="_blank" rel="noopener noreferrer" :href="`https://wa.me/+2348058885913?text=Please i need ${prods.name }, the  price on your website is ${prods.sale_price}} `">
+                                                  <!-- <span  style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; width:80px" class="btn" > Order Via   <i class="fa fa-whatsapp" aria-hidden="true" style="font-size:10px; padding:10px; color:#73c2fb "> 
+                                                </i> </span> -->
+                                                  &nbsp;  &nbsp;  <img src="/frontend/whatsapp.png" style="width: 90px;padding: 0px;"> 
+                                                </Link> 
                                                  
                                 </div>
                             </div> 

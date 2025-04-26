@@ -3,9 +3,9 @@
 <div class="container" >
     <div class="ps-footer__middle" >
         <div class="row">
-            <div class="col-12 col-md-5">
+            <div class="col-12 col-md-7">
                 <div class="row">
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-6">
                         <div class="ps-footer--address">
                             <div class="ps-logo"><Link href="">  <img :src="`/images/${page.props.settings?.site_logo}`"  alt="">
                                 <img class="logo-white":src="`/images/${page.props.settings?.site_logo}`"   style="border-radius: 5px" alt="">
@@ -13,6 +13,7 @@
                                 <img class="logo-white-all" :src="`/images/${page.props.settings?.site_logo}`"   style="border-radius: 5px" alt="">
                                 <img class="logo-green" :src="`/images/${page.props.settings?.site_logo}`" style="border-radius: 5px"  alt="" >
                             </Link></div>
+                            <p>{{ page.props.settings?.title }}</p>
                         
                             <p >Follow Us</p>
                             <ul class="ps-social">
@@ -23,18 +24,16 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-12 col-md-8">
+                    <div class="col-12 col-md-6">
                         <div class="ps-footer--contact">
                             <h5 class="ps-footer__title">Need help</h5>
                             <div class="ps-footer__work" style="color:#fff" ><i class="icon-telephone"></i> {{page.props.settings?.site_phone}}</div>
-                            <p class="ps-footer__work" style="color:#fff"> {{page.props.settings?.site_email}}</p>
-                        
-                  
+                            <p class="ps-footer__work" style="color:#fff"> <i class="icon-envelope-open"></i>  {{page.props.settings?.site_email}}</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-7">
+            <div class="col-12 col-md-5">
                 <div class="row">
                     <div class="col-6 col-md-4">
                         <div class="ps-footer--block">
