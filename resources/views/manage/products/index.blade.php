@@ -117,8 +117,9 @@
                                         </table>
                                     
                                     </div>
-                                    <p> @if(count($products) > 0) {{$products->links()}} @endif </p>
+                                   
                                 </div>
+                                @if(count($products) > 0) {{$products->link()}} @endif
                                 
                             </div>
                         </div>
