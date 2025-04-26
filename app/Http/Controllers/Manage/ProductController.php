@@ -32,7 +32,7 @@ class ProductController extends Controller
     }
     public function index()
     {
-        $product = Product::latest()->get();
+        $product = Product::latest()->paginate(20);
         addHashId($product);
         return view('manage.products.index')
             ->with('products', $product)
