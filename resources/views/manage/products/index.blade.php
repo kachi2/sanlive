@@ -107,7 +107,7 @@
                                                 </td>
                                             </tr>
                                               @endforeach
-                                              <p> {{$products->links()}} </p>
+                                           
                                               @else 
                                               <tr>
                                               <td> No data available </td>
@@ -115,6 +115,7 @@
                                               @endif
                                             </tbody>
                                         </table>
+                                        <p> @if(count($products) > 0) {{$products->links()}} @endif </p>
                                     </div>
                                 </div>
                                 
