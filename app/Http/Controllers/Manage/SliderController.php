@@ -33,7 +33,7 @@ class SliderController extends Controller
             'image' => 'required',
         ]);
 
-       dd(request()->file('images'));
+    //    dd(request()->file('images'));
           $fileName = '';
         if($request->file('image')){
            $image = $request->file('image');
