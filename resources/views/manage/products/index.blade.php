@@ -119,7 +119,7 @@
                                     </div>
                                    
                                 </div>
-                                @if(count($products) > 0) {{$products->link()}} @endif
+                                @if(count($products) > 0) {{$products->links()}} @endif
                                 
                             </div>
                         </div>
