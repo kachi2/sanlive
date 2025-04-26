@@ -71,7 +71,7 @@ class CategoryController extends Controller
         }
 
         if ($request->file('image')) {
-            $fileName = $this->UploadImage($request, 'images/category/', 400,400);
+            $fileName = $this->UploadImage($request, 'images/category/');
         }
         //  dd($fileName);
         $data = [
@@ -142,7 +142,7 @@ class CategoryController extends Controller
         $category->markup = $request->markup;
         $category->inflated = $request->inflated;
         if($request->file('image')){
-            $category->image_path = $this->UploadImage($request, 'images/category/',400, 400);
+            $category->image_path = $this->UploadImage($request, 'images/category/');
         }else{
             $category->image_path =  $category->image;  
         }
