@@ -1,12 +1,15 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/old/InputError.vue';
-import InputLabel from '@/Components/old/InputLabel.vue';
-import PrimaryButton from '@/Components/old/PrimaryButton.vue';
-import TextInput from '@/Components/old/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import HeadTags from '@/Components/headTags.vue';
+import {Link, useForm, usePage} from '@inertiajs/vue3'
+
+defineProps({
+    pageMeta: Object
+})
+const page = usePage()
 
 const form = useForm({
+    first_name: '',
+    last_name: '',
     name: '',
     email: '',
     password: '',
@@ -19,85 +22,71 @@ const submit = () => {
     });
 };
 </script>
-
 <template>
-    <GuestLayout>
-        <Head title="Register" />
-
+    <HeadTags :pageMeta="pageMeta" />
+    <div class="container">
+        <div style="text-align:center; padding:10px">
+            <img class="logo" :src="`/images/${page.props.settings.site_logo}`" alt="" width="200px">
+        </div>
+    
+        <h4 style="text-align:center">Register</h4>
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Name" />
-
-                <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.name"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
-
-                <InputError class="mt-2" :message="form.errors.name" />
+            <div class="form-group">
+                <input type="text" name="first_name" v-model="form.first_name" class="form-control" :class="{'is-invalid':form.errors.first_name}" placeholder="Enter First Name" required="" autofocus="" autocomplete="">
+                <span class="badge bg-danger"> {{form.errors.firs_name}} </span>
             </div>
-
-            <div class="mt-4">
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
+            <div class="form-group">
+                <input type="text" name="last_name" v-model="form.last_name" class="form-control" :class="{'is-invalid':form.errors.last_name}" placeholder="Enter last name" required="" autofocus="" autocomplete="">
+                <span class="badge bg-danger"> {{form.errors.last_name}} </span>
             </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
+            <div class="form-group">
+                <input type="text" name="email" v-model="form.email" class="form-control" :class="{'is-invalid':form.errors.email}" placeholder="Email" required="" autofocus="" autocomplete="">
+                <span class="badge bg-danger"> {{form.errors.email}} </span>
             </div>
+            <div class="form-group">
+                <input type="password" name="password" v-model="form.password" class="form-control "   :class="{'is-invalid':form.errors.password}" id="password" placeholder="Password" required="" autocomplete="off">
 
-            <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
-
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
             </div>
+            <div class="form-group">
+                <input type="password" name="password_confirmation" v-model="form.password_confirmation" class="form-control "   :class="{'is-invalid':form.errors.password_confirmation}" id="password" placeholder="Password confirmation" required="" autocomplete="off">
 
-            <div class="flex items-center justify-end mt-4">
-                <Link
-                    :href="route('login')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    Already registered?
-                </Link>
-
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
-                </PrimaryButton>
             </div>
+            <button class="btn btn-primary btn-block" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">Sign in</button>
+            
+      
+            <p class="text-muted m-4">Already have an account?
+            <a href="/login" class="">Login now!</a>
+        </p>
         </form>
-    </GuestLayout>
-</template>
+    
+</div>
+    </template>
+    
+    
+    <style >
+
+body{
+    background:#eee;
+    width:100%;
+    height:100%;
+}
+.container{
+    margin:100px auto;
+    width:500px;
+    background:#fff;
+    position:relative;
+    border-radius:10px;
+    padding:50px;
+}
+.container input{
+    border-radius:10px;
+}
+
+.container button{
+    width:100%;
+    border-radius:10px;
+    height:40px
+
+}
+    
+    </style>

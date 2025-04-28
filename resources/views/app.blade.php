@@ -29,6 +29,24 @@
         @inertiaHead
     </head>
 
+    <meta name="p:domain_verify" content="41e4054dd47a348a28e771a36e9e5092"/>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MSKX7LHR');</script>
+        <!-- End Google Tag Manager -->
+    
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0EBDQSBKBC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-0EBDQSBKBC');
+    </script>
+
   <body>
         @inertia
     <script src="{{asset('/frontend/plugins/jquery.min.js')}}"></script>
@@ -41,5 +59,36 @@
     <script src="{{asset('/frontend/plugins/slick/slick/slick.min.js')}}"></script>
     <script src="{{asset('/frontend/plugins/noUiSlider/nouislider.min.js')}}"></script>
     <script src="{{asset('/frontend/js/main.js')}}"></script>
+
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MSKX7LHR');</script>
+        <!-- End Google Tag Manager -->
+    
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0EBDQSBKBC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-0EBDQSBKBC');
+    </script>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MSKX7LHR"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+        <script type="text/javascript">
+            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+            (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/6575ebf907843602b800450a/default';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+            })();
+            </script>
     </body>
 </html>

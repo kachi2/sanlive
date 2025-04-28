@@ -22,19 +22,26 @@ class AuthenticatedSessionController extends Controller
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
+            'pageMeta' => [
+                'url' => url()->current(),
+                'title' => 'Login',
+                'metaTitle' => 'Buy medical products, order fast, get fast delivery ',
+                'description' => websiteName().' Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+                'image_url' => websiteLogo()
+                ]
         ]);
     }
 
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request)
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return Inertia::location('/');
     }
 
     /**

@@ -24,6 +24,13 @@ class NewPasswordController extends Controller
         return Inertia::render('Auth/ResetPassword', [
             'email' => $request->email,
             'token' => $request->route('token'),
+            'pageMeta' => [
+                'url' => url()->current(),
+                'title' => 'Reset Password',
+                'metaTitle' => 'Buy medical products, order fast, get fast delivery ',
+                'description' => websiteName().' Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+                'image_url' => websiteLogo()
+                ]
         ]);
     }
 

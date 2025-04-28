@@ -1,61 +1,79 @@
-<script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/old/InputError.vue';
-import InputLabel from '@/Components/old/InputLabel.vue';
-import PrimaryButton from '@/Components/old/PrimaryButton.vue';
-import TextInput from '@/Components/old/TextInput.vue';
-import { Head, useForm } from '@inertiajs/vue3';
-
-defineProps({
-    status: {
-        type: String,
-    },
-});
-
-const form = useForm({
-    email: '',
-});
-
-const submit = () => {
-    form.post(route('password.email'));
-};
-</script>
-
 <template>
-    <GuestLayout>
-        <Head title="Forgot Password" />
-
-        <div class="mb-4 text-sm text-gray-600">
+    <div class="container">
+        <div style="text-align:center; padding:10px">
+            <img class="logo" :src="`/images/${page.props.settings.site_logo}`" alt="" width="200px">
+        </div>
+    
+        <h4 style="text-align:center"> Forgot Passord</h4>
+        <p>
             Forgot your password? No problem. Just let us know your email address and we will email you a password reset
             link that will allow you to choose a new one.
-        </div>
-
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+        </p>
+        <div v-if="status" class="badge bg-info">
             {{ status }}
         </div>
-
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
+            <div class="form-group">
+                <label style="float:left" for="password"> Email</label>
+                <input type="text" name="email" v-model="form.email" class="form-control" :class="{'is-invalid':form.errors.email}" placeholder="Email" required="" autofocus="" autocomplete="">
+                <span class="badge bg-danger"> {{form.errors.email}} </span>
             </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+            <button class="btn btn-primary" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Email Password Reset Link
-                </PrimaryButton>
-            </div>
+            </button>
         </form>
-    </GuestLayout>
-</template>
+    
+</div>
+    </template>
+    
+    
+    <style >
+
+body{
+    background:#eee;
+    width:100%;
+    height:100%;
+}
+.container{
+    margin:100px auto;
+    width:500px;
+    background:#fff;
+    position:relative;
+    border-radius:10px;
+    padding:50px;
+}
+.container input{
+    border-radius:10px;
+}
+
+.container button{
+    width:100%;
+    border-radius:10px;
+    height:40px
+
+}
+    
+    </style>
+    
+    <script setup>
+    import { useForm, usePage } from '@inertiajs/vue3';
+    
+    const page = usePage()
+ 
+    defineProps({
+        status: {
+            type: String,
+        },
+        pageMeta: Object
+    });
+    
+    const form = useForm({
+        email: '',
+    });
+    
+    const submit = () => {
+        form.post(route('password.email'));
+    };
+    </script>
+    
+

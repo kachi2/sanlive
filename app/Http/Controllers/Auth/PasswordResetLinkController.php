@@ -19,6 +19,13 @@ class PasswordResetLinkController extends Controller
     {
         return Inertia::render('Auth/ForgotPassword', [
             'status' => session('status'),
+            'pageMeta' => [
+                'url' => url()->current(),
+                'title' => 'Forgot Password',
+                'metaTitle' => 'Buy medical products, order fast, get fast delivery ',
+                'description' => websiteName().' Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+                'image_url' => websiteLogo()
+                ]
         ]);
     }
 

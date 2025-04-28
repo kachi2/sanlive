@@ -80,8 +80,7 @@ const props = defineProps({
                                                   <!-- <span  style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; width:80px" class="btn" > Order Via   <i class="fa fa-whatsapp" aria-hidden="true" style="font-size:10px; padding:10px; color:#73c2fb "> 
                                                 </i> </span> -->
                                                   &nbsp;  &nbsp;  <img src="/frontend/whatsapp.png" style="width: 90px;padding: 0px;"> 
-                                                </Link> 
-                                                 
+                                                </Link>   
                                 </div>
                             </div> 
                             <div v-else class="ps-delivery ps-delivery--info" >

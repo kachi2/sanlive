@@ -1,4 +1,5 @@
 <template>
+    <HeadTags :pageMeta="pageMeta" />
     <div class="container">
         <div style="text-align:center; padding:10px">
             <img class="logo" :src="`/images/${page.props.settings.site_logo}`" alt="" width="200px">
@@ -7,12 +8,10 @@
         <h4 style="text-align:center">Sign in</h4>
         <form @submit.prevent="submit">
             <div class="form-group">
-                <label style="float:left" for="password"> Email</label>
-                <input type="text" name="email" v-model="form.email" class="form-control" :class="{'is-invalid':form.errors.email}" placeholder="Username or email" required="" autofocus="" autocomplete="">
+                <input type="text" name="email" v-model="form.email" class="form-control" :class="{'is-invalid':form.errors.email}" placeholder="Email" required="" autofocus="" autocomplete="">
                 <span class="badge bg-danger"> {{form.errors.email}} </span>
             </div>
             <div class="form-group">
-                <label style="float:left" for="password"> Password</label>
                 <input type="password" name="password" v-model="form.password" class="form-control "   :class="{'is-invalid':form.errors.password}" id="password" placeholder="Password" required="" autocomplete="off">
 
             </div>
@@ -22,17 +21,17 @@
                     <label class="custom-control-label" for="customCheck1">Remember me</label>
                 </div>
                 <Link
-                    v-if="canResetPassword"
                     :href="route('password.request')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    class=" underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     Forgot your password?
                 </Link>
             </div>
             <button class="btn btn-primary btn-block" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">Sign in</button>
-            <hr>
+            
       
-            <p class="text-muted">Don't have an account?</p>
-            <a href="" class="">Register now!</a>
+            <p class="text-muted m-4">Don't have an account?
+            <a href="/register" class="">Register now!</a>
+        </p>
         </form>
     
 </div>
@@ -68,8 +67,12 @@ body{
     </style>
     
     <script setup>
-    import {useForm, usePage} from '@inertiajs/vue3'
+    import HeadTags from '@/Components/headTags.vue';
+import {Link, useForm, usePage} from '@inertiajs/vue3'
 
+defineProps({
+    pageMeta: Object
+})
     const page = usePage()
 
     const form = useForm({

@@ -8,6 +8,7 @@ const props = defineProps({
     status: {
         type: String,
     },
+    pageMeta: Object
 });
 
 const form = useForm({});

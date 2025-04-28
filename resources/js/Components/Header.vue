@@ -33,10 +33,10 @@
                     <li><Link class="ps-header__item" href="/carts/index" id="cart-mini"><i class="icon-cart-empty"></i> <span class="badge cartReload" >{{page.props.cartItem}}</span></Link></li>
                 </ul>
                 <div class="ps-header__search">
-                    <form action="" method="get">
+                    <form action="" @submit.prevent="searchProducts">
                         <div class="ps-search-table">
                             <div class="input-group">
-                                <input class="form-control ps-input" type="text"  name="q" placeholder="Search for anti-malaria, antibiotics, asthma, cough and cold,  eyes drops, fitness and vitality etc..">
+                                <input class="form-control ps-input" type="text"  name="q" v-model="form.q" placeholder="Search for anti-malaria, antibiotics, asthma, cough and cold,  eyes drops, fitness and vitality etc..">
                                 <div class="input-group-append"><button type="submit" style="border:none; background:none"><i class="fa fa-search"></i></button></div>
                             </div>
                         </div>
@@ -52,10 +52,25 @@
 
 <script setup="">
 import TopNav from "./TopNav.vue"
-import { usePage, Link } from "@inertiajs/vue3";
+import { usePage, Link, useForm } from "@inertiajs/vue3";
 
 const page = usePage()
 
+const queryParam = new URLSearchParams(page.url?.split('?')[1] ?? '')
+
+
+const form = useForm({
+    q: queryParam.get('query')??''
+})
+
+function searchProducts(query)
+{
+
+    form.get('/catalogs', {
+    })
+
+
+}
 
 
 </script>

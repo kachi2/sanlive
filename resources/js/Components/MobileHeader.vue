@@ -17,14 +17,14 @@
                         <a href="#" style="display:none" id="close-menu"><i class="icon-cross"></i></a>
                         </div>
                 </ul>
-            </div>
+            </div> 
         </div>
     </div>
         <div class="ps-search__content ps-search--mobile" style="padding: 15px">
-            <form action="" method="get">
+            <form action="" @submit.prevent="searchProducts">
                         <div class="ps-search-table">
                             <div class="input-group">
-                                <input class="form-control ps-input" type="text"  name="q" placeholder="Search for anti-malaria, antibiotics, asthma, cough and cold,  eyes drops, fitness and vitality etc..">
+                                <input class="form-control ps-input" type="text"  name="q" v-model="form.q" placeholder="Search for anti-malaria, antibiotics, asthma, cough and cold,  eyes drops, fitness and vitality etc..">
                                 <div class="input-group-append"><button type="submit" style="border:none; background:none"><i class="fa fa-search"></i></button></div>
                             </div>
                         </div>
@@ -35,9 +35,26 @@
 </header>
 </template>
 
-<script setup>
-import { usePage } from '@inertiajs/vue3';
+<script setup="">
+import { usePage, Link, useForm } from "@inertiajs/vue3";
 
 const page = usePage()
+
+const queryParam = new URLSearchParams(page.url?.split('?')[1] ?? '')
+
+
+const form = useForm({
+    q: queryParam.get('q')??''
+})
+
+function searchProducts(query)
+{
+
+    form.get('/catalogs', {
+    })
+
+
+}
+
 
 </script>

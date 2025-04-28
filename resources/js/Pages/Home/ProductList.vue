@@ -14,7 +14,7 @@ const props = defineProps({
  <section class="ps-section--featured">
 <div class="container">
         <div class="ps-noti p-2" style="border-radius:5px">
-            <p class="ml-2" style="color:#fff; font-weight:bold; text-align:left"> {{ products.name }} </p>
+            <Link class="ps-category__image" :href="`/catalogs/${products.hashid}`">     <p class="ml-2" style="color:#fff; font-weight:bold; text-align:left"> {{ products.name }} </p> </Link>
          </div>
         <div class="ps-section__content">
         <div class="row m-0">

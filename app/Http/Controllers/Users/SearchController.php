@@ -23,7 +23,7 @@ class SearchController extends Controller
             $cat = Category::findOrFail(decodeHashid($id));
         }
         if(isset($request->q)){
-            $products = Product::where('name', 'LIKE', "%$request->q%")->orWhere('description', 'LIKE', "%$request->q%")->simplePaginate(18);
+            $products = Product::where('name', 'LIKE', "%$request->q%")->get();
             $searchterm = "Showing Results for ".$request->q;
             addHashId($products);
             $keywords[] =  $products->pluck('name')->implode(',');
