@@ -16,7 +16,17 @@ onMounted(() => {
     });
 
     $('.category-carousel').owlCarousel({
-      items: 6,
+      responsive: {
+    0: {
+      items: 2 // 0px to 599px screen width — show 2 items
+    },
+    600: {
+      items: 4 // 600px to 999px screen width — show 4 items
+    },
+    1000: {
+      items: 6 // 1000px and up — show 6 items
+    }
+  },
       loop: true,
       autoplay: true
     });

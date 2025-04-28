@@ -1,7 +1,7 @@
 <template>
-    <div class="ps-menu--slidebar">
+    <div class="ps-menu--slidebar" :class="['ps-menu--slidebar', { 'active': isMenuOpen }]">
     <div class="ps-menu__content">
-        <ul class="menu--mobile">
+        <ul class="menu--mobile"> 
             <div class="pb-5">
             <img :src="`/images/${page.props.settings?.site_logo}`"  style="width: 160px" alt="sanlive pharmacy">
         </div>

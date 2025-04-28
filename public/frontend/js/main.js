@@ -350,7 +350,7 @@
             current.toggleClass('active');
         });
 
-        $('#open-menu').on('click', function(e) {
+        $('#open-menu').on('click', function(e) { 
             e.preventDefault();
             $('.ps-menu--slidebar').addClass('active');
             $('#close-menu').show();

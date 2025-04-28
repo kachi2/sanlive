@@ -11,7 +11,17 @@ import HeadTags from '@/Components/headTags.vue';
 
 onMounted(() => {
     $('.owl-carousel').owlCarousel({
-        items: 5,
+        responsive: {
+    0: {
+      items: 1 
+    },
+    600: {
+      items: 4 
+    },
+    1000: {
+      items: 6 
+    }
+}
     });
   });
 
@@ -153,13 +163,16 @@ console.log(props.data, 'let see what is loaded')
                                         <div class="d-md-flex align-items-center">
                                             <div class="def-number-input number-input safari_only">
                                             </div>
+                                            <br/>
+                                            
                                             <button v-if="!isLoading"  style="border-radius:5px" class="ps-btn ps-btn--primary w-50"  id="add2cart"> 
                                                 Add to Cart
                                         </button>
-
                                         <button v-else="!isLoading"  style="border-radius:5px" class="ps-btn ps-btn--primary w-50"  id="add2cart"> 
                                               Please wait...
                                         </button>
+                                        <br/>
+                                        <br/>
                                             <span class="p-2"></span>
                                           <a target="_blank" class="btn btn-primary" rel="noopener noreferrer"
                                              :href="`https://wa.me/+2348058885913?text=Please i need ${product.name}, the  price on your website is ${product.sale_price} `">
@@ -208,7 +221,7 @@ console.log(props.data, 'let see what is loaded')
                 <p class="ml-2" style="color:#fff; font-weight:bold; text-align:left"> Related Products </p>
                 </div>
             <div class="ps-section__carousel">
-            <div class="owl-carousel" data-owl-auto="false" data-owl-loop="true" data-owl-speed="13000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="5" data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="5" data-owl-item-xl="5" data-owl-duration="1000" data-owl-mousedrag="on">
+            <div class="owl-carousel" data-owl-auto="false" data-owl-loop="true" data-owl-speed="13000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="5" data-owl-item-xl="5" data-owl-duration="1000" data-owl-mousedrag="on">
             <div v-for=" products in data.related " > 
                      <div class="ps-section__product shadow-sm"  >
                         <div class="ps-product ps-product--standard cart-card  border-gray-800 " style="background-color:#fff">
