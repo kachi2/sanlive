@@ -9,7 +9,17 @@ import HeadTags from '@/Components/headTags.vue';
 
 onMounted(() => {
     $('.owl-carousel').owlCarousel({
-        items: 5,
+        responsive: {
+    0: {
+      items: 2
+    },
+    600: {
+      items: 3 
+    },
+    1000: {
+      items: 4
+    }
+}
     });
   });
 
