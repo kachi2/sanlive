@@ -31,7 +31,7 @@ class contactUs extends Mailable
     {
         return new Envelope(
             subject: 'New Contact Form Submitted',
-            from: new Address('support@sanlivepharmacy.com', 'Sanlive Support')
+            from: new Address('support@sanlivepharmacy.com', 'Sanlive Pharmacy Support')
         );
     }
 

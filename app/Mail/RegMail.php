@@ -32,7 +32,7 @@ class RegMail extends Mailable
     {
         return new Envelope(
             subject: 'User Registeration Details',
-            from: new Address('superadmin@livehealthepharma.com', 'Livehealth Support')
+            from: new Address('support@sanlivepharmacy.com', 'Sanlive Pharmacy Support')
         );
     }
 

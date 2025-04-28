@@ -35,7 +35,7 @@ class OrderMail extends Mailable
     {
         return new Envelope(
             subject: 'Order Mail',
-            from: new Address('superadmin@livehealthepharma.com', 'Sanlive Pharmacy Support')
+            from: new Address('support@sanlivepharmacy.com', 'Sanlive Pharmacy Support')
         );
     }
 
