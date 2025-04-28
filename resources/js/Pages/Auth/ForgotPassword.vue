@@ -1,4 +1,5 @@
 <template>
+      <HeadTags :pageMeta="pageMeta" />
     <div class="container">
         <div style="text-align:center; padding:10px">
             <img class="logo" :src="`/images/${page.props.settings.site_logo}`" alt="" width="200px">
@@ -56,7 +57,8 @@ body{
     </style>
     
     <script setup>
-    import { useForm, usePage } from '@inertiajs/vue3';
+    import HeadTags from '@/Components/headTags.vue';
+import { useForm, usePage } from '@inertiajs/vue3';
     
     const page = usePage()
  
