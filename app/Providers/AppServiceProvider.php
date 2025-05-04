@@ -34,7 +34,8 @@ class AppServiceProvider extends ServiceProvider
     {
         view::composer('*', function($view) {
             $view->with('settings', Setting::latest()->first());
-            $view->with('categories', Category::inRandomOrder()->get());
+            $categories =  Category::inRandomOrder()->get();
+            $view->with('categories',$categories);
             $view->with('site_menu', Menu::get());
             $view->with('advert_top', Advert::where('placement', 'top')->first());
             $view->with('unread_notify', AdminNotification::latest()->get());

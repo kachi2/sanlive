@@ -103,7 +103,7 @@ const props = defineProps({
                             <div class="ps-widget__content ps-widget__category">
                                 <ul class="menu--mobile">
                                     <li v-for="cat in categories">
-                                        <Link :href="`/catalogs/${cat.hashid}`" style="font-size: 14px">{{cat.name}}</Link><span class="sub-toggle"><i class="fa fa-chevron-down"></i></span>
+                                        <Link :href="`/catalogs/${cat.productUrl}-${cat.hashid}`" style="font-size: 14px">{{cat.name}}</Link><span class="sub-toggle"><i class="fa fa-chevron-down"></i></span>
                                         <ul class="sub-menu">
                                             <li v-for="prod in cat.products">
                                                 <Link :href="`/products/${products.productUrl}-${products.hashid}`">{{prod.name}}</Link>

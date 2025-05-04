@@ -20,6 +20,8 @@ class SearchController extends Controller
 
         $searchterm = '';
         if(isset($id)){
+            $id = explode('-',$id);
+            $id = array_pop($id);
             $cat = Category::findOrFail(decodeHashid($id));
         }
         if(isset($request->q)){
@@ -40,6 +42,7 @@ class SearchController extends Controller
         $categories = Category::latest()->get();
         foreach($categories as $cats){
             addHashId($cats->products);
+            addHashId($categories);
         }
         $keywords = implode(',', $keywords);
 

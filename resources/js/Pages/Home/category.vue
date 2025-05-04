@@ -21,7 +21,7 @@ const props = defineProps({'categories':Object})
                           <div class="ps-section__carousel">
                             <div class="owl-carousel category-carousel" data-owl-auto="true" data-owl-loop="true" data-owl-speed="100" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="5" data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="5" data-owl-item-xl="5" data-owl-duration="1000" data-owl-mousedrag="on">
                               <div v-for="category in categories">
-                              <div class="ps-category__thumbnail"> <Link class="ps-category__image" :href="`/catalogs/${category.hashid}`"><img :src="`/images/category/${category.image_path}`" :alt="category.name"></Link> </div>
+                              <div class="ps-category__thumbnail"> <Link class="ps-category__image" :href="`/catalogs/${category.productUrl}-${category.hashid}`"><img :src="`/images/category/${category.image_path}`" :alt="category.name"></Link> </div>
                             </div>
                             </div>
                         </div>

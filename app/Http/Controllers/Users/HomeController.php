@@ -40,6 +40,7 @@ class HomeController extends Controller
     //   }
     
     
+
         $slider = Slider::latest()->get();
         $category = Category::whereHas('products', function($query){
             $query->havingRaw('COUNT(*) > 5');

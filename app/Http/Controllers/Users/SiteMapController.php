@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\Category;
 use Spatie\Sitemap\Tags\Url;
 use App\Models\Product;
 use Spatie\Sitemap\Sitemap;
@@ -45,6 +46,18 @@ class SiteMapController extends Controller
                     ->setPriority(0.8)
             );
         }
+        $categories = Category::all();
+        addHashId($categories);
+        
+        foreach($categories as $category)
+        {
+            $sitemap->add(Url::create("catalogs/$category->productUrl-$category->hashid")
+            ->setLastModificationDate($category->updated_at)
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+            ->setPriority(0.8));
+    }
+
+
         $Product = Product::all();
         addHashId($Product);
         foreach ($Product as $product) {

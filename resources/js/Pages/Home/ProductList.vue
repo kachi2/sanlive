@@ -7,13 +7,14 @@ const props = defineProps({
     'products': Object
 })
 
+
 </script>
 
 <template>
  <section class="ps-section--featured">
 <div class="container">
         <div class="ps-noti p-2" style="border-radius:5px">
-            <Link class="ps-category__image" :href="`/catalogs/${products.slug}`">     <p class="ml-2" style="color:#fff; font-weight:bold; text-align:left"> {{ products.name }} </p> </Link>
+            <Link class="ps-category__image" :href="`/catalogs/${products.productUrl}-${products.hashid}`">     <p class="ml-2" style="color:#fff; font-weight:bold; text-align:left"> {{ products.name }} </p> </Link>
          </div>
         <div class="ps-section__content">
         <div class="row m-0">
