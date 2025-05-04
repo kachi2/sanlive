@@ -8,6 +8,7 @@
     <meta property="og:description" :content="pageMeta.description" />
     <meta property="og:image" :content="pageMeta.image_url" />
     <meta property="og:url" :content="pageMeta.url" />
+    <link rel="canonical" :href="pageMeta.url" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" :content="pageMeta.metaTitle" />
     <meta name="twitter:description" :content="pageMeta.description" />
