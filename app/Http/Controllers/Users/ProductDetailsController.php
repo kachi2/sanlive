@@ -12,6 +12,8 @@ class ProductDetailsController extends Controller
 {
     public function __invoke($id)
     {
+      $id = explode('-',$id);
+      $id = array_pop($id);
       $ss =   Hashids::connection('products')->decode($id);
       $product = Product::findorfail($ss[0]);
       $data['related'] = Product::where('category_id', $product->category->id)->take(10)->get();

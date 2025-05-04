@@ -58,7 +58,7 @@ const props = defineProps({
                         <div class="row m-0">
                             <div  v-if="products.length > 0" v-for="prods in products" class="col-6 col-lg-4  col-md-4 col-xl-4">
                                 <div class="ps-product ps-product--standard pb-3">
-                                    <div class="ps-product__thumbnail"><Link class="ps-product__image" :href="`/products/${prods.hashid}/${prods.productUrl}`">
+                                    <div class="ps-product__thumbnail"><Link class="ps-product__image" :href="`/products/${prods.productUrl}-${prods.hashid}`">
                                                    <figure><img :src="`/images/products/${prods.image_path}`":alt="prods.name" /><img :src="`/images/products/${prods.image_path}`" :alt="prods.name" /> 
                                             </figure>
                                         </Link>
@@ -67,13 +67,13 @@ const props = defineProps({
                                         </div> -->
                                     </div>
                                     <div class="ps-product__content">
-                                        <h5 class="ps-product__tite"><Link :href="`/products/${prods.hashid}/${prods.productUrl}`"> {{ prods.name }}</Link></h5>
+                                        <h5 class="ps-product__tite"><Link :href="`/products/${prods.productUrl}-${prods.hashid}`"> {{ prods.name }}</Link></h5>
                                         <div class="ps-product__meta">
                                             <span class="ps-product__price sale"> {{useFunctions.addSeperator(prods.sale_price)  }}</span>
                                             <span class="ps-product__del">{{useFunctions.addSeperator(prods.price)  }}</span>
                                         </div>
                                     </div>
-                                      <Link :href="`/products/${prods.hashid}/${prods.productUrl}`"
+                                      <Link :href="`/products/${prods.productUrl}-${prods.hashid}`"
                                             class="btn  btn-lg" style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; width:100px"> Add to
                                         Cart <i class="fa fa-shopping-basket"></i></Link>
                                             <Link target="_blank" rel="noopener noreferrer" :href="`https://wa.me/+2348058885913?text=Please i need ${prods.name }, the  price on your website is ${prods.sale_price}} `">
@@ -106,20 +106,15 @@ const props = defineProps({
                                         <Link :href="`/catalogs/${cat.hashid}`" style="font-size: 14px">{{cat.name}}</Link><span class="sub-toggle"><i class="fa fa-chevron-down"></i></span>
                                         <ul class="sub-menu">
                                             <li v-for="prod in cat.products">
-                                                <Link :href="`/products/${products.hashid}/${products.productUrl}`">{{prod.name}}</Link>
+                                                <Link :href="`/products/${products.productUrl}-${products.hashid}`">{{prod.name}}</Link>
                                             </li>
-                                           
                                         </ul>
                                     </li>
-
                                 </ul>
                             </div>
                         </div>
-                       
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>

@@ -44,7 +44,7 @@
                             <div class="ps-product ps-product--list" style="border:2px solid #d1d5dad4; border-radius:10px; margin-top:15px">
                                 <div class="ps-product__content" style="border-right:0px">
                                     <div class="ps-product__thumbnil" style="">
-                                        <a class="ps-product__image" href="#">
+                                        <a class="ps-product__image" href="">
                                             <figure><img :src="`/images/products/${order.image}`" style="width: 100px" :alt="order.product_name">
                                             </figure>
                                         </a>

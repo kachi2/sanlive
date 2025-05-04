@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Manage\ManualPaymentController;
 use App\Http\Controllers\Manage\ProductController;
+use App\Http\Controllers\Users\SiteMapController;
 use Inertia\Inertia;
 
 /*
@@ -39,3 +40,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+Route::get('sitemap.xml', [SiteMapController::class, 'SiteMap']);
