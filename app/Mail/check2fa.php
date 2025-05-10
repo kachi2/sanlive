@@ -5,23 +5,21 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Address;
 
-class contactUs extends Mailable
+class check2fa extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(
-        public readonly array $data
-        )
+    public function __construct(public $data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -30,7 +28,7 @@ class contactUs extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Contact Form Submitted',
+            subject: '2fa OTP',
             from: new Address('noreply@sanlivepharmacy.com', 'Sanlive Pharmacy Support')
         );
     }
@@ -41,11 +39,10 @@ class contactUs extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mails.contactUs',
+            view: 'mails.check2fa',
             with: [
                 'data' => $this->data
             ]
-
         );
     }
 

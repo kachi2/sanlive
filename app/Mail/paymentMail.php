@@ -30,7 +30,7 @@ class paymentMail extends Mailable
     {
         return new Envelope(
             subject: 'Payment Mail',
-            from: new Address('support@sanlivepharmacy.com', 'Sanlive Pharmacy Support')
+            from: new Address('noreply@sanlivepharmacy.com', 'Sanlive Pharmacy Support')
         );
     }
 
