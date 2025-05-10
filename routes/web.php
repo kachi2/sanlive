@@ -41,3 +41,4 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 Route::get('sitemap.xml', [SiteMapController::class, 'SiteMap']);
+

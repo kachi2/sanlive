@@ -44,13 +44,15 @@ Route::prefix('manage')->group(function () {
             Route::get('/users', 'Users')->name('admin.users');
         });
 
+    
+
         Route::resource('/category', CategoryController::class);
         Route::resource('/product', ProductController::class);
 
         Route::controller(ProductController::class)->group(function () {
             Route::post('/product/status/{id}', 'status')->name('product.status');
             Route::post('/product/delete/{id}', 'delete')->name('product.delete');
-        });
+        }); 
 
         Route::controller(OrderController::class)->group(function () {
             Route::get('/orders', 'Order')->name('admin.orders');

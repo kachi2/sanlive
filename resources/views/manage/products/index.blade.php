@@ -8,16 +8,14 @@
                             <div class="d-flex justify-content-between">
                                 <h6 class="card-title">Product</h6>
                                 <div>
-                                    <a href="#" class="mr-3">
-                                        <i class="fa fa-refresh"></i>
-                                    </a>
-                                    <div class="dropdown">
-                                        <a href="#" data-toggle="dropdown" aria-haspopup="true"
-                                           aria-expanded="false">
-                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                        </a>
-                                       
-                                    </div>
+                                    <form action="{{route('product.index')}}" method="get"> 
+                                        @csrf
+                                    <div class="input-group">
+                                     <input type="text" placeholder="search products" name="search" class="form-control">
+                                     <button type="submit" class="btn btn-primary ml-2"> Search</button>
+                                     </div> 
+                                      </form>
+                                      
                                 </div>
                             </div>
                             

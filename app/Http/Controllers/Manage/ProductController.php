@@ -30,10 +30,15 @@ class ProductController extends Controller
         $this->product = new Product;
         $this->category = new Category;
     }
-    public function index()
+    public function index(Request $request)
     {
-        $product = Product::latest()->paginate(100);
-        addHashId($product);
+        if($request->search){
+            $product = Product::where('name', "LIKE", "%$request->search%")->paginate(10);
+                addHashId($product);
+        }else{
+          $product = Product::latest()->paginate(100);
+              addHashId($product);
+        }
         return view('manage.products.index')
             ->with('products', $product)
             ->with('bheading', 'Product')
