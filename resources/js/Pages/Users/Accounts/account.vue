@@ -77,7 +77,6 @@
                                             <li> <span class="ps-list__title"> </span>You don't have a shippig address yet <br>
                                                <Link href="/account/address/create" class="btn btn-primary "> Add
                                                                     New Address</Link>
-                                             
                                         </li>
                                         </ul>
                                     </div>
