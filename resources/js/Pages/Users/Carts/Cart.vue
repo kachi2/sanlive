@@ -202,7 +202,6 @@ router.get('/delete/'+CartData.id,{
                                 </h5>
                                 <div class="ps-product__meta"><span class="ps-product__price sale"> {{ useFunctions.addSeperator(products?.sale_price) }}</span><span class="ps-product__del">{{useFunctions.addSeperator(products?.price)}}</span>
                                    <!-- <small style="color:#434242b5"> -20%</small>  -->
-                              
                                 </div>
                                 <span class="download-note"> 
                                     <span >  

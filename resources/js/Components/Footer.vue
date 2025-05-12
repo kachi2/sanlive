@@ -17,10 +17,10 @@
                         
                             <p >Follow Us</p>
                             <ul class="ps-social">
-                                <li><Link class="ps-social__link facebook" :href="page.props.settings?.facebook"><i class="fa fa-facebook"> </i><span class="ps-tooltip">Facebook</span></Link></li>
-                                <li><Link class="ps-social__link instagram"  :href="page.props.settings?.instagram"><i class="fa fa-instagram"></i><span class="ps-tooltip">Instagram</span></Link></li>
-                                <li><Link class="ps-social__link pinterest"  :href="page.props.settings?.pinterest"><i class="fa fa-pinterest-p"></i><span class="ps-tooltip">Pinterest</span></Link></li>
-                                <li><Link class="ps-social__link linkedin"  :href="page.props.settings?.linkedin"><i class="fa fa-linkedin"></i><span class="ps-tooltip">Linkedin</span></Link></li>
+                                <li><Link class="ps-social__link facebook" :href="`${page.props.settings?.facebook}`"><i class="fa fa-facebook"> </i><span class="ps-tooltip">Facebook</span></Link></li>
+                                <li><Link class="ps-social__link instagram"  :href="`${page.props.settings?.instagram}`"><i class="fa fa-instagram"></i><span class="ps-tooltip">Instagram</span></Link></li>
+                                <li><Link class="ps-social__link pinterest"  :href="`${page.props.settings?.pinterest}`"><i class="fa fa-pinterest-p"></i><span class="ps-tooltip">Pinterest</span></Link></li>
+                                <li><Link class="ps-social__link linkedin"  :href="`${page.props.settings?.linkedin}`"><i class="fa fa-linkedin"></i><span class="ps-tooltip">Linkedin</span></Link></li>
                             </ul>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                         <div class="ps-footer--block">
                             <h5 class="ps-block__title">Help Links</h5>
                             <ul class="ps-block__list">
-                                <li><Link href="pages/about">About Us</Link></li>
+                                <li><Link href="/pages/about">About Us</Link></li>
                                 <li><Link href="/pages/privacypolicy">Privacy Policy</Link></li>
                                 <li><Link href="/pages/terms">Terms &amp; Conditions</Link></li>
                                 <li><Link href="/pages/contactus">Contact Us</Link></li>

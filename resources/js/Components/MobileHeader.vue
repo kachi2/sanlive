@@ -67,16 +67,15 @@
 </div>
 </template>
 
-<script setup="">
+<script setup>
 import { usePage, Link, useForm } from "@inertiajs/vue3";
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 const page = usePage()
 
 const queryParam = new URLSearchParams(page.url?.split('?')[1] ?? '')
 
 
-
-const isMenuOpen = ref(false) // Track whether the menu is open or closed
+const isMenuOpen = ref(false)
 
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value

@@ -52,10 +52,16 @@ const addSubstract = function (oprand)  {
     }
     return false
 }
+const isPrescribed = ref(product.requires_prescription)
 
 const isLoading = ref(false)
 function addToCart(id)
+    {  
+        if(isPrescribed.value == 1 && !ImageFile.value)
     {
+        toastr.error("please Upload prescription before you add this item to card");
+        return
+    }
         isLoading.value = true
         router.post('/cart/'+id,form, {
             onSuccess: (page) => {
@@ -86,7 +92,7 @@ function handleFileUpload(event)
 }
 
 
-console.log(props.data, 'let see what is loaded')
+// console.log(props.data, 'let see what is loaded')
 
 </script>
 
@@ -101,7 +107,7 @@ console.log(props.data, 'let see what is loaded')
     <div class="ps-page--product ps-page--product1">
     <div class="container " >
         <ul class="ps-breadcrumb">
-            <li class="ps-breadcrumb__item"><a href="">Home</a></li>
+            <li class="ps-breadcrumb__item"><a href="/">Home</a></li>
             <li class="ps-breadcrumb__item"><a href="/catalogs">{{ product.category.name }}</a></li>
             <li class="ps-breadcrumb__item active" aria-current="page">{{ product.name }}</li>
         </ul>
