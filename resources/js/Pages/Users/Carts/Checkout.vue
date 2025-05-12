@@ -84,7 +84,7 @@
                                                 <span class="card ml-3">
                                                     <span class="card-body">
                                                         <small style=" border-bottom: 1px solid #000; padding: 2px; ">Item will be shipped to your address</small>
-                                                        <p> No 12 odo isuti road, igando, lagos</p>
+                                                        <p> {{address.address??'' }} {{ address.city?? '' }} {{ address.state??'' }} {{ address.country??'' }}  </p>
                                                     </span>
                                                 </span>
                                             </label>
@@ -95,7 +95,7 @@
                                                 <i class="fa fa-check-square-o" style="color: rgb(114,111,111);"></i>
                                                 Payment Method
                                             </p>
-                                            <div class="accordion" id="accordionExample">
+                                            <!-- <div class="accordion" id="accordionExample">
                                                 <div class="card">
                                                     <div class="card-header" id="headingOne">
                                                         <label data-toggle="collapse" data-target="#collapseOne"
@@ -130,7 +130,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="accordion" id="accordionExampleTwo">
                                                 <div class="card">
                                                     <div class="card-header" id="headingTwo">
@@ -146,7 +146,7 @@
                                                                         id="paystack" name="payment_method">
                                                                 </div>
                                                                 <div class="col-md-6 col-lg-6 col-12">
-                                                                    <strong> Secured Internation Payment with
+                                                                    <strong> Secured  Payment with
                                                                         Flutterwave</strong>
                                                                 </div>
                                                                 <div class="col-md-2 col-lg-2 col-2">
@@ -160,7 +160,7 @@
                                                             data-parent="#accordionExampleTwo">
                                                             <div class="card-body">
                                                                 <small>
-                                                                    Pay with Flutterwave for both local and internation
+                                                                    Pay with Flutterwave for both local and international
                                                                     cards,
                                                                     your card <br> information is secured
                                                                 </small>

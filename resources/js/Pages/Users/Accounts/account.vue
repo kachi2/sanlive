@@ -50,7 +50,7 @@
                                         <p class="ps-product__tite " style="font-size:16px; color:#262525"><a></a>
 
                                           Shipping Address <small style="font-size: 10px; color:rgb(117, 131, 242)"> Default</small>
-                                            <span style="float: right"> <a href=""> <i class="icon-pen"></i> </a> </span>
+                                            <span style="float: right"> <Link :href="`/account/address/edit/${address.hashid}`"> <i class="icon-pen"></i> </Link> </span>
                                         </p>
                                         <hr>
                                         <div class="ps-product__meta">
@@ -58,10 +58,10 @@
                                                 style="font-size:15px; "> {{address.name}} </span>
                                         </div>
                                         <ul class="ps-product__list">
-                                            <li> <span class="ps-list__title"> </span>{{address.email}} | {{address.phone??null}}
+                                            <li> <span class="ps-list__title"> </span>{{address.email}}  {{address.phone??null}}
                                             </li>
                                             <li> <span class="ps-list__title"> </span>
-                                                {{address.address}} | {{address.city}} | {{address.state }}  | {{address.country}}   
+                                                {{address.address}}  {{address.city}}  {{address.state }}   {{address.country}}   
                                         </li>
                                         </ul>
                                     </div>
@@ -75,7 +75,8 @@
                                         
                                         <ul class="ps-product__list">
                                             <li> <span class="ps-list__title"> </span>You don't have a shippig address yet <br>
-                                                <a href="{{route('users.address.create')}}" class="btn btn-info">Add Shipping Address</a>
+                                               <Link href="/account/address/create" class="btn btn-primary "> Add
+                                                                    New Address</Link>
                                              
                                         </li>
                                         </ul>
