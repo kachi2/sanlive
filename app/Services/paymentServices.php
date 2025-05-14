@@ -139,7 +139,7 @@ class paymentServices extends baseFuncs implements paymentInterface
             if ($orders->shipping_method == 'home_delivery') {
                 event(new OrderShipment($address, $order_no));
             }
-         $this->sendPaymentEmail($request, $order_no, $ref);
+         $this->sendPaymentEmail($request, $order_no, $ref, $$orders->payable);
          \Cart::clear();
             Session::flash('success', 'Payment completed successfully');
         }

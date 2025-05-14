@@ -65,11 +65,11 @@ class baseFuncs
     }
 
 
-    public function sendPaymentEmail($request, $order_no, $ref)
+    public function sendPaymentEmail($request, $order_no, $ref, $amount)
     {
         try{
         return  Mail::to(auth_user()->email)->send(new paymentMail([
-            'amount' => ($request['amount']),
+            'amount' => $amount,
             'order_No' => $order_no,
             'payment_ref' => $ref,
             'external_ref' => $request['reference'],
