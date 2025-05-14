@@ -58,7 +58,7 @@ class RegisterUser {
         $data['is_default'] = 1;
         $data['name'] = $user->first_name.''.$user->last_name;
         $ship = ShippingAddress::create($data);
-        $data['password'] =  $pass;
+        $datas['password'] =  $pass;
         Mail::to($data['email'])->send(new RegMail($datas));
         return $ship;
     }
