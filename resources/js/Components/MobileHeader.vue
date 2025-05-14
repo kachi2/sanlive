@@ -39,7 +39,7 @@
             <img :src="`/images/${page.props.settings?.site_logo}`"  style="width: 160px" alt="sanlive pharmacy">
         </div>
             <li style="border-bottom: 1px solid #eee;"><Link href="/accounts/index"> Account</Link></li>
-                <li style="border-bottom: 1px solid #eee;"> <Link href="/accounts/orders">  Orders</Link></li>
+                <li style="border-bottom: 1px solid #eee;"> <Link href="/account/orders">  Orders</Link></li>
                 <li style="border-bottom: 1px solid #eee;"><Link href="/catalogs">Products</Link></li>
                 <li style="border-bottom: 1px solid #eee;"><Link href="/page/services">Our Services</Link></li>
                 <li style="border-bottom: 1px solid #eee;"><Link href="/pages/about">About Us</Link></li>
