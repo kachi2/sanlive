@@ -53,7 +53,7 @@ class paymentServices extends baseFuncs implements paymentInterface
     {
 
         
-        // try {
+        try {
             $userData =   getUserLocationData();
             $settins = Setting::first();
             // dd($userData);
@@ -68,8 +68,8 @@ class paymentServices extends baseFuncs implements paymentInterface
                 'tx_ref' =>  $txRef,
                 'amount' => isset($currency->exchange_rate) ? $request->amount * $currency->exchange_rate : $request->amount,
                 'currency' => $currency->currency ?? 'USD',
-                'redirect_url' => url('flutter/callback'),
-                // 'redirect_url' => 'https://api.flutterwave.com/v3/payments',
+                // 'redirect_url' => url('flutter/callback'),
+                'redirect_url' => 'https://api.flutterwave.com/v3/payments',
                 'customer' => [
                     'email' => auth_user()->email,
                     'name' => auth_user()->first_name . ' ' . auth_user()->first_name,
@@ -81,6 +81,7 @@ class paymentServices extends baseFuncs implements paymentInterface
                 ]
             ];
             // dd( $data);
+          
             Parent::createOrder($request);
             $res = parent::getFlutterPaymentLink('https://api.flutterwave.com/v3/payments', $data);
 
@@ -90,12 +91,12 @@ class paymentServices extends baseFuncs implements paymentInterface
         
             return Inertia::location($res['data']['link']);
                 // ->header('Content-Type', 'text/html');
-        // } catch (\Exception $e) {
+        } catch (\Exception $e) {
             Session::flash('alert', 'error');
             Session::flash('msg', 'Unable to initialize payment ' . $e->getMessage());
-            return back()->with('error', 'Unable to initialize payment');
+            return back()->with('error', 'Unable to initialize payment'.$e->getMessage());
         }
-    // }
+    }
 
     public function HanglePaystackPayment($request)
     {
@@ -142,6 +143,7 @@ class paymentServices extends baseFuncs implements paymentInterface
          $this->sendPaymentEmail($request, $order_no, $ref, $$orders->payable);
          \Cart::clear();
             Session::flash('success', 'Payment completed successfully');
+        return true;
         }
         Session::flash('error', 'An error occured with your payment, contact support');
         return false;
@@ -179,8 +181,8 @@ class paymentServices extends baseFuncs implements paymentInterface
                 'tx_ref' =>  $txRef,
                 'amount' => $amount,
                 'currency' => $currency->currency ?? 'USD',
-                'redirect_url' => url('manual/payment/processes'),
-                // 'redirect_url' => 'https://api.flutterwave.com/v3/payments',
+                // 'redirect_url' => url('manual/payment/processes'),
+                'redirect_url' => 'https://api.flutterwave.com/v3/payments',
                 'customer' => [
                     'email' => $request->email,
                     'name' => $request->first_name . ' ' . $request->first_name,

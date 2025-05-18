@@ -15,13 +15,17 @@ class baseFuncs
 {
     function createOrder($req)
     {
-      return  Order::create([
+
+    $addrs = ShippingAddress::where(['user_id' => auth_user()->id, 'is_default' => 1])->first();
+      return  Order::updateOrcreate([
+          'order_no' => $req->orderNo],
+        [
             'user_id' => auth_user()->id,
             'order_no' => $req->orderNo,
             'payable' => $req->amount,
             'payment_ref' => null,
             'payment_method' => 'Card Payment',
-            'address_id' => $req->address_id,
+            'address_id' => $addrs->id,
             'is_paid' => 0,
             'is_delivered' => 0,
             'dispatch_status' => 0,

@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
 use App\Models\CountryCurrency;
 use App\Traits\CalculateShipping;
 use Carbon\Carbon;
+use Vinkla\Hashids\Facades\Hashids;
 
 class CheckoutController extends Controller
 {
@@ -28,7 +29,7 @@ class CheckoutController extends Controller
     public function Index($cartSession = null){
 
         Session::put('cartSession', $cartSession);
-    if(!auth::check()){
+       if(!auth::check()){
             $check = new RegisterUser;
            return  $check->viewCheckout();
         }
@@ -49,13 +50,14 @@ class CheckoutController extends Controller
             Session::flash('error', 'Please add a shipping address before you can proceed');
             return to_route('users.account.address');
         }
-        $cartSession =  Session::get('cartSession');
+        // $cartSession =  Session::get('cartSession');
 
-        // $cart = Hashids::connection('products')->decode($cartSession)[0];
-        $check = CartItem::where(['user_id' => auth_user()->id, 'cartSession' => $cartSession])->get();
-        if(!isset($check) || empty($check)){
+        //  $cart = Hashids::connection('products')->decode($cartSession);
+        // $check = CartItem::where(['user_id' => auth_user()->id, 'cartSession' => $cart[0]])->first();
+     
+        // if(!isset($check)){
             event(new CartItemsEvent($carts, $orderNo, $cartSession));
-        }
+    
          $date['start'] = Carbon::now();
          $date['end'] = Carbon::now()->addDay(1);
 

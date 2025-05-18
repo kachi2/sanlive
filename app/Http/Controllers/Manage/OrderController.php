@@ -17,7 +17,6 @@ class OrderController extends Controller
         $orders = Order::latest()->get();
         addHashId($orders);
         return view('manage.sales.orders')
-
                 ->with('orders', $orders)
                 ->with('bheading', 'Users Orders')
                 ->with('breadcrumb', 'Orders');
