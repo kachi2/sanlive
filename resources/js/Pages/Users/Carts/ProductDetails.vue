@@ -191,9 +191,9 @@ function handleFileUpload(event)
                                     <div class="ps-product__social">
                                         <ul class="ps-social ps-social--color">
                                             Share this Product
-                                            <li><a class="ps-social__link facebook" target="_blank" rel="noopener noreferrer" :href="`https://www.facebook.com/sharer/sharer.php?u=products/${product.productUrl}-${product.hashid}`"><i class="fa fa-facebook"> </i><span class="ps-tooltip">Facebook</span></a></li>
-                                            <li><a class="ps-social__link twitter"  target="_blank" rel="noopener noreferrer" :href="`https://twitter.com/share?url=products/${product.productUrl}-${product.hashid}`"><i class="fa fa-twitter"></i><span class="ps-tooltip">Twitter</span></a></li>
-                                            <li ><a class="ps-social__link whatsapp" target="_blank"  rel="noopener noreferrer" data-action="share/whatsapp/share"  :href="`https://api.whatsapp.com/send?text=products//${product.productUrl}-${product.hashid}`"><i class="fa fa-whatsapp"></i><span class="ps-tooltip">WhatsApp</span></a></li>
+                                            <li><a class="ps-social__link facebook" target="_blank" rel="noopener noreferrer" :href="`https://www.facebook.com/sharer/sharer.php?u=products/${product.hashid}/${product.productUrl}`"><i class="fa fa-facebook"> </i><span class="ps-tooltip">Facebook</span></a></li>
+                                            <li><a class="ps-social__link twitter"  target="_blank" rel="noopener noreferrer" :href="`https://twitter.com/share?url=products/${product.hashid}/${product.productUrl}`"><i class="fa fa-twitter"></i><span class="ps-tooltip">Twitter</span></a></li>
+                                            <li ><a class="ps-social__link whatsapp" target="_blank"  rel="noopener noreferrer" data-action="share/whatsapp/share"  :href="`https://api.whatsapp.com/send?text=products/${product.hashid}/${product.productUrl}`"><i class="fa fa-whatsapp"></i><span class="ps-tooltip">WhatsApp</span></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -232,14 +232,14 @@ function handleFileUpload(event)
                      <div class="ps-section__product shadow-sm"  >
                         <div class="ps-product ps-product--standard cart-card  border-gray-800 " style="background-color:#fff">
                             <div class="ps-product__thumbnail ">
-                                <Link class="ps-product__image" :href="`/products/${products.productUrl}-${products.hashid}/`" style="min-height:250px">
+                                <Link class="ps-product__image" :href="`/products/${products.hashid}/${products.productUrl}/`" style="min-height:250px">
                                     <figure>
                                         <img :src="`/images/products/${products.image_path}`" :alt="products.name" style="max-height:200px" /><img :src="`/images/products/${products.image_path}`" :alt="product.name">
                                     </figure>
                                 </Link>
                             </div>
                             <div class="ps-product__content">
-                                <h5 class=""><Link :href="`/products/${products.productUrl}-${products.hashid}`"> {{ products.name }}</Link>
+                                <h5 class=""><Link :href="`/products/${products.hashid}/${products.productUrl}`"> {{ products.name }}</Link>
                                 </h5>
                                 <div class="ps-product__meta"><span class="ps-product__price sale"> {{ useFunctions.addSeperator(products.sale_price) }}</span><span class="ps-product__del">{{useFunctions.addSeperator(products.price)}}</span>
                                    <!-- <small style="color:#434242b5"> -20%</small>  -->
@@ -247,7 +247,7 @@ function handleFileUpload(event)
                                 </div>
                                 <span class="download-note"> 
                                     <span >  
-                                    <Link  class=" btn btn-lg"  :href="`/products/${products.productUrl}-${products.hashid}`"  style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; display: inline;"> <i class="fa fa-plus"> </i> Add to basket</Link>  
+                                    <Link  class=" btn btn-lg"  :href="`/products/${products.hashid}/${products.productUrl}`"  style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; display: inline;"> <i class="fa fa-plus"> </i> Add to basket</Link>  
                                     
                                     <a target="_blank" rel="noopener noreferrer" :href="`https://wa.me/+2348058885913?text=Please i need  to order this product ${products.name} the price is: ${useFunctions.addSeperator(products.sale_price)  } `">
                                                            <!-- <i class="fa fa-whatsapp" aria-hidden="true" style="font-size:23px;  padding-left:15px; color:#73c2fb; float:right "> 
