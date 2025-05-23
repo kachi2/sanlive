@@ -17,7 +17,7 @@ class SearchController extends Controller
     public function __invoke(Request $request, $id=null, $products = [], $data = [])
     {  
 
-
+try{
         $searchterm = '';
         if(isset($id)){
             $id = explode('-',$id);
@@ -62,5 +62,9 @@ class SearchController extends Controller
         ]
 
         ]);
+      }catch(\Exception $e)
+      {
+          return inertia('404');
+      }
     }
 }

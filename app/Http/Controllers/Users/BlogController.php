@@ -27,6 +27,7 @@ class BlogController extends Controller
     }
 
     public function Details($id){
+        try{
         $latest =  Blog::latest()->paginate(7);
         foreach($latest as $bb){
             $bb->hashid = Hashids::connection('products')->encode($bb->id);
@@ -45,6 +46,10 @@ class BlogController extends Controller
                     'image_url' => websiteLogo()
                     ]
             ]);
+          }catch(\Exception $e)
+      {
+          return inertia('404');
+      }
 }
 
 }

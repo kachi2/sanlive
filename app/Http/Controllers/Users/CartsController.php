@@ -54,7 +54,7 @@ use imageUpload;
     public function Index()
     { 
       $settings = Setting::first();
-
+ try{
       $prod = Product::latest()->take(6)->get();
       foreach($prod as $pp){
         $pp->productUrl = trimInput($pp->name);
@@ -76,6 +76,11 @@ use imageUpload;
             'image_url' => websiteLogo()
             ]
         ]);
+      
+          }catch(\Exception $e)
+      {
+          return inertia('404');
+      }
     }
 
 

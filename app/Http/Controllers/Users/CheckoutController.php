@@ -28,6 +28,7 @@ class CheckoutController extends Controller
 
     public function Index($cartSession = null){
 
+        try{
         Session::put('cartSession', $cartSession);
        if(!auth::check()){
             $check = new RegisterUser;
@@ -60,7 +61,6 @@ class CheckoutController extends Controller
     
          $date['start'] = Carbon::now();
          $date['end'] = Carbon::now()->addDay(1);
-
         return inertia('Users/Carts/Checkout', 
         [
             'data' => $date,
@@ -78,6 +78,10 @@ class CheckoutController extends Controller
                 'image_url' => websiteLogo()
                 ]
         ]);
+      }catch(\Exception $e)
+      {
+          return inertia('404');
+      }
     }
 
 

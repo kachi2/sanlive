@@ -12,6 +12,7 @@ class ProductDetailsController extends Controller
 {
     public function __invoke($id)
     {
+      try{
       $id = explode('-',$id);
       $id = array_pop($id);
       $ss =   Hashids::connection('products')->decode($id);
@@ -40,5 +41,9 @@ class ProductDetailsController extends Controller
             'image_url' => asset('images/products/'.$product->image_path)
         ]
       ]);
+      }catch(\Exception $e)
+      {
+          return inertia('404');
+      }
     }
 }

@@ -115,14 +115,9 @@
     <div class="ps-page">
 
 @include('partials.header')
-@include('partials.header_mobile')
 @yield('content')
 
-@include('partials.footer')
-@include('partials.mobile_nav')
-@include('partials.search_modal')
-@include('partials.mobile_sidebar')
-@include('partials.preloader')
+{{-- @include('partials.footer') --}}
 
 <script src="{{asset('/frontend/plugins/jquery.min.js')}}"></script>
     <script src="{{asset('/frontend/plugins/popper.min.js')}}"></script>
