@@ -5,18 +5,23 @@ namespace App\Http\Controllers\Users;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Support\Str;
 
 class ProductDetailsController extends Controller
 {
-    public function __invoke($id)
+    public function __invoke($id, $url = null)
     {
       try{
-      $id = explode('-',$id);
-      $id = array_pop($id);
       $ss =   Hashids::connection('products')->decode($id);
       $product = Product::findorfail($ss[0]);
+       $correctSlug = Str::slug($product->name);
+
+        if ($url !== $correctSlug) {
+            return Redirect::to("/products/{$id}/{$correctSlug}", 301);
+        }
+        
       $data['related'] = Product::where('category_id', $product->category->id)->take(10)->get();
       $product->hashid = Hashids::connection('products')->encode($product->id);
       $product->productUrl =  Str::slug($product->name);
@@ -29,15 +34,16 @@ class ProductDetailsController extends Controller
         $prod->productUrl =  Str::slug($prod->name);
         $keywords[] = Str::slug($prod->name);
       }
+      
       return inertia('Users/Carts/ProductDetails', 
       [
         'data' => $data,
         'pageMeta' => [
             'url' => url()->current(),
-            'title' => Str::slug($product->name, ' '),
-            'metaTitle' => Str::slug($product->name, ' '),
-            'description' => Str::slug($product->description, ' '),
-            'keywords' => Str::slug($product->name).', online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
+            'title' => $product->name,
+            'metaTitle' => $product->name,
+            'description' => $product->description,
+            'keywords' => $product->name.', online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
             'image_url' => asset('images/products/'.$product->image_path)
         ]
       ]);
