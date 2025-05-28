@@ -51,7 +51,7 @@ class SiteMapController extends Controller
         
         foreach($categories as $category)
         {
-            $sitemap->add(Url::create("catalogs/$category->productUrl-$category->hashid")
+            $sitemap->add(Url::create("catalogs/$category->slug")
             ->setLastModificationDate($category->updated_at)
             ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
             ->setPriority(0.8));
@@ -59,17 +59,16 @@ class SiteMapController extends Controller
 
 
         $Product = Product::all();
-        addHashId($Product);
         foreach ($Product as $product) {
-            $sitemap->add(Url::create("products/$product->hashid/$product->productUrl")
+            $sitemap->add(Url::create("products/$product->slug")
                 ->setLastModificationDate($product->updated_at)
                 ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
                 ->setPriority(0.8));
         }
         foreach (Blog::all() as $blog) {
-            $id = encrypt($blog->id);
+            $ids = encrypt($blog->id);
             $sitemap->add(
-                Url::create("/blogs/details/$id")
+                Url::create("/blogs/details/$ids")
                     ->setLastModificationDate($blog->updated_at)
                     ->setPriority(0.7)
             );

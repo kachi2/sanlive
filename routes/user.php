@@ -14,10 +14,14 @@ use App\Http\Controllers\SiteMapController;
 use App\Http\Controllers\Users\BlogController;
 use App\Http\Controllers\Users\FaqController;
 use App\Http\Controllers\Users\UserController;
+use App\Models\Product;
+use Vinkla\Hashids\Facades\Hashids;
 
 Route::get('/',  [HomeController::class, '__invoke'])->name('users.index');
 Route::get('/dashboard',  [HomeController::class, '__invoke'])->name('index');
-Route::get('/products/{id?}/{url?}', [ProductDetailsController::class, '__invoke'])->name('users.products');
+
+Route::get('/products/{hashid}/{slug}', [ProductDetailsController::class, 'redirectOldUrl']);
+Route::get('/products/{slug}', [ProductDetailsController::class, 'Show'])->name('users.products');
 
 Route::controller(CartsController::class)->group( function(){
 Route::post('/cart/{id}',  'add')->name('carts.add');

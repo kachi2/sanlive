@@ -11,7 +11,32 @@ use Illuminate\Support\Str;
 
 class ProductDetailsController extends Controller
 {
-    public function __invoke($id, $url = null)
+
+  public function Show($slug)
+  {
+     $product = Product::where('slug', $slug)->firstOrFail();
+    $data['related'] = Product::where('category_id', $product->category_id)->take(10)->get();
+
+    preg_match('/<p>(.*?)<\/p>/s', $product->description, $matches);
+    $product->tagline = $matches[0] ?? '';
+    $data['product'] = $product;
+
+    return inertia('Users/Carts/ProductDetails', 
+      [
+        'data' => $data,
+        'pageMeta' => [
+            'url' => url()->current(),
+            'title' => $product->name,
+            'metaTitle' => $product->name,
+            'description' => $product->description,
+            'keywords' => $product->name.', online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
+            'image_url' => asset('images/products/'.$product->image_path)
+        ]
+      ]);
+
+  } 
+
+    public function redirectOldUrl($id, $url = null)
     {
       try{
       $ss =   Hashids::connection('products')->decode($id);
@@ -19,7 +44,7 @@ class ProductDetailsController extends Controller
        $correctSlug = Str::slug($product->name);
 
         if ($url !== $correctSlug) {
-            return Redirect::to("/products/{$id}/{$correctSlug}", 301);
+            return Redirect::to("/products/$product->slug", 301);
         }
         
       $data['related'] = Product::where('category_id', $product->category->id)->take(10)->get();
@@ -35,18 +60,7 @@ class ProductDetailsController extends Controller
         $keywords[] = Str::slug($prod->name);
       }
       
-      return inertia('Users/Carts/ProductDetails', 
-      [
-        'data' => $data,
-        'pageMeta' => [
-            'url' => url()->current(),
-            'title' => $product->name,
-            'metaTitle' => $product->name,
-            'description' => $product->description,
-            'keywords' => $product->name.', online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
-            'image_url' => asset('images/products/'.$product->image_path)
-        ]
-      ]);
+       return Redirect::to("/products/{$product->slug}", 301);
       }catch(\Exception $e)
       {
           return inertia('404');

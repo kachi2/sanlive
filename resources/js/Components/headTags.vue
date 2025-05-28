@@ -1,7 +1,7 @@
 <template> 
 <Head>
     <title > {{ pageMeta.title }}</title>
-    <meta property="title" :content="pageMeta.metaTitle">
+    <meta property="title" content="Sanlive Pharmacy: The largest and biggest online pharmacy marketplace that you can trust.">
     <meta name="description" :content="pageMeta.description" />
     <meta name="keywords" :content="pageMeta.keywords" />
     <meta property="og:title" :content="pageMeta.metaTitle" />

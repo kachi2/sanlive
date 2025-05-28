@@ -36,12 +36,12 @@ const props = defineProps({
                                         </div>
                                     </div>
                                     <div class="ps-product__content">
-                                        <Link :href="`/products/${product.hashid}/${product.productUrl}`"> {{product.category.name}} </Link>
+                                        <Link :href="`/products/${product.slug}`"> {{product.category.name}} </Link>
 
-                                        <h5 class="ps-product__ttle"><Link :href="`/products/${product.hashid}/${product.productUrl}`">{{product.name}}</Link></h5>
+                                        <h5 class="ps-product__ttle"><Link :href="`/products/${product.slug}`">{{product.name}}</Link></h5>
                                         <div class="ps-product__meta"><span class="ps-product__price sale">{{product.sale_price}}</span><span class="ps-product__del">{{product.price}}</span>
                                         </div>
-                                      <center>  <Link :href="`/products/${product.hashid}/${product.productUrl}`" class="btn btn-primary"> Add To Cart</Link></center>  
+                                      <center>  <Link :href="`/products/${product.slug}`" class="btn btn-primary"> Add To Cart</Link></center>  
                                     </div>
                                 </div>
                             </div> 

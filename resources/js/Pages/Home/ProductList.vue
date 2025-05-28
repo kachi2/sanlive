@@ -14,7 +14,7 @@ const props = defineProps({
  <section class="ps-section--featured">
 <div class="container">
         <div class="ps-noti p-2" style="border-radius:5px">
-            <Link class="ps-category__image" :href="`/catalogs/${products.hashid}/${products.productUrl}`">     <p class="ml-2" style="color:#fff; font-weight:bold; text-align:left"> {{ products.name }} </p> </Link>
+            <Link class="ps-category__image" :href="`/catalogs/${products.slug}`">     <p class="ml-2" style="color:#fff; font-weight:bold; text-align:left"> {{ products.name }} </p> </Link>
          </div>
         <div class="ps-section__content">
         <div class="row m-0">
@@ -22,7 +22,7 @@ const props = defineProps({
                      <div class="ps-section__product shadow-sm "  >
                         <div class="ps-product ps-product--standard cart-card  border-gray-800 " style="background-color:#fff">
                             <div class="ps-product__thumbnail ">
-                                <Link class="ps-product__image" :href="`/products/${product.hashid}/${product.productUrl}`" style="max-height:250px">
+                                <Link class="ps-product__image" :href="`/products/${product.slug}`" style="max-height:250px">
                                     <figure>
                                         <img :src="`/images/products/${product.image_path}`" alt="" /><img :src="`/images/products/${product.image_path}`" :alt="product.name">
                                     </figure>
@@ -31,12 +31,12 @@ const props = defineProps({
                                 </div>
                             </div>
                             <div class="ps-product__content">
-                                <h5 class=""><Link :href="`/products/${product.hashid}/${product.productUrl}`"> {{ product.name }}</Link>
+                                <h5 class=""><Link :href="`/products/${product.slug}`"> {{ product.name }}</Link>
                                 </h5>
                                 <div class="ps-product__meta"><span class="ps-product__price sale"> {{useFunctions.addSeperator(product.sale_price)  }}</span><span class="ps-product__del">{{useFunctions.addSeperator(product.price)  }}</span>
                                 </div>
                                 <span class="download-note"> 
-                                    <span >  <Link  class=" btn btn-lg"  :href="`/products/${product.hashid}/${product.productUrl}`"  style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; width:100px="> <i class="fa fa-plus"> </i> Add to basket</Link>  
+                                    <span >  <Link  class=" btn btn-lg"  :href="`/products/${product.slug}`"  style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; width:100px="> <i class="fa fa-plus"> </i> Add to basket</Link>  
                                     <a target="_blank" rel="noopener noreferrer" :href="`https://wa.me/+2348058885913?text=Please i need  to order this product ${product.name} the price is: ${useFunctions.addSeperator(product.sale_price)  } `">
                                         <!-- <i class="fa fa-whatsapp" aria-hidden="true" style="font-size:23px;  padding-left:15px; color:#73c2fb; float:right "> 
                                         </i> -->
