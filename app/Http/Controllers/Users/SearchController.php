@@ -14,15 +14,14 @@ use Vinkla\Hashids\Facades\Hashids;
 class SearchController extends Controller
 {
 
-    public function __invoke(Request $request, $id=null, $products = [], $data = [])
+    public function __invoke(Request $request, $slug=null, $products = [], $data = [])
     {  
 
 try{
         $searchterm = '';
-        if(isset($id)){
-            $id = explode('-',$id);
-            $id = array_pop($id);
-            $cat = Category::findOrFail(decodeHashid($id));
+        if(isset($slug)){
+        
+            $cat = Category::where('slug', $slug)->first();
         }
         if(isset($request->q)){
             $products = Product::where('name', 'LIKE', "%$request->q%")->orWhere('description', 'LIKE', "%$request->q%")->get();
