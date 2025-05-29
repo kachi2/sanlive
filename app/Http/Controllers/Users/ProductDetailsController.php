@@ -14,7 +14,17 @@ class ProductDetailsController extends Controller
 
   public function Show($slug)
   {
-     $product = Product::where('slug', $slug)->firstOrFail();
+    $parts = explode('-', $slug);
+    $possibleHashid = end($parts); 
+
+    $check = Hashids::connection('products')->decode($possibleHashid);
+
+    if (!empty($check)) {
+        $product = Product::findOrFail($check[0]);
+        return redirect()->to("/products/{$product->slug}", 301);
+    }
+
+    $product = Product::where('slug', $slug)->firstOrFail();
     $data['related'] = Product::where('category_id', $product->category_id)->take(10)->get();
 
     preg_match('/<p>(.*?)<\/p>/s', $product->description, $matches);
