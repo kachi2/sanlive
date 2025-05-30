@@ -19,22 +19,21 @@ class SearchController extends Controller
 
 try{
         $searchterm = '';
-        if(isset($slug)){
-        
-            $cat = Category::where('slug', $slug)->first();
-        }
         if(isset($request->q)){
             $products = Product::where('name', 'LIKE', "%$request->q%")->orWhere('description', 'LIKE', "%$request->q%")->get();
             $searchterm = "Showing Results for ".$request->q;
             $keywords[] =  $products->pluck('name')->implode(',');
-        }elseif(isset($id)){
-               $check = decodeHashid($id);
-              if (!empty($check)) {
-                return redirect()->to("/catalogs/{$cat->slug}", 301);
-            }
-            $products = Product::where('category_id', decodeHashid($id))->get();
+        }elseif($slug){
+               $check = Hashids::connection('products')->decode($slug);
+          if (!empty($check)) {
+                 $categor = Category::where('id', $check)->first();
+                return redirect()->to("/catalogs/{$categor->slug}", 301);
+            }else{
+            $cat = Category::where('slug', $slug)->first();
+            $products = Product::where('category_id', $cat->id)->get();
             $searchterm = "Showing Results for ".ucfirst(strtolower($cat->name));
             $keywords[] =  $products->pluck('name')->implode(',');
+            }
         }else{
             $products = Product::latest()->take(20)->get();
             $keywords[] =  $products->pluck('name')->implode(',');
@@ -42,7 +41,6 @@ try{
         $categories = Category::latest()->get();
         $keywords = implode(',', $keywords);
 
-        addHashId($categories);
         return inertia('Users/Pages/products', [
             'products' => $products,
             'categories' => $categories,
