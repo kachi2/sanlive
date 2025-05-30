@@ -33,7 +33,14 @@ class BlogController extends Controller
             $bb->hashid = Hashids::connection('products')->encode($bb->id);
         }
         $id = Hashids::connection('products')->decode($id);
+        if(!empty($id)){
         $blogs = Blog::findorfail($id[0]);
+        }else{
+             $blogs = Blog::findorfail(decrypt($id));
+             $blogs->hashid = Hashids::connection('products')->encode($blogs->id);
+            return redirect()->to("/blogs/details/{$blogs->hashid}", 301);
+        }
+      
         return inertia('Users/Pages/blogDetails', [
                 'blogs' => $latest,
                 'blog' => $blogs,
