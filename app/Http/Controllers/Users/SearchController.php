@@ -14,7 +14,7 @@ use Vinkla\Hashids\Facades\Hashids;
 class SearchController extends Controller
 {
 
-    public function __invoke(Request $request, $slug=null, $products = [], $data = [])
+    public function __invoke(Request $request, $slug=null, $products = [], $id = null)
     {  
 
 try{
@@ -26,23 +26,20 @@ try{
         if(isset($request->q)){
             $products = Product::where('name', 'LIKE', "%$request->q%")->orWhere('description', 'LIKE', "%$request->q%")->get();
             $searchterm = "Showing Results for ".$request->q;
-            addHashId($products);
             $keywords[] =  $products->pluck('name')->implode(',');
         }elseif(isset($id)){
+               $check = decodeHashid($id);
+              if (!empty($check)) {
+                return redirect()->to("/catalogs/{$cat->slug}", 301);
+            }
             $products = Product::where('category_id', decodeHashid($id))->get();
             $searchterm = "Showing Results for ".ucfirst(strtolower($cat->name));
-            addHashId($products);
             $keywords[] =  $products->pluck('name')->implode(',');
         }else{
             $products = Product::latest()->take(20)->get();
-            addHashId($products);
             $keywords[] =  $products->pluck('name')->implode(',');
         }
         $categories = Category::latest()->get();
-        foreach($categories as $cats){
-            addHashId($cats->products);
-            addHashId($categories);
-        }
         $keywords = implode(',', $keywords);
 
         addHashId($categories);
