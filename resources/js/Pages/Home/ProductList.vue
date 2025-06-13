@@ -18,7 +18,7 @@ const props = defineProps({
          </div>
         <div class="ps-section__content">
         <div class="row m-0">
-             <div class="col-12 col-md-6 col-lg-3 pt-4" v-for=" product in products.products " >
+             <div class="col-6 p-2 col-md-6 col-lg-3 pt-4" v-for=" product in products.products " >
                      <div class="ps-section__product shadow-sm "  >
                         <div class="ps-product ps-product--standard cart-card  border-gray-800 " style="background-color:#fff">
                             <div class="ps-product__thumbnail ">
@@ -35,14 +35,34 @@ const props = defineProps({
                                 </h5>
                                 <div class="ps-product__meta"><span class="ps-product__price sale"> {{useFunctions.addSeperator(product.sale_price)  }}</span><span class="ps-product__del">{{useFunctions.addSeperator(product.price)  }}</span>
                                 </div>
-                                <span class="download-note"> 
-                                    <span >  <Link  class=" btn btn-lg"  :href="`/products/${product.slug}`"  style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; width:100px="> <i class="fa fa-plus"> </i> Add to basket</Link>  
-                                    <a target="_blank" rel="noopener noreferrer" :href="`https://wa.me/+2348058885913?text=Please i need  to order this product ${product.name} the price is: ${useFunctions.addSeperator(product.sale_price)  } `">
-                                        <!-- <i class="fa fa-whatsapp" aria-hidden="true" style="font-size:23px;  padding-left:15px; color:#73c2fb; float:right "> 
-                                        </i> -->
-                                        <img src="/frontend/whatsapp.png" style="width: 90px; float:right"> 
-                                    </a>
-                                  </span> 
+                                <!-- <span class="download-note"> 
+                                    <div class="row ">
+                                        <div class="col-12 col-md-6 col-lg-6 p-2">
+                                          <Link  class=" btn btn-lg"  :href="`/products/${product.slug}`"  style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; width:100px="> <i class="fa fa-plus"> </i> Add to basket</Link>  
+                                        </div>
+                                        <div class="col-12 col-md-6  col-lg-6 p-2">
+                                        <a target="_blank" rel="noopener noreferrer" :href="`https://wa.me/+2348058885913?text=Please i need  to order this product ${product.name} the price is: ${useFunctions.addSeperator(product.sale_price)  } `">
+                                        <img src="/frontend/whatsapp.png" style="width: 90px;"> 
+                                        </a>
+                                        </div>
+                              
+                                    </div>
+                         
+                                </span>  -->
+
+                                   <span class="download-note"> 
+                                    <div class="row ">
+                                        <div class="col-12 col-md-6 col-lg-6 p-2">
+                                          <Link  class=" btn btn-lg"  :href="`/products/${product.slug}`"  style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; width:100px="> <i class="fa fa-plus"> </i> Add to basket</Link>  
+                                        </div>
+                                        <div class="col-12 col-md-6  col-lg-6 p-2">
+                                        <a target="_blank" rel="noopener noreferrer" :href="`https://wa.me/+2348058885913?text=Please i need  to order this product ${product.name} the price is: ${useFunctions.addSeperator(product.sale_price)  } `">
+                                        <img src="/frontend/whatsapp.png" style="width: 90px;"> 
+                                        </a>
+                                        </div>
+                              
+                                    </div>
+                         
                                 </span> 
                             </div>
                         </div>

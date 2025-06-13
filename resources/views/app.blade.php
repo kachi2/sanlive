@@ -4,6 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title inertia></title>
+        <meta name="robots" content="index, follow">
+         <meta name="title" content="Sanlive Pharmacy Online Health Store, Medicines, Vitamins ">
+         <meta name="author" content="Sanlive pharmacy ">
+          <meta name="apple-mobile-web-app-capable" content="yes">
+         <meta name="application-name" content="https://sanlivepharmacy.com">
         <link href="https://fonts.googleapis.com/css?family=Jost:400,500,600,700&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.gstatic.com/">
         <link href="{{ asset('images/'.$settings->fav)}}" rel="shortcut icon" type="image/png">
