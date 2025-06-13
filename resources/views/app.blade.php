@@ -7,6 +7,7 @@
         <meta name="robots" content="index, follow">
          <meta name="title" content="Sanlive Pharmacy Online Health Store, Medicines, Vitamins ">
          <meta name="author" content="Sanlive pharmacy ">
+         <meta property="og:description" content="Sanlive Pharmacy is a wholesale, retail, and dispensing healthcare platform established for the distribution and retailing of locally manufactured and imported drugs. Easily get affordable medication and prescription drugs delivered to your doorstep.">
           <meta name="apple-mobile-web-app-capable" content="yes">
          <meta name="application-name" content="https://sanlivepharmacy.com">
         <link href="https://fonts.googleapis.com/css?family=Jost:400,500,600,700&display=swap" rel="stylesheet">
