@@ -5,8 +5,10 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Manage\ManualPaymentController;
 use App\Http\Controllers\Manage\ProductController;
+use App\Http\Controllers\SiteMapController as ControllersSiteMapController;
 use App\Http\Controllers\UpdateProductTest;
 use App\Http\Controllers\Users\SiteMapController;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 /*
@@ -42,10 +44,9 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('sitemap.xml', [SiteMapController::class, 'SiteMap'])
+Route::get('/generate/sitemap.xml', [SiteMapController::class, 'SiteMap'])->name('sitemap')
   ->middleware([]);
 
+Route::get('/sitemap.xml', [ControllersSiteMapController::class, 'SiteMap']);
 Route::get('generate/slugs', [UpdateProductTest::class, 'Index']);
 Route::get('generate/category/slugs', [UpdateProductTest::class, 'categorySlug']);
-
-

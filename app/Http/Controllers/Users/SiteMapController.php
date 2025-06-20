@@ -73,7 +73,8 @@ class SiteMapController extends Controller
                     ->setPriority(0.7)
             );
         }
-        
+          $sitemap->writeToFile(public_path('sitemap.xml'));
+
          return response($sitemap->render(), 200)
         ->header('Content-Type', 'application/xml; charset=UTF-8');
     }
