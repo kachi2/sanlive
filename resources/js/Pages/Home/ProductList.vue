@@ -31,10 +31,10 @@ const props = defineProps({
                                 </div>
                             </div>
                             <div class="ps-product__content">
-                                <h5 class=""><Link :href="`/products/${product.slug}`"> {{ product.name }}</Link>
-                                </h5>
-                                <div class="ps-product__meta"><span class="ps-product__price sale"> {{useFunctions.addSeperator(product.sale_price)  }}</span><span class="ps-product__del">{{useFunctions.addSeperator(product.price)  }}</span>
-                                </div>
+                                <h2 class="" style="font-size: 14px;"><Link :href="`/products/${product.slug}`"> {{ product.name }}</Link>
+                                </h2>
+                                <h3 class="ps-product__meta"><span class="ps-product__price sale"> {{useFunctions.addSeperator(product.sale_price)  }}</span><span class="ps-product__del">{{useFunctions.addSeperator(product.price)  }}</span>
+                                </h3>
                                 <!-- <span class="download-note"> 
                                     <div class="row ">
                                         <div class="col-12 col-md-6 col-lg-6 p-2">

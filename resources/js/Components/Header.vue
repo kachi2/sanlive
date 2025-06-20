@@ -4,7 +4,7 @@
 
     <div class="ps-noti p-2">
         <div class="container" >
-            <p class="m-0" style="color:#fff; font-weight:bold;"> <marquee>  <span v-html="page.props.announcment?.content"> </span> </marquee></p>
+            <h1 class="m-0" style="color:#fff; font-weight:bold; font-size: 13px;"> <marquee>  <span v-html="page.props.announcment?.content"> </span> </marquee></h1>
         </div>
 
     </div>

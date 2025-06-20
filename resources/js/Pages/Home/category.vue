@@ -1,10 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-
 const props = defineProps({'categories':Object})
-
-// console.log(props.categories, 'categories')
-
 </script>
 
 <template>
@@ -13,7 +9,6 @@ const props = defineProps({'categories':Object})
         <div class="container"  >
             <p class="m-0" style="color:#fff; font-weight:bold; text-align:left"> Shop By Category</p>
         </div>
-
     </div>
      <section class="ps-section--category ps-category--image">
                         <h3 class="ps-section__title">Check out the most popular categories</h3>
