@@ -73,8 +73,9 @@ class SiteMapController extends Controller
                     ->setPriority(0.7)
             );
         }
-        return response($sitemap->render())
-        ->header('Content-Type', 'application/xml');
+        
+         return response($sitemap->render(), 200)
+        ->header('Content-Type', 'application/xml; charset=UTF-8');
     }
 }
 

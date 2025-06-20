@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\ShippingAddress;
+
 use Illuminate\Support\Facades\Validator;
 use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Support\Facades\Session;
 
 class AddressController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware('auth');
@@ -44,7 +44,6 @@ class AddressController extends Controller
     }
 
     public function storeAddress(Request $req){
-
             $valid = Validator::make($req->all(), [
                 'name' => 'required',
                 'phone' => 'required',
@@ -75,7 +74,8 @@ class AddressController extends Controller
         return redirect()->intended(route('checkout.index'));
     }
 
-    public function UpdateAddress($id){
+    public function UpdateAddress($id)
+    {
     
     }
 }

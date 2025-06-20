@@ -41,7 +41,9 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-Route::get('sitemap.xml', [SiteMapController::class, 'SiteMap']);
+
+Route::get('sitemap.xml', [SiteMapController::class, 'SiteMap'])
+  ->middleware([]);
 
 Route::get('generate/slugs', [UpdateProductTest::class, 'Index']);
 Route::get('generate/category/slugs', [UpdateProductTest::class, 'categorySlug']);
