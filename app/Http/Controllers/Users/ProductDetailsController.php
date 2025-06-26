@@ -30,12 +30,13 @@ class ProductDetailsController extends Controller
     preg_match('/<p>(.*?)<\/p>/s', $product->description, $matches);
     $product->tagline = $matches[0] ?? '';
     $data['product'] = $product;
+    $url = route('users.products', ['slug' => $product->slug]);
 
     return inertia('Users/Carts/ProductDetails', 
       [
         'data' => $data,
         'pageMeta' => [
-            'url' => url()->current(),
+            'url' => $url,
             'title' => $product->name,
             'metaTitle' => $product->name,
             'description' => $product->description,

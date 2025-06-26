@@ -23,6 +23,7 @@ try{
             $products = Product::where('name', 'LIKE', "%$request->q%")->orWhere('description', 'LIKE', "%$request->q%")->get();
             $searchterm = "Showing Results for ".$request->q;
             $keywords[] =  $products->pluck('name')->implode(',');
+             $robots = 'index, follow';
         }elseif($slug){
                $check = Hashids::connection('products')->decode($slug);
           if (!empty($check)) {
@@ -33,6 +34,7 @@ try{
             $products = Product::where('category_id', $cat->id)->get();
             $searchterm = "Showing Results for ".ucfirst(strtolower($cat->name));
             $keywords[] =  $products->pluck('name')->implode(',');
+            $robots = 'noindex, follow';
             }
         }else{
             $products = Product::latest()->take(20)->get();
@@ -47,12 +49,12 @@ try{
             'searchterm' => $searchterm,
             'pageMeta' => [
             'url' => url()->current(),
-            'title' => 'Product | Online Health Store, Medicines, Vitamins',
-            'metaTitle' => 'Product | Online Health Store, Medicines, Vitamins',
-            'description' =>  'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices, 
-                '.substr($keywords, 0,80),
+            'title' => 'Search | Search Online Health Store, Medicines, Vitamins',
+            'metaTitle' => 'Sanlive Phamarcy  | Online Health Store, Medicines, Vitamins',
+            'description' =>  'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices, '.substr($keywords, 0,80),
             'keywords' => substr($keywords,0,100),
-            'image_url' => websiteLogo()
+            'image_url' => websiteLogo(),
+            'robots' => $robots, 
         ]
 
         ]);

@@ -13,6 +13,8 @@
     <meta name="twitter:title" :content="pageMeta.metaTitle" />
     <meta name="twitter:description" :content="pageMeta.description" />
     <meta name="twitter:image" :content="pageMeta.image_url" />
+     <meta name="robots" :content="pageMeta.robots || 'index, follow'" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
 </Head>
 </template>
 

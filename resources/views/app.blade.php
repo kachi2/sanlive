@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8"> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title inertia></title>
-        <meta name="robots" content="index, follow">
-         <meta name="title" content="Sanlive Pharmacy Online Health Store, Medicines, Vitamins ">
-         <meta name="author" content="Sanlive pharmacy ">
-         <meta property="og:description" content="Sanlive Pharmacy is a wholesale, retail, and dispensing healthcare platform established for the distribution and retailing of locally manufactured and imported drugs. Easily get affordable medication and prescription drugs delivered to your doorstep.">
-          <meta name="apple-mobile-web-app-capable" content="yes">
+        <title inertia>{{ $meta['title'] ?? 'Sanlive pharmacy Online Health Store, Medicines, Vitamins' }}</title>
+        <meta name="description" content="{{ $meta['description'] ?? 'Sanlive Pharmacy is a wholesale, retail, and dispensing healthcare platform established for the distribution and retailing of locally manufactured and imported drugs. Easily get affordable medication and prescription drugs delivered to your doorstep.' }}">
+        <meta property="og:title" content="{{ $meta['title'] ?? 'Sanlive pharmacy Online Health Store, Medicines, Vitamins' }}">
+        <meta property="og:description" content="{{ $meta['description'] ?? 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices' }}">
+        <meta property="og:image" content="{{ $meta['image'] ?? asset('images/'.$settings->site_logo) }}">
+        <meta property="og:url" content="{{ request()->fullUrl() }}">
+        <meta name="twitter:card" content="summary_large_image">
          <meta name="application-name" content="https://sanlivepharmacy.com">
         <link href="https://fonts.googleapis.com/css?family=Jost:400,500,600,700&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.gstatic.com/">
@@ -33,7 +34,8 @@
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead
-    </head>
+      
+        </head>
 
     <meta name="p:domain_verify" content="41e4054dd47a348a28e771a36e9e5092"/>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -41,9 +43,8 @@
         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-MSKX7LHR');</script>
-        <!-- End Google Tag Manager -->
-    
-        <!-- Google tag (gtag.js) -->
+
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0EBDQSBKBC"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
