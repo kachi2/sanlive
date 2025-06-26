@@ -54,7 +54,7 @@ try{
             'description' =>  'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices, '.substr($keywords, 0,80),
             'keywords' => substr($keywords,0,100),
             'image_url' => websiteLogo(),
-            'robots' => $robots, 
+            'robots' => $robots??'', 
         ]
 
         ]);
