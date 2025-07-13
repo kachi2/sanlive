@@ -47,13 +47,13 @@ const props = defineProps({
 
                                     <div v-if="blogs.data.length > 0"  v-for="item in blogs.data" class="ps-product ps-product--standard">
                                         <div class="ps-product__thumbnail">
-                                            <Link class="ps-product__image" :href="`blogs/details/${item.hashid}`">
+                                            <Link class="ps-product__image" :href="`/blogs/details/${item.hashid}`">
                                                 <figure><img :src="`/images/blog/${item.image}`" :alt="item.title"><img :src="`/images/blog/'${item.image}`" :alt="item.title">
                                                 </figure>
                                             </Link>
                                         </div>
                                         <div class="ps-product__content">
-                                            <h5 class="ps-product__title"><Link :href="`blogs/details/${item.hashid}`">{{item.title}}</Link></h5>
+                                            <h5 class="ps-product__title"><Link :href="`/blogs/details/${item.hashid}`">{{item.title}}</Link></h5>
                                             </div>
                                         </div>
 

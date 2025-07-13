@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use Illuminate\Support\Facades\Redirect;
 use Vinkla\Hashids\Facades\Hashids;
 
 class BlogController extends Controller
@@ -38,7 +39,7 @@ class BlogController extends Controller
         }else{
              $blogs = Blog::findorfail(decrypt($id));
              $blogs->hashid = Hashids::connection('products')->encode($blogs->id);
-            return redirect()->to("/blogs/details/{$blogs->hashid}", 301);
+              return Redirect::to("/blogs/details/{$blogs->hashid}", 301);
         }
       
         return inertia('Users/Pages/blogDetails', [
