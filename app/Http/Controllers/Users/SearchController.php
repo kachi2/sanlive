@@ -23,7 +23,11 @@ try{
             $products = Product::where('name', 'LIKE', "%$request->q%")->orWhere('description', 'LIKE', "%$request->q%")->get();
             $searchterm = "Showing Results for ".$request->q;
             $keywords[] =  $products->pluck('name')->implode(',');
-             $robots = 'index, follow';
+            if(isset($products) && count($products) > 0)
+            {$robots = 'index, follow';
+            }else{
+             $robots = 'noindex, follow';
+            }
         }elseif($slug){
                $check = Hashids::connection('products')->decode($slug);
           if (!empty($check)) {
@@ -34,7 +38,7 @@ try{
             $products = Product::where('category_id', $cat->id)->get();
             $searchterm = "Showing Results for ".ucfirst(strtolower($cat->name));
             $keywords[] =  $products->pluck('name')->implode(',');
-            $robots = 'noindex, follow';
+            $robots = 'index, follow';
             }
         }else{
             $products = Product::latest()->take(20)->get();
