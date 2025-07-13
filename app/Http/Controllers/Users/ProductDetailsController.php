@@ -47,7 +47,7 @@ class ProductDetailsController extends Controller
       ]);
       }catch(\Exception $e)
       {
-        return inertia('401')->toResponse(request())->setStatusCode(410);
+        return inertia('404')->toResponse(request())->setStatusCode(404);
       }
 
   } 
@@ -80,7 +80,7 @@ class ProductDetailsController extends Controller
       }catch(\Exception $e)
       {
         
-        return inertia('410')->toResponse(request())->setStatusCode(410);
+        return inertia('404')->toResponse(request())->setStatusCode(404);
       }
     }
 }

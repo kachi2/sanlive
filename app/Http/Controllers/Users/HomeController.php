@@ -24,6 +24,7 @@ class HomeController extends Controller
      
     public function __invoke(Request $request)
     {
+        try{
         // getCountryCurrency();
 
     //     $ss =   getUserLocationData();
@@ -68,5 +69,10 @@ class HomeController extends Controller
             'image_url' => websiteLogo()
             ]
         ]);
+      }catch(\Exception $e)
+      {
+        
+        return inertia('404')->toResponse(request())->setStatusCode(404);
+      }
     }
 }
