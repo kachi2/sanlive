@@ -55,7 +55,7 @@ class BlogController extends Controller
             ]);
           }catch(\Exception $e)
       {
-          return inertia('404');
+         return inertia('404')->toResponse(request())->setStatusCode(404);
       }
 }
 

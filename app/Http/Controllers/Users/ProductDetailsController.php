@@ -14,6 +14,7 @@ class ProductDetailsController extends Controller
 
   public function Show($slug)
   {
+     try{
     $parts = explode('-', $slug);
     $possibleHashid = end($parts); 
 
@@ -44,6 +45,10 @@ class ProductDetailsController extends Controller
             'image_url' => asset('images/products/'.$product->image_path)
         ]
       ]);
+      }catch(\Exception $e)
+      {
+        return inertia('401')->toResponse(request())->setStatusCode(410);
+      }
 
   } 
 
@@ -74,7 +79,8 @@ class ProductDetailsController extends Controller
        return Redirect::to("/products/{$product->slug}", 301);
       }catch(\Exception $e)
       {
-          return inertia('404');
+        
+        return inertia('410')->toResponse(request())->setStatusCode(410);
       }
     }
 }

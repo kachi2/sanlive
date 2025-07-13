@@ -10,17 +10,17 @@
                             <div class="ps-logo"><Link href="">  <img :src="`/images/${page.props.settings?.site_logo}`"  alt="">
                                 <img class="logo-white":src="`/images/${page.props.settings?.site_logo}`"   style="border-radius: 5px" alt="">
                                 <img class="logo-black" src="" style="border-radius: 5px"  alt="">
-                                <img class="logo-white-all" :src="`/images/${page.props.settings?.site_logo}`"   style="border-radius: 5px" alt="">
-                                <img class="logo-green" :src="`/images/${page.props.settings?.site_logo}`" style="border-radius: 5px"  alt="" >
+                                <img class="logo-white-all" :src="`/images/${page?.props.settings?.site_logo}`"   style="border-radius: 5px" alt="">
+                                <img class="logo-green" :src="`/images/${page?.props.settings?.site_logo}`" style="border-radius: 5px"  alt="" >
                             </Link></div>
                             <p>{{ page.props.settings?.title }}</p>
                         
                             <p >Follow Us</p>
                             <ul class="ps-social">
-                                <li><Link class="ps-social__link facebook" :href="`${page.props.settings?.facebook}`"><i class="fa fa-facebook"> </i><span class="ps-tooltip">Facebook</span></Link></li>
-                                <li><Link class="ps-social__link instagram"  :href="`${page.props.settings?.instagram}`"><i class="fa fa-instagram"></i><span class="ps-tooltip">Instagram</span></Link></li>
-                                <li><Link class="ps-social__link pinterest"  :href="`${page.props.settings?.pinterest}`"><i class="fa fa-pinterest-p"></i><span class="ps-tooltip">Pinterest</span></Link></li>
-                                <li><Link class="ps-social__link linkedin"  :href="`${page.props.settings?.linkedin}`"><i class="fa fa-linkedin"></i><span class="ps-tooltip">Linkedin</span></Link></li>
+                                <li><Link class="ps-social__link facebook" :href="`${page?.props.settings?.facebook}`"><i class="fa fa-facebook"> </i><span class="ps-tooltip">Facebook</span></Link></li>
+                                <li><Link class="ps-social__link instagram"  :href="`${page?.props.settings?.instagram}`"><i class="fa fa-instagram"></i><span class="ps-tooltip">Instagram</span></Link></li>
+                                <li><Link class="ps-social__link pinterest"  :href="`${page?.props.settings?.pinterest}`"><i class="fa fa-pinterest-p"></i><span class="ps-tooltip">Pinterest</span></Link></li>
+                                <li><Link class="ps-social__link linkedin"  :href="`${page?.props.settings?.linkedin}`"><i class="fa fa-linkedin"></i><span class="ps-tooltip">Linkedin</span></Link></li>
                             </ul>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
     <div class="ps-footer--bottom">
         <div class="row">
             <div class="col-12 col-md-5">
-                <p > {{page.props.settings.site_copyright}}</p>
+                <p > {{page?.props?.settings?.site_copyright}}</p>
             </div> 
             <div class="col-12 col-md-7 text-right" >
                 <img src="/images/paystack_logo.png"  width="50px" alt="">
