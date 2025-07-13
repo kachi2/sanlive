@@ -9,6 +9,7 @@
         <meta property="og:description" content="{{ $meta['description'] ?? 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices' }}">
         <meta property="og:image" content="{{ $meta['image'] ?? asset('images/'.$settings->site_logo) }}">
         <meta property="og:url" content="{{ request()->fullUrl() }}">
+         <meta property="og:type" content="website">
         <meta name="twitter:card" content="summary_large_image">
          <meta name="application-name" content="https://sanlivepharmacy.com">
         <link href="https://fonts.googleapis.com/css?family=Jost:400,500,600,700&display=swap" rel="stylesheet">
@@ -73,7 +74,7 @@
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-MSKX7LHR');</script>
         <!-- End Google Tag Manager -->
-    
+    <meta name="google-site-verification" content="l_tWZgvvzMi_jK3nisQfxXyuWNpHMPi8ZloZ3RhcFrA" />
         <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0EBDQSBKBC"></script>
     <script>
