@@ -60,7 +60,6 @@ try{
             'image_url' => websiteLogo(),
             'robots' => $robots??'', 
         ]
-
         ]);
       }catch(\Exception $e)
       {

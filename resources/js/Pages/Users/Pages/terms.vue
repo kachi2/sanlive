@@ -7,13 +7,15 @@ const props = defineProps({
     terms: Object,
     pageMeta: Object
 })
+
+console.log(props.terms)
 </script>
 
 <template>
      <HeadTags :pageMeta="pageMeta" />
     <AppTemplate>
 
-        <template $content>
+        <template #content>
             <div class="ps-about">
     <div class="container">
         <ul class="ps-breadcrumb">

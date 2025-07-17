@@ -16,7 +16,7 @@ class PageController extends Controller
     public function privacypolicy(){
         $privacypolicy = Privacypolicy::first();
         return  inertia('Users/Pages/privacy',
-        ['policy' => $privacypolicy, 
+        ['privacy' => $privacypolicy, 
         'pageMeta' => [
             'url' => url()->current(),
             'title' => websiteName().' Online Health Store, Medicines, Vitamins',

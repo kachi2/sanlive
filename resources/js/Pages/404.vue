@@ -20,7 +20,6 @@ import HeadTags from '@/Components/headTags.vue';
                 </section>
             </div>
             </div>
-            
         </template>
     </AppTemplate>
 </template>
