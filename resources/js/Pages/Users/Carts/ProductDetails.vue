@@ -134,14 +134,14 @@ function handleFileUpload(event)
                                 <div class="ps-product__info">
                                     <div class="ps-product__badge"><span class="ps-badge ps-badge--outstock" v-if="product.status == 1">OUT OF STOCK</span>
                                     </div>
-                                    <div class="ps-product__branch" style="font-size:13px">Category: <Link href="/catalogs">{{product.category.name}}</Link></div>
-                                    <div class="ps-product__title" style="font-size:20px"><a href="#">{{product.name}}</a>
+                                    <h2 class="ps-product__branch" style="font-size:13px">Category: <Link href="/catalogs">{{product.category.name}}</Link></h2>
+                                    <h1 style="font-size:20px" class="ps-product__title"> <a href="#"> {{product.name}}</a></h1>
                                     <p> 
                                         <span class="ps-product__price sale"> {{useFunctions.addSeperator(product.sale_price)  }}</span>
                                         <span class="ps-product__del">{{useFunctions.addSeperator(product.price)  }}</span>
                                         <!-- <span class="ps-product__price" style="font-size:20px">{{useFunctions.addSeperator(product.sale_price)}} </span> <span class="ps-product__del"> {{useFunctions.addSeperator(product.price)}} </span>  -->
                                     </p>
-                                    </div>
+                                    
                                 
                                     <div class="ps-product__meta">
                                         <p v-html="product.tagline"> </p>

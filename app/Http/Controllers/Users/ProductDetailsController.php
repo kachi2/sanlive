@@ -40,7 +40,7 @@ class ProductDetailsController extends Controller
             'url' => $url,
             'title' => $product->name,
             'metaTitle' => $product->name,
-            'description' => $product->description,
+            'description' => $product->name.' '.$product->tagline,
             'keywords' => $product->name.', online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
             'image_url' => asset('images/products/'.$product->image_path)
         ]

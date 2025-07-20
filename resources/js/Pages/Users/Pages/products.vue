@@ -26,7 +26,7 @@ const props = defineProps({
         <ul class="ps-breadcrumb">
             <li class="ps-breadcrumb__item"><a href="">Home</a></li>
             <li class="ps-breadcrumb__item"><a href="">Category</a></li>
-            <li class="ps-breadcrumb__item"><a href="">Products</a></li>
+            <li class="ps-breadcrumb__item"><a href=""> <span  v-if="searchterm">  {{searchterm}} </span> </a></li>
         </ul>
         <div class="ps-categogy__content">
             <div class="row row-reverse">
@@ -40,17 +40,17 @@ const props = defineProps({
                             <form>
                                 <div class="custom-control custom-checkbox">
                                     <input class="custom-control-input" type="checkbox" id="onSaleProduct" checked >
-                                    <label class="custom-control-label" for="onSaleProduct">  <span  v-if="searchterm">  {{searchterm}} </span> <span v-else> Showing All Results </span> </label>
+                                    <label class="custom-control-label" for="onSaleProduct">  <h1  style="font-size:15px" v-if="searchterm">  {{searchterm}} </h1> <span v-else> Showing All Results </span> </label>
                                 </div>
                             </form>
                         </div>
                         <div class="ps-categogy__sort">
-                            <form><span>Sort by</span>
+                            <!-- <form><span>Sort by</span>
                                 <select class="form-select">
                                     <option selected="">Latest</option>
                                     <option value="Popularity">Popularity</option>
                                 </select>
-                            </form>
+                            </form> -->
                         </div>
                        
                     </div>
@@ -85,7 +85,7 @@ const props = defineProps({
                             </div> 
                             <div v-else class="ps-delivery ps-delivery--info" >
                                 <div class="ps-delivery__content">
-                                    <div class="ps-delivery__text"> <i class="icon-shield-check"></i><span> <strong>No Item found </strong></span></div>
+                                    <div class="ps-delivery__text"> <i class="icon-shield-check"></i><span> <h2 style="font-size: 15px;">No Item found </h2></span></div>
                                 </div>
                             </div>
                           
