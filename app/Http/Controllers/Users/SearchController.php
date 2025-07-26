@@ -25,8 +25,6 @@ try{
             $keywords[] =  $products->pluck('name')->implode(',');
             if(isset($products) && count($products) > 0)
             {$robots = 'index, follow';
-            }else{
-             $robots = 'noindex, follow';
             }
         }elseif($slug){
                $check = Hashids::connection('products')->decode($slug);
