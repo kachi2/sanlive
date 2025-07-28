@@ -33,9 +33,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         <script src="https://analytics.ahrefs.com/analytics.js" data-key="5lJ+MSEBGQ0JHLjS87FO8A" async></script>
+      
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
        @inertiaHead
+         @if (isset($page['props']['schema']))
+        <script type="application/ld+json">
+            {!! json_encode($page['props']['schema'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+        </script>
+    @endif
         </head>
 
     <meta name="p:domain_verify" content="41e4054dd47a348a28e771a36e9e5092"/>

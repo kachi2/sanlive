@@ -38,12 +38,13 @@ class ProductDetailsController extends Controller
         'data' => $data,
         'pageMeta' => [
             'url' => $url,
-            'title' => $product->name,
-            'metaTitle' => $product->name,
-            'description' => $product->name.' '.$product->tagline,
-            'keywords' => $product->name.', online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
+            'title' => $product->name."Buy Online in Nigeria | Sanlive Pharmacy",
+            'metaTitle' => "Buy $product->name Online in Nigeria | Sanlive Pharmacy",
+            'description' => "Shop $product->name online at Sanlive Pharmacy. Trusted  medication. Nationwide delivery across Nigeria. Affordable & authentic",
+            'keywords' => " Shop high-quality  online at Sanlive Pharmacy. Fast delivery across Nigeria. Affordable and trusted brands",
             'image_url' => asset('images/products/'.$product->image_path)
-        ]
+        ],
+        'schema' => $this->addTags($product)
       ]);
       }catch(\Exception $e)
       {
@@ -82,5 +83,29 @@ class ProductDetailsController extends Controller
         
         return inertia('404')->toResponse(request())->setStatusCode(404);
       }
+    }
+
+
+    public function addTags($product)
+    {
+        $schema = [
+        "@context" => "https://schema.org",
+        "@type" => "Product",
+        "name" => $product->name,
+        "image" => url("images/products/{$product->image_path}"),
+        "description" => Str::limit(strip_tags($product->description), 160),
+        "brand" => [
+            "@type" => "Brand",
+            "name" => 'Sanlive Pharmacy'
+        ],
+        "offers" => [
+            "@type" => "Offer",
+            "url" => url("/products/{$product->slug}"),
+            "priceCurrency" => "NGN",
+            "price" => $product->sale_price,
+            "availability" => "https://schema.org/InStock"
+        ]
+    ];
+    return $schema;
     }
 }
