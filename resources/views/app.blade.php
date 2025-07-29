@@ -15,25 +15,47 @@
          <meta name="application-name" content="https://sanlivepharmacy.com"> 
         <link href="https://fonts.googleapis.com/css?family=Jost:400,500,600,700&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.gstatic.com/">
-        <link href="{{ asset('images/'.$settings->fav)}}" rel="shortcut icon" type="image/png">
-        <link rel="stylesheet" href="{{asset('/frontend/plugins/font-awesome/css/font-awesome.min.css')}}">
-        <link rel="stylesheet" href="{{asset('/frontend/fonts/Linearicons/Font/demo-files/demo.css')}}">
         <link rel="preconnect" href="https://fonts.gstatic.com/">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jost:400,500,600,700&amp;display=swap&amp;ver=1607580870">
-        <link rel="stylesheet" href="{{asset('/frontend/plugins/bootstrap4/css/bootstrap.min.css')}}">
-        <link rel="stylesheet" href="{{asset('/frontend/plugins/owl-carousel/assets/owl.carousel.css')}}">
-        <link rel="stylesheet" href="{{asset('/frontend/plugins/slick/slick/slick.css')}}">
-        <link rel="stylesheet" href="{{asset('/frontend/plugins/lightGallery/dist/css/lightgallery.min.css')}}">
-        <link rel="stylesheet" href="{{asset('/frontend/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css')}}">
-        <link rel="stylesheet" href="{{asset('/frontend/plugins/select2/dist/css/select2.min.css')}}">
-        <link rel="stylesheet" href="{{asset('/frontend/plugins/noUiSlider/nouislider.css')}}">
-        <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
-        <link rel="stylesheet" href="{{asset('frontend/css/home-8.css')}}">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-        <script src="https://analytics.ahrefs.com/analytics.js" data-key="5lJ+MSEBGQ0JHLjS87FO8A" async></script>
-      
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+        <link href="{{ asset('images/'.$settings->fav)}}" rel="shortcut icon" type="image/png">
+
+    
+        <link rel="preload" as="style" href="{{ asset('/frontend/plugins/font-awesome/css/font-awesome.min.css') }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ asset('/frontend/plugins/font-awesome/css/font-awesome.min.css') }}"></noscript>
+        <!-- Linearicons -->
+        <link rel="preload" as="style" href="{{ asset('/frontend/fonts/Linearicons/Font/demo-files/demo.css') }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ asset('/frontend/fonts/Linearicons/Font/demo-files/demo.css') }}"></noscript>
+
+        <!-- Bootstrap -->
+        <link rel="preload" as="style" href="{{ asset('/frontend/plugins/bootstrap4/css/bootstrap.min.css') }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ asset('/frontend/plugins/bootstrap4/css/bootstrap.min.css') }}"></noscript>
+
+        <!-- Owl Carousel -->
+        <link rel="preload" as="style" href="{{ asset('/frontend/plugins/owl-carousel/assets/owl.carousel.css') }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ asset('/frontend/plugins/owl-carousel/assets/owl.carousel.css') }}"></noscript>
+
+        <!-- Slick -->
+        <link rel="preload" as="style" href="{{ asset('/frontend/plugins/slick/slick/slick.css') }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ asset('/frontend/plugins/slick/slick/slick.css') }}"></noscript>
+
+        <!-- LightGallery -->
+        <link rel="preload" as="style" href="{{ asset('/frontend/plugins/lightGallery/dist/css/lightgallery.min.css') }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ asset('/frontend/plugins/lightGallery/dist/css/lightgallery.min.css') }}"></noscript>
+
+        <!-- noUiSlider -->
+        <link rel="preload" as="style" href="{{ asset('/frontend/plugins/noUiSlider/nouislider.css') }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ asset('/frontend/plugins/noUiSlider/nouislider.css') }}"></noscript>
+
+        <!-- Main Style -->
+        <link rel="preload" as="style" href="{{ asset('frontend/css/style.css') }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}"></noscript>
+
+        <!-- Home Style -->
+        <link rel="preload" as="style" href="{{ asset('frontend/css/home-8.css') }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ asset('frontend/css/home-8.css') }}"></noscript>
+
+        
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
        @inertiaHead
@@ -57,7 +79,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
       gtag('config', 'G-0EBDQSBKBC');
     </script>
 
@@ -67,42 +88,16 @@
 
 
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" async></script>
+    <script src="{{ asset('/frontend/plugins/popper.min.js') }}" defer></script>
+    <script src="{{ asset('/frontend/plugins/bootstrap4/js/bootstrap.min.js') }}" defer></script>
+    <script src="{{ asset('/frontend/plugins/owl-carousel/owl.carousel.min.js') }}" defer></script>
+    <script src="{{ asset('/frontend/plugins/lightGallery/dist/js/lightgallery-all.min.js') }}" defer></script>
+    <script src="{{ asset('/frontend/plugins/slick/slick/slick.min.js') }}" defer></script>
+    <script src="{{ asset('/frontend/plugins/noUiSlider/nouislider.min.js') }}" defer></script>
+    <script src="{{ asset('/frontend/js/main.js') }}" defer></script>
 
-
-
-
-
-
-
-    <script src="{{asset('/frontend/plugins/jquery.min.js')}}"></script>
-    <script src="{{asset('/frontend/plugins/popper.min.js')}}"></script>
-    <script src="{{asset('/frontend/plugins/bootstrap4/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('/frontend/plugins/select2/dist/js/select2.full.min.js')}}"></script>
-    <script src="{{asset('/frontend/plugins/owl-carousel/owl.carousel.min.js')}}"></script>
-    <script src="{{asset('/frontend/plugins/jquery-bar-rating/dist/jquery.barrating.min.js')}}"></script>
-    <script src="{{asset('/frontend/plugins/lightGallery/dist/js/lightgallery-all.min.js')}}"></script>
-    <script src="{{asset('/frontend/plugins/slick/slick/slick.min.js')}}"></script>
-    <script src="{{asset('/frontend/plugins/noUiSlider/nouislider.min.js')}}"></script>
-    <script src="{{asset('/frontend/js/main.js')}}"></script>
-
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-MSKX7LHR');</script>
-        <!-- End Google Tag Manager -->
-    <meta name="google-site-verification" content="l_tWZgvvzMi_jK3nisQfxXyuWNpHMPi8ZloZ3RhcFrA" />
-        <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0EBDQSBKBC"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-0EBDQSBKBC');
-    </script>
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MSKX7LHR"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <script type="text/javascript">
             var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
