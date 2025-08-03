@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        
+    <head>  
         <meta charset="utf-8"> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
-       {{-- <title inertia>{{ $meta['title'] ?? 'Sanlive pharmacy Online Health Store, Medicines, Vitamins' }}</title>  --}}
-       {{-- <meta name="description" content="{{ $meta['description'] ?? 'Sanlive Pharmacy is a wholesale, retail, and dispensing healthcare platform established for the distribution and retailing of locally manufactured and imported drugs. Easily get affordable medication and prescription drugs delivered to your doorstep.' }}"> --}}
         <meta property="og:title" content="{{ $meta['title'] ?? 'Sanlive pharmacy Online Health Store, Medicines, Vitamins' }}"> 
         <meta property="og:description" content="{{ $meta['description'] ?? 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices' }}">
         <meta property="og:image" content="{{ $meta['image'] ?? asset('images/'.$settings->site_logo) }}">
@@ -19,43 +16,16 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jost:400,500,600,700&amp;display=swap&amp;ver=1607580870">
          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         <link href="{{ asset('images/'.$settings->fav)}}" rel="shortcut icon" type="image/png">
-
-    
-        <link rel="preload" as="style" href="{{ asset('/frontend/plugins/font-awesome/css/font-awesome.min.css') }}" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="{{ asset('/frontend/plugins/font-awesome/css/font-awesome.min.css') }}"></noscript>
-        <!-- Linearicons -->
-        <link rel="preload" as="style" href="{{ asset('/frontend/fonts/Linearicons/Font/demo-files/demo.css') }}" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="{{ asset('/frontend/fonts/Linearicons/Font/demo-files/demo.css') }}"></noscript>
-
-        <!-- Bootstrap -->
-        <link rel="preload" as="style" href="{{ asset('/frontend/plugins/bootstrap4/css/bootstrap.min.css') }}" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="{{ asset('/frontend/plugins/bootstrap4/css/bootstrap.min.css') }}"></noscript>
-
-        <!-- Owl Carousel -->
-        <link rel="preload" as="style" href="{{ asset('/frontend/plugins/owl-carousel/assets/owl.carousel.css') }}" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="{{ asset('/frontend/plugins/owl-carousel/assets/owl.carousel.css') }}"></noscript>
-
-        <!-- Slick -->
-        <link rel="preload" as="style" href="{{ asset('/frontend/plugins/slick/slick/slick.css') }}" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="{{ asset('/frontend/plugins/slick/slick/slick.css') }}"></noscript>
-
-        <!-- LightGallery -->
-        <link rel="preload" as="style" href="{{ asset('/frontend/plugins/lightGallery/dist/css/lightgallery.min.css') }}" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="{{ asset('/frontend/plugins/lightGallery/dist/css/lightgallery.min.css') }}"></noscript>
-
-        <!-- noUiSlider -->
-        <link rel="preload" as="style" href="{{ asset('/frontend/plugins/noUiSlider/nouislider.css') }}" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="{{ asset('/frontend/plugins/noUiSlider/nouislider.css') }}"></noscript>
-
-        <!-- Main Style -->
-        <link rel="preload" as="style" href="{{ asset('frontend/css/style.css') }}" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}"></noscript>
-
-        <!-- Home Style -->
-        <link rel="preload" as="style" href="{{ asset('frontend/css/home-8.css') }}" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="{{ asset('frontend/css/home-8.css') }}"></noscript>
-
-        
+        <link rel="stylesheet" href="{{ asset('/frontend/plugins/font-awesome/css/font-awesome.min.css') }}">
+        <link rel="stylesheet"  href="{{ asset('/frontend/fonts/Linearicons/Font/demo-files/demo.css') }}">
+        <link rel="stylesheet"  href="{{ asset('/frontend/plugins/bootstrap4/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('/frontend/plugins/owl-carousel/assets/owl.carousel.css') }}">
+        <link rel="stylesheet"  href="{{ asset('/frontend/plugins/slick/slick/slick.css') }}">
+        <link rel="stylesheet" href="{{ asset('/frontend/plugins/lightGallery/dist/css/lightgallery.min.css') }}">
+        <link rel="stylesheet"  href="{{ asset('/frontend/plugins/noUiSlider/nouislider.css') }}">
+        <link rel="stylesheet" href="{{ asset('/frontend/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('/frontend/css/home-8.css') }}">
+        <link rel="stylesheet" href="{{asset('/frontend/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css')}}">
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
        @inertiaHead
@@ -84,19 +54,16 @@
 
   <body>
         @inertia
-
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" async></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" async></script>
-    <script src="{{ asset('/frontend/plugins/popper.min.js') }}" defer></script>
-    <script src="{{ asset('/frontend/plugins/bootstrap4/js/bootstrap.min.js') }}" defer></script>
-    <script src="{{ asset('/frontend/plugins/owl-carousel/owl.carousel.min.js') }}" defer></script>
-    <script src="{{ asset('/frontend/plugins/lightGallery/dist/js/lightgallery-all.min.js') }}" defer></script>
-    <script src="{{ asset('/frontend/plugins/slick/slick/slick.min.js') }}" defer></script>
-    <script src="{{ asset('/frontend/plugins/noUiSlider/nouislider.min.js') }}" defer></script>
-    <script src="{{ asset('/frontend/js/main.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" ></script>
+    <script src="{{ asset('/frontend/plugins/popper.min.js') }}" ></script>
+    <script src="{{ asset('/frontend/plugins/bootstrap4/js/bootstrap.min.js') }}" ></script>
+    <script src="{{ asset('/frontend/plugins/owl-carousel/owl.carousel.min.js') }}" ></script>
+    <script src="{{ asset('/frontend/plugins/jquery-bar-rating/dist/jquery.barrating.min.js') }}" ></script>
+    <script src="{{ asset('/frontend/plugins/lightGallery/dist/js/lightgallery-all.min.js') }}" ></script>
+    <script src="{{ asset('/frontend/plugins/slick/slick/slick.min.js') }}" ></script>
+    <script src="{{ asset('/frontend/plugins/noUiSlider/nouislider.min.js') }}" ></script>
+    <script src="{{ asset('/frontend/js/main.js') }}" ></script>
 
 
         <script type="text/javascript">

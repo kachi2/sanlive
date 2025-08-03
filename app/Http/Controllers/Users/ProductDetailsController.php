@@ -44,7 +44,12 @@ class ProductDetailsController extends Controller
             'keywords' => " Shop high-quality  online at Sanlive Pharmacy. Fast delivery across Nigeria. Affordable and trusted brands",
             'image_url' => asset('images/products/'.$product->image_path)
         ],
-        'schema' => $this->addTags($product)
+        'schema' => $this->addTags($product),
+         'avatar' => 'https://i.pravatar.cc/40?u=1',
+         'averageRating' => '',
+         'totalRatings' => '',
+         'ratingsCount' => '',
+         'reviews' => ''
       ]);
       }catch(\Exception $e)
       {
