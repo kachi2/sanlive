@@ -16,8 +16,8 @@
           <div  class="d-flex align-items-center mb-2">
             <small class="mr-2">5</small>
             <div class="flex-grow-1 bg-light position-relative" style="height: 8px; border-radius: 4px;">
-              <div class="bg-warning position-absolute">
-             <span>★★★★★</span>
+            <div class=" position-absolute">
+             <span class="text-warning">★★★★★</span>
             </div>
             </div>
             <small class="ml-2 text-muted">45 </small>
@@ -25,8 +25,8 @@
            <div  class="d-flex align-items-center mb-2">
             <small class="mr-2">4</small>
             <div class="flex-grow-1 bg-light position-relative" style="height: 8px; border-radius: 4px;">
-              <div class="bg-warning position-absolute">
-             <span>★★★★</span>
+              <div class=" position-absolute">
+             <span class="text-warning">★★★★</span>
             </div>
             </div>
             <small class="ml-2 text-muted">66 </small>
@@ -35,8 +35,8 @@
            <div  class="d-flex align-items-center mb-2">
             <small class="mr-2">3</small>
             <div class="flex-grow-1 bg-light position-relative" style="height: 8px; border-radius: 4px;">
-              <div class="bg-warning position-absolute">
-             <span>★★★</span>
+                <div class=" position-absolute">
+             <span class="text-warning">★★★</span>
             </div>
             </div>
             <small class="ml-2 text-muted"> 45</small>
@@ -45,8 +45,8 @@
           <div  class="d-flex align-items-center mb-2">
             <small class="mr-2">2</small>
             <div class="flex-grow-1 bg-light position-relative" style="height: 8px; border-radius: 4px;">
-              <div class="bg-warning position-absolute">
-             <span>★★</span>
+               <div class=" position-absolute">
+             <span class="text-warning">★★</span>
             </div>
             </div>
             <small class="ml-2 text-muted">65 </small>
@@ -55,8 +55,8 @@
           <div  class="d-flex align-items-center mb-2">
             <small class="mr-2">1</small>
             <div class="flex-grow-1 bg-light position-relative" style="height: 8px; border-radius: 4px;">
-              <div class="bg-warning position-absolute">
-             <span>★</span>
+                <div class=" position-absolute">
+             <span class="text-warning">★</span>
             </div>
             </div>
             <small class="ml-2 text-muted">45 </small>
@@ -64,56 +64,52 @@
 
         </div>
 
-        <div class="col-md-8 pl-4">
-          <h6 class="font-weight-bold mb-3">Comments from Verified Purchases </h6>
+        <div class="col-md-6 pl-4">
+          <h5 class=" mb-3">Comments from Verified Purchases </h5>
 
+          <!-- ----start ----- -->
           <div  class="mb-4 pb-3 border-bottom">
             <div class="d-flex align-items-center mb-2">
               <StarDisplay />
               <span class="ml-2 font-weight-bold"></span>
             </div>
-            <p class="small mb-1"> ssdsd ssd</p>
-            <small class="text-muted">
+            <p class=" mb-1"> ssdsd ssd</p>
+            <p class="text-muted">
            sdsdsdss dsdsd sdsdsd 
-            </small>
-            <div  class="text-success small font-weight-bold mt-1">
-              <i class="fas fa-check-circle"></i> Verified Purchase
+            </p>
+            <div>
+                <small class="pt-3 text-muted">
+                    10-3-2025 Michael Kachi
+                </small>
             </div>
           </div>
-          <!-- -------------- -->
-              <div  class="mb-4 pb-3 border-bottom">
-            <div class="d-flex align-items-center mb-2">
-              <StarDisplay />
-              <span class="ml-2 font-weight-bold"></span>
-            </div>
-            <p class="small mb-1"> ssdsd ssd</p>
-            <small class="text-muted">
-           sdsdsdss dsdsd sdsdsd 
-            </small>
-            <div  class="text-success small font-weight-bold mt-1">
-              <i class="fas fa-check-circle"></i> Verified Purchase
-            </div>
-          </div>
+          <!-- --------end------ -->
+      
         </div>
+        <div class="col-2 pl-4">
+            <div  class="text-success small font-weight-bold mt-1">
+              <i class="fas fa-check-circle"></i> Verified Purchase
+            </div>
+        </div>
+
+       
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
 import StarDisplay from '@/Components/starDisplay.vue' 
-
-
 
 // const getRatingPercentage = (stars) => {
 //   const total = Object.values(props.ratingsCount).reduce((a, b) => a + b, 0)
 //   if (!total) return 0
 //   return ((props.ratingsCount[stars] ?? 0) / total) * 100
 // }
-// </script>
+</script>
 
 <style scoped>
+
 .text-orange {
   color: #ff6f00;
 }

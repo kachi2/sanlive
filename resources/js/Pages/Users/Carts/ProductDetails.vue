@@ -6,6 +6,7 @@ import { onMounted, reactive, ref } from 'vue';
 import useFunctions from '../useFunctions';
 import HeadTags from '@/Components/headTags.vue';
 import ProductReview from './productReview.vue';
+import WriteReview from './writeReview.vue';
 
 onMounted(() => {
     $('.owl-carousel').owlCarousel({
@@ -193,10 +194,11 @@ function handleFileUpload(event)
                 </div>
             </div>
 
-            <div class="ps-product__content">
+            <div class="ps-product__content mt-5">
                             <ul class="nav nav-tabs ps-tab-list" id="productContentTabs" role="tablist">
                                 <li class="nav-item" role="presentation"><a class="nav-link active" id="description-tab" data-toggle="tab" href="#description-content" role="tab" aria-controls="description-content" aria-selected="true">Description</a></li>
                                     <li class="nav-item" role="presentation"><a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews-content" role="tab" aria-controls="reviews-content" aria-selected="false">Reviews</a></li>
+                                     <li class="nav-item" role="presentation"><a class="nav-link" id="reviews-tab" data-toggle="tab" href="#write-reviews" role="tab" aria-controls="write-reviews" aria-selected="false">Write a Review</a></li>
                             </ul>
                             <div class="tab-content" id="productContent">
                                 <div class="tab-pane fade show active" id="description-content" role="tabpanel" aria-labelledby="description-tab">
@@ -211,6 +213,11 @@ function handleFileUpload(event)
                                   <div class="tab-pane fade" id="reviews-content" role="tabpanel" aria-labelledby="reviews-tab">
                                             
                                         <ProductReview />
+
+                                        </div>
+                                           <div class="tab-pane fade" id="write-reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                                            
+                                        <WriteReview />
 
                                         </div>
                             </div>
@@ -268,4 +275,12 @@ function handleFileUpload(event)
 </template>
     </AppTemplate>
 </template>
+
+<style scoped>
+.nav .active 
+{
+    color: #fff;
+    background: #17a2b8;
+}
+</style>
 
