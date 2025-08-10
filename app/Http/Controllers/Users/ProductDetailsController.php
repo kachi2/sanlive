@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Models\Product;
 use App\Http\Controllers\Controller;
+use App\Models\ProductReview;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Vinkla\Hashids\Facades\Hashids;
@@ -25,13 +26,14 @@ class ProductDetailsController extends Controller
         return redirect()->to("/products/{$product->slug}", 301);
     }
 
-    $product = Product::where('slug', $slug)->firstOrFail();
+    $product = Product::with('productReviews')->where('slug', $slug)->firstOrFail();
     $data['related'] = Product::where('category_id', $product->category_id)->take(10)->get();
 
     preg_match('/<p>(.*?)<\/p>/s', $product->description, $matches);
     $product->tagline = $matches[0] ?? '';
     $data['product'] = $product;
     $url = route('users.products', ['slug' => $product->slug]);
+    $reviews = ProductReview::where('product_id', $product->id);
 
     return inertia('Users/Carts/ProductDetails', 
       [
@@ -46,17 +48,16 @@ class ProductDetailsController extends Controller
         ],
         'schema' => $this->addTags($product),
          'avatar' => 'https://i.pravatar.cc/40?u=1',
-         'averageRating' => '',
-         'totalRatings' => '',
-         'ratingsCount' => '',
-         'reviews' => ''
+         'reviews' => $reviews->paginate(5),
+         'ratings' => ProductReview::where('product_id', $product->id)->pluck('rating') 
       ]);
       }catch(\Exception $e)
       {
         return inertia('404')->toResponse(request())->setStatusCode(404);
       }
-
   } 
+
+
 
     public function redirectOldUrl($id, $url = null)
     {
@@ -64,7 +65,6 @@ class ProductDetailsController extends Controller
       $ss =   Hashids::connection('products')->decode($id);
       $product = Product::findorfail($ss[0]);
        $correctSlug = Str::slug($product->name);
-
         if ($url !== $correctSlug) {
             return Redirect::to("/products/$product->slug", 301);
         }

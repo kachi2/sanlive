@@ -7,6 +7,7 @@ use App\Http\Controllers\Manage\ManualPaymentController;
 use App\Http\Controllers\Manage\ProductController;
 use App\Http\Controllers\SiteMapController as ControllersSiteMapController;
 use App\Http\Controllers\UpdateProductTest;
+use App\Http\Controllers\UserReviewController;
 use App\Http\Controllers\Users\SiteMapController;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -50,3 +51,7 @@ Route::get('/generate/sitemap.xml', [SiteMapController::class, 'SiteMap'])->name
 Route::get('/sitemap.xml', [ControllersSiteMapController::class, 'SiteMap']);
 Route::get('generate/slugs', [UpdateProductTest::class, 'Index']);
 Route::get('generate/category/slugs', [UpdateProductTest::class, 'categorySlug']);
+
+
+Route::get('/get/product/reviews', [UserReviewController::class, 'getReviews']);
+Route::post('/store/product/reviews', [UserReviewController::class, 'storeReview']);

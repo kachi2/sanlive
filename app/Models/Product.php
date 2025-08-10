@@ -34,4 +34,9 @@ class Product extends Model
         $product->slug = Str::slug($product->name);
     });
 }
+
+public function productReviews()
+{
+    return $this->hasMany(ProductReview::class, 'product_id','id');
+}
 }

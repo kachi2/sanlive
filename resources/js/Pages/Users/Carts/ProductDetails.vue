@@ -28,9 +28,10 @@ onMounted(() => {
 const page = usePage()
 const props = defineProps({
 data : Object,
-pageMeta: Object
+pageMeta: Object,
+reviews: Object,
+ratings: Object
 });
-
 
 let product =  props.data.product
 const form = reactive({
@@ -212,12 +213,12 @@ function handleFileUpload(event)
                                 </div>
                                   <div class="tab-pane fade" id="reviews-content" role="tabpanel" aria-labelledby="reviews-tab">
                                             
-                                        <ProductReview />
+                                        <ProductReview :reviews="reviews"  :ratings="ratings"/>
 
                                         </div>
                                            <div class="tab-pane fade" id="write-reviews" role="tabpanel" aria-labelledby="reviews-tab">
                                             
-                                        <WriteReview />
+                                        <WriteReview :product="product"/>
 
                                         </div>
                             </div>

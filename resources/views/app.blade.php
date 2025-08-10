@@ -25,7 +25,6 @@
         <link rel="stylesheet"  href="{{ asset('/frontend/plugins/noUiSlider/nouislider.css') }}">
         <link rel="stylesheet" href="{{ asset('/frontend/css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('/frontend/css/home-8.css') }}">
-        <link rel="stylesheet" href="{{asset('/frontend/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css')}}">
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
        @inertiaHead
