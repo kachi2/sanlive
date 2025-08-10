@@ -6,6 +6,7 @@ use App\Http\Controllers\Manage\CategoryController;
 use App\Http\Controllers\Manage\AdminController;
 use App\Http\Controllers\Manage\SliderController;
 use App\Http\Controllers\Auth\AdminLoginController;
+use App\Http\Controllers\Manage\ApproveUserRatingController;
 use App\Http\Controllers\Manage\Check2faController;
 use App\Http\Controllers\Manage\SettingsController;
 use App\Http\Controllers\Manage\PagesController;
@@ -142,6 +143,9 @@ Route::prefix('manage')->group(function () {
         Route::post('payment/send/email', 'SendEmail')->name('send.payment.email');
         });
 
+
+        Route::get('get/products/reviews', [ApproveUserRatingController::class, 'List'])->name('admin.product-reviews');
+        Route::post('/update/product/reviews/{id}', [ApproveUserRatingController::class,'approvedRating'])->name('admin.product.reviews.update');
     });
 
 

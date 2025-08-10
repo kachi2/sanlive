@@ -4,64 +4,46 @@
       <h5 class="mb-0">Verified Customer Feedback</h5>
     </div>
 
-    <div class="card-body">
+    <div class="card-body" >
       <div class="row">
         <div class="col-md-4 border-right text-center">
           <h2 class="mb-0">  </h2>
           <div class="mb-2">
-           {{ Math.round(overAllRating) }} <span v-for="star in 5" :key="star" class="mx-1" style="cursor: pointer; font-size: 1.2rem;">
+          <span v-if="overAllRating > 0"> ({{ Math.round(overAllRating) }} / 5) </span> <span v-for="star in 5" :key="star" class="mx-1" style="cursor: pointer; font-size: 1.2rem;">
                 <i class="fa" :class="star <= overAllRating ? 'fa-star text-warning' : 'fa-star text-secondary'"></i>
               </span> 
           </div>
           <p class="small text-muted mb-4"> {{ ratings.length }} Verified ratings</p>
 
           <div  class="d-flex align-items-center mb-2">
-            <small class="mr-2">5</small>
-            <div class="flex-grow-1 bg-light position-relative" style="height: 8px; border-radius: 4px;">
-            <div class=" position-absolute">
-             <span class="text-warning">★★★★★</span>
+            5    <small class="text-warning">★★★★★</small>
+            <div class="flex-grow-1 bg-light position-relative" style="height: 2px; border-radius: 1px;">
             </div>
-            </div>
-            <small class="ml-2 text-muted">{{ Math.round((fiveRating.length/ratings.length)*100) }} </small>
+            <small class="ml-2 text-muted">({{ fiveRating.length }})  <span v-if="fiveRating.length > 0">{{ Math.round((fiveRating.length/ratings.length)*100) }}%  </span></small>
           </div>
-           <div  class="d-flex align-items-center mb-2">
-            <small class="mr-2">4</small>
-            <div class="flex-grow-1 bg-light position-relative" style="height: 8px; border-radius: 4px;">
-              <div class=" position-absolute">
-             <span class="text-warning">★★★★</span>
+            <div  class="d-flex align-items-center mb-2">
+            4    <small class="text-warning">★★★★</small>
+            <div class="flex-grow-1 bg-light position-relative" style="height: 2px; border-radius: 1px;">
             </div>
-            </div>
-            <small class="ml-2 text-muted">{{ Math.round((fourRating.length/ratings.length)*100) }} </small>
+            <small class="ml-2 text-muted">({{ fourRating.length }}) <span v-if="fiveRating.length > 0">{{ Math.round((fourRating.length/ratings.length)*100) }}%  </span></small>
           </div>
-
-           <div  class="d-flex align-items-center mb-2">
-            <small class="mr-2">3</small>
-            <div class="flex-grow-1 bg-light position-relative" style="height: 8px; border-radius: 4px;">
-                <div class=" position-absolute">
-             <span class="text-warning">★★★</span>
+            <div  class="d-flex align-items-center mb-2">
+            3    <small class="text-warning">★★★</small>
+            <div class="flex-grow-1 bg-light position-relative" style="height: 2px; border-radius: 1px;">
             </div>
-            </div>
-            <small class="ml-2 text-muted">{{ Math.round((threeRating.length/ratings.length)*100) }}</small>
+            <small class="ml-2 text-muted">({{ threeRating.length }}) <span v-if="fiveRating.length > 0">{{ Math.round((threeRating.length/ratings.length)*100) }}% </span> </small>
           </div>
-
-          <div  class="d-flex align-items-center mb-2">
-            <small class="mr-2">2</small>
-            <div class="flex-grow-1 bg-light position-relative" style="height: 8px; border-radius: 4px;">
-               <div class=" position-absolute">
-             <span class="text-warning">★★</span>
+            <div  class="d-flex align-items-center mb-2">
+            2    <small class="text-warning">★★</small>
+            <div class="flex-grow-1 bg-light position-relative" style="height: 2px; border-radius: 1px;">
             </div>
-            </div>
-            <small class="ml-2 text-muted">{{ Math.round((twoRating.length/ratings.length)*100) }}</small>
+            <small class="ml-2 text-muted">({{ twoRating.length }})  <span v-if="fiveRating.length > 0">{{ Math.round((twoRating.length/ratings.length)*100) }}% </span></small>
           </div>
-
-          <div  class="d-flex align-items-center mb-2">
-            <small class="mr-2">1</small>
-            <div class="flex-grow-1 bg-light position-relative" style="height: 8px; border-radius: 4px;">
-                <div class=" position-absolute">
-             <span class="text-warning">★</span>
+            <div  class="d-flex align-items-center mb-2">
+            1    <small class="text-warning">★</small>
+            <div class="flex-grow-1 bg-light position-relative" style="height: 2px; border-radius: 1px;">
             </div>
-            </div>
-            <small class="ml-2 text-muted">{{ Math.round((oneRating.length/ratings.length)*100) }}</small>
+            <small class="ml-2 text-muted">({{ oneRating.length }}) <span v-if="fiveRating.length > 0">{{ Math.round((oneRating.length/ratings.length)*100) }}% </span> </small>
           </div>
         </div>
         <div  class="col-md-8"> 
@@ -82,10 +64,8 @@
             <span class="float-end text-success" style="font-size:8px"> <i class="fa fa-check-circle"></i> Verified Purchase</span>
                 </small>
             </div>
-            
-            
           </div>
-       <div class="d-flex justify-content-center mt-3">
+       <div class="d-flex justify-content-center mt-3" v-if="reviews.links.length > 5">
         <ul class="pagination">
           <li v-for="link in reviews.links" :key="link.label" 
               :class="['page-item', { active: link.active, disabled: !link.url }]">

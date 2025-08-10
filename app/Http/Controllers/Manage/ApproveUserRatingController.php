@@ -13,7 +13,7 @@ class ApproveUserRatingController extends Controller
 
     public function List()
     {
-        $reviews = ProductReview::latest()->get();
+        $reviews = ProductReview::latest()->paginate(20);
         return view('manage.products.review')
         ->with('reviews', $reviews)
         ->with('bheading', 'Product Reviews')

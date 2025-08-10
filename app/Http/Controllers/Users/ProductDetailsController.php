@@ -33,7 +33,7 @@ class ProductDetailsController extends Controller
     $product->tagline = $matches[0] ?? '';
     $data['product'] = $product;
     $url = route('users.products', ['slug' => $product->slug]);
-    $reviews = ProductReview::where('product_id', $product->id);
+    $reviews = ProductReview::where(['product_id' => $product->id, 'is_approved' => 1])->latest();
 
     return inertia('Users/Carts/ProductDetails', 
       [
@@ -49,7 +49,7 @@ class ProductDetailsController extends Controller
         'schema' => $this->addTags($product),
          'avatar' => 'https://i.pravatar.cc/40?u=1',
          'reviews' => $reviews->paginate(5),
-         'ratings' => ProductReview::where('product_id', $product->id)->pluck('rating') 
+         'ratings' => ProductReview::where(['product_id' => $product->id, 'is_approved' => 1])->pluck('rating') 
       ]);
       }catch(\Exception $e)
       {

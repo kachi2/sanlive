@@ -17,6 +17,7 @@
                                         <table id="" class="table table-striped table-bordered">
                                            <thead>
                                             <tr>
+                                                <th> Product</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>title</th>
@@ -32,6 +33,7 @@
                                         @if(count($reviews) > 0)
                                         @foreach ($reviews as  $sp)
                                             <tr>
+                                                <td> {{$sp->product->name}} </td>
                                                 <td>
                                                     {{$sp->name}}
                                                 </td> 
@@ -62,7 +64,7 @@
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                         @if($sp->is_approved != 1)
-                                                        <form method="post" action="{{route('product.status', $sp->hashid)}}" id="form2"> 
+                                                        <form method="post" action="{{route('admin.product.reviews.update', $sp->id)}}" id="form2"> 
                                                               @csrf  
                                                               <input type="hidden" name="status" value="0">
                                                               <button type="submit"  class="dropdown-item" style="color:green">Approved</button>

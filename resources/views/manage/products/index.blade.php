@@ -4,9 +4,12 @@
             <div class="row">
                 <div class="col-md-12">
                      <div class="card">
+                        
                         <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <h6 class="card-title">Product</h6>
+                            <div class="d-flex justify-content-between pb-3">
+                                 <a href="{{route('admin.product-reviews')}}" class="btn btn-outline-primary ml-2"> View Product Reviews</a>
+                                {{-- <h6 class="card-title">Product</h6> --}}
+                               
                                 <div>
                                     <form action="{{route('product.index')}}" method="get"> 
                                         @csrf
