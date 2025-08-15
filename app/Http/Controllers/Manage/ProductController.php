@@ -7,12 +7,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Traits\imageUpload;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use Vinkla\Hashids\Facades\Hashids;
 
 class ProductController extends Controller
 {
@@ -125,6 +123,7 @@ class ProductController extends Controller
             $prod->sale_price = $request->cost_price * $cat->markup;
             $prod->requires_prescription= $request->requires_prescription??0;
             $prod->sku = 'LVPH'.rand(11111,99999);
+            $prod->brand = $request->brand;
             $prod->status = 0;
             if ($request->file('image')) {
                 $image =  $this->UploadImage($request, 'images/products/', 500,500);
@@ -209,6 +208,7 @@ class ProductController extends Controller
             $prod->cost_price = $request->cost_price;
             $prod->price = $request->cost_price * $cat->inflated;
             $prod->sale_price = $request->cost_price * $cat->markup;
+            $prod->brand = $request->brand;
             $prod->requires_prescription = $request->requires_prescription??0;
             if ($request->file('image')) {
                 $image =  $this->UploadImage($request, 'images/products/', 500,500);
@@ -240,7 +240,6 @@ class ProductController extends Controller
     {
         //
     }
-    
     
     
      public function processImages()

@@ -35,6 +35,18 @@
                                         </div>
                                          </div>
 
+                                      <div class="col-md-12 col-12">
+                                        <div class="form-group">
+                                           <input required type="text" name="brand"  value="{{old('brand')}}" class="form-control @error('brand') is-invalid @enderror" id="exampleInput"
+                                                   aria-describedby="EventLocation" placeholder="Product Brand">
+                                            <small id="emailHelp" class="form-text text-muted">Enter Product Brand 
+                                            </small>
+                                            @error('brand')
+                                            <span class="invalid-feedback"> <small> {{$message}} </small> </span>
+                                            @enderror
+                                        </div>
+                                         </div>
+
                                       <div class="col-md-12">
                                          <div class="form-group">
                                            

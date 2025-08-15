@@ -1,12 +1,13 @@
 <script setup >
 import AppTemplate from '@/AppTemplate.vue';
 import CartAlert from '@/Components/old/CartAlert.vue';
-import { Head, Link, router, usePage } from '@inertiajs/vue3';
+import { Head, Link, router, usePage} from '@inertiajs/vue3';
 import { onMounted, reactive, ref } from 'vue';
 import useFunctions from '../useFunctions';
 import HeadTags from '@/Components/headTags.vue';
 import ProductReview from './productReview.vue';
 import WriteReview from './writeReview.vue';
+import { computed } from 'vue';
 
 onMounted(() => {
     $('.owl-carousel').owlCarousel({
@@ -37,6 +38,11 @@ let product =  props.data.product
 const form = reactive({
     image:'',
     qty:1,
+})
+
+const TaglineText = computed(() => {
+
+    return product.tagline.replace(/Description:/gi, '')
 })
 
 const addSubstract = function (oprand)  { 
@@ -134,8 +140,16 @@ function handleFileUpload(event)
                                     
                                 
                                     <div class="ps-product__meta">
-                                        <p v-html="product.tagline"> </p>
+                                        <h2 style="font-size:25px; color:deepskyblue">Description:
+                                            <span v-html="TaglineText"> </span>
+                                        </h2>
+                                        
                                     </div>
+                                     <div class="ps-product__meta">
+                                        <h2 style="font-size:20px; color:deepskyblue">Manufacturer:  <span style="font-size:15px">{{ product?.brand }} </span></h2>
+                                        
+                                    </div>
+
 
                                     <form enctype="multipart/form-data"  @submit.prevent="addToCart(product.id)">
                                     <div class="ps-product__quantity">
