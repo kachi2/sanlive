@@ -94,14 +94,14 @@ class ProductDetailsController extends Controller
     public function addTags($product, $reviews)
     {
        
-      $schema = [
+     $schema = [
     "@context" => "https://schema.org",
     "@type" => "Product",
     "name" => $product->name,
     "image" => url("images/products/{$product->image_path}"),
     "description" => Str::limit(strip_tags($product->description), 160),
     "brand" => [
-        "@type" => "Brand",
+        "@type" => $product->brand??'Sanlive Pharmacy',
         "name" => 'Sanlive Pharmacy'
     ],
     "offers" => [
@@ -111,7 +111,8 @@ class ProductDetailsController extends Controller
         "price" => $product->sale_price,
         "availability" => "https://schema.org/InStock",
         "priceValidUntil" => now()->addYear()->format('Y-m-d'),
-    ],
+
+        // ✅ Move return policy inside offers
         "hasMerchantReturnPolicy" => [
             "@type" => "MerchantReturnPolicy",
             "applicableCountry" => "NG",
@@ -120,7 +121,9 @@ class ProductDetailsController extends Controller
             "returnMethod" => "https://schema.org/ReturnByMail",
             "returnFees" => "https://schema.org/FreeReturn"
         ],
-     "shippingDetails" => [
+
+        // ✅ Move shipping details inside offers
+        "shippingDetails" => [
             "@type" => "OfferShippingDetails",
             "shippingRate" => [
                 "@type" => "MonetaryAmount",
@@ -133,30 +136,33 @@ class ProductDetailsController extends Controller
                     "@type" => "QuantitativeValue",
                     "minValue" => 1,
                     "maxValue" => 2,
-                    "unitCode" => "d"  
+                    "unitCode" => "d"  // days
                 ],
                 "transitTime" => [
                     "@type" => "QuantitativeValue",
                     "minValue" => 2,
                     "maxValue" => 5,
-                    "unitCode" => "d"  
+                    "unitCode" => "d"  // days
                 ]
             ],
-              "shippingDestination" => [
+            "shippingDestination" => [
                 "@type" => "DefinedRegion",
                 "addressCountry" => "NG"
-              ],
-            ],
-      "aggregateRating" => [
+            ]
+        ]
+    ],
+
+    "aggregateRating" => [
         "@type" => "AggregateRating",
-        "ratingValue" =>  4.5,   
-        "reviewCount" => isset($reviews)?count($reviews):10,
+        "ratingValue" => 4.5,
+        "reviewCount" => isset($reviews) ? count($reviews) : 10,
         "bestRating" => 5,
         "worstRating" => 1
-    ],
+    ]
 ];
 
 return $schema;
+
 
 }
 
