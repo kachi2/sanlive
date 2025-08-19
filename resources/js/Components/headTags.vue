@@ -16,9 +16,11 @@
      <meta name="robots" :content="pageMeta.robots || 'index, follow'" />
     <meta name="apple-mobile-web-app-capable" content="yes">
 </Head>
+<Pwa />
 </template>
 
 <script setup>
+import Pwa from '@/Pages/pwa.vue';
 import { Head } from '@inertiajs/vue3';
 
 const props = defineProps({
