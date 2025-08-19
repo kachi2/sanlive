@@ -37,7 +37,11 @@
                   alt="Share"
                   style="height:22px;margin:0 4px;"
                 />
-                button at the bottom of Safari or Chrome. 
+                button at the bottom of Safari or <strong>Share</strong> at the top of the Chrome  <img 
+                    src="https://img.icons8.com/ios-filled/50/export.png" 
+                    alt="iOS Share" 
+                    style="height:24px; margin:0 4px;" 
+                    /> 
               </li>
               <li>
                 Scroll and tap <strong>Add to Home Screen</strong>.
