@@ -27,6 +27,7 @@
         <link rel="stylesheet" href="{{ asset('/frontend/css/home-8.css') }}">
         <link rel="manifest" href="/manifest.json">
         <meta name="theme-color" content="#42b883">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
