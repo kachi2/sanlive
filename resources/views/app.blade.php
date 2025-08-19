@@ -25,6 +25,9 @@
         <link rel="stylesheet"  href="{{ asset('/frontend/plugins/noUiSlider/nouislider.css') }}">
         <link rel="stylesheet" href="{{ asset('/frontend/css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('/frontend/css/home-8.css') }}">
+        <link rel="manifest" href="/manifest.json">
+        <meta name="theme-color" content="#42b883">
+
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
        @inertiaHead
