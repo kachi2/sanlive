@@ -112,6 +112,41 @@ class ProductDetailsController extends Controller
         "availability" => "https://schema.org/InStock",
         "priceValidUntil" => now()->addYear()->format('Y-m-d'),
     ],
+        "hasMerchantReturnPolicy" => [
+            "@type" => "MerchantReturnPolicy",
+            "applicableCountry" => "NG",
+            "returnPolicyCategory" => "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays" => 2,
+            "returnMethod" => "https://schema.org/ReturnByMail",
+            "returnFees" => "https://schema.org/FreeReturn"
+        ],
+     "shippingDetails" => [
+            "@type" => "OfferShippingDetails",
+            "shippingRate" => [
+                "@type" => "MonetaryAmount",
+                "value" => "8000",
+                "currency" => "NGN"
+            ],
+            "deliveryTime" => [
+                "@type" => "ShippingDeliveryTime",
+                "handlingTime" => [
+                    "@type" => "QuantitativeValue",
+                    "minValue" => 1,
+                    "maxValue" => 2,
+                    "unitCode" => "d"  
+                ],
+                "transitTime" => [
+                    "@type" => "QuantitativeValue",
+                    "minValue" => 2,
+                    "maxValue" => 5,
+                    "unitCode" => "d"  
+                ]
+            ],
+              "shippingDestination" => [
+                "@type" => "DefinedRegion",
+                "addressCountry" => "NG"
+              ],
+            ],
       "aggregateRating" => [
         "@type" => "AggregateRating",
         "ratingValue" =>  4.5,   
