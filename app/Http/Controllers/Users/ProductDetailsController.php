@@ -151,14 +151,6 @@ class ProductDetailsController extends Controller
             ]
         ]
     ],
-
-    "aggregateRating" => [
-        "@type" => "AggregateRating",
-        "ratingValue" => 4.5,
-        "reviewCount" => isset($reviews) ? count($reviews) : 10,
-        "bestRating" => 5,
-        "worstRating" => 1
-    ]
 ];
 
 return $schema;
