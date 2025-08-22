@@ -29,7 +29,7 @@
         <meta name="theme-color" content="#42b883">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 
-        @routes
+        {{-- @routes --}}
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
        @inertiaHead
          @if (isset($page['props']['schema']))
