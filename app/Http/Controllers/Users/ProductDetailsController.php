@@ -101,8 +101,8 @@ class ProductDetailsController extends Controller
     "image" => url("images/products/{$product->image_path}"),
     "description" => Str::limit(strip_tags($product->description), 160),
     "brand" => [
-        "@type" => $product->brand??'Sanlive Pharmacy',
-        "name" => 'Sanlive Pharmacy'
+        "@type" => 'brand' ,
+        "name" => $product->brand??'Sanlive Pharmacy'
     ],
     "offers" => [
         "@type" => "Offer",
