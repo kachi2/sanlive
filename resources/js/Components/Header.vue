@@ -21,7 +21,7 @@
                     <li><a class="ps-header__item open-search" href=""><i class="icon-magnifier"></i></a></li>
                   
                     <span v-if="!page?.props?.auth?.user">
-                    <Link class="" href="/login">Sign in</Link> 
+                    <Link class="" href="/login" rel="nofollow">Sign in</Link> 
                 
                     </span>
                     <li v-else>

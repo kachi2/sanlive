@@ -39,10 +39,10 @@
                         <div class="ps-footer--block">
                             <h5 class="ps-block__title" >Account</h5>
                             <ul class="ps-block__list">
-                                <li><Link href="/accounts/index">My account</Link></li>
-                                <li><Link href="/account/orders">My orders</Link></li>
-                                <li><Link href="/account/address">Address Book</Link></li>
-                                <li><Link href="/account/order/payments">Payments</Link></li>
+                                <li><Link href="/accounts/index" rel="nofollow">My account</Link></li>
+                                <li><Link href="/account/orders" rel="nofollow">My orders</Link></li>
+                                <li><Link href="/account/address" rel="nofollow">Address Book</Link></li>
+                                <li><Link href="/account/order/payments" rel="nofollow" >Payments</Link></li>
                             </ul>
                         </div>
                     </div>
@@ -50,10 +50,10 @@
                         <div class="ps-footer--block">
                             <h5 class="ps-block__title">Help Links</h5>
                             <ul class="ps-block__list">
-                                <li><Link href="/pages/about">About Us</Link></li>
-                                <li><Link href="/pages/privacypolicy">Privacy Policy</Link></li>
-                                <li><Link href="/pages/terms">Terms &amp; Conditions</Link></li>
-                                <li><Link href="/pages/contactus">Contact Us</Link></li>
+                                <li><Link href="/pages/about" rel="nofollow">About Us</Link></li>
+                                <li><Link href="/pages/privacypolicy" rel="nofollow">Privacy Policy</Link></li>
+                                <li><Link href="/pages/terms" rel="nofollow">Terms &amp; Conditions</Link></li>
+                                <li><Link href="/pages/contactus" rel="nofollow">Contact Us</Link></li>
                                 <li><Link href="/blogs">Blogs</Link></li>
                             </ul>
                         </div>
