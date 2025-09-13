@@ -20,8 +20,7 @@
                     <input type="checkbox" class="custom-control-input" v-model="form.remember" checked="" id="customCheck1">
                     <label class="custom-control-label" for="customCheck1">Remember me</label>
                 </div>
-                <Link
-                    :href="route('password.request')"
+                <Link :href="route('password.request')"
                     class=" underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     Forgot your password?
                 </Link>

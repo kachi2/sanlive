@@ -4,7 +4,7 @@
         <meta charset="utf-8"> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta property="og:title" content="{{ $meta['title'] ?? 'Sanlive pharmacy Online Health Store, Medicines, Vitamins' }}"> 
-        <meta property="og:description" content="{{ $meta['description'] ?? 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices' }}">
+        <meta property="og:description" content="{{ $meta['description'] ?? 'Get all your medications delivered to your doorstep from your number one online pharmacy store in Lagos Nigeria- Sanlive Pharmacy and Stores. Fast delivery and affordable medication' }}">
         <meta property="og:image" content="{{ $meta['image'] ?? asset('images/'.$settings->site_logo) }}">
         <meta property="og:url" content="{{ request()->fullUrl() }}">
          <meta property="og:type" content="website">
@@ -28,8 +28,8 @@
         <link rel="manifest" href="/manifest.json">
         <meta name="theme-color" content="#42b883">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
-
-        {{-- @routes --}}
+     
+        @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
        @inertiaHead
          @if (isset($page['props']['schema']))
