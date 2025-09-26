@@ -3,12 +3,17 @@
     <head>  
         <meta charset="utf-8"> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta property="og:title" content="{{ $meta['title'] ?? 'Sanlive pharmacy Online Health Store, Medicines, Vitamins' }}"> 
-        <meta property="og:description" content="{{ $meta['description'] ?? 'Get all your medications delivered to your doorstep from your number one online pharmacy store in Lagos Nigeria- Sanlive Pharmacy and Stores. Fast delivery and affordable medication' }}">
-        <meta property="og:image" content="{{ $meta['image'] ?? asset('images/'.$settings->site_logo) }}">
+        <meta property="og:title" content="{{ $metaTitle??'Sanlive pharmacy Online Health Store, Medicines, Vitamins' }}">
+        <meta property="og:description" content="{{ $description??'Get all your medications delivered to your doorstep from your number one online pharmacy store in Lagos Nigeria- Sanlive Pharmacy and Stores. Fast delivery and affordable medication' }}">
+        <meta property="og:image" content="{{ $image_url??'' }}">
         <meta property="og:url" content="{{ request()->fullUrl() }}">
-         <meta property="og:type" content="website">
         <meta name="twitter:card" content="summary_large_image">
+        <meta name="keywords" content="{{$keywords??''}}" />
+        <meta name="twitter:title" content="{{ $metaTitle??'Sanlive pharmacy Online Health Store, Medicines, Vitamins' }}">
+        <meta name="twitter:description" content="{{ $description??'' }}">
+        <meta name="twitter:image" content="{{ $image_url??'' }}">
+        <meta name="robots" content="{{ $robots??'' }}">
+         <meta property="og:type" content="website">
          <meta name="application-name" content="https://sanlivepharmacy.com"> 
         <link href="https://fonts.googleapis.com/css?family=Jost:400,500,600,700&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.gstatic.com/">
@@ -27,7 +32,7 @@
         <link rel="stylesheet" href="{{ asset('/frontend/css/home-8.css') }}">
         <link rel="manifest" href="/manifest.json">
         <meta name="theme-color" content="#42b883">
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+        <link rel="apple-touch-icon" href="{{asset('/apple-touch-icon.png')}}" sizes="180x180">
      
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])

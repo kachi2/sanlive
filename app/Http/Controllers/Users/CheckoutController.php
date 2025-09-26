@@ -61,6 +61,14 @@ class CheckoutController extends Controller
     
          $date['start'] = Carbon::now();
          $date['end'] = Carbon::now()->addDay(1);
+         $meta = [
+                'url' => url()->current(),
+                'title' => 'Checkout | Sanlive Pharmacy',
+                'metaTitle' => 'Buy medical products, order fast, get fast delivery',
+                'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+                'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
+                'image_url' => websiteLogo()
+         ];
         return inertia('Users/Carts/Checkout', 
         [
             'data' => $date,
@@ -69,15 +77,8 @@ class CheckoutController extends Controller
             'orderNo' => $orderNo,
             'shipping_fee' => $shipping_fee,
             'total' => \Cart::getTotal(),
-            'pageMeta' => [
-                'url' => url()->current(),
-                'title' => 'Checkout | fast delivery ',
-                'metaTitle' => 'Buy medical products, order fast, get fast delivery',
-                'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
-                'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
-                'image_url' => websiteLogo()
-                ]
-        ]);
+            'pageMeta' => $meta
+        ])->withViewData($meta);
       }catch(\Exception $e)
       {
          return inertia('404')->toResponse(request())->setStatusCode(404);

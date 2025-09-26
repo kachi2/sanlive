@@ -61,21 +61,22 @@ use imageUpload;
         $pp->hashid = Hashids::connection('products')->encode($pp->id);
         $keyworkds[] = $pp->name;
       }
+      $metas = [
+            'url' => url()->current(),
+            'title' => 'Carts | Index',
+            'metaTitle' => 'Buy medical products, order fast, get fast delivery ',
+            'description' => websiteName()."$keyworkds Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices",
+            'keywords' => $keyworkds,
+            'image_url' => websiteLogo()
+      ];
       $keyworkds = implode(',', $keyworkds);
         return inertia('Users/Carts/Cart', [
           'carts' => \Cart::getContent(),
           'total' => \Cart::getTotal(),
           'latest' => $prod,
           'cartSession' => Hashids::connection('products')->encode(rand(11,99)),
-          'pageMeta' => [
-            'url' => url()->current(),
-            'title' => 'Carts | Index',
-            'metaTitle' => 'Buy medical products, order fast, get fast delivery ',
-            'description' => websiteName().' Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
-            'keywords' => $keyworkds,
-            'image_url' => websiteLogo()
-            ]
-        ]);
+          'pageMeta' => $metas
+        ])->withViewData($metas);
       
           }catch(\Exception $e)
       {

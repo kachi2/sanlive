@@ -35,22 +35,23 @@ class ProductDetailsController extends Controller
     $url = route('users.products', ['slug' => $product->slug]);
     $reviews = ProductReview::where(['product_id' => $product->id, 'is_approved' => 1])->latest();
 
+    $meta = [
+            'url' => $url,
+            'title' => $product->name." Buy Online in Nigeria | Sanlive Pharmacy",
+            'metaTitle' => "Buy $product->name Online in Nigeria | Sanlive Pharmacy",
+            'description' => "Shop $product->name Order prescription drugs, supplements & personal care from Sanlive Pharmacy. Affordable prices, genuine products & doorstep delivery in Nigeria.",
+            'keywords' => " $product->name Shop high-quality  online at Sanlive Pharmacy. Fast delivery across Nigeria. Affordable and trusted brands",
+            'image_url' => asset('images/products/'.$product->image_path)
+    ];
     return inertia('Users/Carts/ProductDetails', 
       [
         'data' => $data,
-        'pageMeta' => [
-            'url' => $url,
-            'title' => $product->name."Buy Online in Nigeria | Sanlive Pharmacy",
-            'metaTitle' => "Buy $product->name Online in Nigeria | Sanlive Pharmacy",
-            'description' => "Shop $product->name online at Sanlive Pharmacy. Trusted  medication. Nationwide delivery across Nigeria. Affordable & authentic",
-            'keywords' => " Shop high-quality  online at Sanlive Pharmacy. Fast delivery across Nigeria. Affordable and trusted brands",
-            'image_url' => asset('images/products/'.$product->image_path)
-        ],
+        'pageMeta' => $meta,
         'schema' => $this->addTags($product, $reviews->get()),
          'avatar' => 'https://i.pravatar.cc/40?u=1',
          'reviews' => $reviews->paginate(5),
          'ratings' => ProductReview::where(['product_id' => $product->id, 'is_approved' => 1])->pluck('rating') 
-      ]);
+      ])->withViewData($meta);
       }catch(\Exception $e)
       {
         return inertia('404')->toResponse(request())->setStatusCode(404);

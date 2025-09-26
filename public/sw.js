@@ -1,7 +1,7 @@
 const CACHE_NAME = "sanlive-cache-v1";
 const urlsToCache = [
   "/",
-  "/offline.html",
+  // "/offline.html",
   "/frontend/whatsapp.png", 
 ];
 

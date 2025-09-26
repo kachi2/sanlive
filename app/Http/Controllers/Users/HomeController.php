@@ -56,19 +56,20 @@ class HomeController extends Controller
         $categories = Category::inRandomOrder()->get();
         addHashId($category);
         addHashId($categories);
-        return inertia('Dashboard', [
-            'sliders' => $slider,
-            'category' => $category,
-            'categories' => $categories,
-            'pageMeta' => [
+        $meta = [
             'url' => url()->current(),
             'title' => websiteName().' Online Health Store, Medicines, Vitamins',
             'metaTitle' => websiteName().' Online Health Store, Medicines, Vitamins',
             'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
             'keywords' => 'online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
             'image_url' => websiteLogo()
-            ]
-        ]);
+        ];
+        return inertia('Dashboard', [
+            'sliders' => $slider,
+            'category' => $category,
+            'categories' => $categories,
+            'pageMeta' => $meta
+        ])->withViewData($meta);
       }catch(\Exception $e)
       {
         
