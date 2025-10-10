@@ -61,15 +61,16 @@ use imageUpload;
         $pp->hashid = Hashids::connection('products')->encode($pp->id);
         $keyworkds[] = $pp->name;
       }
+      $keyworkds =  implode(',', $keyworkds);
       $metas = [
             'url' => url()->current(),
             'title' => 'Carts | Index',
             'metaTitle' => 'Buy medical products, order fast, get fast delivery ',
-            'description' => websiteName()."$keyworkds Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices",
+            'description' => websiteName()." $keyworkds Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices",
             'keywords' => $keyworkds,
             'image_url' => websiteLogo()
       ];
-      $keyworkds = implode(',', $keyworkds);
+     
         return inertia('Users/Carts/Cart', [
           'carts' => \Cart::getContent(),
           'total' => \Cart::getTotal(),
@@ -80,6 +81,7 @@ use imageUpload;
       
           }catch(\Exception $e)
       {
+        // dd($e->getMessage());
         return inertia('404')->toResponse(request())->setStatusCode(404);
       }
     }
