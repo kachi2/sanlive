@@ -1,7 +1,7 @@
 <template> 
 <Head>
     <title > {{ pageMeta.title }}</title>
-    <meta property="title" content="Sanlive Pharmacy: The largest and biggest online pharmacy marketplace that you can trust.">
+    <meta property="title" :content="pageMeta.metaTitle">
     <meta name="description" :content="pageMeta.description??'Get all your medications delivered to your doorstep from your number one online pharmacy store in Lagos Nigeria- Sanlive Pharmacy and Stores. Fast delivery and affordable medication'" />
     <meta name="keywords" :content="pageMeta.keywords" />
     <meta property="og:title" :content="pageMeta.metaTitle??'Sanlive Pharmacy: The largest and biggest online pharmacy marketplace that you can trus'" />

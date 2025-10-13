@@ -37,8 +37,8 @@ class ProductDetailsController extends Controller
 
     $meta = [
             'url' => $url,
-            'title' => $product->name." Buy Online in Nigeria | Sanlive Pharmacy",
-            'metaTitle' => "Buy $product->name Online in Nigeria | Sanlive Pharmacy",
+            'title' => $product->name." Sanlive Pharmacy",
+            'metaTitle' => "Buy $product->name in Nigeria",
             'description' => "Shop $product->name Order prescription drugs, supplements & personal care from Sanlive Pharmacy. Affordable prices, genuine products & doorstep delivery in Nigeria.",
             'keywords' => " $product->name Shop high-quality  online at Sanlive Pharmacy. Fast delivery across Nigeria. Affordable and trusted brands",
             'image_url' => asset('images/products/'.$product->image_path)

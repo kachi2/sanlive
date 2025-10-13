@@ -4,7 +4,7 @@
         <meta charset="utf-8"> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta property="og:title" content="{{ $metaTitle??'Sanlive pharmacy Online Health Store, Medicines, Vitamins' }}">
-        <meta property="og:description" content="{{ $description??'Get all your medications delivered to your doorstep from your number one online pharmacy store in Lagos Nigeria- Sanlive Pharmacy and Stores. Fast delivery and affordable medication' }}">
+        <meta property="og:description" content="{{ $description??'Get all your medications delivered to your doorstep from your number one online pharmacy store in Lagos Nigeria- Sanlive Pharmacy and Stores' }}">
         <meta property="og:image" content="{{ $image_url??'' }}">
         <meta property="og:url" content="{{ request()->fullUrl() }}">
         <meta name="twitter:card" content="summary_large_image">
