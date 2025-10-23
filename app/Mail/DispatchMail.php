@@ -5,6 +5,7 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -16,9 +17,9 @@ class DispatchMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(public $data)
     {
-        //
+        
     }
 
     /**
@@ -27,7 +28,8 @@ class DispatchMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Dispatch Mail',
+            subject: 'Order Dispatched',
+            from: new Address('noreply@sanlivepharmacy.com', 'Sanlive Pharmacy')
         );
     }
 
@@ -36,8 +38,11 @@ class DispatchMail extends Mailable
      */
     public function content(): Content
     {
-        return new Content(
-            view: 'view.name',
+          return new Content(
+            view: 'mails.DispatchMail',
+            with: [
+                'data' => $this->data
+            ]
         );
     }
 
