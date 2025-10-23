@@ -39,7 +39,7 @@ class DispatchMail extends Mailable
     public function content(): Content
     {
           return new Content(
-            view: 'mails.DispatchMail',
+            view: 'mails.dispatchMail',
             with: [
                 'data' => $this->data
             ]
