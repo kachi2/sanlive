@@ -7,6 +7,7 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Inertia\Middleware;
+use Tighten\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -46,7 +47,11 @@ class HandleInertiaRequests extends Middleware
                 'warning'=> session('warning')
             ],
             'settings' => Setting::latest()->first(),
-            'announcment' => Annoucement::first()
+            'announcment' => Annoucement::first(),
+            'ziggy' => fn () => [
+                ...(new Ziggy)->toArray(),
+                'location' => $request->url(),
+            ],
         ]);
     }
 }
