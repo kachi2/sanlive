@@ -94,69 +94,106 @@ class ProductDetailsController extends Controller
 
     public function addTags($product, $reviews)
     {
-       
-     $schema = [
-    "@context" => "https://schema.org",
-    "@type" => "Product",
-    "name" => $product->name,
-    "image" => url("images/products/{$product->image_path}"),
-    "description" => Str::limit(strip_tags($product->description), 160),
-    "brand" => [
-        "@type" => 'brand' ,
-        "name" => $product->brand??'Sanlive Pharmacy'
-    ],
-    "offers" => [
-        "@type" => "Offer",
-        "url" => url("/products/{$product->slug}"),
-        "priceCurrency" => "NGN",
-        "price" => $product->sale_price,
-        "availability" => "https://schema.org/InStock",
-        "priceValidUntil" => now()->addYear()->format('Y-m-d'),
+        $reviewCount = $reviews->count();
+        $avgRating   = $reviewCount > 0 ? round($reviews->avg('rating'), 1) : null;
 
-        // ✅ Move return policy inside offers
-        "hasMerchantReturnPolicy" => [
-            "@type" => "MerchantReturnPolicy",
-            "applicableCountry" => "NG",
-            "returnPolicyCategory" => "https://schema.org/MerchantReturnFiniteReturnWindow",
-            "merchantReturnDays" => 2,
-            "returnMethod" => "https://schema.org/ReturnByMail",
-            "returnFees" => "https://schema.org/FreeReturn"
-        ],
+        $category     = $product->category;
+        $categoryUrl  = url('/catalogs/' . ($category->slug ?? $category->id));
+        $productUrl   = url("/products/{$product->slug}");
 
-        // ✅ Move shipping details inside offers
-        "shippingDetails" => [
-            "@type" => "OfferShippingDetails",
-            "shippingRate" => [
-                "@type" => "MonetaryAmount",
-                "value" => "8000",
-                "currency" => "NGN"
+        $productSchema = [
+            "@type"       => "Product",
+            "name"        => $product->name,
+            "image"       => url("images/products/{$product->image_path}"),
+            "description" => Str::limit(strip_tags($product->description), 160),
+            "sku"         => $product->sku ?? (string) $product->id,
+            "brand"       => [
+                "@type" => "Brand",
+                "name"  => $product->brand ?? 'Sanlive Pharmacy',
             ],
-            "deliveryTime" => [
-                "@type" => "ShippingDeliveryTime",
-                "handlingTime" => [
-                    "@type" => "QuantitativeValue",
-                    "minValue" => 1,
-                    "maxValue" => 2,
-                    "unitCode" => "d"  // days
+            "offers" => [
+                "@type"           => "Offer",
+                "url"             => $productUrl,
+                "priceCurrency"   => "NGN",
+                "price"           => (string) $product->sale_price,
+                "availability"    => "https://schema.org/InStock",
+                "priceValidUntil" => now()->addYear()->format('Y-m-d'),
+                "hasMerchantReturnPolicy" => [
+                    "@type"                  => "MerchantReturnPolicy",
+                    "applicableCountry"      => "NG",
+                    "returnPolicyCategory"   => "https://schema.org/MerchantReturnFiniteReturnWindow",
+                    "merchantReturnDays"     => 2,
+                    "returnMethod"           => "https://schema.org/ReturnByMail",
+                    "returnFees"             => "https://schema.org/FreeReturn",
                 ],
-                "transitTime" => [
-                    "@type" => "QuantitativeValue",
-                    "minValue" => 2,
-                    "maxValue" => 5,
-                    "unitCode" => "d"  // days
-                ]
+                "shippingDetails" => [
+                    "@type" => "OfferShippingDetails",
+                    "shippingRate" => [
+                        "@type"    => "MonetaryAmount",
+                        "value"    => "8000",
+                        "currency" => "NGN",
+                    ],
+                    "deliveryTime" => [
+                        "@type" => "ShippingDeliveryTime",
+                        "handlingTime" => [
+                            "@type"    => "QuantitativeValue",
+                            "minValue" => 1,
+                            "maxValue" => 2,
+                            "unitCode" => "d",
+                        ],
+                        "transitTime" => [
+                            "@type"    => "QuantitativeValue",
+                            "minValue" => 2,
+                            "maxValue" => 5,
+                            "unitCode" => "d",
+                        ],
+                    ],
+                    "shippingDestination" => [
+                        "@type"          => "DefinedRegion",
+                        "addressCountry" => "NG",
+                    ],
+                ],
             ],
-            "shippingDestination" => [
-                "@type" => "DefinedRegion",
-                "addressCountry" => "NG"
-            ]
-        ]
-    ],
-];
+        ];
 
-return $schema;
+        if ($avgRating !== null) {
+            $productSchema["aggregateRating"] = [
+                "@type"       => "AggregateRating",
+                "ratingValue" => $avgRating,
+                "reviewCount" => $reviewCount,
+                "bestRating"  => 5,
+                "worstRating" => 1,
+            ];
+        }
 
+        $breadcrumbSchema = [
+            "@type"           => "BreadcrumbList",
+            "itemListElement" => [
+                [
+                    "@type"    => "ListItem",
+                    "position" => 1,
+                    "name"     => "Home",
+                    "item"     => url('/'),
+                ],
+                [
+                    "@type"    => "ListItem",
+                    "position" => 2,
+                    "name"     => $category->name ?? 'Products',
+                    "item"     => $categoryUrl,
+                ],
+                [
+                    "@type"    => "ListItem",
+                    "position" => 3,
+                    "name"     => $product->name,
+                    "item"     => $productUrl,
+                ],
+            ],
+        ];
 
-}
+        return [
+            "@context" => "https://schema.org",
+            "@graph"   => [$productSchema, $breadcrumbSchema],
+        ];
+    }
 
 }

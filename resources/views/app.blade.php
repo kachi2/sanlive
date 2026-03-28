@@ -3,11 +3,35 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Sanlive Pharmacy</title>
+        @php
+            $meta         = $page['props']['pageMeta'] ?? [];
+            $metaTitle    = $meta['metaTitle'] ?? $meta['title'] ?? 'Sanlive Pharmacy Online Health Store, Medicines, Vitamins';
+            $metaDesc     = $meta['description'] ?? 'Get all your medications delivered to your doorstep from the No. 1 online pharmacy store in Lagos Nigeria - Sanlive Pharmacy and Stores.';
+            $metaImage    = $meta['image_url'] ?? '';
+            $metaUrl      = $meta['url'] ?? request()->url();
+            $metaKeywords = $meta['keywords'] ?? '';
+            $metaRobots   = $meta['robots'] ?? 'index, follow';
+            $pageTitle    = $meta['title'] ?? $metaTitle;
+        @endphp
+        <title>{{ $pageTitle }} - Sanlive Pharmacy</title>
+        <meta name="description" content="{{ $metaDesc }}">
+        <meta name="keywords" content="{{ $metaKeywords }}">
+        <meta name="robots" content="{{ $metaRobots }}">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="{{ $metaTitle }}">
+        <meta property="og:description" content="{{ $metaDesc }}">
+        <meta property="og:image" content="{{ $metaImage }}">
+        <meta property="og:url" content="{{ $metaUrl }}">
+        <link rel="canonical" href="{{ $metaUrl }}">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ $metaTitle }}">
+        <meta name="twitter:description" content="{{ $metaDesc }}">
+        <meta name="twitter:image" content="{{ $metaImage }}">
+        @inertiaHead
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="application-name" content="https://sanlivepharmacy.com">
         <meta name="theme-color" content="#42b883">
-        @inertiaHead
+      
         @if (isset($page['props']['schema']))
         <script type="application/ld+json">
             {!! json_encode($page['props']['schema'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
@@ -31,19 +55,16 @@
         <link rel="stylesheet" href="{{ asset('/frontend/css/home-8.css') }}">
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
-        <meta name="p:domain_verify" content="41e4054dd47a348a28e771a36e9e5092">
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-MSKX7LHR');</script>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-0EBDQSBKBC"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-0EBDQSBKBC');
-        </script>
+       <meta name="google-site-verification" content="S7jnu8AWZFcOOYIKhw_EWy2ieNVUEwzSkgldPg1aMZ4" />
+                    <!-- Google tag (gtag.js) -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-0EBDQSBKBC"></script>
+            <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-0EBDQSBKBC');
+            </script>
     </head>
 
     <body>

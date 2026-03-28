@@ -1,0 +1,1 @@
+import t from"./pwa-48a94167.js";import{o as r,f as s,b as a,w as l,a as n,t as o,u as c,Z as p,F as i}from"./app-0ec0e407.js";const g={__name:"headTags",props:{pageMeta:Object},setup(e){return(m,u)=>(r(),s(i,null,[a(c(p),null,{default:l(()=>[n("title",null,o(e.pageMeta.title)+" - Sanlive Pharmacy",1)]),_:1}),a(t)],64))}};export{g as _};
