@@ -3,7 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta property="og:type" content="website">
+        <title>Sanlive Pharmacy</title>
+        <meta name="mobile-web-app-capable" content="yes">
         <meta name="application-name" content="https://sanlivepharmacy.com">
         <meta name="theme-color" content="#42b883">
         @inertiaHead

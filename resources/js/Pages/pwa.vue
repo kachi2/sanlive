@@ -85,7 +85,7 @@
 <script setup>
 import { ref, onMounted } from "vue"
 
-const isIos = /iphone|ipad|ipod/i.test(window.navigator.userAgent)
+const isIos = typeof window !== 'undefined' && /iphone|ipad|ipod/i.test(window.navigator.userAgent)
 let deferredPrompt = null
 
 onMounted(() => {

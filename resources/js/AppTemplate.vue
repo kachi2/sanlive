@@ -12,10 +12,14 @@
 </template>
 
 
-<script setup="">
+<script setup>
+import { ref, provide } from 'vue'
 import MainHeader from "./Components/Header.vue"
 import MobileNav from "./Components/MobileNav.vue"
 import MainFooter from "./Components/Footer.vue"
 import HeaderMobile from "./Components/MobileHeader.vue"
 import MobileSideBar from "./Components/MobileSidebar.vue"
+
+const isMenuOpen = ref(false)
+provide('isMenuOpen', isMenuOpen)
 </script>

@@ -35,6 +35,9 @@
 </template>
 
 <script setup>
+import { inject, ref } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3';
 const page = usePage()
+
+const isMenuOpen = inject('isMenuOpen', ref(false))
 </script>
