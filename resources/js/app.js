@@ -15,11 +15,7 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue)
             .mount(el);
-    },
-    progress: {
-        color: "red",
-        showSpinner:true,
-    },
+    }
 });
 
 // Force full page reload on every GET navigation so Vue <Head> meta tags are always
