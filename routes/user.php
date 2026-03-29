@@ -68,6 +68,7 @@ Route::controller(UserController::class)->group(function(){
 });
 
 Route::controller(SearchController::class)->group(function(){
+    Route::get('/catalogs/{hashid}/{slug}', '__invoke'); // redirect old two-segment catalog URLs
     Route::get('/catalogs/{id?}', '__invoke')->name('products.search');
 });
 
