@@ -15,24 +15,14 @@ class SiteMapController extends Controller
     public function SiteMap()
     {
         $sitemap = Sitemap::create();
+
+        // Only public-facing, indexable static pages
         $staticRoutes = [
             '/',
-            '/dashboard',
-            '/products',
-            '/carts/index',
-            '/checkout',
-            '/checkout/address/index',
-            '/account/orders',
-            '/account/address',
-            '/accounts/index',
-            '/accounts/settings',
-            '/account/recent/products',
-            '/account/order/payments',
             '/pages/about',
             '/pages/terms',
             '/pages/privacypolicy',
             '/pages/contactus',
-            '/upload/prescription',
             '/blogs',
             '/faq',
             '/page/services',
@@ -47,8 +37,7 @@ class SiteMapController extends Controller
             );
         }
         $categories = Category::all();
-        addHashId($categories);
-        
+
         foreach($categories as $category)
         {
             $sitemap->add(Url::create("catalogs/$category->slug")
@@ -58,7 +47,7 @@ class SiteMapController extends Controller
     }
 
 
-        $Product = Product::all();
+        $Product = Product::whereNotNull('slug')->where('slug', '!=', '')->get();
         foreach ($Product as $product) {
             $sitemap->add(Url::create("products/$product->slug")
                 ->setLastModificationDate($product->updated_at)

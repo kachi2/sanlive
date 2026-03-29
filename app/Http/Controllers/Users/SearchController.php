@@ -29,7 +29,10 @@ try{
         }elseif($slug){
                $check = Hashids::connection('products')->decode($slug);
           if (!empty($check)) {
-                 $categor = Category::where('id', $check)->first();
+                 $categor = Category::where('id', $check[0])->first();
+                 if (!$categor) {
+                     return inertia('404')->toResponse(request())->setStatusCode(404);
+                 }
                 return redirect()->to("/catalogs/{$categor->slug}", 301);
             }else{
             $cat = Category::where('slug', $slug)->first();

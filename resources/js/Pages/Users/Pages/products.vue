@@ -106,7 +106,7 @@ const props = defineProps({
                                         <Link :href="`/catalogs/${cat.slug}`" style="font-size: 14px">{{cat.name}}</Link><span class="sub-toggle"><i class="fa fa-chevron-down"></i></span>
                                         <ul class="sub-menu">
                                             <li v-for="prod in cat.products">
-                                                <Link :href="`/products/${products.slug}`">{{prod.name}}</Link>
+                                                <Link :href="`/products/${prod.slug}`">{{prod.name}}</Link>
                                             </li>
                                         </ul>
                                     </li>
