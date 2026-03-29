@@ -27,12 +27,13 @@ use Vinkla\Hashids\Facades\Hashids;
  */
 class ClearGoogleRedirectPages extends Command
 {
-    protected $signature   = 'google:clear-redirects {--only= : Run only "delete" or "update"}';
+    protected $signature   = 'google:clear-redirects {--only= : Run only "delete" or "update"} {--limit=200 : Max URLs to send per run (Google quota is 200/day)}';
     protected $description = 'Submit URL_DELETED for old redirect URLs and URL_UPDATED for canonical URLs to Google Indexing API';
 
     public function handle(GoogleIndexingService $indexing): int
     {
         $only    = $this->option('only');
+        $limit   = (int) $this->option('limit');
         $baseUrl = rtrim(config('app.url'), '/');
 
         $products   = Product::whereNotNull('slug')->where('slug', '!=', '')->get();
@@ -43,29 +44,18 @@ class ClearGoogleRedirectPages extends Command
 
         // ── Build old (redirect) URL patterns ──────────────────────────────
         foreach ($products as $product) {
-            $hashid    = Hashids::connection('products')->encode($product->id);
-            $nameSlug  = Str::slug($product->name);
+            $hashid   = Hashids::connection('products')->encode($product->id);
+            $nameSlug = Str::slug($product->name);
 
-            // Pattern 1: /products/{hashid}/{slug}  (original format)
             $deleteUrls[] = "{$baseUrl}/products/{$hashid}/{$nameSlug}";
-
-            // Pattern 2: /products/{hashid}/undefined  (the Vue bug that caused undefined slugs)
             $deleteUrls[] = "{$baseUrl}/products/{$hashid}/undefined";
-
-            // Pattern 3: /index.php/products/{hashid}/{slug}  (index.php prefix)
             $deleteUrls[] = "{$baseUrl}/index.php/products/{$hashid}/{$nameSlug}";
-
-            // Pattern 4: /index.php/products/{slug}  (index.php prefix on clean slug)
             $deleteUrls[] = "{$baseUrl}/index.php/products/{$product->slug}";
         }
 
         foreach ($categories as $category) {
             $hashid = Hashids::connection('products')->encode($category->id);
-
-            // Pattern: /catalogs/{hashid}  (old hashid-based category URL)
             $deleteUrls[] = "{$baseUrl}/catalogs/{$hashid}";
-
-            // Pattern: /index.php/catalogs/{hashid}
             $deleteUrls[] = "{$baseUrl}/index.php/catalogs/{$hashid}";
         }
 
@@ -73,12 +63,9 @@ class ClearGoogleRedirectPages extends Command
         foreach ($products as $product) {
             $updateUrls[] = "{$baseUrl}/products/{$product->slug}";
         }
-
         foreach ($categories as $category) {
             $updateUrls[] = "{$baseUrl}/catalogs/{$category->slug}";
         }
-
-        // Static pages
         $updateUrls = array_merge($updateUrls, [
             $baseUrl . '/',
             $baseUrl . '/pages/about',
@@ -90,34 +77,75 @@ class ClearGoogleRedirectPages extends Command
             $baseUrl . '/page/services',
         ]);
 
-        // ── Submit ─────────────────────────────────────────────────────────
+        // ── Warn if over daily quota ────────────────────────────────────────
+        $total = ($only === 'update' ? 0 : count($deleteUrls))
+               + ($only === 'delete' ? 0 : count($updateUrls));
+
+        if ($total > 200) {
+            $this->warn("⚠  Google Indexing API default quota is 200 requests/day.");
+            $this->warn("   You have {$total} URLs total. Only the first {$limit} will be sent.");
+            $this->warn("   Run again tomorrow (or request a quota increase in Google Cloud Console).");
+            $this->newLine();
+        }
+
+        // ── Submit with progress bar ────────────────────────────────────────
         if ($only !== 'update') {
-            $this->info('Submitting URL_DELETED for ' . count($deleteUrls) . ' old redirect URLs...');
-            $deletePayload = array_fill_keys($deleteUrls, 'URL_DELETED');
-            $deleteResults = $indexing->submitBatch($deletePayload);
-            $this->info('  ✓ Deleted successfully: ' . count($deleteResults['success']));
-            if (!empty($deleteResults['failed'])) {
-                $this->warn('  ✗ Failed: ' . count($deleteResults['failed']));
-                foreach ($deleteResults['failed'] as $f) {
-                    $this->line("    {$f['url']} → {$f['error']}");
-                }
-            }
+            $this->submitWithProgress($indexing, array_slice($deleteUrls, 0, $limit), 'URL_DELETED', 'Clearing old redirect URLs');
         }
 
         if ($only !== 'delete') {
-            $this->info('Submitting URL_UPDATED for ' . count($updateUrls) . ' canonical URLs...');
-            $updatePayload = array_fill_keys($updateUrls, 'URL_UPDATED');
-            $updateResults = $indexing->submitBatch($updatePayload);
-            $this->info('  ✓ Updated successfully: ' . count($updateResults['success']));
-            if (!empty($updateResults['failed'])) {
-                $this->warn('  ✗ Failed: ' . count($updateResults['failed']));
-                foreach ($updateResults['failed'] as $f) {
-                    $this->line("    {$f['url']} → {$f['error']}");
-                }
+            $remaining = $limit - ($only === 'update' ? 0 : min(count($deleteUrls), $limit));
+            if ($remaining > 0) {
+                $this->submitWithProgress($indexing, array_slice($updateUrls, 0, $remaining), 'URL_UPDATED', 'Submitting canonical URLs');
             }
         }
 
-        $this->info('Done.');
+        $this->newLine();
+        $this->info('Done. Check storage/logs/laravel.log for any API errors.');
         return self::SUCCESS;
+    }
+
+    // ──────────────────────────────────────────────────────────────────────────
+    // Helper: submit a list of URLs with a live progress bar
+    // ──────────────────────────────────────────────────────────────────────────
+    protected function submitWithProgress(GoogleIndexingService $indexing, array $urls, string $type, string $label): void
+    {
+        $total   = count($urls);
+        $success = 0;
+        $failed  = 0;
+
+        $this->newLine();
+        $this->line("<fg=cyan>{$label}</> ({$total} URLs, type: {$type})");
+
+        $bar = $this->output->createProgressBar($total);
+        $bar->setFormat(" %current%/%max% [%bar%] %percent:3s%% — ✓ %message%");
+        $bar->setMessage("starting...");
+        $bar->start();
+
+        foreach ($urls as $url) {
+            $result = $type === 'URL_DELETED'
+                ? $indexing->notifyDeleted($url)
+                : $indexing->notifyUpdated($url);
+
+            if (isset($result['error'])) {
+                $failed++;
+            } else {
+                $success++;
+            }
+
+            $bar->setMessage("sent {$success}, failed {$failed}");
+            $bar->advance();
+
+            // Respect rate limit: ~1 req/sec is safe within Google's quota
+            usleep(100000); // 100ms between requests
+        }
+
+        $bar->finish();
+        $this->newLine();
+
+        $this->info("  ✓ Sent successfully: {$success}");
+        if ($failed > 0) {
+            $this->warn("  ✗ Failed: {$failed} — see storage/logs/laravel.log for details");
+        }
     }
 }
