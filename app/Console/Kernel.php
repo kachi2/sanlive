@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ClearGoogleRedirectPages;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -12,7 +13,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        // Run every day at 2:00am — sends the next batch of 200 URLs to Google
+        // until all old redirect URLs are cleared and canonical URLs are submitted.
+        // Progress is saved in storage/app/google-indexing-progress.json
+        $schedule->command(ClearGoogleRedirectPages::class)
+            ->dailyAt('02:00')
+            ->withoutOverlapping()
+            ->runInBackground()
+            ->appendOutputTo(storage_path('logs/google-indexing.log'));
     }
 
     /**
