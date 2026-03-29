@@ -6,7 +6,7 @@
         @php
             $meta         = $page['props']['pageMeta'] ?? [];
             $metaTitle    = $meta['metaTitle'] ?? $meta['title'] ?? 'Sanlive Pharmacy Online Health Store, Medicines, Vitamins';
-            $metaDesc     = $meta['description'] ?? 'Get all your medications delivered to your doorstep from the No. 1 online pharmacy store in Lagos Nigeria - Sanlive Pharmacy and Stores.';
+            $metaDesc     = $meta['description'] ?? 'Get all your medications delivered to your doorstep from the number one online pharmacy store in Lagos Nigeria - Sanlive Pharmacy and Stores.';
             $metaImage    = $meta['image_url'] ?? '';
             $metaUrl      = $meta['url'] ?? request()->url();
             $metaKeywords = $meta['keywords'] ?? '';
