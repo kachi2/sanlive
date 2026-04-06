@@ -18,7 +18,7 @@ class RegisterUser {
      
         $carts = \Cart::getContent();
         if(count($carts) > 0){
-        return view('frontend.auth.register', [
+        return view('frontend.checkout-guest', [
             'carts' => $carts,
             'total' => \Cart::getTotal(),
             'pageMeta' => [
