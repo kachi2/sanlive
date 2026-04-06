@@ -15,7 +15,6 @@ use Vinkla\Hashids\Facades\Hashids;
 
 
 use Illuminate\Support\ServiceProvider;
-use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {

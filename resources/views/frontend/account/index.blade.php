@@ -62,7 +62,7 @@
                                         </p>
                                         <hr>
                                         <p style="font-size:14px; color:#888">You don't have a shipping address yet.</p>
-                                        <a href="{{ route('users.account.address.create') }}" class="btn btn-primary btn-sm">
+                                        <a href="{{ route('users.address.create') }}" class="btn btn-primary btn-sm">
                                             Add New Address
                                         </a>
                                         @endif

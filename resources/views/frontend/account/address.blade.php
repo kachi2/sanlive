@@ -14,7 +14,7 @@
                             <hr style="width:100%"></span>
                         <div class="col-12 col-md-11">
                             <span style="float:right">
-                                <a href="{{ route('users.account.address.create') }}" class="btn btn-primary">Add New Address</a>
+                                <a href="{{ route('users.address.create') }}" class="btn btn-primary">Add New Address</a>
                             </span>
                         </div>
 
@@ -65,7 +65,7 @@
                                         <hr>
                                         <ul class="ps-product__list">
                                             <li><span class="ps-list__title"></span>You don't have a shippig address yet<br>
-                                                <a href="{{ route('users.account.address.create') }}" class="btn btn-primary">Add New Address</a>
+                                                <a href="{{ route('users.address.create') }}" class="btn btn-primary">Add New Address</a>
                                             </li>
                                         </ul>
                                     </div>

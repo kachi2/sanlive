@@ -16,7 +16,6 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use Inertia\Inertia;
 use stdClass;
 use Unicodeveloper\Paystack\Facades\Paystack;
 
@@ -89,8 +88,7 @@ class paymentServices extends baseFuncs implements paymentInterface
             Session::put('order_No', $request->orderNo);
             Session::put('amount', $request->amount);
         
-            return Inertia::location($res['data']['link']);
-                // ->header('Content-Type', 'text/html');
+            return redirect($res['data']['link']);
         } catch (\Exception $e) {
             Session::flash('alert', 'error');
             Session::flash('msg', 'Unable to initialize payment ' . $e->getMessage());

@@ -18,18 +18,18 @@ class RegisterUser {
      
         $carts = \Cart::getContent();
         if(count($carts) > 0){
-        return inertia('Users/Accounts/register', 
-        ['carts' => $carts, 'total' => \Cart::getTotal(),
-        
-        'pageMeta' => [
-            'url' => url()->current(),
-            'title' => 'Guest registration',
-            'metaTitle' => websiteName().':Online Health Store, Medicines, Vitamins.',
-            'description' => websiteName().' is a wholesale, retail, and dispensing healthcare platform established for the distribution and retailing of locally manufactured and imported drugs. Easily get affordable medication and prescription drugs delivered to your doorstep',
-            'keywords' => 'Buy medical products, order fast, get fast delivery ',
-            'image_url' => websiteLogo()
+        return view('frontend.auth.register', [
+            'carts' => $carts,
+            'total' => \Cart::getTotal(),
+            'pageMeta' => [
+                'url' => url()->current(),
+                'title' => 'Guest registration',
+                'metaTitle' => websiteName().':Online Health Store, Medicines, Vitamins.',
+                'description' => websiteName().' is a wholesale, retail, and dispensing healthcare platform established for the distribution and retailing of locally manufactured and imported drugs. Easily get affordable medication and prescription drugs delivered to your doorstep',
+                'keywords' => 'Buy medical products, order fast, get fast delivery ',
+                'image_url' => websiteLogo()
             ]
-    ]);
+        ]);
         }else{
             return to_route('users.index');
         }
