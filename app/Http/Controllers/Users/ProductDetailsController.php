@@ -43,18 +43,23 @@ class ProductDetailsController extends Controller
             'keywords' => " $product->name Shop high-quality  online at Sanlive Pharmacy. Fast delivery across Nigeria. Affordable and trusted brands",
             'image_url' => asset('images/products/'.$product->image_path)
     ];
-    return inertia('Users/Carts/ProductDetails', 
-      [
+    // return inertia('Users/Carts/ProductDetails', [
+    //   'data' => $data, 'pageMeta' => $meta, 'schema' => $this->addTags($product, $reviews->get()),
+    //   'avatar' => 'https://i.pravatar.cc/40?u=1', 'reviews' => $reviews->paginate(5),
+    //   'ratings' => ProductReview::where(['product_id' => $product->id, 'is_approved' => 1])->pluck('rating')
+    // ])->withViewData($meta); // Vue/Inertia preserved
+    return view('frontend.product-details', [
         'data' => $data,
         'pageMeta' => $meta,
-        'schema' => $this->addTags($product, $reviews->get()),
-         'avatar' => 'https://i.pravatar.cc/40?u=1',
-         'reviews' => $reviews->paginate(5),
-         'ratings' => ProductReview::where(['product_id' => $product->id, 'is_approved' => 1])->pluck('rating') 
-      ])->withViewData($meta);
+        'schema' => json_encode($this->addTags($product, $reviews->get())),
+        'avatar' => 'https://i.pravatar.cc/40?u=1',
+        'reviews' => $reviews->paginate(5),
+        'ratings' => ProductReview::where(['product_id' => $product->id, 'is_approved' => 1])->pluck('rating'),
+    ]);
       }catch(\Exception $e)
       {
-        return inertia('404')->toResponse(request())->setStatusCode(404);
+        // return inertia('404')->toResponse(request())->setStatusCode(404); // Vue/Inertia preserved
+        abort(404);
       }
   } 
 
@@ -86,8 +91,8 @@ class ProductDetailsController extends Controller
        return Redirect::to("/products/{$product->slug}", 301);
       }catch(\Exception $e)
       {
-        
-        return inertia('404')->toResponse(request())->setStatusCode(404);
+        // return inertia('404')->toResponse(request())->setStatusCode(404); // Vue/Inertia preserved
+        abort(404);
       }
     }
 

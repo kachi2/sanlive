@@ -21,9 +21,10 @@ class FaqController extends Controller
             'keywords' => "online pharmacy, buy medicine online, health store, wellness products, vitamins supplements, drugstore Nigeria, Sanlive Pharmacy, OTC drugs online, prescription delivery, immune boosters, baby care, sexual wellness, diabetes care",
             'image_url' => websiteLogo()
         ];
-        return inertia('Users/Pages/faq',
-         ['faq' => Faq::latest()->first(),
-         'pageMeta' => $meta
-        ])->withViewData($meta);
+        // return inertia('Users/Pages/faq', ['faq' => Faq::latest()->first(), 'pageMeta' => $meta])->withViewData($meta); // Vue/Inertia preserved
+        return view('frontend.faq', [
+            'faq' => Faq::latest()->first(),
+            'pageMeta' => $meta
+        ]);
     }
 }

@@ -19,16 +19,17 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): Response
+    public function create()
     {
-        return Inertia::render('Auth/Register', [
+        // return Inertia::render('Auth/Register', [...]);  // Vue/Inertia preserved
+        return view('frontend.auth.register', [
             'pageMeta' => [
                 'url' => url()->current(),
-                'title' => 'Regiser',
+                'title' => 'Register',
                 'metaTitle' => 'Buy medical products, order fast, get fast delivery ',
                 'description' => websiteName().' Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
                 'image_url' => websiteLogo()
-                ]
+            ]
         ]);
     }
 
@@ -56,7 +57,8 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-        return Inertia::location('/');
+        // return Inertia::location('/');  // Vue/Inertia preserved
+        return redirect('/');
         // return redirect(RouteServiceProvider::HOME);
     }
 }

@@ -15,9 +15,10 @@ class PasswordResetLinkController extends Controller
     /**
      * Display the password reset link request view.
      */
-    public function create(): Response
+    public function create()
     {
-        return Inertia::render('Auth/ForgotPassword', [
+        // return Inertia::render('Auth/ForgotPassword', [...]);  // Vue/Inertia preserved
+        return view('frontend.auth.forgot-password', [
             'status' => session('status'),
             'pageMeta' => [
                 'url' => url()->current(),
@@ -25,7 +26,7 @@ class PasswordResetLinkController extends Controller
                 'metaTitle' => 'Buy medical products, order fast, get fast delivery ',
                 'description' => websiteName().' Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
                 'image_url' => websiteLogo()
-                ]
+            ]
         ]);
     }
 

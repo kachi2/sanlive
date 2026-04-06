@@ -14,14 +14,15 @@ class PrescriptionController extends Controller
 use imageUpload;
     public function Index()
     {
-        return inertia('Users/Pages/prescription', [
+        // return inertia('Users/Pages/prescription', ['pageMeta' => [...]]); // Vue/Inertia preserved
+        return view('frontend.prescription', [
             'pageMeta' => [
-            'url' => url()->current(),
-            'title' => 'Upload Prescription',
-            'metaTitle' => websiteName().' Online Health Store, Medicines, Vitamins',
-            'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
-            'keywords' => 'online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
-            'image_url' => websiteLogo()
+                'url' => url()->current(),
+                'title' => 'Upload Prescription',
+                'metaTitle' => websiteName().' Online Health Store, Medicines, Vitamins',
+                'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+                'keywords' => 'online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
+                'image_url' => websiteLogo()
             ]
         ]);
     }

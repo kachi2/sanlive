@@ -71,18 +71,24 @@ use imageUpload;
             'image_url' => websiteLogo()
       ];
      
-        return inertia('Users/Carts/Cart', [
+        // return inertia('Users/Carts/Cart', [
+        //   'carts' => \Cart::getContent(), 'total' => \Cart::getTotal(),
+        //   'latest' => $prod, 'cartSession' => Hashids::connection('products')->encode(rand(11,99)),
+        //   'pageMeta' => $metas
+        // ])->withViewData($metas); // Vue/Inertia preserved
+        return view('frontend.cart', [
           'carts' => \Cart::getContent(),
           'total' => \Cart::getTotal(),
           'latest' => $prod,
           'cartSession' => Hashids::connection('products')->encode(rand(11,99)),
           'pageMeta' => $metas
-        ])->withViewData($metas);
+        ]);
       
           }catch(\Exception $e)
       {
         // dd($e->getMessage());
-        return inertia('404')->toResponse(request())->setStatusCode(404);
+        // return inertia('404')->toResponse(request())->setStatusCode(404); // Vue/Inertia preserved
+        abort(404);
       }
     }
 

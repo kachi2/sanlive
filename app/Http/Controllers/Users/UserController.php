@@ -30,17 +30,18 @@ class UserController extends Controller
     public function Index()
     {
 
-        return inertia('Users/Accounts/account', [
+        // return inertia('Users/Accounts/account', ['address' => ..., 'account' => ...]); // Vue/Inertia preserved
+        return view('frontend.account.index', [
             'address' => ShippingAddress::where(['user_id' => auth_user()->id, 'is_default' => 1])->first(),
             'account' => User::where('id', auth_user()->id)->first(),
             'pageMeta' => [
                 'url' => url()->current(),
-                'title' => 'My Account ',
+                'title' => 'My Account',
                 'metaTitle' => 'eMedicStore: The largest and biggest online pharmacy marketplace that you can trust.',
                 'description' => 'Order | History',
                 'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
                 'image_url' => websiteLogo()
-                ]
+            ]
         ]);
     }
 
@@ -52,12 +53,12 @@ class UserController extends Controller
             ->get();
         addHashId($orders);
 
-        return inertia('Users/Accounts/orders',
-        [
-            'orders' =>  $orders,
+        // return inertia('Users/Accounts/orders', ['orders' => $orders, 'pageMeta' => [...]]); // Vue/Inertia preserved
+        return view('frontend.account.orders', [
+            'orders' => $orders,
             'pageMeta' => [
                 'url' => url()->current(),
-                'title' => 'Orders ',
+                'title' => 'Orders',
                 'metaTitle' => 'Buy medical products, order fast, get fast delivery',
                 'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
                 'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
@@ -77,14 +78,15 @@ class UserController extends Controller
         $order_items = CartItem::where('Order_no', $order_no)->get();
         $shipping = ShippingAddress::where('id', $orders->address_id)->first();
         $delivery = CreateShipment::where('order_id', $order_no)->first();
-        return inertia('Users/Accounts/orderDetails', [
+        // return inertia('Users/Accounts/orderDetails', ['orders' => ..., ...]); // Vue/Inertia preserved
+        return view('frontend.account.order-details', [
             'orders' => $orders,
             'order_items' => $order_items,
             'shipping' => $shipping,
             'delivery' => $delivery,
             'pageMeta' => [
                 'url' => url()->current(),
-                'title' => 'Order Details ',
+                'title' => 'Order Details',
                 'metaTitle' => 'Buy medical products, order fast, get fast delivery',
                 'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
                 'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
@@ -97,7 +99,8 @@ class UserController extends Controller
     {
         $address = ShippingAddress::where('user_id', auth_user()->id)->get();
         addHashId($address);
-        return inertia('Users/Accounts/address', [
+        // return inertia('Users/Accounts/address', ['addresses' => $address, 'pageMeta' => [...]]); // Vue/Inertia preserved
+        return view('frontend.account.address', [
             'addresses' => $address,
             'pageMeta' => [
                 'url' => url()->current(),
@@ -116,11 +119,12 @@ class UserController extends Controller
         $address = ShippingAddress::where('id', $id)->first();
         $address->hashid = Hashids::connection('products')->encode($address->id);
       
-        return inertia('Users/Accounts/editAddress', [
+        // return inertia('Users/Accounts/editAddress', ['address' => $address, 'pageMeta' => [...]]); // Vue/Inertia preserved
+        return view('frontend.account.edit-address', [
             'address' => $address,
             'pageMeta' => [
                 'url' => url()->current(),
-                'title' => 'Edit Address ',
+                'title' => 'Edit Address',
                 'metaTitle' => 'Buy medical products, order fast, get fast delivery',
                 'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
                 'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
@@ -157,10 +161,11 @@ class UserController extends Controller
 
     public function CreateAddress()
     {
-        return inertia('Users/Accounts/createAddress', [
+        // return inertia('Users/Accounts/createAddress', ['pageMeta' => [...]]); // Vue/Inertia preserved
+        return view('frontend.account.create-address', [
             'pageMeta' => [
                 'url' => url()->current(),
-                'title' => 'Create Address ',
+                'title' => 'Create Address',
                 'metaTitle' => 'Buy medical products, order fast, get fast delivery',
                 'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
                 'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
@@ -226,21 +231,25 @@ class UserController extends Controller
         } else {
             $products['recent'] = [];
         }
-        return inertia('Users/Accounts/recentViewed',
-        ['recent' => $products,
-        'pageMeta' => [
-            'url' => url()->current(),
-            'title' => 'Recent Viewed ',
-            'metaTitle' => 'Buy medical products, order fast, get fast delivery',
-            'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
-            'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
-            'image_url' => websiteLogo()
-        ]]);
+        // return inertia('Users/Accounts/recentViewed', ['recent' => $products, 'pageMeta' => [...]]); // Vue/Inertia preserved
+        return view('frontend.account.index', [
+            'address' => ShippingAddress::where(['user_id' => auth_user()->id, 'is_default' => 1])->first(),
+            'account' => auth()->user(),
+            'pageMeta' => [
+                'url' => url()->current(),
+                'title' => 'Recent Viewed',
+                'metaTitle' => 'Buy medical products, order fast, get fast delivery',
+                'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
+                'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
+                'image_url' => websiteLogo()
+            ]
+        ]);
     }
 
     public function OrderPayments()
     {
-        return inertia('Users/Accounts/payments',[
+        // return inertia('Users/Accounts/payments', ['payments' => ..., 'pageMeta' => [...]]); // Vue/Inertia preserved
+        return view('frontend.account.payments', [
             'payments' => Payment::where('user_id', auth_user()->id)->get(),
             'pageMeta' => [
                 'url' => url()->current(),
@@ -256,17 +265,18 @@ class UserController extends Controller
 
     public function AccountSettings()
     {
-        return inertia('Users/Accounts/settings',
-            ['user' => User::where('id', auth_user()->id)->first(),
+        // return inertia('Users/Accounts/settings', ['user' => ..., 'pageMeta' => [...]]); // Vue/Inertia preserved
+        return view('frontend.account.settings', [
+            'user' => User::where('id', auth_user()->id)->first(),
             'pageMeta' => [
                 'url' => url()->current(),
-                'title' => 'Settings ',
+                'title' => 'Settings',
                 'metaTitle' => 'Buy medical products, order fast, get fast delivery',
                 'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
                 'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
                 'image_url' => websiteLogo()
             ]
-    ]);
+        ]);
     }
 
     public function UpdateAccountSettings(Request $req)

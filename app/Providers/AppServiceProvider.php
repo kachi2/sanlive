@@ -39,6 +39,8 @@ class AppServiceProvider extends ServiceProvider
             $view->with('site_menu', Menu::get());
             $view->with('advert_top', Advert::where('placement', 'top')->first());
             $view->with('unread_notify', AdminNotification::latest()->get());
+            $view->with('announcment', Annoucement::latest()->first());
+            $view->with('cartItem', \Cart::getTotalQuantity());
        });
 
     //    Inertia::share('settings', function(){ return Setting::latest()->first();  });

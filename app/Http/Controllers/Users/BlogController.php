@@ -15,14 +15,16 @@ class BlogController extends Controller
         foreach($blogs as $Blog){
             $Blog->hashid = Hashids::connection('products')->encode($Blog->id);
         }
-        return inertia('Users/Pages/blogs', ['blogs' => $blogs,    
+        // return inertia('Users/Pages/blogs', ['blogs' => $blogs, 'pageMeta' => [...]]); // Vue/Inertia preserved
+        return view('frontend.blogs', [
+            'blogs' => $blogs,
             'pageMeta' => [
-            'url' => url()->current(),
-            'title' => 'Blogs',
-            'metaTitle' => $blogs->first()->title,
-            'description' => websiteName().' '.$blogs->first()->title,
-            'keywords' => $blogs->first()->content,
-            'image_url' => websiteLogo()
+                'url' => url()->current(),
+                'title' => 'Blogs',
+                'metaTitle' => $blogs->first()->title,
+                'description' => websiteName().' '.$blogs->first()->title,
+                'keywords' => $blogs->first()->content,
+                'image_url' => websiteLogo()
             ]
         ]);
     }
@@ -42,7 +44,8 @@ class BlogController extends Controller
               return Redirect::to("/blogs/details/{$blogs->hashid}", 301);
         }
       
-        return inertia('Users/Pages/blogDetails', [
+        // return inertia('Users/Pages/blogDetails', ['blogs' => $latest, 'blog' => $blogs, 'pageMeta' => [...]]); // Vue/Inertia preserved
+        return view('frontend.blog-details', [
                 'blogs' => $latest,
                 'blog' => $blogs,
                 'pageMeta' => [
@@ -52,11 +55,12 @@ class BlogController extends Controller
                     'description' => websiteName().' '.$blogs->title,
                     'keywords' => $blogs->content,
                     'image_url' => websiteLogo()
-                    ]
+                ]
             ]);
           }catch(\Exception $e)
       {
-         return inertia('404')->toResponse(request())->setStatusCode(404);
+         // return inertia('404')->toResponse(request())->setStatusCode(404); // Vue/Inertia preserved
+         abort(404);
       }
 }
 

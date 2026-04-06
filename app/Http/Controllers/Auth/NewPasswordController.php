@@ -19,9 +19,10 @@ class NewPasswordController extends Controller
     /**
      * Display the password reset view.
      */
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
-        return Inertia::render('Auth/ResetPassword', [
+        // return Inertia::render('Auth/ResetPassword', [...]);  // Vue/Inertia preserved
+        return view('frontend.auth.reset-password', [
             'email' => $request->email,
             'token' => $request->route('token'),
             'pageMeta' => [
@@ -30,7 +31,7 @@ class NewPasswordController extends Controller
                 'metaTitle' => 'Buy medical products, order fast, get fast delivery ',
                 'description' => websiteName().' Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
                 'image_url' => websiteLogo()
-                ]
+            ]
         ]);
     }
 

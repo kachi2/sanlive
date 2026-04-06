@@ -64,16 +64,22 @@ class HomeController extends Controller
             'keywords' => 'online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
             'image_url' => websiteLogo()
         ];
-        return inertia('Dashboard', [
+        // return inertia('Dashboard', [
+        //     'sliders' => $slider,
+        //     'category' => $category,
+        //     'categories' => $categories,
+        //     'pageMeta' => $meta
+        // ])->withViewData($meta); // Vue/Inertia preserved
+        return view('frontend.home', [
             'sliders' => $slider,
-            'category' => $category,
-            'categories' => $categories,
-            'pageMeta' => $meta
-        ])->withViewData($meta);
+            'productSections' => $category,
+            'allCategories' => $categories,
+            'pageMeta' => $meta,
+        ]);
       }catch(\Exception $e)
       {
-        
-        return inertia('404')->toResponse(request())->setStatusCode(404);
+        // return inertia('404')->toResponse(request())->setStatusCode(404); // Vue/Inertia preserved
+        abort(404);
       }
     }
 }
