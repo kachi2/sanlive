@@ -69,8 +69,8 @@ class PaymentController extends Controller
         }catch(\Exception $e)
         {
             Session::flash('alert', 'error');
-            Session::flash('msg', 'Payment Failed '.$e->getMessage());
-            return Redirect::back();
+            Session::flash('msg', 'Payment Failed: '.$e->getMessage());
+            return redirect()->route('users.orders');
             
         }
 
