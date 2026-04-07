@@ -85,7 +85,6 @@ class baseFuncs
         {
             Session::flash('error', 'Email not sent');
         }
-    
     }
 
     public function getFlutterPaymentLink($url,$jsonBody)
