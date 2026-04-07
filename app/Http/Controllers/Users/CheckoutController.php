@@ -37,9 +37,13 @@ class CheckoutController extends Controller
         if(count(\Cart::getContent()) <= 0 || empty(\Cart::getContent())){
             return to_route('users.index');
         }
+        $address = ShippingAddress::where(['user_id' => auth_user()->id, 'is_default' => 1])->first();
+        if(!isset($address)){
+            Session::flash('error', 'Please add a shipping address before you can proceed');
+            return to_route('users.account.address');
+        }
         $userData =   getUserLocationData();
         $currency = CountryCurrency::where('country', $userData['country'])->first();
-        $address = ShippingAddress::where(['user_id' => auth_user()->id, 'is_default' => 1])->first();
         if($currency){
             if($currency['country'] == "NG" && Str::contains(strtolower($address->address), 'lagos')){
                 $shipping_fee = '8000';
@@ -47,10 +51,6 @@ class CheckoutController extends Controller
          }else {$shipping_fee = '6500';}
         $carts = \Cart::getContent();
         $orderNo = rand(111111111,999999999);
-        if(!isset($address)){
-            Session::flash('error', 'Please add a shipping address before you can proceed');
-            return to_route('users.account.address');
-        }
         // $cartSession =  Session::get('cartSession');
 
         //  $cart = Hashids::connection('products')->decode($cartSession);
@@ -69,8 +69,12 @@ class CheckoutController extends Controller
                 'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
                 'image_url' => websiteLogo()
          ];
-        return inertia('Users/Carts/Checkout', 
-        [
+        // return inertia('Users/Carts/Checkout', [
+        //     'data' => $date, 'carts' => $carts, 'address' => $address,
+        //     'orderNo' => $orderNo, 'shipping_fee' => $shipping_fee,
+        //     'total' => \Cart::getTotal(), 'pageMeta' => $meta
+        // ])->withViewData($meta); // Vue/Inertia preserved
+        return view('frontend.checkout', [
             'data' => $date,
             'carts' => $carts,
             'address' => $address,
@@ -78,10 +82,11 @@ class CheckoutController extends Controller
             'shipping_fee' => $shipping_fee,
             'total' => \Cart::getTotal(),
             'pageMeta' => $meta
-        ])->withViewData($meta);
+        ]);
       }catch(\Exception $e)
       {
-         return inertia('404')->toResponse(request())->setStatusCode(404);
+         Session::flash('error', $e->getMessage());
+         return back();
       }
     }
 

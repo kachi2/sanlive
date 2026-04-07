@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Inertia\Inertia;
 use Throwable;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -42,10 +41,7 @@ class Handler extends ExceptionHandler
                 return response()->json(['message' => 'Not Found'], 404);
             }
 
-            // Return Inertia 404 page
-            return Inertia::render('404')
-                ->toResponse($request)
-                ->setStatusCode(404);
+            return response()->view('errors.404', [], 404);
         }
 
         return parent::render($request, $exception);

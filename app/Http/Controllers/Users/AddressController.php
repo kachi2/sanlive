@@ -21,9 +21,18 @@ class AddressController extends Controller
     public function ShippingAddress(){
         $address = ShippingAddress::where(['user_id' => auth_user()->id])->latest()->get();
         addHashId($address);
-        return inertia('users.carts.address')
-        ->with('carts', \Cart::content())
-        ->with('addresses', $address);
+        // return inertia('users.carts.address')->with('carts', \Cart::content())->with('addresses', $address); // Vue/Inertia preserved
+        return view('frontend.account.address', [
+            'addresses' => $address,
+            'pageMeta' => [
+                'url' => url()->current(),
+                'title' => 'Select Shipping Address',
+                'metaTitle' => 'Buy medical products, order fast, get fast delivery',
+                'description' => 'Get your healthcare needs delivered at your doorstep',
+                'keywords' => 'online pharmacy',
+                'image_url' => websiteLogo()
+            ]
+        ]);
     }
 
     public function UpdateDefaultAddress($id){

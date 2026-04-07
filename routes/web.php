@@ -10,7 +10,6 @@ use App\Http\Controllers\UpdateProductTest;
 use App\Http\Controllers\UserReviewController;
 use App\Http\Controllers\Users\SiteMapController;
 use Illuminate\Support\Facades\Storage;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +33,7 @@ Route::get('manual/payment/processes', [ManualPaymentController::class, 'Process
  
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return redirect('/');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

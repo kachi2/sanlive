@@ -9,17 +9,17 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use Inertia\Response;
+
 
 class AuthenticatedSessionController extends Controller
 {
     /**
      * Display the login view.
      */
-    public function create(): Response
+    public function create()
     {
-        return Inertia::render('Auth/Login', [
+        // return Inertia::render('Auth/Login', [...]);  // Vue/Inertia preserved
+        return view('frontend.auth.login', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
             'pageMeta' => [
@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
                 'metaTitle' => 'Buy medical products, order fast, get fast delivery ',
                 'description' => websiteName().' Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
                 'image_url' => websiteLogo()
-                ]
+            ]
         ]);
     }
 
@@ -41,7 +41,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return Inertia::location('/');
+        // return Inertia::location('/');  // Vue/Inertia preserved
+        return redirect('/');
     }
 
     /**

@@ -25,7 +25,7 @@ class CreateShipmentOder
      */
     public function handle(OrderShipment $event)
     {
-        $carts = \Cart::content();
+        $carts = \Cart::getContent();
         $settings = Setting::first();
   
 
@@ -64,10 +64,10 @@ class CreateShipmentOder
                 "item_quantity" => count($carts),
                 "item_category" => "Skin Care Preparations",
                 "description" => "Supply of medical products puchased on our website",
-                "item_value" => \Cart::priceTotalFloat(),
+                "item_value" => \Cart::getTotal(),
                 "weight" => 1,
                 "item_name" => "medical Items",
-                "item_amount" => \Cart::priceTotalFloat()
+                "item_amount" => \Cart::getTotal()
             ];
             $url = 'gidi2naij/shipments';
         }

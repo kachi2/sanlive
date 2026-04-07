@@ -56,7 +56,10 @@ class baseFuncs
 
     public function storePaymentInfo($order_no, $request, $ref, $channel)
     {
-            
+        if (Payment::where('order_id', $order_no)->exists()) {
+            return Payment::where('order_id', $order_no)->first();
+        }
+
       return  Payment::create([
             'user_id' => auth_user()->id, 
             'order_id' => $order_no, 
@@ -82,7 +85,6 @@ class baseFuncs
         {
             Session::flash('error', 'Email not sent');
         }
-    
     }
 
     public function getFlutterPaymentLink($url,$jsonBody)

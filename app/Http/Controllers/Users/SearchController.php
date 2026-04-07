@@ -48,23 +48,29 @@ try{
         $categories = Category::latest()->get();
         $keywords = implode(',', $keywords);
 
-        return inertia('Users/Pages/products', [
+        $pageMeta = [
+            'url' => url()->current(),
+            'title' => 'Search | Search Online Health Store, Medicines, Vitamins',
+            'metaTitle' => 'Sanlive Pharmacy | Online Health Store, Medicines, Vitamins',
+            'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices, '.substr($keywords, 0,80),
+            'keywords' => substr($keywords,0,100),
+            'image_url' => websiteLogo(),
+            'robots' => $robots??'',
+        ];
+        // return inertia('Users/Pages/products', [
+        //     'products' => $products, 'categories' => $categories,
+        //     'searchterm' => $searchterm, 'pageMeta' => $pageMeta,
+        // ]); // Vue/Inertia preserved
+        return view('frontend.products', [
             'products' => $products,
             'categories' => $categories,
             'searchterm' => $searchterm,
-            'pageMeta' => [
-            'url' => url()->current(),
-            'title' => 'Search | Search Online Health Store, Medicines, Vitamins',
-            'metaTitle' => 'Sanlive Phamarcy  | Online Health Store, Medicines, Vitamins',
-            'description' =>  'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices, '.substr($keywords, 0,80),
-            'keywords' => substr($keywords,0,100),
-            'image_url' => websiteLogo(),
-            'robots' => $robots??'', 
-        ]
+            'pageMeta' => $pageMeta,
         ]);
       }catch(\Exception $e)
       {
-         return inertia('404')->toResponse(request())->setStatusCode(404);
+         // return inertia('404')->toResponse(request())->setStatusCode(404); // Vue/Inertia preserved
+         abort(404);
       }
     }
 }

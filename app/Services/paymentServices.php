@@ -16,7 +16,6 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use Inertia\Inertia;
 use stdClass;
 use Unicodeveloper\Paystack\Facades\Paystack;
 
@@ -68,8 +67,7 @@ class paymentServices extends baseFuncs implements paymentInterface
                 'tx_ref' =>  $txRef,
                 'amount' => isset($currency->exchange_rate) ? $request->amount * $currency->exchange_rate : $request->amount,
                 'currency' => $currency->currency ?? 'USD',
-                // 'redirect_url' => url('flutter/callback'),
-                'redirect_url' => 'https://api.flutterwave.com/v3/payments',
+                'redirect_url' => url('flutter/callback'),
                 'customer' => [
                     'email' => auth_user()->email,
                     'name' => auth_user()->first_name . ' ' . auth_user()->first_name,
@@ -89,8 +87,7 @@ class paymentServices extends baseFuncs implements paymentInterface
             Session::put('order_No', $request->orderNo);
             Session::put('amount', $request->amount);
         
-            return Inertia::location($res['data']['link']);
-                // ->header('Content-Type', 'text/html');
+            return redirect($res['data']['link']);
         } catch (\Exception $e) {
             Session::flash('alert', 'error');
             Session::flash('msg', 'Unable to initialize payment ' . $e->getMessage());
@@ -114,7 +111,7 @@ class paymentServices extends baseFuncs implements paymentInterface
             if ($orders->shipping_method == 'home_delivery') {
                 event(new OrderShipment($address, $order_no));
             }
-            $this->sendPaymentEmail($request, $order_no, $ref);
+            $this->sendPaymentEmail($request, $order_no, $ref, $orders->payable);
             \Cart::destroy();
             return true;
         } else {
@@ -140,7 +137,7 @@ class paymentServices extends baseFuncs implements paymentInterface
             if ($orders->shipping_method == 'home_delivery') {
                 event(new OrderShipment($address, $order_no));
             }
-         $this->sendPaymentEmail($request, $order_no, $ref, $$orders->payable);
+         $this->sendPaymentEmail($request, $order_no, $ref, $orders->payable);
          \Cart::clear();
             Session::flash('success', 'Payment completed successfully');
         return true;
