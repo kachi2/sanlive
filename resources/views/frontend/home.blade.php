@@ -58,7 +58,7 @@
                                 <img src="{{ asset('images/category/'.$cat->image_path) }}" alt="{{ $cat->name }}">
                             </a>
                             <div class="ps-category__content">
-                                <a href="{{ route('products.search', $cat->slug) }}">{{ $cat->name }}</a>
+                                {{-- <a href="{{ route('products.search', $cat->slug) }}">{{ $cat->name }}</a> --}}
                             </div>
                         </div>
                     </div>
