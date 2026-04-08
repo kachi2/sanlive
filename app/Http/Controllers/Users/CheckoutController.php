@@ -86,7 +86,7 @@ class CheckoutController extends Controller
       }catch(\Exception $e)
       {
          Session::flash('error', $e->getMessage());
-         return back();
+         return redirect()->route('users.index');
       }
     }
 

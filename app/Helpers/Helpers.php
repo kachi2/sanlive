@@ -96,10 +96,18 @@ if(!function_exists('convertPercent')){
 
 function getUserLocationData()
 {
-// $getIP = request()->ip();  
-$getIP = '102.88.33.150';
-$url = "ipinfo.io/$getIP?token=882a5aae24fada";
-return curlRequest($url);
+    $getIP = request()->ip();
+    // Fall back to a known Nigerian IP if running locally/staging
+    if ($getIP === '127.0.0.1' || $getIP === '::1') {
+        $getIP = '102.88.33.150';
+    }
+    $url = "ipinfo.io/$getIP?token=882a5aae24fada";
+    $result = curlRequest($url);
+    // Return a default country if API fails
+    if (empty($result) || !isset($result['country'])) {
+        return ['country' => 'NG', 'city' => '', 'region' => ''];
+    }
+    return $result;
 }
 
 
