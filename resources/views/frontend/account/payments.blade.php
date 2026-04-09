@@ -4,55 +4,61 @@
 @section('meta_robots', 'noindex, nofollow')
 
 @section('content')
-<div class="ps-shopping" style="background:#eee">
+<div class="acct-bg">
     <div class="container">
         <div class="ps-shopping__content">
             <div class="row">
                 @include('frontend.partials.account-sidebar')
-                <div class="col-12 col-md-7 col-lg-8 mt-5" style="background:#fff; border-radius:5px">
-                    <div class="row">
-                        <span class="pt-5 pl-5"><a href="#" onclick="history.back()"> &lt;&lt; back </a> <hr style="width:100%"></span>
-                       <div class="table-responsive-sm">
-                            <table class="table ps-table ps-table--product">
+                <div class="col-12 col-md-7 col-lg-9 acct-col">
+
+                    <div class="acct-page-header">
+                        <h2 class="acct-page-title">Payment History</h2>
+                    </div>
+
+                    <div class="acct-card" style="padding:0;overflow:hidden">
+                        @if($payments->count())
+                        <div class="table-responsive">
+                            <table class="acct-table">
                                 <thead>
                                     <tr>
                                         <th>Order No</th>
                                         <th>Payment Ref</th>
-                                        <th>External Ref</th>
+                                        <th class="d-none d-md-table-cell">External Ref</th>
                                         <th>Amount</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($payments as $pay)
+                                    @foreach($payments as $pay)
                                     <tr>
-                                        <td>{{ $pay->order_id }}</td>
-                                        <td>{{ $pay->payment_ref }}</td>
-                                        <td>{{ $pay->external_ref }}</td>
-                                        <td>₦{{ number_format($pay->payable ?? 0) }}</td>
+                                        <td style="font-weight:600;color:#103178">#{{ $pay->order_id }}</td>
+                                        <td style="font-size:12px;color:#666">{{ $pay->payment_ref }}</td>
+                                        <td class="d-none d-md-table-cell" style="font-size:12px;color:#666">{{ $pay->external_ref ?? '—' }}</td>
+                                        <td style="font-weight:700">₦{{ number_format($pay->payable ?? 0) }}</td>
                                         <td>
                                             @if($pay->status == 1)
-                                            <span class="badge badge-success">Success</span>
+                                            <span class="acct-badge acct-badge--green">Success</span>
                                             @else
-                                            <span class="badge badge-warning">Pending</span>
+                                            <span class="acct-badge acct-badge--orange">Pending</span>
                                             @endif
                                         </td>
                                     </tr>
-                                    @empty
-                                    <tr>
-                                        <td colspan="5" style="text-align:center; padding:60px; color:#888">
-                                            No payment history found.
-                                        </td>
-                                    </tr>
-                                    @endforelse
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
+                        @else
+                        <div class="acct-empty">
+                            <i class="icon-credit-card"></i>
+                            <p>No payment records found.</p>
+                        </div>
+                        @endif
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div style="height:2em; background:#eee"></div>
+<div style="height:2em;background:#f0f2f8"></div>
 @endsection

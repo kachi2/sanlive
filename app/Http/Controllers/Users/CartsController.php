@@ -55,7 +55,7 @@ use imageUpload;
     { 
       $settings = Setting::first();
  try{
-      $prod = Product::latest()->take(6)->get();
+      $prod = Product::latest()->take(4)->get();
       foreach($prod as $pp){
         $pp->productUrl = trimInput($pp->name);
         $pp->hashid = Hashids::connection('products')->encode($pp->id);
@@ -70,12 +70,7 @@ use imageUpload;
             'keywords' => $keyworkds,
             'image_url' => websiteLogo()
       ];
-     
-        // return inertia('Users/Carts/Cart', [
-        //   'carts' => \Cart::getContent(), 'total' => \Cart::getTotal(),
-        //   'latest' => $prod, 'cartSession' => Hashids::connection('products')->encode(rand(11,99)),
-        //   'pageMeta' => $metas
-        // ])->withViewData($metas); // Vue/Inertia preserved
+  
         return view('frontend.cart', [
           'carts' => \Cart::getContent(),
           'total' => \Cart::getTotal(),
@@ -86,8 +81,6 @@ use imageUpload;
       
           }catch(\Exception $e)
       {
-        // dd($e->getMessage());
-        // return inertia('404')->toResponse(request())->setStatusCode(404); // Vue/Inertia preserved
         abort(404);
       }
     }

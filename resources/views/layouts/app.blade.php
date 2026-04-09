@@ -90,9 +90,7 @@ toastr.options = { timeOut:6000, progressBar:true, showMethod:"slideDown", hideM
 @if(session('error'))
     toastr.error({!! json_encode(session('error')) !!});
 @endif
-@if($errors->any())
-    toastr.error('{{ $errors->first() }}');
-@endif
+
 </script>
 
 @yield('scripts')

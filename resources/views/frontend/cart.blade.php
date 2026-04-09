@@ -2,6 +2,27 @@
 
 @section('meta_robots', 'noindex, nofollow')
 
+@section('styles')
+<style>
+.sanlive-product-card{background:#fff;border:1px solid #eee;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;height:100%;transition:box-shadow .2s}
+.sanlive-product-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.10)}
+.sanlive-product-card__img{display:block;width:100%;aspect-ratio:1/1;object-fit:contain;padding:12px;background:#fafafa}
+.sanlive-product-card__body{padding:8px 10px 4px;flex:1}
+.sanlive-product-card__name{font-size:12px;font-weight:700;color:#222;text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sanlive-product-card__name a{color:inherit;text-decoration:none}
+.sanlive-product-card__name a:hover{color:#103178}
+.sanlive-product-card__price{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.sanlive-product-card__sale{font-size:14px;font-weight:700;color:#25a244}
+.sanlive-product-card__original{font-size:12px;color:#aaa;text-decoration:line-through}
+.sanlive-product-card__actions{display:flex;flex-direction:column;gap:6px;padding:0 10px 10px}
+.btn-sanlive-cart{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 6px;font-size:12px;font-weight:600;color:#333;background:#fff;border:1.5px solid #ccc;border-radius:6px;text-decoration:none!important;white-space:nowrap;transition:border-color .15s,color .15s;width:100%}
+.btn-sanlive-cart:hover{border-color:#103178;color:#103178}
+.btn-sanlive-wa{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 6px;font-size:12px;font-weight:600;color:#fff;background:#25d366;border:1.5px solid #25d366;border-radius:6px;text-decoration:none!important;white-space:nowrap;transition:background .15s;width:100%}
+.btn-sanlive-wa:hover{background:#1ebe5d;border-color:#1ebe5d;color:#fff}
+@media(min-width:480px){.sanlive-product-card__actions{flex-direction:row}.btn-sanlive-cart,.btn-sanlive-wa{width:auto;flex:1}}
+</style>
+@endsection
+
 @section('content')
 <div class="ps-shopping" style="background: #fff">
     <div class="container">
@@ -96,45 +117,45 @@
 </div>
 <div style="height: 2em; background:#eee"></div>
 <section class="ps-section--latest" style="margin-top:5px">
-    <div class="container" style="background: #f4f3f33f; padding:10px; border:5px solid #ede8e836">
+    <div class="container" style="background:#f4f3f33f; padding:10px; border:5px solid #ede8e836">
         <div class="ps-noti p-2" style="border-radius:5px">
-            <p class="ml-2" style="color:#fff; font-weight:bold; text-align:left"> Related Products </p>
+            <p class="ml-2" style="color:#fff; font-weight:bold; text-align:left">Latest Products</p>
         </div>
-        <div class="ps-section__carousel">
-            <div class="owl-carousel" data-owl-auto="false" data-owl-loop="true" data-owl-speed="13000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="5" data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="5" data-owl-item-xl="5" data-owl-duration="1000" data-owl-mousedrag="on">
-                @foreach($latest as $prod)
-                <div>
-                    <div class="ps-section__product shadow-sm">
-                        <div class="ps-product ps-product--standard cart-card border-gray-800" style="background-color:#fff">
-                            <div class="ps-product__thumbnail">
-                                <a class="ps-product__image" href="{{ route('users.products', $prod->slug) }}" style="min-height:250px">
-                                    <figure>
-                                        <img src="{{ asset('images/products/'.$prod->image_path) }}" alt="" style="max-height:200px">
-                                        <img src="{{ asset('images/products/'.$prod->image_path) }}" alt="{{ $prod->name }}">
-                                    </figure>
-                                </a>
-                            </div>
-                            <div class="ps-product__content">
-                                <h5><a href="{{ route('users.products', $prod->slug) }}">{{ $prod->name }}</a></h5>
-                                <div class="ps-product__meta">
-                                    <span class="ps-product__price sale">{{ moneyFormat($prod->sale_price) }}</span>
-                                    <span class="ps-product__del">{{ moneyFormat($prod->price) }}</span>
-                                </div>
-                                <span class="download-note">
-                                    <span>
-                                        <a class="btn btn-lg" href="{{ route('users.products', $prod->slug) }}" style="background:#fff; color:#73c2fb; border:1px solid #73c2fb; display: inline;"><i class="fa fa-plus"></i> Add to basket</a>
-                                        <a target="_blank" rel="noopener noreferrer" href="https://wa.me/+2348058885913?text={{ urlencode('Please i need to order this product '.$prod->name.' the price is: '.moneyFormat($prod->sale_price)) }}">
-                                            <img src="/frontend/whatsapp.png" style="width: 80px; float:right; padding: 0px;">
-                                        </a>
-                                    </span>
-                                </span>
-                            </div>
+        @if($latest->count())
+        <div class="row" style="margin-top:12px;">
+            @foreach($latest as $prod)
+            <div class="col-6 col-md-4 col-lg-3 mb-3">
+                <div class="sanlive-product-card w-100">
+                    <a href="{{ route('users.products', $prod->slug) }}">
+                        <img class="sanlive-product-card__img"
+                             src="{{ asset('images/products/'.$prod->image_path) }}"
+                             alt="{{ $prod->name }}" loading="lazy">
+                    </a>
+                    <div class="sanlive-product-card__body">
+                        <div class="sanlive-product-card__name">
+                            <a href="{{ route('users.products', $prod->slug) }}">{{ $prod->name }}</a>
+                        </div>
+                        <div class="sanlive-product-card__price">
+                            <span class="sanlive-product-card__sale">{{ moneyFormat($prod->sale_price) }}</span>
+                            @if($prod->price > $prod->sale_price)
+                            <span class="sanlive-product-card__original">{{ moneyFormat($prod->price) }}</span>
+                            @endif
                         </div>
                     </div>
+                    <div class="sanlive-product-card__actions">
+                        <a href="{{ route('users.products', $prod->slug) }}" class="btn-sanlive-cart">
+                            <i class="icon-cart" style="font-size:13px;"></i> Add to Cart
+                        </a>
+                        <a href="https://wa.me/+2348058885913?text={{ urlencode('I want to order: '.$prod->name.' — '.moneyFormat($prod->sale_price)) }}"
+                           target="_blank" rel="noopener noreferrer" class="btn-sanlive-wa">
+                            <img src="{{ asset('/frontend/whatsapp.png') }}" style="width:14px;height:14px;object-fit:contain;filter:brightness(0) invert(1)" alt=""> WhatsApp
+                        </a>
+                    </div>
                 </div>
-                @endforeach
             </div>
+            @endforeach
         </div>
+        @endif
     </div>
 </section>
 @endsection

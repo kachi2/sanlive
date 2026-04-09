@@ -3,82 +3,75 @@
 @section('meta_robots', 'noindex, nofollow')
 
 @section('content')
-<div class="ps-shopping" style="background:#eee">
+<div class="acct-bg">
     <div class="container">
         <div class="ps-shopping__content">
             <div class="row">
                 @include('frontend.partials.account-sidebar')
-                <div class="col-12 col-md-8 col-lg-8 mt-5" style="background:#fff; border-radius:5px">
-                    <div class="row">
-                        <span class="pt-5 pl-5"><a href="#" onclick="history.back()"> &lt;&lt; back </a>
-                            <hr style="width:100%"></span>
-                        <div class="col-12 col-md-11">
-                            <span style="float:right">
-                                <a href="{{ route('users.address.create') }}" class="btn btn-primary">Add New Address</a>
-                            </span>
-                        </div>
+                <div class="col-12 col-md-7 col-lg-9 acct-col">
 
-                        @forelse($addresses as $address)
-                        <div class="col-12 col-md-6">
-                            <div class="ps-categogy--list">
-                            <div class="ps-product ps-product--list" style="border:2px solid #d1d5dad4; border-radius:10px">
-                                <div class="ps-product__content" style="border-right:0px">
-                                    <div class="ps-product__info">
-                                        <a class="ps-product__branch" href="#"></a>
-                                        <p class="ps-product__title" style="font-size:16px; color:#262525">
-                                            @if($address->is_default == 1)
-                                            <small style="font-size:10px; color:rgb(117,131,242)">Default</small>
-                                            @endif
-                                            <span style="float:right">
-                                                <a href="/account/address/edit/{{ $address->hashid }}">
-                                                    <i class="icon-pen"></i>
-                                                </a>
-                                                <a href="/account/address/delete/{{ $address->hashid }}"
-                                                   onclick="return confirm('Are you, you want to delete this Address?')">
-                                                    &nbsp;&nbsp;<i class="badge badge-danger">X</i>
-                                                </a>
-                                            </span>
-                                        </p>
-                                        <div class="ps-product__meta">
-                                            <span style="font-size:15px">{{ strtoupper($address->name) }}</span>
-                                        </div>
-                                        <ul class="ps-product__list">
-                                            <li>{{ $address->email ? $address->email.',' : '' }} {{ $address->phone ? $address->phone.',' : '' }}</li>
-                                            <li>{{ $address->address }}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        @empty
-                        <div class="col-12 col-md-6">
-                            <div class="ps-categogy--list">
-                            <div class="ps-product ps-product--list" style="border:2px solid #d1d5dad4; border-radius:10px">
-                                <div class="ps-product__content" style="border-right:0px">
-                                    <div class="ps-product__info">
-                                        <a class="ps-product__branch" href="#"></a>
-                                        <p class="ps-product__title" style="font-size:16px; color:#262525"><a></a>
-                                            Shipping Address <small style="font-size:10px; color:rgb(117,131,242)">Default</small>
-                                            <span style="float:right"><a href=""><i class="icon-pen"></i></a></span>
-                                        </p>
-                                        <hr>
-                                        <ul class="ps-product__list">
-                                            <li><span class="ps-list__title"></span>You don't have a shippig address yet<br>
-                                                <a href="{{ route('users.address.create') }}" class="btn btn-primary">Add New Address</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        @endforelse
+                    <div class="acct-page-header">
+                        <h2 class="acct-page-title">Address Book</h2>
+                        <a href="{{ route('users.address.create') }}" class="acct-btn acct-btn--primary" style="padding:10px 20px;font-size:13px">
+                            <i class="icon-plus" style="font-size:12px"></i> Add Address
+                        </a>
                     </div>
+
+                    @if(session('success'))
+                    <div class="acct-alert acct-alert--success">{{ session('success') }}</div>
+                    @endif
+
+                    @forelse($addresses as $address)
+                    <div class="acct-card-sm" style="margin-bottom:14px">
+                        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+                            <div style="flex:1">
+                                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                                    <span style="font-size:14px;font-weight:700;color:#111">{{ strtoupper($address->name) }}</span>
+                                    @if($address->is_default == 1)
+                                    <span class="acct-badge acct-badge--blue">Default</span>
+                                    @endif
+                                </div>
+                                @if($address->phone)
+                                <div style="font-size:13px;color:#555;margin-bottom:3px">
+                                    <i class="icon-telephone" style="font-size:12px;color:#aaa;margin-right:4px"></i>{{ $address->phone }}
+                                </div>
+                                @endif
+                                @if($address->email)
+                                <div style="font-size:13px;color:#555;margin-bottom:3px">
+                                    <i class="icon-envelope" style="font-size:12px;color:#aaa;margin-right:4px"></i>{{ $address->email }}
+                                </div>
+                                @endif
+                                <div style="font-size:13px;color:#555;margin-top:4px">
+                                    <i class="icon-map-marker" style="font-size:12px;color:#aaa;margin-right:4px"></i>{{ $address->address }}
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:8px;flex-shrink:0">
+                                <a href="/account/address/edit/{{ $address->hashid }}" class="acct-card__edit" title="Edit">
+                                    <i class="icon-pen" style="font-size:13px"></i>
+                                </a>
+                                <a href="/account/address/delete/{{ $address->hashid }}"
+                                   onclick="return confirm('Delete this address?')"
+                                   class="acct-card__edit" title="Delete"
+                                   style="background:#fff1f1;color:#e74c3c">
+                                    <i class="icon-trash" style="font-size:13px"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    @empty
+                    <div class="acct-card">
+                        <div class="acct-empty">
+                            <i class="icon-map-marker"></i>
+                            <p>No addresses saved yet. Add one to speed up checkout.</p>
+                            <a href="{{ route('users.address.create') }}" class="acct-btn acct-btn--primary">Add New Address</a>
+                        </div>
+                    </div>
+                    @endforelse
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div style="height:2em; background:#eee"></div>
+<div style="height:2em;background:#f0f2f8"></div>
 @endsection

@@ -2,7 +2,12 @@
 <header class="ps-header ps-header--1">
     <div class="ps-noti p-2">
         <div class="container">
-            <p class="m-0" style="color:#fff; font-weight:bold; font-size: 13px;"><marquee>{{ $announcment?->content }}</marquee></p>
+            <div class="marquee">
+  <div class="track">
+    <span style="color:#fff; font-weight:bold">{{ $announcment?->content }} </span>
+  </div>
+</div>
+            {{-- <p class="m-0" style="color:#fff; font-weight:bold; font-size: 13px;"><marquee>{{ $announcment?->content }}</marquee></p> --}}
         </div>
     </div>
     <div class="ps-header__middle">
@@ -108,6 +113,32 @@
     </nav>
 </header>
 
+
+
+
+<style>
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.track {
+  display: inline-block;
+  animation: scroll 10s linear infinite;
+}
+
+.track span {
+  padding-right: 50px;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee span:hover {
+  animation-play-state: paused;
+}
+</style>
 <style>
 .sanlive-nav {
     background: #103178;
