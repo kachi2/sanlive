@@ -93,7 +93,7 @@
 
         <div class="mob-actions">
             @guest
-            <a href="#" id="open-auth-modal" class="mob-icon-btn" title="Sign in">
+            <a href="#" data-auth-modal="login" class="mob-icon-btn" title="Sign in">
                 <i class="icon-user"></i>
             </a>
             @else

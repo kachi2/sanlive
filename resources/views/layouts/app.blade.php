@@ -9,7 +9,7 @@
     <title>{{ $pageMeta['metaTitle'] ?? $settings->site_name ?? 'Sanlive Pharmacy' }} - Sanlive Pharmacy</title>
     <meta name="description" content="{{ $pageMeta['description'] ?? 'Get all your medications delivered to your doorstep from the No. 1 online pharmacy store in Lagos Nigeria - Sanlive Pharmacy.' }}">
     <meta name="keywords" content="{{ $pageMeta['keywords'] ?? 'online pharmacy, medicine delivery, health store, buy drugs online' }}">
-    <meta name="robots" content="@yield('meta_robots', $pageMeta['robots'] ?? 'index, follow')">
+    <meta name="robots" content="@yield('meta_robots', $pageMeta['robots'] ?? (app()->environment('production') ? 'index, follow' : 'noindex, nofollow'))">
 
     <meta property="og:type" content="{{ $pageMeta['og_type'] ?? 'website' }}">
     <meta property="og:site_name" content="Sanlive Pharmacy">
@@ -342,8 +342,6 @@ toastr.options = { timeOut:6000, progressBar:true, showMethod:"slideDown", hideM
     }
 
     // Open triggers
-    var openBtn = document.getElementById('open-auth-modal');
-    if (openBtn) openBtn.addEventListener('click', function(e){ e.preventDefault(); openModal('login'); });
 
     // Any other login/register link added later can use data-auth-modal="login"
     document.addEventListener('click', function(e) {

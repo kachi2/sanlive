@@ -27,7 +27,7 @@ class ProductDetailsController extends Controller
     }
 
     $product = Product::with('productReviews')->where('slug', $slug)->firstOrFail();
-    $data['related'] = Product::where('category_id', $product->category_id)->take(10)->get();
+    $data['related'] = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->take(8)->get();
 
     preg_match('/<p>(.*?)<\/p>/s', $product->description, $matches);
     $product->tagline = $matches[0] ?? '';
@@ -45,11 +45,8 @@ class ProductDetailsController extends Controller
             'og_type'  => 'product',
             'robots'   => 'index, follow',
     ];
-    // return inertia('Users/Carts/ProductDetails', [
-    //   'data' => $data, 'pageMeta' => $meta, 'schema' => $this->addTags($product, $reviews->get()),
-    //   'avatar' => 'https://i.pravatar.cc/40?u=1', 'reviews' => $reviews->paginate(5),
-    //   'ratings' => ProductReview::where(['product_id' => $product->id, 'is_approved' => 1])->pluck('rating')
-    // ])->withViewData($meta); // Vue/Inertia preserved
+
+    // dd($data);
     return view('frontend.product-details', [
         'data' => $data,
         'pageMeta' => $meta,
@@ -60,7 +57,6 @@ class ProductDetailsController extends Controller
     ]);
       }catch(\Exception $e)
       {
-        // return inertia('404')->toResponse(request())->setStatusCode(404); // Vue/Inertia preserved
         abort(404);
       }
   } 
@@ -93,7 +89,6 @@ class ProductDetailsController extends Controller
        return Redirect::to("/products/{$product->slug}", 301);
       }catch(\Exception $e)
       {
-        // return inertia('404')->toResponse(request())->setStatusCode(404); // Vue/Inertia preserved
         abort(404);
       }
     }
