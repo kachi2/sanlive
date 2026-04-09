@@ -16,7 +16,7 @@
                 <div class="ps-post" style="border-radius:10px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.07); height:100%">
                     @if($blog->image)
                     <div class="ps-post__thumbnail">
-                        <a href="{{ route('blogs.details', ['id' => $blog->hashid]) }}">
+                        <a href="{{ route('blogs.details', $blog->slug) }}">
                             <img src="{{ asset('images/blogs/'.$blog->image) }}"
                                  alt="{{ $blog->title }}"
                                  style="width:100%; height:200px; object-fit:cover">
@@ -24,7 +24,7 @@
                     </div>
                     @endif
                     <div class="ps-post__content" style="padding:18px">
-                        <a href="{{ route('blogs.details', ['id' => $blog->hashid]) }}">
+                        <a href="{{ route('blogs.details', $blog->slug) }}">
                             <h2 style="font-size:16px; font-weight:600; color:#103178; margin-bottom:8px; line-height:1.4">
                                 {{ $blog->title }}
                             </h2>
@@ -36,7 +36,7 @@
                         <p style="font-size:14px; color:#555; line-height:1.6">
                             {{ Str::limit(strip_tags($blog->content), 120) }}
                         </p>
-                        <a href="{{ route('blogs.details', ['id' => $blog->hashid]) }}"
+                        <a href="{{ route('blogs.details', $blog->slug) }}"
                            style="font-size:13px; color:#007bff; font-weight:600">Read more →</a>
                     </div>
                 </div>

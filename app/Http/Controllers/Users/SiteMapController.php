@@ -54,10 +54,9 @@ class SiteMapController extends Controller
                 ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
                 ->setPriority(0.8));
         }
-        foreach (Blog::all() as $blog) {
-            $ids = encrypt($blog->id);
+        foreach (Blog::whereNotNull('slug')->where('slug', '!=', '')->get() as $blog) {
             $sitemap->add(
-                Url::create("/blogs/details/$ids")
+                Url::create("/blogs/{$blog->slug}")
                     ->setLastModificationDate($blog->updated_at)
                     ->setPriority(0.7)
             );

@@ -13,9 +13,6 @@ class BlogController extends Controller
     public function Index(){
     
         $blogs =  Blog::latest()->paginate(20);
-        foreach($blogs as $Blog){
-            $Blog->hashid = Hashids::connection('products')->encode($Blog->id);
-        }
         // return inertia('Users/Pages/blogs', ['blogs' => $blogs, 'pageMeta' => [...]]); // Vue/Inertia preserved
         return view('frontend.blogs', [
             'blogs' => $blogs,
@@ -30,39 +27,41 @@ class BlogController extends Controller
         ]);
     }
 
-    public function Details($id){
-        try{
-        $latest =  Blog::latest()->paginate(7);
-        foreach($latest as $bb){
-            $bb->hashid = Hashids::connection('products')->encode($bb->id);
-        }
-        $id = Hashids::connection('products')->decode($id);
-        if(!empty($id)){
-        $blogs = Blog::findorfail($id[0]);
-        }else{
-             $blogs = Blog::findorfail(decrypt($id));
-             $blogs->hashid = Hashids::connection('products')->encode($blogs->id);
-              return Redirect::to("/blogs/details/{$blogs->hashid}", 301);
-        }
-      
-        // return inertia('Users/Pages/blogDetails', ['blogs' => $latest, 'blog' => $blogs, 'pageMeta' => [...]]); // Vue/Inertia preserved
-        return view('frontend.blog-details', [
-                'blogs' => $latest,
-                'blog' => $blogs,
+    public function Details($slug)
+    {
+        try {
+            $latest = Blog::latest()->paginate(7);
+            $blogs  = Blog::where('slug', $slug)->firstOrFail();
+            return view('frontend.blog-details', [
+                'blogs'   => $latest,
+                'blog'    => $blogs,
                 'pageMeta' => [
-                    'url' => url()->current(),
-                    'title' => $blogs->title,
-                    'metaTitle' => $blogs->title,
+                    'url'         => url()->current(),
+                    'title'       => $blogs->title,
+                    'metaTitle'   => $blogs->title,
                     'description' => Str::limit(strip_tags($blogs->content), 155),
-                    'keywords' => '',
-                    'image_url' => $blogs->image ? asset('images/blogs/'.$blogs->image) : websiteLogo()
-                ]
+                    'keywords'    => '',
+                    'image_url'   => $blogs->image ? asset('images/blogs/'.$blogs->image) : websiteLogo(),
+                ],
             ]);
-          }catch(\Exception $e)
-      {
-         // return inertia('404')->toResponse(request())->setStatusCode(404); // Vue/Inertia preserved
-         abort(404);
-      }
-}
+        } catch (\Exception $e) {
+            abort(404);
+        }
+    }
+
+    public function LegacyDetails($id)
+    {
+        try {
+            $decoded = Hashids::connection('products')->decode($id);
+            if (!empty($decoded)) {
+                $blog = Blog::findOrFail($decoded[0]);
+            } else {
+                $blog = Blog::findOrFail(decrypt($id));
+            }
+            return Redirect::to(route('blogs.details', $blog->slug), 301);
+        } catch (\Exception $e) {
+            abort(404);
+        }
+    }
 
 }

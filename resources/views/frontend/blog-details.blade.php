@@ -27,7 +27,7 @@
                                     @forelse($blogs as $item)
                                     <div class="ps-product ps-product--standard">
                                         <div class="ps-product__thumbnail">
-                                            <a class="ps-product__image" href="{{ route('blogs.details', $item->hashid) }}">
+                                            <a class="ps-product__image" href="{{ route('blogs.details', $item->slug) }}">
                                                 <figure>
                                                     <img src="{{ asset('images/blog/'.$item->image) }}" alt="{{ $item->title }}">
                                                     <img src="{{ asset('images/blog/'.$item->image) }}" alt="{{ $item->title }}">
@@ -35,7 +35,7 @@
                                             </a>
                                         </div>
                                         <div class="ps-product__content">
-                                            <h5 class="ps-product__title"><a href="{{ route('blogs.details', $item->hashid) }}">{{ $item->title }}</a></h5>
+                                            <h5 class="ps-product__title"><a href="{{ route('blogs.details', $item->slug) }}">{{ $item->title }}</a></h5>
                                         </div>
                                     </div>
                                     @empty

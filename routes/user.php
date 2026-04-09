@@ -89,7 +89,8 @@ Route::controller(PrescriptionController::class)->group(function(){
 Route::get('upload/sitemap', [SiteMapController::class, 'SiteMap'])->name('site.map');
 
 Route::get('blogs', [BlogController::class, 'Index'])->name('blogs.index');
-Route::get('blogs/details/{id}', [BlogController::class, 'Details'])->name('blogs.details');
+Route::get('blogs/details/{id}', [BlogController::class, 'LegacyDetails'])->name('blogs.details.legacy');
+Route::get('blogs/{slug}', [BlogController::class, 'Details'])->name('blogs.details');
 Route::get('/faq', [FaqController::class, '__invoke'])->name('faq.index');
 Route::post('/contact/us/submit', [PageController::class, 'contactUsSubmit']);
 Route::get('/page/services', [PageController::class, 'viewService']);

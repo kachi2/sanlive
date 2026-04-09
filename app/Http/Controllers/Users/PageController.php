@@ -19,12 +19,12 @@ class PageController extends Controller
         return view('frontend.privacy', [
             'privacy' => $privacypolicy,
             'pageMeta' => [
-                'url' => url()->current(),
-                'title' => websiteName().' Online Health Store, Medicines, Vitamins',
-                'metaTitle' => websiteName().' Online Health Store, Medicines, Vitamins',
-                'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
-                'keywords' => 'online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
-                'image_url' => websiteLogo()
+                'url'         => url()->current(),
+                'title'       => 'Privacy Policy – How We Protect Your Health Data',
+                'metaTitle'   => 'Privacy Policy – How We Protect Your Health Data',
+                'description' => 'Read Sanlive Pharmacy\'s privacy policy to learn how we collect, use, and protect your personal and health data in compliance with Nigerian data protection regulations.',
+                'keywords'    => 'sanlive pharmacy privacy policy, health data protection Nigeria, online pharmacy privacy',
+                'image_url'   => websiteLogo(),
             ]
         ]);
     }
@@ -35,12 +35,12 @@ class PageController extends Controller
         return view('frontend.terms', [
             'terms' => $termscondition,
             'pageMeta' => [
-                'url' => url()->current(),
-                'title' => websiteName().' Online Health Store, Medicines, Vitamins',
-                'metaTitle' => websiteName().' Online Health Store, Medicines, Vitamins',
-                'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
-                'keywords' => 'online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
-                'image_url' => websiteLogo()
+                'url'         => url()->current(),
+                'title'       => 'Terms & Conditions',
+                'metaTitle'   => 'Terms & Conditions',
+                'description' => 'Read Sanlive Pharmacy\'s terms and conditions governing use of our online platform, including product purchases, delivery times, returns, and your rights as a customer.',
+                'keywords'    => 'sanlive pharmacy terms and conditions, online pharmacy terms Nigeria, pharmacy user agreement',
+                'image_url'   => websiteLogo(),
             ]
         ]);
     }
