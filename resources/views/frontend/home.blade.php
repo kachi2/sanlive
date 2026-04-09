@@ -51,17 +51,17 @@
 .sanlive-product-card__original { font-size: 13px; color: #aaa; text-decoration: line-through; }
 .sanlive-product-card__actions {
     display: flex;
+    flex-direction: column;
     gap: 6px;
-    padding: 0 12px 12px;
+    padding: 0 10px 12px;
 }
 .btn-sanlive-cart {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
-    padding: 7px 6px;
-    font-size: 11.5px;
+    padding: 8px 6px;
+    font-size: 12px;
     font-weight: 600;
     color: #333;
     background: #fff;
@@ -70,16 +70,16 @@
     text-decoration: none !important;
     white-space: nowrap;
     transition: border-color 0.15s, color 0.15s;
+    width: 100%;
 }
 .btn-sanlive-cart:hover { border-color: #103178; color: #103178; }
 .btn-sanlive-wa {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
-    padding: 7px 6px;
-    font-size: 11.5px;
+    gap: 6px;
+    padding: 8px 6px;
+    font-size: 12px;
     font-weight: 600;
     color: #fff;
     background: #25d366;
@@ -88,8 +88,14 @@
     text-decoration: none !important;
     white-space: nowrap;
     transition: background 0.15s;
+    width: 100%;
 }
 .btn-sanlive-wa:hover { background: #1ebe5d; border-color: #1ebe5d; color: #fff; }
+/* On wider screens, put buttons side by side */
+@media(min-width: 480px) {
+    .sanlive-product-card__actions { flex-direction: row; }
+    .btn-sanlive-cart, .btn-sanlive-wa { width: auto; flex: 1; }
+}
 </style>
 @endsection
 

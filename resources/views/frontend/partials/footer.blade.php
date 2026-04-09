@@ -87,7 +87,7 @@
     {{-- Bottom Bar --}}
     <div class="sanlive-footer__bottom">
         <div class="container sanlive-footer__bottom-inner">
-            <p class="footer-copy">{{ $settings->site_copyright ?? '© '.date('Y').' Sanlive Pharmacy. All rights reserved.' }}</p>
+            <p class="footer-copy">{{ '© '.date('Y').' Sanlive Pharmacy. All rights reserved.' }}</p>
             <div class="footer-badges">
                 <img src="/images/paystack_logo.png" alt="Paystack" title="Paystack">
                 <img src="/images/mastercard.png" alt="Mastercard" title="Mastercard">

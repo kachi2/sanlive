@@ -26,7 +26,7 @@
             <div class="ps-header__right" style="flex:0 0 auto; margin-left:auto;">
                 <ul class="ps-header__icons" style="display:flex; align-items:center; gap:4px; list-style:none; margin:0; padding:0; flex-wrap:nowrap;">
                     @guest
-                    <li><a href="{{ route('login') }}" rel="nofollow" style="font-size:0.9em; color:#5b6c8f; white-space:nowrap;">Sign in</a></li>
+                    <li><a href="#" id="open-auth-modal" rel="nofollow" style="font-size:0.9em; color:#5b6c8f; white-space:nowrap;">Sign in</a></li>
                     @else
                     <li class="dropdown" style="position:relative; list-style:none;">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"

@@ -38,4 +38,10 @@ return [
         'key_path' => env('GOOGLE_SERVICE_ACCOUNT_KEY_PATH', storage_path('app/google-service-account.json')),
     ],
 
+    'google' => [
+        'client_id'     => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect'      => env('GOOGLE_REDIRECT_URI', '/auth/google/callback'),
+    ],
+
 ];
