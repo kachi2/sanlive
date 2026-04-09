@@ -36,12 +36,14 @@ class ProductDetailsController extends Controller
     $reviews = ProductReview::where(['product_id' => $product->id, 'is_approved' => 1])->latest();
 
     $meta = [
-            'url' => $url,
-            'title' => $product->name." Sanlive Pharmacy",
-            'metaTitle' => "Buy $product->name in Nigeria",
-            'description' => "Shop $product->name Order prescription drugs, supplements & personal care from Sanlive Pharmacy. Affordable prices, genuine products & doorstep delivery in Nigeria.",
-            'keywords' => " $product->name Shop high-quality  online at Sanlive Pharmacy. Fast delivery across Nigeria. Affordable and trusted brands",
-            'image_url' => asset('images/products/'.$product->image_path)
+            'url'      => $url,
+            'title'    => $product->name.' | Sanlive Pharmacy Nigeria',
+            'metaTitle'=> 'Buy '.$product->name.' in Nigeria',
+            'description' => 'Order '.$product->name.' from Sanlive Pharmacy. Genuine product, affordable price & fast doorstep delivery across Nigeria. PCN licensed.',
+            'keywords' => $product->name.', buy '.$product->name.' Nigeria, '.$product->name.' online pharmacy',
+            'image_url'=> asset('images/products/'.$product->image_path),
+            'og_type'  => 'product',
+            'robots'   => 'index, follow',
     ];
     // return inertia('Users/Carts/ProductDetails', [
     //   'data' => $data, 'pageMeta' => $meta, 'schema' => $this->addTags($product, $reviews->get()),

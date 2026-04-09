@@ -8,7 +8,7 @@
             <div class="ps-banner" style="height:200px">
                 <div class="ps-">
                     <div class="ps-banner__content" style="text-align: center; width: 100%; padding:20px;">
-                        <h2 class="ps-banner__title">Our Services!</h2>
+                        <h1 class="ps-banner__title">Our Services &ndash; Reliable Healthcare Solutions</h1>
                         <p>As a pharmaceutical technology firm, all of our offerings are centered around leveraging technology to deliver pharmaceutical services, <br> particularly in the distribution and delivery of medications. As an online pharmacy, we ensure that your medications reach you. </p>
                     </div>
                 </div>

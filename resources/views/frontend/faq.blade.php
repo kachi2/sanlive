@@ -9,6 +9,9 @@
             <li class="ps-breadcrumb__item active" aria-current="page">FAQ</li>
         </ul>
     </div>
+    <div class="container" style="padding-top:12px">
+        <h1 style="font-size:1.2rem;font-weight:700;color:#103178;margin:0 0 8px 0">Frequently Asked Questions (FAQ)</h1>
+    </div>
     <div class="ps-about__content">
         <section class="ps-about__project">
             <div class="container">

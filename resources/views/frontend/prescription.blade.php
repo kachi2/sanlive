@@ -8,6 +8,7 @@
             <li class="ps-breadcrumb__item"><a href="{{ route('users.index') }}">Home</a></li>
             <li class="ps-breadcrumb__item active" aria-current="page">Doctor's Prescription</li>
         </ul>
+        <h1 style="font-size:1.2rem;font-weight:700;color:#103178;margin:16px 0">Upload Your Doctor's Prescription</h1>
         <div class="ps-checkout__content">
             @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>

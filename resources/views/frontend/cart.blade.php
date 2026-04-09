@@ -8,7 +8,6 @@
         <div class="ps-shopping__content">
             <div class="row">
                 <div class="col-12 col-md-7 col-lg-9 mt-5" style="background: #fff">
-                    <h1 class="m-4" style="font-size:12px"></h1>
                     @if(count($carts) > 0)
                     <div class="ps-categogy--list">
                         @foreach($carts as $cart)

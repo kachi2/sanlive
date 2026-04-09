@@ -8,6 +8,7 @@
             <li class="ps-breadcrumb__item"><a href="{{ route('users.index') }}">Home</a></li>
             <li class="ps-breadcrumb__item active" aria-current="page">Contact Us</li>
         </ul>
+        <h1 style="font-size:1.2rem;font-weight:700;color:#103178;margin:16px 0">Contact Us &ndash; Sanlive Pharmacy Nigeria</h1>
         <div class="ps-contact__content">
             <div class="row">
                 <div class="col-12 col-lg-4">

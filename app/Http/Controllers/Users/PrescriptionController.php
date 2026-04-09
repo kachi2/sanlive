@@ -17,12 +17,12 @@ use imageUpload;
         // return inertia('Users/Pages/prescription', ['pageMeta' => [...]]); // Vue/Inertia preserved
         return view('frontend.prescription', [
             'pageMeta' => [
-                'url' => url()->current(),
-                'title' => 'Upload Prescription',
-                'metaTitle' => websiteName().' Online Health Store, Medicines, Vitamins',
-                'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
-                'keywords' => 'online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
-                'image_url' => websiteLogo()
+                'url'         => url()->current(),
+                'title'       => 'Upload Prescription Online – Sanlive Pharmacy Nigeria',
+                'metaTitle'   => 'Upload Prescription Online – Sanlive Pharmacy Nigeria',
+                'description' => 'Safely upload your doctor\'s prescription and order medicines online at Sanlive Pharmacy. Fast processing and reliable doorstep delivery across Nigeria. PCN licensed.',
+                'keywords'    => 'upload prescription online Nigeria, buy prescription medicines, online prescription pharmacy, doctor prescription delivery Nigeria',
+                'image_url'   => websiteLogo(),
             ]
         ]);
     }

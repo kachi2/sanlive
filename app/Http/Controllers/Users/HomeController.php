@@ -57,12 +57,12 @@ class HomeController extends Controller
         addHashId($category);
         addHashId($categories);
         $meta = [
-            'url' => url()->current(),
-            'title' => websiteName().' Online Health Store, Medicines, Vitamins',
-            'metaTitle' => websiteName().' Online Health Store, Medicines, Vitamins',
-            'description' => 'Get your healthcare needs delivered at your doorstep from the No one online Pharmacy store  Sanlive Pharmacy. Fast delivery, affordable prices',
-            'keywords' => 'online pharmacy, medicine delivery, health store, wellness tablets, medical prescription, buy drugs online, ecommerce pharmacy',
-            'image_url' => websiteLogo()
+            'url'         => url()->current(),
+            'title'       => 'Buy Medicines, Vitamins & Supplements Online in Nigeria | Sanlive Pharmacy',
+            'metaTitle'   => 'Buy Medicines, Vitamins & Supplements Online in Nigeria',
+            'description' => 'Trusted PCN-licensed online pharmacy in Nigeria. Fast doorstep delivery of medicines, vaccines, vitamins, skincare & more in Lagos and nationwide. Upload prescription and order safely today.',
+            'keywords'    => 'online pharmacy Nigeria, buy medicine online Lagos, prescription delivery Nigeria, vitamins supplements, PCN licensed pharmacy',
+            'image_url'   => websiteLogo(),
         ];
         // return inertia('Dashboard', [
         //     'sliders' => $slider,

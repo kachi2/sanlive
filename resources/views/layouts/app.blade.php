@@ -9,9 +9,9 @@
     <title>{{ $pageMeta['metaTitle'] ?? $settings->site_name ?? 'Sanlive Pharmacy' }} - Sanlive Pharmacy</title>
     <meta name="description" content="{{ $pageMeta['description'] ?? 'Get all your medications delivered to your doorstep from the No. 1 online pharmacy store in Lagos Nigeria - Sanlive Pharmacy.' }}">
     <meta name="keywords" content="{{ $pageMeta['keywords'] ?? 'online pharmacy, medicine delivery, health store, buy drugs online' }}">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="@yield('meta_robots', $pageMeta['robots'] ?? 'index, follow')">
 
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="{{ $pageMeta['og_type'] ?? 'website' }}">
     <meta property="og:site_name" content="Sanlive Pharmacy">
     <meta property="og:title" content="{{ $pageMeta['metaTitle'] ?? $settings->site_name ?? 'Sanlive Pharmacy' }}">
     <meta property="og:description" content="{{ $pageMeta['description'] ?? 'Get all your medications delivered to your doorstep.' }}">
@@ -20,9 +20,9 @@
     <link rel="canonical" href="{{ $pageMeta['url'] ?? url()->current() }}">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="@yield('og_title', $settings->site_name ?? 'Sanlive Pharmacy')">
-    <meta name="twitter:description" content="@yield('og_description', 'Get all your medications delivered to your doorstep.')">
-    <meta name="twitter:image" content="@yield('og_image', asset('images/'.$settings->site_logo))">
+    <meta name="twitter:title" content="{{ $pageMeta['metaTitle'] ?? $settings->site_name ?? 'Sanlive Pharmacy' }}">
+    <meta name="twitter:description" content="{{ $pageMeta['description'] ?? 'Get all your medications delivered to your doorstep.' }}">
+    <meta name="twitter:image" content="{{ $pageMeta['image_url'] ?? asset('images/'.$settings->site_logo) }}">
 
     <link href="{{ asset('images/'.$settings->fav) }}" rel="shortcut icon" type="image/png">
     <link rel="apple-touch-icon" href="{{ asset('/apple-touch-icon.png') }}" sizes="180x180">

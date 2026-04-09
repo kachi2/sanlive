@@ -18,9 +18,7 @@
                 <div class="col-12 col-md-9" style="background:#fff;padding:10px;border-radius:10px;top:-40px">
                     <div class="ps-categogy__wrapper">
                         <div class="ps-categogy__onsale">
-                            <h1 style="font-size:15px">
-                                @if($searchterm) {{ $searchterm }} @else Showing All Products @endif
-                            </h1>
+                            <h1 style="font-size:15px">{{ $pageH1 ?? ($searchterm ?: 'Shop All Health Products – Sanlive Pharmacy') }}</h1>
                         </div>
                     </div>
                     <div class="ps-categogy--grid">

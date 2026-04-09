@@ -33,19 +33,19 @@
                                         <span class="ps-badge ps-badge--outstock">OUT OF STOCK</span>
                                         @endif
                                     </div>
-                                    <h2 class="ps-product__branch" style="font-size:13px">Category: <a href="{{ route('products.search') }}">{{ $data['product']->category->name ?? '' }}</a></h2>
+                                    <p class="ps-product__branch" style="font-size:13px">Category: <a href="{{ route('products.search') }}">{{ $data['product']->category->name ?? '' }}</a></p>
                                     <h1 style="font-size:20px" class="ps-product__title"><a href="#">{{ $data['product']->name }}</a></h1>
                                     <p>
                                         <span class="ps-product__price sale">{{ moneyFormat($data['product']->sale_price) }}</span>
                                         <span class="ps-product__del">{{ moneyFormat($data['product']->price) }}</span>
                                     </p>
                                     <div class="ps-product__meta">
-                                        <h2 style="font-size:25px; color:deepskyblue">Description:
+                                        <p style="font-size:15px; color:deepskyblue; font-weight:600">Description:
                                             <span>{!! preg_replace('/Description:/i', '', $data['product']->tagline) !!}</span>
-                                        </h2>
+                                        </p>
                                     </div>
                                     <div class="ps-product__meta">
-                                        <h2 style="font-size:20px; color:deepskyblue">Manufacturer: <span style="font-size:15px">{{ $data['product']->brand }}</span></h2>
+                                        <p style="font-size:14px; color:deepskyblue; font-weight:600">Manufacturer: <span style="font-size:14px; font-weight:400">{{ $data['product']->brand }}</span></p>
                                     </div>
                                     <form action="{{ route('carts.add', $data['product']->id) }}" method="POST" enctype="multipart/form-data">
                                         @csrf

@@ -36,6 +36,7 @@
 
 {{-- Category Carousel --}}
 <div class="container p-2">
+    <h1 style="font-size:1.3rem;font-weight:700;color:#103178;padding:12px 0 4px">Trusted Online Pharmacy in Nigeria &ndash; Fast &amp; Reliable Medicine Delivery</h1>
     <div class="ps-noti p-2" style="border-radius:5px">
         <div class="container">
             <p class="m-0" style="color:#fff;font-weight:bold;text-align:left">Shop By Category</p>

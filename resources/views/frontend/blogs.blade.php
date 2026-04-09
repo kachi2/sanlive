@@ -8,7 +8,7 @@
             <li class="ps-breadcrumb__item"><a href="{{ route('users.index') }}">Home</a></li>
             <li class="ps-breadcrumb__item active" aria-current="page">Blog</li>
         </ul>
-        <h1 style="font-size:24px; font-weight:700; margin-bottom:25px">Health Blog & News</h1>
+        <h1 style="font-size:24px; font-weight:700; margin-bottom:25px">Health Blog &amp; Wellness Articles</h1>
 
         <div class="row">
             @forelse($blogs as $blog)

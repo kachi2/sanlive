@@ -8,7 +8,7 @@
             <div class="ps-banner" style="height:200px">
                 <div class="ps-">
                     <div class="ps-banner__content" style="text-align: center; width: 100%; padding:20px;">
-                        <h2 class="ps-banner__title">Your one and only  <br> online  Pharmacy!</h2>
+                        <h1 class="ps-banner__title">About Sanlive Pharmacy &ndash; Your Trusted Health Partner in Nigeria</h1>
                         <p>Eliminate the hassle of visiting pharmacies to find your medications.<br>  {{ $settings->site_name }} delivers your prescriptions right to your doorstep with just a few simple clicks. </p>
                     </div>
                 </div>

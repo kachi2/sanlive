@@ -41,10 +41,10 @@
                             <div class="ps-footer--block">
                                 <h5 class="ps-block__title">Account</h5>
                                 <ul class="ps-block__list">
-                                    <li><a href="{{ route('users.account.index') }}" rel="nofollow">My account</a></li>
-                                    <li><a href="{{ route('users.orders') }}" rel="nofollow">My orders</a></li>
-                                    <li><a href="{{ route('users.account.address') }}" rel="nofollow">Address Book</a></li>
-                                    <li><a href="{{ route('users.order.payments') }}" rel="nofollow">Payments</a></li>
+                                    <li><a href="{{ route('users.account.index') }}">My account</a></li>
+                                    <li><a href="{{ route('users.orders') }}">My orders</a></li>
+                                    <li><a href="{{ route('users.account.address') }}">Address Book</a></li>
+                                    <li><a href="{{ route('users.order.payments') }}">Payments</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -52,10 +52,10 @@
                             <div class="ps-footer--block">
                                 <h5 class="ps-block__title">Help Links</h5>
                                 <ul class="ps-block__list">
-                                    <li><a href="{{ route('AboutUs') }}" rel="nofollow">About Us</a></li>
-                                    <li><a href="{{ route('PrivacyPolicy') }}" rel="nofollow">Privacy Policy</a></li>
-                                    <li><a href="{{ route('pages.terms') }}" rel="nofollow">Terms &amp; Conditions</a></li>
-                                    <li><a href="{{ route('contactUs') }}" rel="nofollow">Contact Us</a></li>
+                                    <li><a href="{{ route('AboutUs') }}">About Us</a></li>
+                                    <li><a href="{{ route('PrivacyPolicy') }}">Privacy Policy</a></li>
+                                    <li><a href="{{ route('pages.terms') }}">Terms &amp; Conditions</a></li>
+                                    <li><a href="{{ route('contactUs') }}">Contact Us</a></li>
                                     <li><a href="{{ route('blogs.index') }}">Blogs</a></li>
                                 </ul>
                             </div>

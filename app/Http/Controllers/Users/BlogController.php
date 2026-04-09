@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Users;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 use Vinkla\Hashids\Facades\Hashids;
 
 class BlogController extends Controller
@@ -19,12 +20,12 @@ class BlogController extends Controller
         return view('frontend.blogs', [
             'blogs' => $blogs,
             'pageMeta' => [
-                'url' => url()->current(),
-                'title' => 'Blogs',
-                'metaTitle' => $blogs->first()->title,
-                'description' => websiteName().' '.$blogs->first()->title,
-                'keywords' => $blogs->first()->content,
-                'image_url' => websiteLogo()
+                'url'         => url()->current(),
+                'title'       => 'Health Blog – Tips, Articles & Wellness Advice | Sanlive Pharmacy',
+                'metaTitle'   => 'Health Blog – Tips, Articles & Wellness Advice',
+                'description' => 'Read informative articles on health, medicine usage, wellness tips, disease prevention and more from Sanlive Pharmacy experts. Stay informed about your health.',
+                'keywords'    => 'health blog Nigeria, medicine tips, wellness advice, health articles Nigeria, pharmacy blog, disease prevention',
+                'image_url'   => websiteLogo(),
             ]
         ]);
     }
@@ -52,9 +53,9 @@ class BlogController extends Controller
                     'url' => url()->current(),
                     'title' => $blogs->title,
                     'metaTitle' => $blogs->title,
-                    'description' => websiteName().' '.$blogs->title,
-                    'keywords' => $blogs->content,
-                    'image_url' => websiteLogo()
+                    'description' => Str::limit(strip_tags($blogs->content), 155),
+                    'keywords' => '',
+                    'image_url' => $blogs->image ? asset('images/blogs/'.$blogs->image) : websiteLogo()
                 ]
             ]);
           }catch(\Exception $e)

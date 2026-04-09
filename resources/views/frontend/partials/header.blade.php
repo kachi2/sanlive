@@ -2,7 +2,7 @@
 <header class="ps-header ps-header--1">
     <div class="ps-noti p-2">
         <div class="container">
-            <h1 class="m-0" style="color:#fff; font-weight:bold; font-size: 13px;"><marquee>{{ $announcment?->content }}</marquee></h1>
+            <p class="m-0" style="color:#fff; font-weight:bold; font-size: 13px;"><marquee>{{ $announcment?->content }}</marquee></p>
         </div>
     </div>
     <div class="ps-header__middle">
