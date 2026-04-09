@@ -71,11 +71,12 @@ try{
         //     'searchterm' => $searchterm, 'pageMeta' => $pageMeta,
         // ]); // Vue/Inertia preserved
         return view('frontend.products', [
-            'products'   => $products,
-            'categories' => $categories,
-            'searchterm' => $searchterm,
-            'pageH1'     => $pageH1 ?? 'Shop All Health Products – Sanlive Pharmacy',
-            'pageMeta'   => $pageMeta,
+            'products'       => $products,
+            'categories'     => $categories,
+            'searchterm'     => $searchterm,
+            'pageH1'         => $pageH1 ?? 'Shop All Health Products – Sanlive Pharmacy',
+            'pageMeta'       => $pageMeta,
+            'activeCategory' => $cat->slug ?? null,
         ]);
       }catch(\Exception $e)
       {

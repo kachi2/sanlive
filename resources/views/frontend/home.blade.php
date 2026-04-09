@@ -1,5 +1,97 @@
 @extends('layouts.app')
 
+@section('styles')
+<style>
+/* ── Product Card (shared) ── */
+.sanlive-product-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: box-shadow 0.2s;
+}
+.sanlive-product-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.10); }
+.sanlive-product-card__img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    padding: 14px;
+    background: #fafafa;
+}
+.sanlive-product-card__body {
+    padding: 10px 12px 4px;
+    flex: 1;
+}
+.sanlive-product-card__name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #222;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.sanlive-product-card__name a { color: inherit; text-decoration: none; }
+.sanlive-product-card__name a:hover { color: #103178; }
+.sanlive-product-card__price {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+.sanlive-product-card__sale { font-size: 15px; font-weight: 700; color: #25a244; }
+.sanlive-product-card__original { font-size: 13px; color: #aaa; text-decoration: line-through; }
+.sanlive-product-card__actions {
+    display: flex;
+    gap: 6px;
+    padding: 0 12px 12px;
+}
+.btn-sanlive-cart {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 6px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #333;
+    background: #fff;
+    border: 1.5px solid #ccc;
+    border-radius: 6px;
+    text-decoration: none !important;
+    white-space: nowrap;
+    transition: border-color 0.15s, color 0.15s;
+}
+.btn-sanlive-cart:hover { border-color: #103178; color: #103178; }
+.btn-sanlive-wa {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 7px 6px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #fff;
+    background: #25d366;
+    border: 1.5px solid #25d366;
+    border-radius: 6px;
+    text-decoration: none !important;
+    white-space: nowrap;
+    transition: background 0.15s;
+}
+.btn-sanlive-wa:hover { background: #1ebe5d; border-color: #1ebe5d; color: #fff; }
+</style>
+@endsection
 
 @section('content')
 <div class="ps-home ps-home--8">
@@ -94,40 +186,33 @@
         <div class="ps-section__content">
             <div class="row m-0">
                 @foreach($section->products as $product)
-                <div class="col-6 p-2 col-md-6 col-lg-3 pt-4">
-                    <div class="ps-section__product shadow-sm">
-                        <div class="ps-product ps-product--standard" style="background-color:#fff">
-                            <div class="ps-product__thumbnail">
-                                <a class="ps-product__image" href="{{ route('users.products', $product->slug) }}" style="max-height:250px">
-                                    <figure>
-                                        <img src="{{ asset('images/products/'.$product->image_path) }}"
-                                             alt="{{ $product->name }}" loading="lazy">
-                                    </figure>
-                                </a>
+                <div class="col-6 col-md-6 col-lg-3 p-2 d-flex">
+                    <div class="sanlive-product-card w-100">
+                        <a href="{{ route('users.products', $product->slug) }}">
+                            <img class="sanlive-product-card__img"
+                                 src="{{ asset('images/products/'.$product->image_path) }}"
+                                 alt="{{ $product->name }}" loading="lazy">
+                        </a>
+                        <div class="sanlive-product-card__body">
+                            <div class="sanlive-product-card__name">
+                                <a href="{{ route('users.products', $product->slug) }}">{{ $product->name }}</a>
                             </div>
-                            <div class="ps-product__content">
-                                <h3 style="font-size:14px">
-                                    <a href="{{ route('users.products', $product->slug) }}">{{ $product->name }}</a>
-                                </h3>
-                                <p class="ps-product__meta">
-                                    <span class="ps-product__price sale">{{ moneyFormat($product->sale_price) }}</span>
-                                    <span class="ps-product__del">{{ moneyFormat($product->price) }}</span>
-                                </p>
-                                <div class="row">
-                                    <div class="col-12 col-md-6 p-2">
-                                        <a class="btn btn-lg" href="{{ route('users.products', $product->slug) }}"
-                                           style="background:#fff;color:#73c2fb;border:1px solid #73c2fb;">
-                                            <i class="fa fa-plus"></i> Add to basket
-                                        </a>
-                                    </div>
-                                    <div class="col-12 col-md-6 p-2">
-                                        <a target="_blank" rel="noopener noreferrer"
-                                           href="https://wa.me/+2348058885913?text={{ urlencode('I want to order: '.$product->name.' - Price: '.moneyFormat($product->sale_price)) }}">
-                                            <img src="{{ asset('/frontend/whatsapp.png') }}" style="width:90px" alt="Order via WhatsApp">
-                                        </a>
-                                    </div>
-                                </div>
+                            <div class="sanlive-product-card__price">
+                                <span class="sanlive-product-card__sale">{{ moneyFormat($product->sale_price) }}</span>
+                                @if($product->price && $product->price != $product->sale_price)
+                                <span class="sanlive-product-card__original">{{ moneyFormat($product->price) }}</span>
+                                @endif
                             </div>
+                        </div>
+                        <div class="sanlive-product-card__actions">
+                            <a href="{{ route('users.products', $product->slug) }}" class="btn-sanlive-cart">
+                                Add to Cart <i class="fa fa-shopping-basket"></i>
+                            </a>
+                            <a href="https://wa.me/+2348058885913?text={{ urlencode('I want to order: '.$product->name.' - Price: '.moneyFormat($product->sale_price)) }}"
+                               target="_blank" rel="noopener noreferrer" class="btn-sanlive-wa">
+                                <img src="{{ asset('/frontend/whatsapp.png') }}" style="width:14px;height:14px;object-fit:contain;filter:brightness(0) invert(1)" alt="">
+                                WhatsApp
+                            </a>
                         </div>
                     </div>
                 </div>

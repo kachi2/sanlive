@@ -67,21 +67,159 @@
             </div>
         </div>
     </div>
-    <div class="ps-navigation" style="background:#E6F3FF; border-top:1px solid #e4e8ee; border-bottom:1px solid #e4e8ee">
-        <div class="container">
-            <div style="text-align: center;">
-                <nav class="ps-main-menu">
-                    <ul class="menu">
-                        <li><a href="{{ route('users.index') }}">Home</a></li>
-                        <li><a href="{{ route('products.search') }}">Products</a></li>
-                        <li><a href="/page/services">Our Services</a></li>
-                        <li><a href="{{ route('AboutUs') }}">About Us</a></li>
-                        <li><a href="{{ route('contactUs') }}">Contact Us</a></li>
-                        <li><a href="{{ route('blogs.index') }}">Blog</a></li>
-                        <li><a href="{{ route('faq.index') }}">FAQ</a></li>
-                    </ul>
-                </nav>
-            </div>
+    <nav class="sanlive-nav d-none d-md-block">
+        <div class="container sanlive-nav__inner">
+            <ul class="sanlive-nav__menu">
+                <li>
+                    <a href="{{ route('users.index') }}" class="{{ request()->routeIs('users.index') ? 'active' : '' }}">Home</a>
+                </li>
+                <li class="has-dropdown">
+                    <a href="{{ route('products.search') }}" class="{{ request()->routeIs('products.search') ? 'active' : '' }}">
+                        Products <i class="fa fa-chevron-down" style="font-size:10px; margin-left:3px;"></i>
+                    </a>
+                    <div class="sanlive-nav__dropdown">
+                        <ul>
+                            @foreach($categories as $cat)
+                            <li><a href="{{ route('products.search', $cat->slug) }}">{{ $cat->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="/page/services" class="{{ request()->is('page/services') ? 'active' : '' }}">Our Services</a>
+                </li>
+                <li>
+                    <a href="{{ route('AboutUs') }}" class="{{ request()->routeIs('AboutUs') ? 'active' : '' }}">About Us</a>
+                </li>
+                <li>
+                    <a href="{{ route('contactUs') }}" class="{{ request()->routeIs('contactUs') ? 'active' : '' }}">Contact</a>
+                </li>
+                <li>
+                    <a href="{{ route('blogs.index') }}" class="{{ request()->routeIs('blogs.*') ? 'active' : '' }}">Blog</a>
+                </li>
+                <li>
+                    <a href="{{ route('faq.index') }}" class="{{ request()->routeIs('faq.index') ? 'active' : '' }}">FAQ</a>
+                </li>
+            </ul>
+            <a href="{{ route('user.prescription') }}" class="sanlive-nav__cta">
+                <i class="fa fa-upload" style="font-size:11px;"></i> Upload Prescription
+            </a>
         </div>
-    </div>
+    </nav>
 </header>
+
+<style>
+.sanlive-nav {
+    background: #103178;
+    position: relative;
+    z-index: 100;
+}
+.sanlive-nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.sanlive-nav__menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2px;
+}
+.sanlive-nav__menu > li {
+    position: relative;
+}
+.sanlive-nav__menu > li > a {
+    display: block;
+    padding: 13px 15px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85) !important;
+    text-decoration: none !important;
+    letter-spacing: 0.2px;
+    position: relative;
+    transition: color 0.15s;
+    white-space: nowrap;
+}
+.sanlive-nav__menu > li > a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+    right: 15px;
+    height: 3px;
+    background: #25d366;
+    border-radius: 3px 3px 0 0;
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+}
+.sanlive-nav__menu > li > a:hover {
+    color: #fff !important;
+}
+.sanlive-nav__menu > li > a:hover::after,
+.sanlive-nav__menu > li > a.active::after {
+    transform: scaleX(1);
+}
+.sanlive-nav__menu > li > a.active {
+    color: #fff !important;
+}
+/* Dropdown */
+.sanlive-nav__menu > li.has-dropdown:hover .sanlive-nav__dropdown {
+    display: block;
+}
+.sanlive-nav__dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    border-radius: 0 8px 8px 8px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.13);
+    z-index: 999;
+    min-width: 480px;
+    padding: 10px 0;
+}
+.sanlive-nav__dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 6px 8px;
+    columns: 2;
+    column-gap: 0;
+}
+.sanlive-nav__dropdown ul li a {
+    display: block;
+    padding: 8px 14px;
+    font-size: 13px;
+    color: #333 !important;
+    text-decoration: none !important;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: background 0.12s, color 0.12s;
+    break-inside: avoid;
+}
+.sanlive-nav__dropdown ul li a:hover {
+    background: #f0f4ff;
+    color: #103178 !important;
+}
+/* Prescription CTA */
+.sanlive-nav__cta {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 16px;
+    background: #25d366;
+    color: #fff !important;
+    font-size: 12.5px;
+    font-weight: 700;
+    border-radius: 20px;
+    text-decoration: none !important;
+    white-space: nowrap;
+    transition: background 0.15s, transform 0.15s;
+    flex-shrink: 0;
+}
+.sanlive-nav__cta:hover {
+    background: #1ebe5d;
+    color: #fff !important;
+    transform: translateY(-1px);
+}
+</style>
