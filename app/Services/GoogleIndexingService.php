@@ -72,6 +72,7 @@ class GoogleIndexingService
             }
             // Google Indexing API quota: 200 requests/day per property by default.
             // Sleep 0.5s between batches to respect rate limits.
+            //php artisan google:clear-redirects
             usleep(500000);
         }
 

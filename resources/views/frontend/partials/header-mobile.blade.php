@@ -13,10 +13,21 @@
 .mob-announce {
     background: #103178; color: #fff;
     font-size: .78rem; font-weight: 500;
-    padding: 6px 16px; text-align: center;
+    padding: 6px 0; text-align: center;
     overflow: hidden; white-space: nowrap;
 }
-.mob-announce marquee { display: inline-block; }
+.mob-announce-track {
+    display: inline-block;
+    animation: mob-scroll 12s linear infinite;
+    padding: 0 16px;
+}
+.mob-announce:hover .mob-announce-track {
+    animation-play-state: paused;
+}
+@keyframes mob-scroll {
+    from { transform: translateX(100vw); }
+    to   { transform: translateX(-100%); }
+}
 
 /* Top bar */
 .mob-topbar {
@@ -82,7 +93,7 @@
 <div class="mob-header d-md-none">
     @if($announcment?->content)
     <div class="mob-announce">
-        <marquee behavior="scroll" direction="left">{{ $announcment->content }}</marquee>
+        <span class="mob-announce-track">{{ $announcment->content }}</span>
     </div>
     @endif
 

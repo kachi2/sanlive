@@ -66,6 +66,8 @@ return [
 
     'asset_url' => env('ASSET_URL'),
 
+    'cron_secret' => env('CRON_SECRET'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

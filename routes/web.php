@@ -9,6 +9,7 @@ use App\Http\Controllers\SiteMapController as ControllersSiteMapController;
 use App\Http\Controllers\UpdateProductTest;
 use App\Http\Controllers\UserReviewController;
 use App\Http\Controllers\Users\SiteMapController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 
 /*
@@ -29,6 +30,23 @@ require __DIR__.'/user.php';
 
 Route::get('/process/products/names', [ProductController::class, 'processImages'])->name('processImages');
 Route::get('manual/payment/processes', [ManualPaymentController::class, 'ProcessPayment']);
+
+/*
+ * Cron endpoint — called every 24 hrs by an external cron service (e.g. cron-job.org).
+ * Protected by a secret token stored in CRON_SECRET in .env.
+ * Example URL: https://sanlivepharmacy.com/cron/google-indexing?token=YOUR_SECRET
+ */
+Route::get('/cron/google-indexing', function (\Illuminate\Http\Request $request) {
+    $secret = config('app.cron_secret');
+
+    if (!$secret || !hash_equals($secret, (string) $request->query('token'))) {
+        abort(403, 'Forbidden');
+    }
+
+    Artisan::call('google:clear-redirects');
+
+    return response()->json(['status' => 'ok', 'ran_at' => now()->toDateTimeString()]);
+});
 
  
 

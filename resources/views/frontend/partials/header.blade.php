@@ -135,7 +135,7 @@
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-.marquee span:hover {
+.marquee:hover .track {
   animation-play-state: paused;
 }
 </style>
