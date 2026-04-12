@@ -39,12 +39,12 @@ class AppServiceProvider extends ServiceProvider
 
             if (!isset($shared)) {
                 $shared = [
-                    'settings'      => Cache::remember('site_settings', 3600, fn() => Setting::latest()->first()),
-                    'categories'    => Cache::remember('site_categories', 300,  fn() => Category::inRandomOrder()->get()),
-                    'site_menu'     => Cache::remember('site_menu', 3600,       fn() => Menu::get()),
-                    'advert_top'    => Cache::remember('advert_top', 3600,      fn() => Advert::where('placement', 'top')->first()),
-                    'announcment'   => Cache::remember('site_announcement', 600, fn() => Annoucement::latest()->first()),
-                    'unread_notify' => Cache::remember('admin_notifications', 60, fn() => AdminNotification::latest()->take(50)->get()),
+                    'settings'      => Cache::remember('site_settings', 3600, function() { return Setting::latest()->first(); }),
+                    'categories'    => Cache::remember('site_categories', 300,  function() { return Category::inRandomOrder()->get(); }),
+                    'site_menu'     => Cache::remember('site_menu', 3600,       function() { return Menu::get(); }),
+                    'advert_top'    => Cache::remember('advert_top', 3600,      function() { return Advert::where('placement', 'top')->first(); }),
+                    'announcment'   => Cache::remember('site_announcement', 600, function() { return Annoucement::latest()->first(); }),
+                    'unread_notify' => Cache::remember('admin_notifications', 60, function() { return AdminNotification::latest()->take(50)->get(); }),
                     // Cart is session-based (per-user) — never cache globally
                     'cartItem'      => \Cart::getTotalQuantity(),
                 ];

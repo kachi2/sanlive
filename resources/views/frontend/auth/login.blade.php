@@ -1,53 +1,66 @@
-@extends('layouts.auth')
-
-@section('title', 'Sign In')
+@extends('layouts.app')
 
 @section('content')
-<div style="text-align:center; padding:10px; margin-bottom:20px">
-    <a href="{{ route('users.index') }}">
-        <img src="{{ asset('images/'.$settings->site_logo) }}" alt="{{ $settings->site_name }}" width="180">
-    </a>
-</div>
+<div style="background:#f0f2f8; min-height:80vh; display:flex; align-items:center; justify-content:center; padding:40px 16px;">
+    <div class="auth-modal" style="position:relative; animation:authSlideIn .25s ease; max-width:440px; width:100%;">
 
-<h4 style="text-align:center; margin-bottom:25px">Sign In</h4>
-
-@if(session('status'))
-<div class="alert alert-info">{{ session('status') }}</div>
-@endif
-
-@if($errors->any())
-<div class="alert alert-danger">
-    @foreach($errors->all() as $error)
-    <div>{{ $error }}</div>
-    @endforeach
-</div>
-@endif
-
-<form action="{{ route('login') }}" method="POST">
-    @csrf
-    <div class="form-group">
-        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-               placeholder="Email" required autofocus value="{{ old('email') }}">
-        @error('email')<span class="badge badge-danger">{{ $message }}</span>@enderror
-    </div>
-    <div class="form-group">
-        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-               id="password" placeholder="Password" required autocomplete="current-password">
-    </div>
-    <div class="form-group d-flex justify-content-between">
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" name="remember" id="remember"
-                   {{ old('remember') ? 'checked' : '' }}>
-            <label class="custom-control-label" for="remember">Remember me</label>
+        <div class="auth-tabs">
+            <div class="auth-tab active">Sign In</div>
+            <a href="{{ route('register') }}" class="auth-tab" style="text-decoration:none;">Create Account</a>
         </div>
-        @if(Route::has('password.request'))
-        <a href="{{ route('password.request') }}" style="font-size:13px">Forgot your password?</a>
-        @endif
-    </div>
-    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-</form>
 
-<p class="text-muted mt-4 text-center">Don't have an account?
-    <a href="{{ route('register') }}">Register now!</a>
-</p>
+        <div class="auth-panel active" style="display:block;">
+            <div class="auth-brand">
+                @if(isset($settings) && $settings->site_logo)
+                    <img src="{{ asset('/images/'.$settings->site_logo) }}" alt="{{ config('app.name') }}">
+                @endif
+                <p>Welcome back! Sign in to continue.</p>
+            </div>
+
+            <a href="{{ route('auth.google') }}" class="auth-google-btn">
+                <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18L12.048 13.56C11.226 14.105 10.177 14.43 9 14.43c-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
+                Continue with Google
+            </a>
+
+            <div class="auth-divider">or sign in with email</div>
+
+            @if($errors->any())
+            <div class="auth-error-banner" style="display:block;">
+                {{ $errors->first() }}
+            </div>
+            @endif
+            @if(session('status'))
+            <div class="auth-error-banner" style="display:block; background:#e6faf0; border-color:#25a244; color:#166534;">
+                {{ session('status') }}
+            </div>
+            @endif
+
+            <form action="{{ route('login') }}" method="POST">
+                @csrf
+                <div class="auth-field">
+                    <label for="login-email">Email address</label>
+                    <input type="email" id="login-email" name="email" class="@error('email') is-invalid @enderror"
+                           placeholder="you@example.com" autocomplete="email" required autofocus value="{{ old('email') }}">
+                </div>
+                <div class="auth-field">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" class="@error('password') is-invalid @enderror"
+                           placeholder="Your password" autocomplete="current-password" required>
+                </div>
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;">
+                    <label style="display:flex; align-items:center; gap:7px; font-size:.88rem; color:#5b6c8f; cursor:pointer; margin:0;">
+                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                        Remember me
+                    </label>
+                    @if(Route::has('password.request'))
+                    <a href="{{ route('password.request') }}" class="auth-forgot" style="margin:0">Forgot password?</a>
+                    @endif
+                </div>
+                <button type="submit" class="auth-submit">Sign In</button>
+            </form>
+
+            <div class="auth-switch">No account? <a href="{{ route('register') }}">Create one free</a></div>
+        </div>
+    </div>
+</div>
 @endsection
