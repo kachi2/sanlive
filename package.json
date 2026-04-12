@@ -8,13 +8,17 @@
         "preview": "vite preview"
     },
     "devDependencies": {
-        "autoprefixer": "^10.4.12",
+        "autoprefixer": "^10.4.27",
         "axios": "^1.6.4",
         "laravel-vite-plugin": "^1.0.0",
         "postcss": "^8.4.31",
+        "tailwindcss": "^4.2.2",
         "vite": "^4.4.9"
     },
     "dependencies": {
+        "bootstrap": "^4.6.2",
+        "nouislider": "^15.8.1",
+        "select2": "^4.1.0-rc.0",
         "toastr": "^2.1.4"
     }
 }

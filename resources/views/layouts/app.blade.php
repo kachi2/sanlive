@@ -30,17 +30,17 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com/">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jost:400,500,600,700&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    {{-- Bootstrap, toastr, select2, nouislider — must load before style.css --}}
+    @vite(['resources/css/vendor.css'])
     <link rel="stylesheet" href="{{ asset('/frontend/plugins/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/fonts/Linearicons/Font/demo-files/demo.css') }}">
-    <link rel="stylesheet" href="{{ asset('/frontend/plugins/bootstrap4/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/plugins/owl-carousel/assets/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/plugins/slick/slick/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/plugins/lightGallery/dist/css/lightgallery.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/frontend/plugins/noUiSlider/nouislider.css') }}">
-    <link rel="stylesheet" href="{{ asset('/frontend/plugins/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/css/home-8.css') }}">
+    {{-- Component styles (nav, mobile, sidebar, footer, auth modal) — load after style.css --}}
+    @vite(['resources/css/frontend.css'])
     @yield('styles')
 
     <meta name="google-site-verification" content="S7jnu8AWZFcOOYIKhw_EWy2ieNVUEwzSkgldPg1aMZ4">
@@ -99,124 +99,8 @@ toastr.options = { timeOut:6000, progressBar:true, showMethod:"slideDown", hideM
 // Mobile hamburger toggle is handled in mobile-sidebar.blade.php
 </script>
 
-<style>
-.btn-menu { border: none; background: none; }
-</style>
-
 {{-- ===== AUTH MODAL ===== --}}
 @guest
-<style>
-/* Overlay */
-#auth-modal-overlay {
-    display: none; position: fixed; inset: 0; z-index: 99999;
-    background: rgba(10,34,80,.55); backdrop-filter: blur(4px);
-    align-items: center; justify-content: center;
-}
-#auth-modal-overlay.open { display: flex; }
-
-/* Card */
-.auth-modal {
-    background: #fff; border-radius: 16px; width: 100%; max-width: 440px;
-    margin: 16px; box-shadow: 0 24px 72px rgba(16,49,120,.22);
-    overflow: hidden; animation: authSlideIn .25s ease;
-    position: relative;
-}
-@keyframes authSlideIn {
-    from { opacity:0; transform:translateY(-18px) scale(.97); }
-    to   { opacity:1; transform:translateY(0) scale(1); }
-}
-
-/* Close btn */
-.auth-modal__close {
-    position: absolute; top: 14px; right: 16px; background: none; border: none;
-    font-size: 1.4rem; color: #8a9bb5; cursor: pointer; line-height: 1; z-index: 1;
-}
-.auth-modal__close:hover { color: #103178; }
-
-/* Tabs */
-.auth-tabs { display: flex; border-bottom: 2px solid #eef1f8; }
-.auth-tab {
-    flex: 1; padding: 18px 0 14px; text-align: center; font-weight: 600;
-    font-size: .95rem; color: #8a9bb5; cursor: pointer; letter-spacing: .02em;
-    border-bottom: 3px solid transparent; margin-bottom: -2px; transition: color .2s;
-}
-.auth-tab.active { color: #103178; border-bottom-color: #25d366; }
-
-/* Panel */
-.auth-panel { display: none; padding: 28px 30px 30px; }
-.auth-panel.active { display: block; }
-
-/* Brand mark */
-.auth-brand { text-align: center; margin-bottom: 18px; }
-.auth-brand img { height: 46px; object-fit: contain; }
-.auth-brand h2 { font-size: 1.2rem; font-weight: 700; color: #103178; margin: 8px 0 2px; }
-.auth-brand p  { font-size: .82rem; color: #8a9bb5; margin: 0; }
-
-/* Google btn */
-.auth-google-btn {
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    width: 100%; padding: 11px 16px; border: 1.5px solid #dadce0; border-radius: 8px;
-    background: #fff; font-size: .9rem; font-weight: 500; color: #3c4043;
-    cursor: pointer; text-decoration: none; transition: box-shadow .18s, background .18s;
-    margin-bottom: 18px;
-}
-.auth-google-btn:hover { box-shadow: 0 2px 8px rgba(60,64,67,.18); background: #f8f9fa; text-decoration: none; color: #3c4043; }
-.auth-google-btn svg { flex-shrink: 0; }
-
-/* Divider */
-.auth-divider {
-    display: flex; align-items: center; gap: 10px; margin-bottom: 18px; color: #b0bdd0; font-size: .8rem;
-}
-.auth-divider::before, .auth-divider::after { content:''; flex:1; height:1px; background:#eef1f8; }
-
-/* Fields */
-.auth-field { margin-bottom: 18px; }
-.auth-field label { display: block; font-size: .92rem; font-weight: 600; color: #103178; margin-bottom: 7px; }
-.auth-field input {
-    width: 100%; padding: 13px 16px; border: 1.5px solid #dde3ef; border-radius: 10px;
-    font-size: 1rem; color: #1a2a4a; outline: none; transition: border-color .18s;
-    box-sizing: border-box; background: #fafbff; height: 50px;
-}
-.auth-field input:focus { border-color: #103178; background: #fff; box-shadow: 0 0 0 3px rgba(16,49,120,.08); }
-.auth-field input.is-invalid { border-color: #e53e3e; }
-.auth-field .field-error { font-size: .84rem; color: #e53e3e; margin-top: 5px; }
-
-/* Row for 2-col */
-.auth-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-@media(max-width:420px) { .auth-row { grid-template-columns: 1fr; } }
-
-/* Forgot link */
-.auth-forgot { font-size: .78rem; color: #5b6c8f; text-align: right; margin-top: -8px; margin-bottom: 14px; display: block; }
-.auth-forgot:hover { color: #103178; }
-
-/* Submit btn */
-.auth-submit {
-    width: 100%; padding: 12px; background: #103178; color: #fff;
-    border: none; border-radius: 8px; font-size: .95rem; font-weight: 600;
-    cursor: pointer; transition: background .18s; margin-top: 4px;
-}
-.auth-submit:hover { background: #0a2255; }
-.auth-submit:disabled { background: #8a9bb5; cursor: not-allowed; }
-
-/* Notice */
-.auth-switch { text-align: center; margin-top: 18px; font-size: .82rem; color: #8a9bb5; }
-.auth-switch a { color: #103178; font-weight: 600; cursor: pointer; }
-
-/* Spinner */
-.auth-spinner {
-    display: inline-block; width: 16px; height: 16px;
-    border: 2px solid rgba(255,255,255,.4); border-top-color: #fff;
-    border-radius: 50%; animation: authSpin .7s linear infinite; vertical-align: middle; margin-right: 6px;
-}
-@keyframes authSpin { to { transform: rotate(360deg); } }
-
-/* Error banner */
-.auth-error-banner {
-    background: #fff5f5; border: 1px solid #fed7d7; border-radius: 8px;
-    padding: 10px 14px; font-size: .83rem; color: #e53e3e; margin-bottom: 14px;
-    display: none;
-}
-</style>
 
 <div id="auth-modal-overlay">
     <div class="auth-modal" role="dialog" aria-modal="true" aria-label="Sign in or Register">
