@@ -1,4 +1,4 @@
 # STAGING — search engine indexing is disabled
-User-agent: *
-Disallow: /
+#User-agent: *
+#Disallow: /
 
