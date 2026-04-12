@@ -12,6 +12,7 @@ use App\Models\TermsCondition;
 use Intervention\Image\Facades\Image;
 use App\Models\AboutUs;
 use App\Models\Annoucement;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 
 class SettingsController extends Controller
@@ -270,6 +271,8 @@ class SettingsController extends Controller
         }
         $testim = Setting::first();
         $testim->update($data);
+        Cache::forget('site_settings');
+        Cache::forget('site_announcement');
         Session::flash('alert', 'success');
         Session::flash('message', 'Logo Updated Successfully');
         return back();

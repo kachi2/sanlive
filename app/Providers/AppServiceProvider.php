@@ -10,6 +10,7 @@ use App\Models\Setting;
 use App\Models\Category;
 use App\Models\Notification;
 use App\Services\paymentServices;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Vinkla\Hashids\Facades\Hashids;
 
@@ -32,14 +33,26 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         view::composer('*', function($view) {
-            $view->with('settings', Setting::latest()->first());
-            $categories =  Category::inRandomOrder()->get();
-            $view->with('categories',$categories);
-            $view->with('site_menu', Menu::get());
-            $view->with('advert_top', Advert::where('placement', 'top')->first());
-            $view->with('unread_notify', AdminNotification::latest()->get());
-            $view->with('announcment', Annoucement::latest()->first());
-            $view->with('cartItem', \Cart::getTotalQuantity());
+            // Static flag ensures these queries run only ONCE per request,
+            // no matter how many blade partials are rendered.
+            static $shared;
+
+            if (!isset($shared)) {
+                $shared = [
+                    'settings'      => Cache::remember('site_settings', 3600, fn() => Setting::latest()->first()),
+                    'categories'    => Cache::remember('site_categories', 300,  fn() => Category::inRandomOrder()->get()),
+                    'site_menu'     => Cache::remember('site_menu', 3600,       fn() => Menu::get()),
+                    'advert_top'    => Cache::remember('advert_top', 3600,      fn() => Advert::where('placement', 'top')->first()),
+                    'announcment'   => Cache::remember('site_announcement', 600, fn() => Annoucement::latest()->first()),
+                    'unread_notify' => Cache::remember('admin_notifications', 60, fn() => AdminNotification::latest()->take(50)->get()),
+                    // Cart is session-based (per-user) — never cache globally
+                    'cartItem'      => \Cart::getTotalQuantity(),
+                ];
+            }
+
+            foreach ($shared as $key => $value) {
+                $view->with($key, $value);
+            }
        });
 
     //    Inertia::share('settings', function(){ return Setting::latest()->first();  });

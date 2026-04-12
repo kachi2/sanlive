@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\imageUpload;
@@ -82,6 +83,7 @@ class CategoryController extends Controller
         ];
         $category =  $this->category->create($data);
         if ($category) {
+            Cache::forget('site_categories');
             Session::flash('alert', 'success');
             Session::flash('message', 'Category Added Successfully');
             return redirect()->back()
@@ -147,6 +149,7 @@ class CategoryController extends Controller
             $category->image_path =  $category->image;  
         }
         if($category->save()){
+            Cache::forget('site_categories');
             Session::flash('alert', 'success');
             Session::flash('message', 'Category Added Successfully');
             return redirect()->back()
