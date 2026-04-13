@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Jobs\GenerateSitemapJob;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -32,6 +33,14 @@ class Product extends Model
 
     static::updating(function ($product) {
         $product->slug = Str::slug($product->name);
+    });
+
+    static::saved(function () {
+        GenerateSitemapJob::dispatch();
+    });
+
+    static::deleted(function () {
+        GenerateSitemapJob::dispatch();
     });
 }
 
