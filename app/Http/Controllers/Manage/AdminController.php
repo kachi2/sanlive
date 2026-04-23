@@ -21,6 +21,7 @@ use App\Models\Notification;
 use App\Models\Payment;
 use App\Models\ShippingAddress;
 use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -163,6 +164,14 @@ class AdminController extends Controller
           return redirect()->back();
           Session::flash('alert', 'success');
           Session::flash('message','Notification clear');
+      }
+
+      public function runGoogleClearRedirects()
+      {
+          Artisan::call('google:clear-redirects');
+          Session::flash('alert', 'success');
+          Session::flash('message', 'Google clear-redirects command executed successfully.');
+          return redirect()->back();
       }
 
   

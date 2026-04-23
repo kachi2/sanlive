@@ -41,7 +41,7 @@ class BlogController extends Controller
                     'metaTitle'   => $blogs->title,
                     'description' => Str::limit(strip_tags($blogs->content), 155),
                     'keywords'    => '',
-                    'image_url'   => $blogs->image ? asset('images/blogs/'.$blogs->image) : websiteLogo(),
+                    'image_url'   => $blogs->image ? asset('images/blog/'.$blogs->image) : websiteLogo(),
                 ],
             ]);
         } catch (\Exception $e) {

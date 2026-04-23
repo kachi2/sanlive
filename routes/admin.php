@@ -30,6 +30,7 @@ Route::prefix('manage')->group(function () {
     Route::middleware(['auth:admin'])->group(function () {
         Route::middleware(['Check2fa'])->group(function(){
         Route::controller(AdminController::class)->group(function () {
+            Route::post('/tools/google-clear-redirects', 'runGoogleClearRedirects')->name('admin.tools.googleClearRedirects');
             Route::get('/index', 'index')->name('admin.home');
             Route::get('/', 'index')->name('admin.index');
             Route::get('/transactions', 'Transactions')->name('admin.transctions');
