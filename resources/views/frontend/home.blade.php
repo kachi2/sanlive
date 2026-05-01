@@ -1,5 +1,18 @@
 @extends('layouts.app')
 
+@if(isset($schema))
+@section('schema')
+{!! $schema !!}
+@endsection
+@endif
+
+{{-- Preload first hero slider image for LCP --}}
+@if($sliders->isNotEmpty())
+@section('preload')
+<link rel="preload" as="image" href="{{ asset('images/sliders/'.$sliders->first()->image_path) }}" fetchpriority="high">
+@endsection
+@endif
+
 @section('styles')
 <style>
 /* ── Product Card (shared) ── */
@@ -112,7 +125,7 @@
          data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1"
          data-owl-item-md="1" data-owl-item-lg="1"
          data-owl-duration="1000" data-owl-mousedrag="on">
-        @foreach($sliders as $slide)
+        @foreach($sliders as $i => $slide)
         <div>
             <div class="ps-banner">
                 <div class="container-no-round">
@@ -121,7 +134,9 @@
                             <a href="{{ route('products.search') }}" style="position:inherit">
                                 <img class="ps-banner__image"
                                      src="{{ asset('images/sliders/'.$slide->image_path) }}"
-                                     alt="{{ $slide->title ?? 'Sanlive Pharmacy' }}">
+                                     alt="{{ $slide->title ?? 'Sanlive Pharmacy' }}"
+                                     width="1200" height="480"
+                                     @if($i === 0) fetchpriority="high" loading="eager" @else loading="lazy" @endif>
                             </a>
                         </div>
                     </div>
@@ -141,7 +156,7 @@
         </div>
     </div>
     <section class="ps-section--category ps-category--image">
-        <h3 class="ps-section__title">Check out the most popular categories</h3>
+        <h2 class="ps-section__title">Check out the most popular categories</h2>
         <div class="ps-section__content">
             <div class="ps-section__carousel">
                 <div class="owl-carousel category-carousel"
@@ -154,7 +169,8 @@
                     <div>
                         <div class="ps-category__thumbnail">
                             <a class="ps-category__image" href="{{ route('products.search', $cat->slug) }}">
-                                <img src="{{ asset('images/category/'.$cat->image_path) }}" alt="{{ $cat->name }}">
+                                <img src="{{ asset('images/category/'.$cat->image_path) }}"
+                                     alt="{{ $cat->name }}" width="120" height="120" loading="lazy">
                             </a>
                             <div class="ps-category__content">
                                 {{-- <a href="{{ route('products.search', $cat->slug) }}">{{ $cat->name }}</a> --}}
@@ -197,7 +213,8 @@
                         <a href="{{ route('users.products', $product->slug) }}">
                             <img class="sanlive-product-card__img"
                                  src="{{ asset('images/products/'.$product->image_path) }}"
-                                 alt="{{ $product->name }}" loading="lazy">
+                                 alt="{{ $product->name }}" width="280" height="280"
+                                 style="aspect-ratio:auto 280/280" loading="lazy">
                         </a>
                         <div class="sanlive-product-card__body">
                             <div class="sanlive-product-card__name">

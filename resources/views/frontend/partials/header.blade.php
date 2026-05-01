@@ -14,16 +14,16 @@
         <div class="container" style="display:flex; align-items:center; gap:16px;">
             <div class="ps-logo" style="flex:0 0 180px;">
                 <a href="/">
-                    <img src="{{ asset('images/'.$settings->site_logo) }}" style="width: 160px" alt="sanlive pharmacy">
-                    <img class="sticky-logo" src="" alt="">
+                    <img src="{{ asset('images/'.$settings->site_logo) }}" style="width: 160px" alt="{{ $settings->site_name }} logo" width="160" height="50" fetchpriority="high">
                 </a>
             </div>
             <div class="ps-header__search" style="flex:1; max-width:560px;">
                 <form action="{{ route('products.search') }}" method="get">
                     <div class="ps-search-table">
                         <div class="input-group">
-                            <input class="form-control ps-input" type="text" name="q" value="{{ request('q') }}" placeholder="Search medicines, vitamins, antibiotics...">
-                            <div class="input-group-append"><button type="submit" style="border:none; background:none; padding:0 12px;"><i class="fa fa-search"></i></button></div>
+                            <label for="header-search" class="visually-hidden">Search products</label>
+                            <input class="form-control ps-input" id="header-search" type="text" name="q" value="{{ request('q') }}" placeholder="Search medicines, vitamins, antibiotics...">
+                            <div class="input-group-append"><button type="submit" aria-label="Search" style="border:none; background:none; padding:0 12px;"><i class="fa fa-search" aria-hidden="true"></i></button></div>
                         </div>
                     </div>
                 </form>
@@ -66,8 +66,8 @@
                         </div>
                     </li>
                     @endguest
-                    <li><a class="ps-header__item" target="_blank" href="https://wa.me/+2348058885913?text='Good day, please i want to make enquiries'" id="cart-mini"><i class="icon-phone-bubble"></i></a></li>
-                    <li><a class="ps-header__item" href="{{ route('carts.index') }}" id="cart-mini"><i class="icon-cart-empty"></i> <span class="badge cartReload">{{ $cartItem ?? 0 }}</span></a></li>
+                    <li><a class="ps-header__item" target="_blank" href="https://wa.me/+2348058885913?text='Good day, please i want to make enquiries'" id="cart-mini" aria-label="Chat on WhatsApp"><i class="icon-phone-bubble"></i></a></li>
+                    <li><a class="ps-header__item" href="{{ route('carts.index') }}" aria-label="View cart" id="cart-mini"><i class="icon-cart-empty"></i> <span class="badge cartReload">{{ $cartItem ?? 0 }}</span></a></li>
                 </ul>
             </div>
         </div>

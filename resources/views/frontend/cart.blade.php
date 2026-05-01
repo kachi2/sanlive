@@ -41,7 +41,7 @@
                                     <div class="ps-product__thumbnail">
                                         <a class="ps-product__image" href="#">
                                             <figure>
-                                                <img src="{{ asset('images/products/'.($cart->associatedModel->image_path ?? '')) }}" alt="">
+                                                <img src="{{ asset('images/products/'.($cart->associatedModel->image_path ?? '')) }}" alt="{{ $cart->associatedModel->name ?? 'Product image' }}" width="80" height="80" loading="lazy">
                                             </figure>
                                         </a>
                                     </div>

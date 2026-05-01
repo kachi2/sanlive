@@ -2,9 +2,13 @@
 
 @if(isset($schema))
 @section('schema')
-<script type="application/ld+json">{!! $schema !!}</script>
+{!! $schema !!}
 @endsection
 @endif
+
+@section('preload')
+<link rel="preload" as="image" href="{{ asset('images/products/'.$data['product']->image_path) }}" fetchpriority="high">
+@endsection
 
 @section('styles')
 <style>
@@ -139,7 +143,9 @@
             <div class="col-12 col-lg-5">
                 <div class="pd-img-wrap">
                     <img src="{{ asset('images/products/'.$data['product']->image_path) }}"
-                         alt="{{ $data['product']->name }}" loading="eager">
+                         alt="{{ $data['product']->name }}"
+                         width="600" height="600"
+                         fetchpriority="high" loading="eager">
                 </div>
             </div>
 
@@ -327,7 +333,8 @@
                     <a href="{{ route('users.products', $rel->slug) }}">
                         <img class="sanlive-product-card__img"
                              src="{{ asset('images/products/'.$rel->image_path) }}"
-                             alt="{{ $rel->name }}" loading="lazy">
+                             alt="{{ $rel->name }}" width="280" height="280"
+                             style="aspect-ratio:auto 280/280" loading="lazy">
                     </a>
                     <div class="sanlive-product-card__body">
                         <div class="sanlive-product-card__name">

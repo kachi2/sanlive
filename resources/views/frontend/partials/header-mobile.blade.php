@@ -9,7 +9,7 @@
 
     <div class="mob-topbar">
         <a href="/" class="mob-logo">
-            <img src="{{ asset('images/'.$settings->site_logo) }}" alt="{{ $settings->site_name }}">
+            <img src="{{ asset('images/'.$settings->site_logo) }}" alt="{{ $settings->site_name }}" width="120" height="40" loading="lazy">
         </a>
 
         <div class="mob-actions">
@@ -38,10 +38,11 @@
 
     <div class="mob-search-wrap">
         <form action="{{ route('products.search') }}" method="get" class="mob-search-form">
-            <input class="mob-search-input" type="text" name="q"
+            <label for="mob-search" class="visually-hidden">Search products</label>
+            <input class="mob-search-input" id="mob-search" type="text" name="q"
                    value="{{ request('q') }}"
                    placeholder="Search medicines, vitamins..." autocomplete="off">
-            <button type="submit" class="mob-search-btn"><i class="fa fa-search"></i></button>
+            <button type="submit" class="mob-search-btn" aria-label="Search"><i class="fa fa-search" aria-hidden="true"></i></button>
         </form>
     </div>
 </div>

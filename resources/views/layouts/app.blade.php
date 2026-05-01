@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -29,19 +28,41 @@
     <link rel="apple-touch-icon" href="{{ asset('/apple-touch-icon.png') }}" sizes="180x180">
     <link rel="manifest" href="/manifest.json">
 
-    <link rel="preconnect" href="https://fonts.gstatic.com/">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jost:400,500,600,700&display=swap">
-    {{-- Bootstrap, toastr, select2, nouislider — must load before style.css --}}
+    {{-- DNS prefetch for all third-party origins --}}
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://embed.tawk.to">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+    {{-- Fonts: preconnect first, then async load with display=swap to eliminate FOIT --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap"></noscript>
+
+    {{-- Critical CSS: vendor + main style --}}
     @vite(['resources/css/vendor.css'])
-    <link rel="stylesheet" href="{{ asset('/frontend/plugins/font-awesome/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/frontend/fonts/Linearicons/Font/demo-files/demo.css') }}">
-    <link rel="stylesheet" href="{{ asset('/frontend/plugins/owl-carousel/assets/owl.carousel.css') }}">
-    <link rel="stylesheet" href="{{ asset('/frontend/plugins/slick/slick/slick.css') }}">
-    <link rel="stylesheet" href="{{ asset('/frontend/plugins/lightGallery/dist/css/lightgallery.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('/frontend/css/home-8.css') }}">
-    {{-- Component styles (nav, mobile, sidebar, footer, auth modal) — load after style.css --}}
     @vite(['resources/css/frontend.css'])
+
+    {{-- Non-critical CSS: loaded async to remove render-blocking --}}
+    <link rel="preload" as="style" fetchpriority="low" href="{{ asset('/frontend/plugins/font-awesome/css/font-awesome.min.css') }}" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" fetchpriority="low" href="{{ asset('/frontend/fonts/Linearicons/Font/demo-files/demo.css') }}" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" fetchpriority="low" href="{{ asset('/frontend/plugins/owl-carousel/assets/owl.carousel.css') }}" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" fetchpriority="low" href="{{ asset('/frontend/plugins/slick/slick/slick.css') }}" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" fetchpriority="low" href="{{ asset('/frontend/plugins/lightGallery/dist/css/lightgallery.min.css') }}" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ asset('/frontend/plugins/font-awesome/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('/frontend/fonts/Linearicons/Font/demo-files/demo.css') }}">
+        <link rel="stylesheet" href="{{ asset('/frontend/plugins/owl-carousel/assets/owl.carousel.css') }}">
+        <link rel="stylesheet" href="{{ asset('/frontend/plugins/slick/slick/slick.css') }}">
+        <link rel="stylesheet" href="{{ asset('/frontend/plugins/lightGallery/dist/css/lightgallery.min.css') }}">
+    </noscript>
+
+    {{-- Page-specific preloads (e.g. LCP image) --}}
+    @yield('preload')
     @yield('styles')
 
     <meta name="google-site-verification" content="S7jnu8AWZFcOOYIKhw_EWy2ieNVUEwzSkgldPg1aMZ4">
@@ -56,7 +77,7 @@
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MSKX7LHR" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MSKX7LHR" title="Google Tag Manager" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 @include('frontend.partials.header-mobile')
 @include('frontend.partials.mobile-sidebar')
@@ -67,31 +88,34 @@
     @include('frontend.partials.footer')
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="{{ asset('/frontend/plugins/popper.min.js') }}"></script>
-<script src="{{ asset('/frontend/plugins/bootstrap4/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('/frontend/plugins/owl-carousel/owl.carousel.min.js') }}"></script>
-<script src="{{ asset('/frontend/plugins/jquery-bar-rating/dist/jquery.barrating.min.js') }}"></script>
-<script src="{{ asset('/frontend/plugins/lightGallery/dist/js/lightgallery-all.min.js') }}"></script>
-<script src="{{ asset('/frontend/plugins/slick/slick/slick.min.js') }}"></script>
-<script src="{{ asset('/frontend/plugins/noUiSlider/nouislider.min.js') }}"></script>
-    <script src="{{ asset('/frontend/plugins/select2/dist/js/select2.full.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer></script>
+<script src="{{ asset('/frontend/plugins/popper.min.js') }}" defer></script>
+<script src="{{ asset('/frontend/plugins/bootstrap4/js/bootstrap.min.js') }}" defer></script>
+<script src="{{ asset('/frontend/plugins/owl-carousel/owl.carousel.min.js') }}" defer></script>
+<script src="{{ asset('/frontend/plugins/jquery-bar-rating/dist/jquery.barrating.min.js') }}" defer></script>
+<script src="{{ asset('/frontend/plugins/lightGallery/dist/js/lightgallery-all.min.js') }}" defer></script>
+<script src="{{ asset('/frontend/plugins/slick/slick/slick.min.js') }}" defer></script>
+<script src="{{ asset('/frontend/plugins/noUiSlider/nouislider.min.js') }}" defer></script>
+<script src="{{ asset('/frontend/plugins/select2/dist/js/select2.full.min.js') }}" defer></script>
 
 <script>
-toastr.options = { timeOut:6000, progressBar:true, showMethod:"slideDown", hideMethod:"slideUp" };
-@if(session('msg') == 'success')
-    toastr.success({!! json_encode(session('message')) !!});
-@elseif(session('msg') == 'error')
-    toastr.error({!! json_encode(session('message')) !!});
-@endif
-@if(session('success'))
-    toastr.success({!! json_encode(session('success')) !!});
-@endif
-@if(session('error'))
-    toastr.error({!! json_encode(session('error')) !!});
-@endif
-
+document.addEventListener('DOMContentLoaded', function () {
+    if (typeof toastr !== 'undefined') {
+        toastr.options = { timeOut:6000, progressBar:true, showMethod:"slideDown", hideMethod:"slideUp" };
+        @if(session('msg') == 'success')
+            toastr.success({!! json_encode(session('message')) !!});
+        @elseif(session('msg') == 'error')
+            toastr.error({!! json_encode(session('message')) !!});
+        @endif
+        @if(session('success'))
+            toastr.success({!! json_encode(session('success')) !!});
+        @endif
+        @if(session('error'))
+            toastr.error({!! json_encode(session('error')) !!});
+        @endif
+    }
+});
 </script>
 
 @yield('scripts')
@@ -108,9 +132,9 @@ toastr.options = { timeOut:6000, progressBar:true, showMethod:"slideDown", hideM
         <button class="auth-modal__close" id="auth-modal-close" aria-label="Close">&times;</button>
 
         {{-- Tabs --}}
-        <div class="auth-tabs">
-            <div class="auth-tab active" data-tab="login">Sign In</div>
-            <div class="auth-tab" data-tab="register">Create Account</div>
+        <div class="auth-tabs" role="tablist">
+            <button class="auth-tab active" data-tab="login" role="tab" aria-selected="true" aria-controls="panel-login" type="button">Sign In</button>
+            <button class="auth-tab" data-tab="register" role="tab" aria-selected="false" aria-controls="panel-register" type="button">Create Account</button>
         </div>
 
         {{-- LOGIN PANEL --}}
@@ -328,7 +352,7 @@ toastr.options = { timeOut:6000, progressBar:true, showMethod:"slideDown", hideM
 var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 (function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
 s1.async=true;s1.src='https://embed.tawk.to/6575ebf907843602b800450a/default';
-s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);})();
+s1.charset='UTF-8';s1.setAttribute('crossorigin','anonymous');s0.parentNode.insertBefore(s1,s0);})();
 </script>
 </body>
 </html>

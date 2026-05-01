@@ -9,11 +9,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Support\Str;
+use Spatie\SchemaOrg\Schema;
+use Spatie\SchemaOrg\Graph;
 
 class ProductDetailsController extends Controller
 {
 
-  public function Show($slug)
+  public function Show(string $slug)
   {
      try{
     $parts = explode('-', $slug);
@@ -50,7 +52,7 @@ class ProductDetailsController extends Controller
     return view('frontend.product-details', [
         'data' => $data,
         'pageMeta' => $meta,
-        'schema' => json_encode($this->addTags($product, $reviews->get())),
+        'schema' => $this->addTags($product, $reviews->get()),
         'avatar' => 'https://i.pravatar.cc/40?u=1',
         'reviews' => $reviews->paginate(5),
         'ratings' => ProductReview::where(['product_id' => $product->id, 'is_approved' => 1])->pluck('rating'),
@@ -63,7 +65,7 @@ class ProductDetailsController extends Controller
 
 
 
-    public function redirectOldUrl($id, $url = null)
+    public function redirectOldUrl(string $id, ?string $url = null)
     {
       try{
       $ss =   Hashids::connection('products')->decode($id);
@@ -94,108 +96,78 @@ class ProductDetailsController extends Controller
     }
 
 
-    public function addTags($product, $reviews)
+    public function addTags(Product $product, \Illuminate\Support\Collection $reviews): string
     {
         $reviewCount = $reviews->count();
         $avgRating   = $reviewCount > 0 ? round($reviews->avg('rating'), 1) : null;
 
-        $category     = $product->category;
-        $categoryUrl  = url('/catalogs/' . ($category->slug ?? $category->id));
-        $productUrl   = url("/products/{$product->slug}");
+        $category    = $product->category;
+        $categoryUrl = url('/catalogs/' . ($category->slug ?? $category->id));
+        $productUrl  = url("/products/{$product->slug}");
 
-        $productSchema = [
-            "@type"       => "Product",
-            "name"        => $product->name,
-            "image"       => url("images/products/{$product->image_path}"),
-            "description" => Str::limit(strip_tags($product->description), 160),
-            "sku"         => $product->sku ?? (string) $product->id,
-            "brand"       => [
-                "@type" => "Brand",
-                "name"  => $product->brand ?? 'Sanlive Pharmacy',
-            ],
-            "offers" => [
-                "@type"           => "Offer",
-                "url"             => $productUrl,
-                "priceCurrency"   => "NGN",
-                "price"           => (string) $product->sale_price,
-                "availability"    => "https://schema.org/InStock",
-                "priceValidUntil" => now()->addYear()->format('Y-m-d'),
-                "hasMerchantReturnPolicy" => [
-                    "@type"                  => "MerchantReturnPolicy",
-                    "applicableCountry"      => "NG",
-                    "returnPolicyCategory"   => "https://schema.org/MerchantReturnFiniteReturnWindow",
-                    "merchantReturnDays"     => 2,
-                    "returnMethod"           => "https://schema.org/ReturnByMail",
-                    "returnFees"             => "https://schema.org/FreeReturn",
-                ],
-                "shippingDetails" => [
-                    "@type" => "OfferShippingDetails",
-                    "shippingRate" => [
-                        "@type"    => "MonetaryAmount",
-                        "value"    => "8000",
-                        "currency" => "NGN",
-                    ],
-                    "deliveryTime" => [
-                        "@type" => "ShippingDeliveryTime",
-                        "handlingTime" => [
-                            "@type"    => "QuantitativeValue",
-                            "minValue" => 1,
-                            "maxValue" => 2,
-                            "unitCode" => "d",
-                        ],
-                        "transitTime" => [
-                            "@type"    => "QuantitativeValue",
-                            "minValue" => 2,
-                            "maxValue" => 5,
-                            "unitCode" => "d",
-                        ],
-                    ],
-                    "shippingDestination" => [
-                        "@type"          => "DefinedRegion",
-                        "addressCountry" => "NG",
-                    ],
-                ],
-            ],
-        ];
+        $graph = new Graph();
+
+        $productNode = $graph->product()
+            ->name($product->name)
+            ->image(url("images/products/{$product->image_path}"))
+            ->description(Str::limit(strip_tags($product->description), 160))
+            ->sku($product->sku ?? (string) $product->id)
+            ->brand(
+                Schema::brand()->name($product->brand ?? 'Sanlive Pharmacy')
+            )
+            ->offers(
+                Schema::offer()
+                    ->url($productUrl)
+                    ->priceCurrency('NGN')
+                    ->price((string) $product->sale_price)
+                    ->availability('https://schema.org/InStock')
+                    ->priceValidUntil(now()->addYear()->format('Y-m-d'))
+                    ->hasMerchantReturnPolicy(
+                        Schema::merchantReturnPolicy()
+                            ->applicableCountry('NG')
+                            ->returnPolicyCategory('https://schema.org/MerchantReturnFiniteReturnWindow')
+                            ->merchantReturnDays(2)
+                            ->returnMethod('https://schema.org/ReturnByMail')
+                            ->returnFees('https://schema.org/FreeReturn')
+                    )
+                    ->shippingDetails(
+                        Schema::offerShippingDetails()
+                            ->shippingRate(
+                                Schema::monetaryAmount()->value('8000')->currency('NGN')
+                            )
+                            ->deliveryTime(
+                                Schema::shippingDeliveryTime()
+                                    ->handlingTime(
+                                        Schema::quantitativeValue()->minValue(1)->maxValue(2)->unitCode('d')
+                                    )
+                                    ->transitTime(
+                                        Schema::quantitativeValue()->minValue(2)->maxValue(5)->unitCode('d')
+                                    )
+                            )
+                            ->shippingDestination(
+                                Schema::definedRegion()->addressCountry('NG')
+                            )
+                    )
+            );
 
         if ($avgRating !== null) {
-            $productSchema["aggregateRating"] = [
-                "@type"       => "AggregateRating",
-                "ratingValue" => $avgRating,
-                "reviewCount" => $reviewCount,
-                "bestRating"  => 5,
-                "worstRating" => 1,
-            ];
+            $productNode->aggregateRating(
+                Schema::aggregateRating()
+                    ->ratingValue($avgRating)
+                    ->reviewCount($reviewCount)
+                    ->bestRating(5)
+                    ->worstRating(1)
+            );
         }
 
-        $breadcrumbSchema = [
-            "@type"           => "BreadcrumbList",
-            "itemListElement" => [
-                [
-                    "@type"    => "ListItem",
-                    "position" => 1,
-                    "name"     => "Home",
-                    "item"     => url('/'),
-                ],
-                [
-                    "@type"    => "ListItem",
-                    "position" => 2,
-                    "name"     => $category->name ?? 'Products',
-                    "item"     => $categoryUrl,
-                ],
-                [
-                    "@type"    => "ListItem",
-                    "position" => 3,
-                    "name"     => $product->name,
-                    "item"     => $productUrl,
-                ],
-            ],
-        ];
+        $graph->breadcrumbList()
+            ->itemListElement([
+                Schema::listItem()->position(1)->name('Home')->item(url('/')),
+                Schema::listItem()->position(2)->name($category->name ?? 'Products')->item($categoryUrl),
+                Schema::listItem()->position(3)->name($product->name)->item($productUrl),
+            ]);
 
-        return [
-            "@context" => "https://schema.org",
-            "@graph"   => [$productSchema, $breadcrumbSchema],
-        ];
+        return $graph->toScript();
     }
 
 }

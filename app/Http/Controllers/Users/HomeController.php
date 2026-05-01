@@ -11,6 +11,8 @@ use App\Models\Product;
 use App\Models\Setting;
 use Carbon\Carbon;
 use Vinkla\Hashids\Facades\Hashids;
+use Spatie\SchemaOrg\Schema;
+use Spatie\SchemaOrg\Graph;
 
 class HomeController extends Controller
 {
@@ -75,11 +77,53 @@ class HomeController extends Controller
             'productSections' => $category,
             'allCategories' => $categories,
             'pageMeta' => $meta,
+            'schema'   => $this->buildHomeSchema(Setting::first()),
         ]);
       }catch(\Exception $e)
       {
         // return inertia('404')->toResponse(request())->setStatusCode(404); // Vue/Inertia preserved
         abort(404);
       }
+    }
+
+    private function buildHomeSchema(?Setting $settings): string
+    {
+        $graph = new Graph();
+
+        $graph->webSite()
+            ->name($settings->site_name ?? 'Sanlive Pharmacy')
+            ->url(url('/'))
+            ->potentialAction(
+                Schema::searchAction()
+                    ->target(url('/catalogs') . '?q={search_term_string}')
+                    ->setProperty('query-input', 'required name=search_term_string')
+            );
+
+        $sameAs = array_values(array_filter([
+            $settings->facebook  ?? null,
+            $settings->instagram ?? null,
+            $settings->twitter   ?? null,
+            $settings->linkedIn  ?? null,
+        ]));
+
+        $graph->pharmacy()
+            ->name($settings->site_name ?? 'Sanlive Pharmacy')
+            ->url(url('/'))
+            ->logo(websiteLogo())
+            ->telephone($settings->site_phone ?? '')
+            ->email($settings->site_email ?? '')
+            ->address(
+                Schema::postalAddress()
+                    ->streetAddress($settings->address ?? '')
+                    ->addressLocality($settings->city ?? 'Lagos')
+                    ->addressRegion($settings->state ?? 'Lagos')
+                    ->addressCountry('NG')
+            )
+            ->openingHours($settings->opening_hours ?? 'Mo-Su 08:00-20:00')
+            ->priceRange('₦₦')
+            ->image(websiteLogo())
+            ->if(!empty($sameAs), fn ($s) => $s->sameAs($sameAs));
+
+        return $graph->toScript();
     }
 }

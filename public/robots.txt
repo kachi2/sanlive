@@ -1,4 +1,13 @@
-# STAGING — search engine indexing is disabled
-#User-agent: *
-#Disallow: /
+User-agent: *
+Allow: /
+
+Disallow: /manage/
+Disallow: /admin/
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /account/
+Disallow: /api/
+Disallow: /storage/
+
+Sitemap: https://sanlivepharmacy.com/sitemap.xml
 

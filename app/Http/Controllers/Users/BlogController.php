@@ -7,6 +7,8 @@ use App\Models\Blog;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Vinkla\Hashids\Facades\Hashids;
+use Spatie\SchemaOrg\Schema;
+use Spatie\SchemaOrg\Graph;
 
 class BlogController extends Controller
 {
@@ -35,12 +37,13 @@ class BlogController extends Controller
             return view('frontend.blog-details', [
                 'blogs'   => $latest,
                 'blog'    => $blogs,
+                'schema'  => $this->buildArticleSchema($blogs),
                 'pageMeta' => [
                     'url'         => url()->current(),
                     'title'       => $blogs->title,
                     'metaTitle'   => $blogs->title,
                     'description' => Str::limit(strip_tags($blogs->content), 155),
-                    'keywords'    => '',
+                    'keywords'    => Str::limit($blogs->title . ', Sanlive Pharmacy, health Nigeria, pharmacy', 160),
                     'image_url'   => $blogs->image ? asset('images/blog/'.$blogs->image) : websiteLogo(),
                 ],
             ]);
@@ -64,4 +67,26 @@ class BlogController extends Controller
         }
     }
 
+    private function buildArticleSchema(Blog $blog): string
+    {
+        $graph = new Graph();
+
+        $graph->blogPosting()
+            ->headline($blog->title)
+            ->description(Str::limit(strip_tags($blog->content), 155))
+            ->image($blog->image ? asset('images/blog/'.$blog->image) : websiteLogo())
+            ->datePublished($blog->created_at->toIso8601String())
+            ->dateModified($blog->updated_at->toIso8601String())
+            ->url(url()->current())
+            ->author(Schema::organization()->name('Sanlive Pharmacy')->url(url('/')))
+            ->publisher(
+                Schema::organization()
+                    ->name('Sanlive Pharmacy')
+                    ->url(url('/'))
+                    ->logo(Schema::imageObject()->url(websiteLogo()))
+            )
+            ->mainEntityOfPage(Schema::webPage()->identifier(url()->current()));
+
+        return $graph->toScript();
+    }
 }

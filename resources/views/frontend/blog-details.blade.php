@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@if(isset($schema))
+@section('schema')
+{!! $schema !!}
+@endsection
+@endif
+
 @section('styles')
 <style>
 .blogd-page{background:#f0f2f8;padding-bottom:64px}

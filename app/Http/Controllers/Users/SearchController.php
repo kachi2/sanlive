@@ -10,6 +10,8 @@ use App\Models\Product;
 use Facade\FlareClient\View;
 use stdClass;
 use Vinkla\Hashids\Facades\Hashids;
+use Spatie\SchemaOrg\Schema;
+use Spatie\SchemaOrg\Graph;
 
 class SearchController extends Controller
 {
@@ -66,10 +68,11 @@ try{
             'image_url'   => websiteLogo(),
             'robots'      => $robots ?? 'index, follow',
         ];
-        // return inertia('Users/Pages/products', [
-        //     'products' => $products, 'categories' => $categories,
-        //     'searchterm' => $searchterm, 'pageMeta' => $pageMeta,
-        // ]); // Vue/Inertia preserved
+
+        $schema = !isset($request->q)
+            ? $this->buildItemListSchema($products, $pageTitle ?? '', $pageDesc ?? '', url()->current())
+            : null;
+
         return view('frontend.products', [
             'products'       => $products,
             'categories'     => $categories,
@@ -77,11 +80,35 @@ try{
             'pageH1'         => $pageH1 ?? 'Shop All Health Products – Sanlive Pharmacy',
             'pageMeta'       => $pageMeta,
             'activeCategory' => $cat->slug ?? null,
+            'schema'         => $schema,
         ]);
       }catch(\Exception $e)
       {
          // return inertia('404')->toResponse(request())->setStatusCode(404); // Vue/Inertia preserved
          abort(404);
       }
+    }
+
+    private function buildItemListSchema($products, string $name, string $description, string $url): string
+    {
+        $items = collect($products)->take(20)->values()->map(function ($product, $index) {
+            return Schema::listItem()
+                ->position($index + 1)
+                ->item(
+                    Schema::product()
+                        ->name($product->name)
+                        ->url(url("/products/{$product->slug}"))
+                        ->image(url("images/products/{$product->image_path}"))
+                );
+        })->toArray();
+
+        $graph = new Graph();
+        $graph->itemList()
+            ->name($name)
+            ->description($description)
+            ->url($url)
+            ->itemListElement($items);
+
+        return $graph->toScript();
     }
 }

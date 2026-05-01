@@ -3,6 +3,12 @@
 @section('meta_keywords', $pageMeta['keywords'] ?? '')
 @section('meta_robots', $pageMeta['robots'] ?? 'index, follow')
 
+@if(isset($schema) && $schema)
+@section('schema')
+{!! $schema !!}
+@endsection
+@endif
+
 @section('styles')
 <style>
 .sanlive-category-sidebar {
@@ -203,7 +209,8 @@
                                     <a href="{{ route('users.products', $prod->slug) }}">
                                         <img class="sanlive-product-card__img"
                                              src="{{ asset('images/products/'.$prod->image_path) }}"
-                                             alt="{{ $prod->name }}" loading="lazy">
+                                             alt="{{ $prod->name }}" width="280" height="280"
+                                             style="aspect-ratio:auto 280/280" loading="lazy">
                                     </a>
                                     <div class="sanlive-product-card__body">
                                         <div class="sanlive-product-card__name">
