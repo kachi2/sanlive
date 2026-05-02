@@ -88,14 +88,17 @@
     @include('frontend.partials.footer')
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
+{{-- Core: loaded normally — jQuery + UI libs needed for first-paint carousel/navigation --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{{ asset('/frontend/plugins/popper.min.js') }}"></script>
+<script src="{{ asset('/frontend/plugins/bootstrap4/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('/frontend/plugins/owl-carousel/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('/frontend/plugins/slick/slick/slick.min.js') }}"></script>
+
+{{-- Deferred: not needed until after first paint --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer></script>
-<script src="{{ asset('/frontend/plugins/popper.min.js') }}" defer></script>
-<script src="{{ asset('/frontend/plugins/bootstrap4/js/bootstrap.min.js') }}" defer></script>
-<script src="{{ asset('/frontend/plugins/owl-carousel/owl.carousel.min.js') }}" defer></script>
 <script src="{{ asset('/frontend/plugins/jquery-bar-rating/dist/jquery.barrating.min.js') }}" defer></script>
 <script src="{{ asset('/frontend/plugins/lightGallery/dist/js/lightgallery-all.min.js') }}" defer></script>
-<script src="{{ asset('/frontend/plugins/slick/slick/slick.min.js') }}" defer></script>
 <script src="{{ asset('/frontend/plugins/noUiSlider/nouislider.min.js') }}" defer></script>
 <script src="{{ asset('/frontend/plugins/select2/dist/js/select2.full.min.js') }}" defer></script>
 

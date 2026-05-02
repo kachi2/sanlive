@@ -28,11 +28,11 @@ class Product extends Model
     parent::boot();
 
     static::creating(function ($product) {
-        $product->slug = Str::slug($product->name);
+        $product->slug = static::uniqueSlug(Str::slug($product->name));
     });
 
     static::updating(function ($product) {
-        $product->slug = Str::slug($product->name);
+        $product->slug = static::uniqueSlug(Str::slug($product->name), $product->id);
     });
 
     static::saved(function () {
@@ -47,5 +47,19 @@ class Product extends Model
 public function productReviews()
 {
     return $this->hasMany(ProductReview::class, 'product_id','id');
+}
+
+private static function uniqueSlug(string $base, ?int $excludeId = null): string
+{
+    $slug = $base;
+    $i = 1;
+    while (
+        static::where('slug', $slug)
+            ->when($excludeId, fn($q) => $q->where('id', '!=', $excludeId))
+            ->exists()
+    ) {
+        $slug = $base . '-' . $i++;
+    }
+    return $slug;
 }
 }
