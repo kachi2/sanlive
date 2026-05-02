@@ -7,8 +7,6 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Product;
-use Facade\FlareClient\View;
-use stdClass;
 use Vinkla\Hashids\Facades\Hashids;
 use Spatie\SchemaOrg\Schema;
 use Spatie\SchemaOrg\Graph;
@@ -36,7 +34,7 @@ try{
           if (!empty($check)) {
                  $categor = Category::where('id', $check[0])->first();
                  if (!$categor) {
-                     return inertia('404')->toResponse(request())->setStatusCode(404);
+                     abort(404);
                  }
                 return redirect()->to("/catalogs/{$categor->slug}", 301);
             }else{
@@ -92,14 +90,28 @@ try{
     private function buildItemListSchema($products, string $name, string $description, string $url): string
     {
         $items = collect($products)->take(20)->values()->map(function ($product, $index) {
+            $productUrl = url("/products/{$product->slug}");
+            $imageUrl   = url('images/products/' . rawurlencode($product->image_path));
+
+            $productNode = Schema::product()
+                ->name($product->name)
+                ->url($productUrl)
+                ->image($imageUrl);
+
+            // Add offer if price is available — enriches the listing for Google Shopping
+            $price = (float) ($product->sale_price ?? 0);
+            if ($price > 0) {
+                $productNode->offers(
+                    Schema::offer()
+                        ->price($price)
+                        ->priceCurrency('NGN')
+                        ->availability('https://schema.org/InStock')
+                );
+            }
+
             return Schema::listItem()
                 ->position($index + 1)
-                ->item(
-                    Schema::product()
-                        ->name($product->name)
-                        ->url(url("/products/{$product->slug}"))
-                        ->image(url("images/products/{$product->image_path}"))
-                );
+                ->item($productNode);
         })->toArray();
 
         $graph = new Graph();
@@ -107,6 +119,7 @@ try{
             ->name($name)
             ->description($description)
             ->url($url)
+            ->numberOfItems(count($items))
             ->itemListElement($items);
 
         return $graph->toScript();
