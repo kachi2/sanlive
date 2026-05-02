@@ -90,39 +90,73 @@ class HomeController extends Controller
     {
         $graph = new Graph();
 
+        $siteName  = $settings?->site_name ?? 'Sanlive Pharmacy';
+        $logoUrl   = websiteLogo();
+        $siteUrl   = url('/');
+
+        // WebSite node — used by Google for the site name feature in SERPs.
+        // NOTE: SearchAction / Sitelinks Searchbox was retired by Google in 2023.
         $graph->webSite()
-            ->name($settings->site_name ?? 'Sanlive Pharmacy')
-            ->url(url('/'))
-            ->potentialAction(
-                Schema::searchAction()
-                    ->target(url('/catalogs') . '?q={search_term_string}')
-                    ->setProperty('query-input', 'required name=search_term_string')
-            );
+            ->setProperty('@id', $siteUrl . '#website')
+            ->name($siteName)
+            ->url($siteUrl);
 
         $sameAs = array_values(array_filter([
-            $settings->facebook  ?? null,
-            $settings->instagram ?? null,
-            $settings->twitter   ?? null,
-            $settings->linkedIn  ?? null,
+            $settings?->facebook  ?? null,
+            $settings?->instagram ?? null,
+            $settings?->twitter   ?? null,
+            $settings?->linkedIn  ?? null,
         ]));
 
-        $graph->pharmacy()
-            ->name($settings->site_name ?? 'Sanlive Pharmacy')
-            ->url(url('/'))
-            ->logo(websiteLogo())
-            ->telephone($settings->site_phone ?? '')
-            ->email($settings->site_email ?? '')
-            ->address(
-                Schema::postalAddress()
-                    ->streetAddress($settings->address ?? '')
-                    ->addressLocality($settings->city ?? 'Lagos')
-                    ->addressRegion($settings->state ?? 'Lagos')
-                    ->addressCountry('NG')
+        // Build address — only include non-empty fields to avoid invalid empty nodes.
+        $address = Schema::postalAddress()
+            ->addressLocality($settings?->city ?? 'Lagos')
+            ->addressRegion($settings?->state ?? 'Lagos')
+            ->addressCountry('NG');
+
+        if (!empty($settings?->address)) {
+            $address->streetAddress($settings->address);
+        }
+
+        $pharmacyNode = $graph->pharmacy()
+            ->setProperty('@id', $siteUrl . '#pharmacy')
+            ->name($siteName)
+            ->url($siteUrl)
+            ->logo(
+                Schema::imageObject()
+                    ->setProperty('@id', $siteUrl . '#logo')
+                    ->url($logoUrl)
+                    ->contentUrl($logoUrl)
             )
-            ->openingHours($settings->opening_hours ?? 'Mo-Su 08:00-20:00')
-            ->priceRange('₦₦')
-            ->image(websiteLogo())
-            ->if(!empty($sameAs), fn ($s) => $s->sameAs($sameAs));
+            ->image($logoUrl)
+            ->address($address)
+            ->openingHoursSpecification([
+                Schema::openingHoursSpecification()
+                    ->dayOfWeek([
+                        'https://schema.org/Monday',
+                        'https://schema.org/Tuesday',
+                        'https://schema.org/Wednesday',
+                        'https://schema.org/Thursday',
+                        'https://schema.org/Friday',
+                        'https://schema.org/Saturday',
+                        'https://schema.org/Sunday',
+                    ])
+                    ->opens('08:00')
+                    ->closes('20:00'),
+            ])
+            ->priceRange('₦₦');
+
+        if (!empty($settings?->site_phone)) {
+            $pharmacyNode->telephone($settings->site_phone);
+        }
+
+        if (!empty($settings?->site_email)) {
+            $pharmacyNode->email($settings->site_email);
+        }
+
+        if (!empty($sameAs)) {
+            $pharmacyNode->sameAs($sameAs);
+        }
 
         return $graph->toScript();
     }

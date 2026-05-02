@@ -107,21 +107,31 @@ class ProductDetailsController extends Controller
 
         $graph = new Graph();
 
+        $price = (float) ($product->sale_price ?? 0);
+
         $productNode = $graph->product()
             ->name($product->name)
-            ->image(url("images/products/{$product->image_path}"))
+            ->image(url("images/products/" . rawurlencode($product->image_path)))
             ->description(Str::limit(strip_tags($product->description), 160))
             ->sku($product->sku ?? (string) $product->id)
+            ->itemCondition('https://schema.org/NewCondition')
             ->brand(
                 Schema::brand()->name($product->brand ?? 'Sanlive Pharmacy')
-            )
-            ->offers(
+            );
+
+        // Only attach offers when we have a valid price — an empty/null price causes
+        // Google to silently drop the offers block and flag the Product as missing offers.
+        if ($price > 0) {
+            $productNode->offers(
                 Schema::offer()
                     ->url($productUrl)
                     ->priceCurrency('NGN')
-                    ->price((string) $product->sale_price)
+                    ->price($price)
                     ->availability('https://schema.org/InStock')
                     ->priceValidUntil(now()->addYear()->format('Y-m-d'))
+                    ->seller(
+                        Schema::organization()->name('Sanlive Pharmacy')->url(url('/'))
+                    )
                     ->hasMerchantReturnPolicy(
                         Schema::merchantReturnPolicy()
                             ->applicableCountry('NG')
@@ -133,7 +143,7 @@ class ProductDetailsController extends Controller
                     ->shippingDetails(
                         Schema::offerShippingDetails()
                             ->shippingRate(
-                                Schema::monetaryAmount()->value('8000')->currency('NGN')
+                                Schema::monetaryAmount()->value(8000)->currency('NGN')
                             )
                             ->deliveryTime(
                                 Schema::shippingDeliveryTime()
@@ -149,6 +159,7 @@ class ProductDetailsController extends Controller
                             )
                     )
             );
+        }
 
         if ($avgRating !== null) {
             $productNode->aggregateRating(

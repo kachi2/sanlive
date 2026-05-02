@@ -71,21 +71,33 @@ class BlogController extends Controller
     {
         $graph = new Graph();
 
+        $imageUrl = $blog->image ? asset('images/blog/' . rawurlencode($blog->image)) : websiteLogo();
+
         $graph->blogPosting()
-            ->headline($blog->title)
+            ->headline(Str::limit($blog->title, 110))
             ->description(Str::limit(strip_tags($blog->content), 155))
-            ->image($blog->image ? asset('images/blog/'.$blog->image) : websiteLogo())
+            ->image($imageUrl)
             ->datePublished($blog->created_at->toIso8601String())
             ->dateModified($blog->updated_at->toIso8601String())
             ->url(url()->current())
-            ->author(Schema::organization()->name('Sanlive Pharmacy')->url(url('/')))
+            ->inLanguage('en')
+            ->author(
+                Schema::organization()
+                    ->name('Sanlive Pharmacy')
+                    ->url(url('/'))
+            )
             ->publisher(
                 Schema::organization()
                     ->name('Sanlive Pharmacy')
                     ->url(url('/'))
-                    ->logo(Schema::imageObject()->url(websiteLogo()))
+                    ->logo(
+                        Schema::imageObject()
+                            ->url(websiteLogo())
+                            ->contentUrl(websiteLogo())
+                    )
             )
-            ->mainEntityOfPage(Schema::webPage()->identifier(url()->current()));
+            // mainEntityOfPage must be a URL string or a WebPage with @id — not schema:identifier
+            ->mainEntityOfPage(url()->current());
 
         return $graph->toScript();
     }
