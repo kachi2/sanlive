@@ -7,6 +7,8 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Product;
+use Facade\FlareClient\View;
+use stdClass;
 use Vinkla\Hashids\Facades\Hashids;
 use Spatie\SchemaOrg\Schema;
 use Spatie\SchemaOrg\Graph;

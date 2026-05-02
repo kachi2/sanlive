@@ -69,11 +69,6 @@ class CheckoutController extends Controller
                 'keywords' => 'buy medicine in nigeria, buy drugs in lagos, medical wholesales, medical retailers, buy prescribed drugs',
                 'image_url' => websiteLogo()
          ];
-        // return inertia('Users/Carts/Checkout', [
-        //     'data' => $date, 'carts' => $carts, 'address' => $address,
-        //     'orderNo' => $orderNo, 'shipping_fee' => $shipping_fee,
-        //     'total' => \Cart::getTotal(), 'pageMeta' => $meta
-        // ])->withViewData($meta); // Vue/Inertia preserved
         return view('frontend.checkout', [
             'data' => $date,
             'carts' => $carts,

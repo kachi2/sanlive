@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@if(isset($schema))
+@section('schema')
+{!! $schema !!}
+@endsection
+@endif
+
 @section('styles')
 <style>
 .ct-page{background:#f0f2f8;min-height:80vh;padding:36px 0 60px}

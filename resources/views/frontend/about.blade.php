@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@if(isset($schema))
+@section('schema')
+{!! $schema !!}
+@endsection
+@endif
+
 @section('styles')
 <style>
 /* ── Shared page shell ───────────────────────── */
