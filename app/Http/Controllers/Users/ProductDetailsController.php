@@ -107,7 +107,8 @@ class ProductDetailsController extends Controller
 
         $graph = new Graph();
 
-        $price = (float) ($product->sale_price ?? 0);
+        // Fall back to regular price when sale_price is absent or zero.
+        $price = (float) ($product->sale_price ?: $product->price ?: 0);
 
         $productNode = $graph->product()
             ->name($product->name)
@@ -119,47 +120,46 @@ class ProductDetailsController extends Controller
                 Schema::brand()->name($product->brand ?? 'Sanlive Pharmacy')
             );
 
-        // Only attach offers when we have a valid price — an empty/null price causes
-        // Google to silently drop the offers block and flag the Product as missing offers.
-        if ($price > 0) {
-            $productNode->offers(
-                Schema::offer()
-                    ->url($productUrl)
-                    ->priceCurrency('NGN')
-                    ->price($price)
-                    ->availability('https://schema.org/InStock')
-                    ->priceValidUntil(now()->addYear()->format('Y-m-d'))
-                    ->seller(
-                        Schema::organization()->name('Sanlive Pharmacy')->url(url('/'))
+        // Always attach an offers block — Google requires at least one of offers/review/aggregateRating.
+        $offer = Schema::offer()
+            ->url($productUrl)
+            ->priceCurrency('NGN')
+            ->availability('https://schema.org/InStock')
+            ->seller(
+                Schema::organization()->name('Sanlive Pharmacy')->url(url('/'))
+            )
+            ->hasMerchantReturnPolicy(
+                Schema::merchantReturnPolicy()
+                    ->applicableCountry('NG')
+                    ->returnPolicyCategory('https://schema.org/MerchantReturnFiniteReturnWindow')
+                    ->merchantReturnDays(2)
+                    ->returnMethod('https://schema.org/ReturnByMail')
+                    ->returnFees('https://schema.org/FreeReturn')
+            )
+            ->shippingDetails(
+                Schema::offerShippingDetails()
+                    ->shippingRate(
+                        Schema::monetaryAmount()->value(8000)->currency('NGN')
                     )
-                    ->hasMerchantReturnPolicy(
-                        Schema::merchantReturnPolicy()
-                            ->applicableCountry('NG')
-                            ->returnPolicyCategory('https://schema.org/MerchantReturnFiniteReturnWindow')
-                            ->merchantReturnDays(2)
-                            ->returnMethod('https://schema.org/ReturnByMail')
-                            ->returnFees('https://schema.org/FreeReturn')
+                    ->deliveryTime(
+                        Schema::shippingDeliveryTime()
+                            ->handlingTime(
+                                Schema::quantitativeValue()->minValue(1)->maxValue(2)->unitCode('d')
+                            )
+                            ->transitTime(
+                                Schema::quantitativeValue()->minValue(2)->maxValue(5)->unitCode('d')
+                            )
                     )
-                    ->shippingDetails(
-                        Schema::offerShippingDetails()
-                            ->shippingRate(
-                                Schema::monetaryAmount()->value(8000)->currency('NGN')
-                            )
-                            ->deliveryTime(
-                                Schema::shippingDeliveryTime()
-                                    ->handlingTime(
-                                        Schema::quantitativeValue()->minValue(1)->maxValue(2)->unitCode('d')
-                                    )
-                                    ->transitTime(
-                                        Schema::quantitativeValue()->minValue(2)->maxValue(5)->unitCode('d')
-                                    )
-                            )
-                            ->shippingDestination(
-                                Schema::definedRegion()->addressCountry('NG')
-                            )
+                    ->shippingDestination(
+                        Schema::definedRegion()->addressCountry('NG')
                     )
             );
+
+        if ($price > 0) {
+            $offer->price($price)->priceValidUntil(now()->addYear()->format('Y-m-d'));
         }
+
+        $productNode->offers($offer);
 
         if ($avgRating !== null) {
             $productNode->aggregateRating(
