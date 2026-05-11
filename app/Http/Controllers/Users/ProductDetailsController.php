@@ -31,22 +31,14 @@ class ProductDetailsController extends Controller
     $product = Product::with('productReviews')->where('slug', $slug)->firstOrFail();
     $data['related'] = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->take(8)->get();
 
-    // Extract first meaningful block (p, div, li) for the above-fold tagline
-    preg_match('/<(p|div|li|h[1-6])[^>]*>(.*?)<\/\1>/si', $product->description ?? '', $matches);
-    $product->tagline = isset($matches[0]) ? '<p>' . strip_tags($matches[2]) . '</p>' : '';
     $data['product'] = $product;
     $url = route('users.products', ['slug' => $product->slug]);
     $reviews = ProductReview::where(['product_id' => $product->id, 'is_approved' => 1])->latest();
 
-    // Noindex thin-content pages until descriptions are enriched
-    $descriptionLength = strlen(strip_tags($product->description ?? ''));
-    $robotsDirective   = $descriptionLength >= 150 ? 'index, follow' : 'noindex, follow';
-
+  
     // Use the product's own description as meta description — unique per product
-    $plainDescription = trim(strip_tags($product->description ?? ''));
-    $autoDesc = $plainDescription
-        ? Str::limit($plainDescription, 160)
-        : 'Order '.$product->name.' from Sanlive Pharmacy. Genuine product, affordable price & fast doorstep delivery across Nigeria. PCN licensed.';
+    // 155 chars is the sweet spot: fits Google's ~160 char display limit with room for ellipsis
+    $plainDescription = Str::limit(trim(strip_tags($product->description ?? '')), 155);
 
     // Build keyword-rich title variants
     $category  = $product->category->name ?? 'Medicine';
@@ -57,14 +49,13 @@ class ProductDetailsController extends Controller
             'url'      => $url,
             'title'    => $product->name.' | Sanlive Pharmacy Nigeria',
             'metaTitle'=> $metaTitle,
-            'description' => $autoDesc,
+            'description' => $plainDescription,
             'keywords' => $product->name.', buy '.$product->name.' Nigeria, '.$product->name.' price Nigeria, '.$category.' Nigeria, online pharmacy Nigeria',
             'image_url'=> asset('images/products/'.$product->image_path),
             'og_type'  => 'product',
-            'robots'   => $robotsDirective,
+            'robots'   => 'index, follow',
     ];
 
-    // dd($data);
     return view('frontend.product-details', [
         'data' => $data,
         'pageMeta' => $meta,
