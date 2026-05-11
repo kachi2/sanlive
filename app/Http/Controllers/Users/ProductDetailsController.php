@@ -42,12 +42,23 @@ class ProductDetailsController extends Controller
     $descriptionLength = strlen(strip_tags($product->description ?? ''));
     $robotsDirective   = $descriptionLength >= 150 ? 'index, follow' : 'noindex, follow';
 
+    // Build a unique meta description from the actual product description text
+    $plainDescription = strip_tags($product->description ?? '');
+    $autoDesc = $plainDescription
+        ? Str::limit($plainDescription, 140).' Buy online at Sanlive Pharmacy Nigeria.'
+        : 'Order '.$product->name.' from Sanlive Pharmacy. Genuine product, affordable price & fast doorstep delivery across Nigeria. PCN licensed.';
+
+    // Build keyword-rich title variants
+    $category  = $product->category->name ?? 'Medicine';
+    $brand     = $product->brand ?? '';
+    $metaTitle = 'Buy '.$product->name.($brand ? ' by '.$brand : '').' in Nigeria | Sanlive Pharmacy';
+
     $meta = [
             'url'      => $url,
             'title'    => $product->name.' | Sanlive Pharmacy Nigeria',
-            'metaTitle'=> 'Buy '.$product->name.' in Nigeria',
-            'description' => 'Order '.$product->name.' from Sanlive Pharmacy. Genuine product, affordable price & fast doorstep delivery across Nigeria. PCN licensed.',
-            'keywords' => $product->name.', buy '.$product->name.' Nigeria, '.$product->name.' online pharmacy',
+            'metaTitle'=> $metaTitle,
+            'description' => $autoDesc,
+            'keywords' => $product->name.', buy '.$product->name.' Nigeria, '.$product->name.' price Nigeria, '.$category.' Nigeria, online pharmacy Nigeria',
             'image_url'=> asset('images/products/'.$product->image_path),
             'og_type'  => 'product',
             'robots'   => $robotsDirective,
