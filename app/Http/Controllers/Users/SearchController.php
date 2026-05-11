@@ -26,7 +26,7 @@ try{
             $searchterm = "Showing Results for ".$request->q;
             $keywords[] = $products->pluck('name')->implode(',');
             if (count($products) > 0) {
-                $robots = 'index, follow';
+                $robots = 'noindex, follow'; // search results pages should never be indexed
             }
             $pageTitle = 'Search Results for "'.e($request->q).'"';
             $pageDesc  = 'Showing results for '.e($request->q).'. Buy medicines, vitamins and supplements with fast doorstep delivery at Sanlive Pharmacy Nigeria.';
