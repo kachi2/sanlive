@@ -156,7 +156,7 @@
                 <div class="pd-badge-out">Out of Stock</div>
                 @endif
 
-                <a href="{{ route('products.search') }}?category={{ $data['product']->category->id ?? '' }}" class="pd-category-link">
+                <a href="{{ $data['product']->category->slug ? route('products.search', $data['product']->category->slug) : route('products.search') }}" class="pd-category-link">
                     {{ $data['product']->category->name ?? 'General' }}
                 </a>
 

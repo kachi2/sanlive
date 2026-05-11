@@ -31,11 +31,16 @@ class ProductDetailsController extends Controller
     $product = Product::with('productReviews')->where('slug', $slug)->firstOrFail();
     $data['related'] = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->take(8)->get();
 
-    preg_match('/<p>(.*?)<\/p>/s', $product->description, $matches);
-    $product->tagline = $matches[0] ?? '';
+    // Extract first meaningful block (p, div, li) for the above-fold tagline
+    preg_match('/<(p|div|li|h[1-6])[^>]*>(.*?)<\/\1>/si', $product->description ?? '', $matches);
+    $product->tagline = isset($matches[0]) ? '<p>' . strip_tags($matches[2]) . '</p>' : '';
     $data['product'] = $product;
     $url = route('users.products', ['slug' => $product->slug]);
     $reviews = ProductReview::where(['product_id' => $product->id, 'is_approved' => 1])->latest();
+
+    // Noindex thin-content pages until descriptions are enriched
+    $descriptionLength = strlen(strip_tags($product->description ?? ''));
+    $robotsDirective   = $descriptionLength >= 150 ? 'index, follow' : 'noindex, follow';
 
     $meta = [
             'url'      => $url,
@@ -45,7 +50,7 @@ class ProductDetailsController extends Controller
             'keywords' => $product->name.', buy '.$product->name.' Nigeria, '.$product->name.' online pharmacy',
             'image_url'=> asset('images/products/'.$product->image_path),
             'og_type'  => 'product',
-            'robots'   => 'index, follow',
+            'robots'   => $robotsDirective,
     ];
 
     // dd($data);
