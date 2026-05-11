@@ -42,10 +42,10 @@ class ProductDetailsController extends Controller
     $descriptionLength = strlen(strip_tags($product->description ?? ''));
     $robotsDirective   = $descriptionLength >= 150 ? 'index, follow' : 'noindex, follow';
 
-    // Build a unique meta description from the actual product description text
-    $plainDescription = strip_tags($product->description ?? '');
+    // Use the product's own description as meta description — unique per product
+    $plainDescription = trim(strip_tags($product->description ?? ''));
     $autoDesc = $plainDescription
-        ? Str::limit($plainDescription, 140).' Buy online at Sanlive Pharmacy Nigeria.'
+        ? Str::limit($plainDescription, 160)
         : 'Order '.$product->name.' from Sanlive Pharmacy. Genuine product, affordable price & fast doorstep delivery across Nigeria. PCN licensed.';
 
     // Build keyword-rich title variants
