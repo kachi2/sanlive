@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $pageMeta['metaTitle'] ?? $settings->site_name ?? 'Sanlive Pharmacy' }} - Sanlive Pharmacy</title>
+    <title>{{ $pageMeta['title'] }}</title>
     <meta name="description" content="{{ $pageMeta['description'] ?? 'Get all your medications delivered to your doorstep from the No. 1 online pharmacy store in Lagos Nigeria - Sanlive Pharmacy.' }}">
-    <meta name="keywords" content="{{ $pageMeta['keywords'] ?? 'online pharmacy, medicine delivery, health store, buy drugs online' }}">
-    {{-- <meta name="robots" content="@yield('meta_robots', $pageMeta['robots'] ?? (app()->environment('production') ? 'index, follow' : 'noindex, nofollow'))"> --}}
-      <meta name="robots" content="@yield('meta_robots', $pageMeta['robots'] ?? 'index, follow')">
+    <meta name="robots" content="@yield('meta_robots', $pageMeta['robots'] ?? 'index, follow')">
 
     <meta property="og:type" content="{{ $pageMeta['og_type'] ?? 'website' }}">
     <meta property="og:site_name" content="Sanlive Pharmacy">
     <meta property="og:locale" content="en_NG">
-    <meta property="og:title" content="{{ $pageMeta['metaTitle'] ?? $settings->site_name ?? 'Sanlive Pharmacy' }}">
+    <meta property="og:title" content="{{ $pageMeta['metaTitle']}}">
     <meta property="og:description" content="{{ $pageMeta['description'] ?? 'Get all your medications delivered to your doorstep.' }}">
     <meta property="og:image" content="{{ $pageMeta['image_url'] ?? asset('images/'.$settings->site_logo) }}">
     <meta property="og:image:alt" content="{{ $pageMeta['metaTitle'] ?? 'Sanlive Pharmacy' }}">
@@ -25,7 +23,7 @@
     @if(!empty($settings->twitter))
     <meta name="twitter:site" content="{{ str_starts_with($settings->twitter, '@') ? $settings->twitter : '@'.$settings->twitter }}">
     @endif
-    <meta name="twitter:title" content="{{ $pageMeta['metaTitle'] ?? $settings->site_name ?? 'Sanlive Pharmacy' }}">
+    <meta name="twitter:title" content="{{ $pageMeta['metaTitle']}}">
     <meta name="twitter:description" content="{{ $pageMeta['description'] ?? 'Get all your medications delivered to your doorstep.' }}">
     <meta name="twitter:image" content="{{ $pageMeta['image_url'] ?? asset('images/'.$settings->site_logo) }}">
     <meta name="twitter:image:alt" content="{{ $pageMeta['metaTitle'] ?? 'Sanlive Pharmacy' }}">

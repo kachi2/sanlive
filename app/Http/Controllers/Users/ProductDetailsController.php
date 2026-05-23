@@ -35,22 +35,20 @@ class ProductDetailsController extends Controller
     $url = route('users.products', ['slug' => $product->slug]);
     $reviews = ProductReview::where(['product_id' => $product->id, 'is_approved' => 1])->latest();
 
-  
-    // Use the product's own description as meta description — unique per product
-    // 155 chars is the sweet spot: fits Google's ~160 char display limit with room for ellipsis
-    $plainDescription = Str::limit(trim(strip_tags($product->description ?? '')), 155);
+    $description = trim(strip_tags(html_entity_decode($product->description ?? '')));
+    $description = Str::words($description, 30, '');
+    $description = preg_replace('/[^A-Za-z0-9\s]/', '', $description);
+    $description = preg_replace('/\s+/', ' ', $description);
+    $plainDescription = "Buy $product->name in Nigeria. $description. Order online | Sanlive Pharmacy.";
 
-    // Build keyword-rich title variants
-    $category  = $product->category->name ?? 'Medicine';
-    $brand     = $product->brand ?? '';
-    $metaTitle = 'Buy '.$product->name.($brand ? ' by '.$brand : '').' in Nigeria | Sanlive Pharmacy';
+    $metaTitle = 'Buy ' . $product->name . ' in Nigeria | Sanlive Pharmacy';
 
     $meta = [
             'url'      => $url,
             'title'    => $product->name.' | Sanlive Pharmacy Nigeria',
             'metaTitle'=> $metaTitle,
             'description' => $plainDescription,
-            'keywords' => $product->name.', buy '.$product->name.' Nigeria, '.$product->name.' price Nigeria, '.$category.' Nigeria, online pharmacy Nigeria',
+            'keywords' => 'Buy '.$product->name.'in  Nigeria, online pharmacy in Nigeria',
             'image_url'=> asset('images/products/'.$product->image_path),
             'og_type'  => 'product',
             'robots'   => 'index, follow',

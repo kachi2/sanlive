@@ -131,9 +131,13 @@
     <div class="pd-breadcrumb">
         <a href="{{ route('users.index') }}">Home</a>
         <span>›</span>
-        <a href="{{ route('products.search') }}">{{ $data['product']->category->name ?? 'Products' }}</a>
+        <a href="{{ url('catalogs/' . $data['product']->category->slug) }}">
+            {{ $data['product']->category->name ?? 'Products' }}
+        </a>
         <span>›</span>
-        {{ Str::limit($data['product']->name, 50) }}
+        <a href="{{ route('users.products', $data['product']->slug) }}">
+            {{ Str::limit($data['product']->name, 50) }}
+        </a>
     </div>
     {{-- Main Product Card --}}
     <div class="pd-card">
@@ -256,7 +260,7 @@
         {{-- Description --}}
         <div class="pd-tab-pane active" id="pd-description">
             <div class="pd-description">
-                {!! $data['product']->description !!}
+            {{ ucfirst(strtolower(strip_tags($data['product']->description))) }} 
             </div>
         </div>
 
