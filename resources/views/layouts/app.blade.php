@@ -140,8 +140,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         {{-- Tabs --}}
         <div class="auth-tabs" role="tablist">
-            <button class="auth-tab active" data-tab="login" role="tab" aria-selected="true" aria-controls="panel-login" type="button">Sign In</button>
-            <button class="auth-tab" data-tab="register" role="tab" aria-selected="false" aria-controls="panel-register" type="button">Create Account</button>
+            <button class="auth-tab active" data-tab="login" role="tab" aria-selected="true" aria-controls="panel-login" type="button" style="font-size:15px">Sign In</button>
+            <button class="auth-tab" data-tab="register" role="tab" aria-selected="false" aria-controls="panel-register" type="button" style="font-size:15px">Create Account</button>
         </div>
 
         {{-- LOGIN PANEL --}}
@@ -150,49 +150,45 @@ document.addEventListener('DOMContentLoaded', function () {
                 @if(isset($settings) && $settings->site_logo)
                     <img src="{{ asset('/images/'.$settings->site_logo) }}" alt="{{ config('app.name') }}">
                 @endif
-                <p>Welcome back! Sign in to continue.</p>
             </div>
 
-            <a href="{{ route('auth.google') }}" class="auth-google-btn">
+            <a href="{{ route('auth.google') }}" class="auth-google-btn" style="font-size:15px">
                 <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18L12.048 13.56C11.226 14.105 10.177 14.43 9 14.43c-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
                 Continue with Google
             </a>
 
-            <div class="auth-divider">or sign in with email</div>
+            <div class="auth-divider" style="font-size:15px">or sign in with email</div>
 
             <div class="auth-error-banner" id="login-error"></div>
 
             <form id="login-form" novalidate>
                 @csrf
                 <div class="auth-field">
-                    <label for="login-email">Email address</label>
-                    <input type="email" id="login-email" name="email" placeholder="you@example.com" autocomplete="email" required>
+                    <label for="login-email" style="font-size:15px">Email address</label>
+                    <input type="email" id="login-email" style="font-size:15px"  name="email" placeholder="you@example.com" autocomplete="email" required>
                     <div class="field-error" id="login-email-err"></div>
                 </div>
                 <div class="auth-field">
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" name="password" placeholder="Your password" autocomplete="current-password" required>
+                    <label for="login-password" style="font-size:15px">Password</label>
+                    <input type="password" style="font-size:15px"  id="login-password" name="password" placeholder="Your password" autocomplete="current-password" required>
                     <div class="field-error" id="login-password-err"></div>
                 </div>
-                <a href="{{ route('password.request') }}" class="auth-forgot">Forgot password?</a>
-                <button type="submit" class="auth-submit" id="login-submit">Sign In</button>
+                <a href="{{ route('password.request') }}" class="auth-forgot" style="font-size:13px">Forgot password?</a>
+                <button type="submit" class="auth-submit" id="login-submit" style="font-size:15px">Sign In</button>
             </form>
 
-            <div class="auth-switch">No account? <a id="switch-to-register">Create one free</a></div>
+            <div class="auth-switch" style="font-size:15px">No account? <a id="switch-to-register" >Create one free</a></div>
         </div>
 
         {{-- REGISTER PANEL --}}
         <div class="auth-panel" id="panel-register">
-            <div class="auth-brand">
-                <p>Join Sanlive Pharmacy — fast, affordable healthcare delivery.</p>
-            </div>
 
-            <a href="{{ route('auth.google') }}" class="auth-google-btn">
+            <a href="{{ route('auth.google') }}" class="auth-google-btn" style="font-size:15px">
                 <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18L12.048 13.56C11.226 14.105 10.177 14.43 9 14.43c-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
                 Sign up with Google
             </a>
 
-            <div class="auth-divider">or create your account</div>
+            <div class="auth-divider" style="font-size:15px">or create your account</div>
 
             <div class="auth-error-banner" id="register-error"></div>
 
@@ -200,33 +196,29 @@ document.addEventListener('DOMContentLoaded', function () {
                 @csrf
                 <div class="auth-row">
                     <div class="auth-field">
-                        <label for="reg-first">First name</label>
-                        <input type="text" id="reg-first" name="first_name" placeholder="John" autocomplete="given-name" required>
+                        <label for="reg-first" style="font-size:15px">First name</label>
+                        <input type="text" id="reg-first" name="first_name" style="font-size:15px"  placeholder="John" autocomplete="given-name" required>
                         <div class="field-error" id="reg-first-err"></div>
                     </div>
                     <div class="auth-field">
-                        <label for="reg-last">Last name</label>
-                        <input type="text" id="reg-last" name="last_name" placeholder="Doe" autocomplete="family-name" required>
+                        <label for="reg-last" style="font-size:15px">Last name</label>
+                        <input type="text" id="reg-last" name="last_name" style="font-size:15px"  placeholder="Doe" autocomplete="family-name" required>
                         <div class="field-error" id="reg-last-err"></div>
                     </div>
                 </div>
                 <div class="auth-field">
-                    <label for="reg-email">Email address</label>
-                    <input type="email" id="reg-email" name="email" placeholder="you@example.com" autocomplete="email" required>
+                    <label for="reg-email" style="font-size:15px">Email address</label>
+                    <input type="email" id="reg-email" name="email" style="font-size:15px" placeholder="you@example.com" autocomplete="email" required>
                     <div class="field-error" id="reg-email-err"></div>
                 </div>
                 <div class="auth-field">
-                    <label for="reg-phone">Phone number <span style="color:#b0bdd0;font-weight:400">(optional)</span></label>
-                    <input type="tel" id="reg-phone" name="phone" placeholder="+234 800 000 0000" autocomplete="tel">
-                </div>
-                <div class="auth-field">
-                    <label for="reg-password">Password</label>
-                    <input type="password" id="reg-password" name="password" placeholder="Min. 8 characters" autocomplete="new-password" required>
+                    <label for="reg-password" style="font-size:15px">Password</label>
+                    <input type="password" id="reg-password" style="font-size:15px" name="password" placeholder="Min. 8 characters" autocomplete="new-password" required>
                     <div class="field-error" id="reg-password-err"></div>
                 </div>
                 <div class="auth-field">
-                    <label for="reg-confirm">Confirm password</label>
-                    <input type="password" id="reg-confirm" name="password_confirmation" placeholder="Repeat password" autocomplete="new-password" required>
+                    <label for="reg-confirm" style="font-size:15px">Confirm password</label>
+                    <input type="password" id="reg-confirm" style="font-size:15px" name="password_confirmation" placeholder="Repeat password" autocomplete="new-password" required>
                 </div>
                 <button type="submit" class="auth-submit" id="register-submit">Create Account</button>
             </form>
