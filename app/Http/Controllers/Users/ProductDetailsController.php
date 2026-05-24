@@ -45,7 +45,7 @@ class ProductDetailsController extends Controller
 
     $meta = [
             'url'      => $url,
-            'title'    => $product->name.' | Sanlive Pharmacy Nigeria',
+            'title'    => $metaTitle,
             'metaTitle'=> $metaTitle,
             'description' => $plainDescription,
             'keywords' => 'Buy '.$product->name.'in  Nigeria, online pharmacy in Nigeria',
