@@ -260,7 +260,7 @@
         {{-- Description --}}
         <div class="pd-tab-pane active" id="pd-description">
             <div class="pd-description">
-            {{ ucfirst(strtolower(strip_tags($data['product']->description))) }} 
+            {!! $data['product']->description !!} 
             </div>
         </div>
 
