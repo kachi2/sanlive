@@ -134,7 +134,7 @@
                             <a href="{{ route('products.search') }}" style="position:inherit">
                                 <img class="ps-banner__image"
                                      src="{{ asset('images/sliders/'.$slide->image_path) }}"
-                                     alt="{{ $slide->title ?? 'Sanlive Pharmacy' }}"
+                                     alt="{{ $slide->title ?? 'Sanlive Pharmacy | Buy prescription medicines online in Nigeria — Sanlive Pharmacy' }}"
                                      width="1200" height="480"
                                      @if($i === 0) fetchpriority="high" loading="eager" @else loading="lazy" @endif>
                             </a>
@@ -149,7 +149,18 @@
 
 {{-- Category Carousel --}}
 <div class="container p-2">
-    <h1 style="font-size:1.3rem;font-weight:700;color:#103178;padding:12px 0 4px">Trusted Online Pharmacy in Nigeria &ndash; Fast &amp; Reliable Medicine Delivery</h1>
+    <h1 style="font-size:1.8rem;font-weight:700;color:#103178;padding:12px 0 4px">Trusted Online Pharmacy in Nigeria &ndash; Fast &amp; Reliable Medicine Delivery</h1>
+    <p style="font-size:14px; color:#555; line-height:1.7; padding:8px 0 12px;">
+Sanlive Pharmacy is Nigeria's trusted PCN-licensed online pharmacy,
+delivering
+genuine medicines, vitamins, supplements, vaccines, and healthcare products
+straight to your doorstep. We serve customers in Lagos, Abuja, Port
+Harcourt,
+and nationwide across Nigeria. We also ship medication to customers across
+different continent, Africa, Europe, Asia, Middle-East, Australia, America,
+Uk and Canada. Browse over 2,000 products across 30+ categories
+and order online or via WhatsApp for fast, discreet delivery.
+</p>
     <div class="ps-noti p-2" style="border-radius:5px">
         <div class="container">
             <p class="m-0" style="color:#fff;font-weight:bold;text-align:left">Shop By Category</p>
@@ -245,6 +256,26 @@
     </div>
 </section>
 @endforeach
+
+<section class="ps-section--featured">
+    <div class="container">
+
+        <div class="ps-section__content">
+            <div class="row p-3">
+                     <h2 style="font-size: 18px; font-weight: 600; color: #222; margin-bottom: 8px;">
+                        About Sanlive Pharmacy — Nigeria's Trusted Online Pharmacy
+                    </h2>
+                    <p style="font-size:13.5px; color:#666; line-height:1.8;">
+                        Sanlive Pharmacy is a PCN-licensed online pharmacy delivering genuine medicines, vitamins, supplements, vaccines, and healthcare products to your doorstep across Nigeria and internationally. We serve customers in Lagos, Abuja, Port Harcourt and all 36 states in Nigeria, as well as international customers across Africa, the UK, USA, Canada, and beyond.
+                    </p>
+                    <p style="font-size:13.5px; color:#666; line-height:1.8;">
+                        We are licensed and regulated by the Pharmacists' Council of Nigeria (PCN) and stock only NAFDAC-approved products. Whether you need prescription medications, chronic disease management drugs, baby and infant health products, skincare, vitamins, or medical equipment — we have it all in one place. Order online or via WhatsApp for same-day delivery in Lagos, nationwide delivery across Nigeria, and reliable international shipping worldwide.
+                    </p>
+   
+            </div>
+        </div>
+    </div>
+</section>
 
 </div>{{-- .ps-home__content --}}
 </div>{{-- .ps-home --}}

@@ -1,7 +1,8 @@
 {{-- resources/views/frontend/partials/footer.blade.php --}}
-<footer class="sanlive-footer">
 
-    {{-- Trust Strip --}}
+
+<footer class="sanlive-footer">
+              
     <div class="sanlive-footer__strip">
         <div class="container sanlive-footer__strip-inner">
             <div class="strip-item"><i class="fa fa-check-circle"></i> PCN Licensed Pharmacy</div>
@@ -21,7 +22,7 @@
                     <a href="/">
                         <img src="{{ asset('images/'.$settings->site_logo) }}" alt="{{ $settings->site_name }}" style="height:50px; margin-bottom:16px; border-radius:6px;">
                     </a>
-                    <p class="footer-tagline">Nigeria's trusted online pharmacy — delivering genuine medicines, vitamins &amp; healthcare products to your doorstep.</p>
+                    <p class="footer-tagline">Trusted Online Pharmacy in Nigeria – Fast & Reliable Medicine Delivery</p>
                     <div class="footer-contact-line"><i class="fa fa-phone"></i> <a href="tel:{{ $settings->site_phone }}">{{ $settings->site_phone }}</a></div>
                     <div class="footer-contact-line"><i class="fa fa-envelope-o"></i> <a href="mailto:{{ $settings->site_email }}">{{ $settings->site_email }}</a></div>
                     <div class="footer-contact-line"><i class="fa fa-map-marker"></i> Lagos, Nigeria</div>
@@ -87,6 +88,7 @@
     {{-- Bottom Bar --}}
     <div class="sanlive-footer__bottom">
         <div class="container sanlive-footer__bottom-inner">
+               
             <p class="footer-copy">{{ '© '.date('Y').' Sanlive Pharmacy. All rights reserved.' }}</p>
             <div class="footer-badges">
                 <img src="/images/paystack_logo.png" alt="Paystack" title="Paystack">
