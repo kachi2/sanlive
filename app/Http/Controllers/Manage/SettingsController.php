@@ -229,6 +229,7 @@ class SettingsController extends Controller
         ];
         $testim = Setting::first();
         $testim->fill($data)->save();
+        Cache::forget('site_settings');
         Session::flash('alert', 'success');
         Session::flash('message', 'Socials updated Successfully');
         return back();

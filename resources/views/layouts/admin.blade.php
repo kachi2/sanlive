@@ -157,7 +157,8 @@
 <script src="{{asset('/backend/vendors/vmap/jquery.vmap.min.js')}}"></script>
 <script src="{{asset('/backend/vendors/vmap/maps/jquery.vmap.usa.js')}}"></script>
 <script src="{{asset('/backend/js/examples/vmap.js')}}"></script>
-<script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
+<script>window.CKEDITOR_BASEPATH='https://cdn.ckeditor.com/4.20.2/standard/';</script>
+<script src="{{asset('/backend/vendors/ckeditor/ckeditor.js')}}"></script>
 <script src="{{asset('/backend/vendors/select2/js/select2.min.js')}}"></script>
 
 <!-- Dashboard scripts -->

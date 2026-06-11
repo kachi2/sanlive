@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Login') - {{ $settings->site_name ?? 'Sanlive Pharmacy' }}</title>
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('/backend/css/bootstrap.min.css') }}">
     <style>
         body { background: #eee; width: 100%; height: 100%; }
         .auth-container {

@@ -32,18 +32,13 @@
     <link rel="apple-touch-icon" href="{{ asset('/apple-touch-icon.png') }}" sizes="180x180">
     <link rel="manifest" href="/manifest.json">
 
-    {{-- DNS prefetch for all third-party origins --}}
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    {{-- DNS prefetch for remaining third-party origins --}}
     <link rel="dns-prefetch" href="https://embed.tawk.to">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
-    {{-- Fonts: preconnect first, then async load with display=swap to eliminate FOIT --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap"></noscript>
+    {{-- Fonts: local copy of Jost (400–700) --}}
+    <link rel="preload" as="style" href="{{ asset('/frontend/fonts/jost/jost.css') }}" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('/frontend/fonts/jost/jost.css') }}"></noscript>
 
     {{-- Critical CSS: vendor + main style --}}
     @vite(['resources/css/vendor.css'])
@@ -87,20 +82,20 @@
 @include('frontend.partials.mobile-sidebar')
 @include('frontend.partials.header')
 
-<div class="ps-page">
+<div class="ps-page">                                                                                                                                                                                                       
     @yield('content')
     @include('frontend.partials.footer')
 </div>
 
 {{-- Core: loaded normally — jQuery + UI libs needed for first-paint carousel/navigation --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{{ asset('/frontend/plugins/jquery.min.js') }}"></script>
 <script src="{{ asset('/frontend/plugins/popper.min.js') }}"></script>
 <script src="{{ asset('/frontend/plugins/bootstrap4/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('/frontend/plugins/owl-carousel/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('/frontend/plugins/slick/slick/slick.min.js') }}"></script>
 
 {{-- Deferred: not needed until after first paint --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer></script>
+<script src="{{ asset('/frontend/plugins/toastr/toastr.min.js') }}" defer></script>
 <script src="{{ asset('/frontend/plugins/jquery-bar-rating/dist/jquery.barrating.min.js') }}" defer></script>
 <script src="{{ asset('/frontend/plugins/lightGallery/dist/js/lightgallery-all.min.js') }}" defer></script>
 <script src="{{ asset('/frontend/plugins/noUiSlider/nouislider.min.js') }}" defer></script>
