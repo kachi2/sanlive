@@ -18,7 +18,12 @@ use imageUpload;
     public function add(Request $request, $id)
      {   
          $product = Product::find($id);
-         if(isset($request->image)){
+         if($product->requires_prescription == 1 && !$request->hasFile('image')){
+            Session::flash('error', 'Please upload a doctor\'s prescription for this product before adding it to your cart');
+            return redirect()->back();
+         }
+         if($request->hasFile('image')){
+            $request->validate(['image' => 'image']);
             $file = $this->UploadImage($request, 'images/carts/');
          }
          $id = Auth::user()?->id;
@@ -32,10 +37,10 @@ use imageUpload;
           'name' => $product->name,
           'price' => $product->sale_price,
           'quantity' => $request->qty,
-          'attributes' => array([
+          'attributes' => [
             'image' => $file??'',
             'modelImage' => $product->image_path
-          ]),
+          ],
           'associatedModel' => $product->load('category')
       ]);
     

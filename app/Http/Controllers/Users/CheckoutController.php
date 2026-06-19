@@ -37,6 +37,16 @@ class CheckoutController extends Controller
         if(count(\Cart::getContent()) <= 0 || empty(\Cart::getContent())){
             return to_route('users.index');
         }
+        $missingPrescription = [];
+        foreach(\Cart::getContent() as $item){
+            if(($item->model->requires_prescription ?? 0) == 1 && empty($item->options->image ?? null)){
+                $missingPrescription[] = $item->name;
+            }
+        }
+        if(!empty($missingPrescription)){
+            Session::flash('error', 'Please upload a doctor\'s prescription for the following item(s) before checking out: '.implode(', ', $missingPrescription));
+            return to_route('carts.index');
+        }
         $address = ShippingAddress::where(['user_id' => auth_user()->id, 'is_default' => 1])->first();
         if(!isset($address)){
             Session::flash('error', 'Please add a shipping address before you can proceed');
