@@ -54,11 +54,19 @@ class CheckoutController extends Controller
         }
         $userData =   getUserLocationData();
         $currency = CountryCurrency::where('country', $userData['country'])->first();
+
+        $shipping_fee = 0;
         if($currency){
-            if($currency['country'] == "NG" && Str::contains(strtolower($address->address), 'lagos')){
+            if($currency['country'] == "NG" && !Str::contains(strtolower($address->address), 'lagos')){
                 $shipping_fee = '8000';
-            }else{$shipping_fee = $currency['shipping_fee'];}
-         }else {$shipping_fee = '6500';}
+            }else{
+                $shipping_fee = $currency['shipping_fee'];
+                }
+         }else {
+            $shipping_fee = '100000';
+            }
+
+
         $carts = \Cart::getContent();
         $orderNo = rand(111111111,999999999);
         // $cartSession =  Session::get('cartSession');
