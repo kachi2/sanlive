@@ -12,13 +12,24 @@
 
                     <div class="acct-page-header">
                         <h2 class="acct-page-title">Address Book</h2>
-                        <a href="{{ route('users.address.create') }}" class="acct-btn acct-btn--primary" style="padding:10px 20px;font-size:13px">
-                            <i class="icon-plus" style="font-size:12px"></i> Add Address
-                        </a>
+                        <div style="display:flex;gap:8px">
+                            @if(count(\Cart::getContent()) > 0)
+                            <a href="{{ route('checkout.index') }}" class="acct-btn acct-btn--outline" style="padding:10px 20px;font-size:13px">
+                                <i class="icon-arrow-left" style="font-size:12px"></i> Return to Checkout
+                            </a>
+                            @endif
+                            <a href="{{ route('users.address.create') }}" class="acct-btn acct-btn--primary" style="padding:10px 20px;font-size:13px">
+                                <i class="icon-plus" style="font-size:12px"></i> Add Address
+                            </a>
+                        </div>
                     </div>
 
                     @if(session('success'))
                     <div class="acct-alert acct-alert--success">{{ session('success') }}</div>
+                    @endif
+
+                    @if(session('error'))
+                    <div class="acct-alert acct-alert--error">{{ session('error') }}</div>
                     @endif
 
                     @forelse($addresses as $address)

@@ -197,6 +197,9 @@ class UserController extends Controller
         ];
         ShippingAddress::create($data);
         Session::flash('success', 'Address Added successfully');
+        if (count(\Cart::getContent()) > 0) {
+            return redirect()->intended(route('checkout.index'));
+        }
         return redirect()->intended(route('users.account.address'));
     }
 
