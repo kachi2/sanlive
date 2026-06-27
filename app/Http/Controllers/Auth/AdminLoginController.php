@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Admin;
 use App\Models\Setting;
 use Illuminate\Validation\ValidationException;
@@ -28,9 +27,13 @@ class AdminLoginController extends Controller
 
     }
 
-    public function store(LoginRequest $request)
+    public function store(Request $request)
     {
-       
+        $request->validate([
+            'email' => ['required', 'string', 'email'],
+            'password' => ['required', 'string'],
+        ]);
+
         $credentials = $request->only('email', 'password');
         if(Auth('admin')->attempt($credentials)){
             $request->session()->regenerate();
