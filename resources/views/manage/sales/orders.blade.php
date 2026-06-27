@@ -22,7 +22,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                  <div class="table-responsive">
-                                        <table id="myTable" class="table table-striped table-bordered">
+                                        <table id="myTable" class="table table-striped table-bordered" data-order="0,desc">
                                            <thead>
                                             <tr><th class="text-left">S/N</th>
                                                 <th>User Email</th>

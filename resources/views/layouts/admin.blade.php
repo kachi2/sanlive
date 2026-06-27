@@ -197,7 +197,14 @@
     placeholder: 'Select Products Customer wants to buy'
 });
     $(document).ready(function (){
-    $('#myTable').DataTable();
+    var $myTable = $('#myTable');
+    var order = $myTable.data('order');
+    var opts = {};
+    if (order) {
+        var parts = String(order).split(',');
+        opts.order = [[ parseInt(parts[0], 10), parts[1] || 'asc' ]];
+    }
+    $myTable.DataTable(opts);
 });
 
     CKEDITOR.replace( 'summernote' );

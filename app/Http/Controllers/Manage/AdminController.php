@@ -36,9 +36,9 @@ class AdminController extends Controller
           ->with('breadcrumb', 'Index')
           ->with('products', count(Product::all()))
           ->with('users', count(User::all()))
-          ->with('order', count(Order::all()))
-          ->with('orders', Order::latest()->take(5)->get())
-          ->with('sales', DB::table('orders')->sum('payable'));
+          ->with('order', Order::where('is_paid', 1)->count())
+          ->with('orders', Order::where('is_paid', 1)->latest()->take(5)->get())
+          ->with('sales', DB::table('orders')->where('is_paid', 1)->sum('payable'));
       }
   
       public function Transactions(){
