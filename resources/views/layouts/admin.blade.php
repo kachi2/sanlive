@@ -205,6 +205,15 @@
         opts.order = [[ parseInt(parts[0], 10), parts[1] || 'asc' ]];
     }
     $myTable.DataTable(opts);
+
+    // niceScroll replaces native scrolling with a JS-animated scrollbar, which feels
+    // sluggish on tables. Drop it on table containers so scrolling stays native.
+    $('.table-responsive').each(function () {
+        var $el = $(this);
+        if ($el.getNiceScroll().length) {
+            $el.getNiceScroll().remove();
+        }
+    });
 });
 
     CKEDITOR.replace( 'summernote' );
