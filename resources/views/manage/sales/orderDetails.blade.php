@@ -42,7 +42,7 @@
                                             <tr>
                                         
                                                 <td>
-                                                    <img src="{{$sp->image}}" width="50px" height="50px"> 
+                                                    <img src="{{asset('images/products/'.$sp->image)}}" width="50px" height="50px">
                                                 </td>
                                                 <td>
                                                     <a href="#">{{$sp->Order_no}}</a>

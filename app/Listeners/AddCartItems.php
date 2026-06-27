@@ -26,7 +26,7 @@ class AddCartItems
                 'user_id' => auth_user()->id,
                 'product_id' => $cart->model->id,
                 'Order_no' => $events->orderNo,
-                'qty' => $cart->qty,
+                'qty' => $cart->quantity,
                 'payable' => $cart->price * $cart->quantity,
                 'status' => 0,
                 'cartSession' => $events->cartSession,
