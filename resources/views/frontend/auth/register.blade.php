@@ -62,6 +62,11 @@
                     <input type="password" id="reg-confirm" name="password_confirmation"
                            placeholder="Repeat password" autocomplete="new-password" required>
                 </div>
+                @if(recaptchaEnabled())
+                <div class="auth-field">
+                    <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                </div>
+                @endif
                 <button type="submit" class="auth-submit">Create Account</button>
             </form>
 

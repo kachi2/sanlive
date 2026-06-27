@@ -56,6 +56,11 @@
                     <a href="{{ route('password.request') }}" class="auth-forgot" style="margin:0">Forgot password?</a>
                     @endif
                 </div>
+                @if(recaptchaEnabled())
+                <div class="auth-field">
+                    <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                </div>
+                @endif
                 <button type="submit" class="auth-submit">Sign In</button>
             </form>
 

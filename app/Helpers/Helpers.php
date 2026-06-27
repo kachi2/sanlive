@@ -179,4 +179,9 @@ if(!function_exists('getCountryCurrency'))
     $settings = Setting::pluck('site_name');
     if($settings) return $settings[0];
    }
+
+   function recaptchaEnabled()
+   {
+    return (bool) config('services.recaptcha.site_key');
+   }
 }

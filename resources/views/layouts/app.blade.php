@@ -71,6 +71,10 @@
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MSKX7LHR');</script>
 
+    @if(recaptchaEnabled())
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    @endif
+
     @yield('schema')
     @yield('head')
 </head>
@@ -169,6 +173,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="field-error" id="login-password-err"></div>
                 </div>
                 <a href="{{ route('password.request') }}" class="auth-forgot" style="font-size:13px">Forgot password?</a>
+                @if(recaptchaEnabled())
+                <div class="auth-field">
+                    <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                </div>
+                @endif
                 <button type="submit" class="auth-submit" id="login-submit" style="font-size:15px">Sign In</button>
             </form>
 
@@ -215,6 +224,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     <label for="reg-confirm" style="font-size:15px">Confirm password</label>
                     <input type="password" id="reg-confirm" style="font-size:15px" name="password_confirmation" placeholder="Repeat password" autocomplete="new-password" required>
                 </div>
+                @if(recaptchaEnabled())
+                <div class="auth-field">
+                    <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                </div>
+                @endif
                 <button type="submit" class="auth-submit" id="register-submit">Create Account</button>
             </form>
 

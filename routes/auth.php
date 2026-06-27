@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Rules\Recaptcha;
 
 // Google OAuth
 Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('auth.google');
@@ -36,6 +37,7 @@ Route::post('/ajax/register', function (Request $request) {
         'email'      => 'required|string|email|max:255|unique:users',
         'password'   => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()],
         'phone'      => 'nullable|string|max:20',
+        'g-recaptcha-response' => ['required', new Recaptcha],
     ]);
     $user = User::create([
         'first_name' => $request->first_name,
