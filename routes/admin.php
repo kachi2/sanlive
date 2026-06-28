@@ -14,6 +14,7 @@ use App\Http\Controllers\Manage\BlogController;
 use App\Http\Controllers\Manage\FaqController;
 use App\Http\Controllers\Manage\ManualPaymentController;
 use App\Http\Controllers\Manage\OrderController;
+use App\Http\Controllers\Manage\CommandController;
 use App\Http\Controllers\Manage\PageController;
 use App\Http\Controllers\Manage\PrescriptionController;
 use App\Http\Controllers\Manage\ShippingController;
@@ -147,6 +148,11 @@ Route::prefix('manage')->group(function () {
 
         Route::get('get/products/reviews', [ApproveUserRatingController::class, 'List'])->name('admin.product-reviews');
         Route::post('/update/product/reviews/{id}', [ApproveUserRatingController::class,'approvedRating'])->name('admin.product.reviews.update');
+
+        Route::controller(CommandController::class)->group(function () {
+            Route::get('/commands', 'index')->name('admin.commands.index');
+            Route::post('/commands/run', 'run')->name('admin.commands.run');
+        });
     });
 
 

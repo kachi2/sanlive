@@ -104,9 +104,18 @@
                 <ul>
                       <li><a href="{{route('admin.profile')}}">Manage Admin</a></li>
                 </ul>
-          </li>  
+          </li>
 
-         
+        <li>
+            <a  href="" data-toggle="tooltip" data-placement="right" title="Run Admin Commands"
+               data-nav-target="#dashboards">
+                <i class="fa fa-terminal"></i>&nbsp; Command</a>
+                <ul>
+                      <li><a href="{{route('admin.commands.index')}}">Run Command</a></li>
+                </ul>
+          </li>
+
+
         </ul>
     </div>
 </div>
