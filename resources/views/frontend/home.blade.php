@@ -109,6 +109,45 @@
     .sanlive-product-card__actions { flex-direction: row; }
     .btn-sanlive-cart, .btn-sanlive-wa { width: auto; flex: 1; }
 }
+/* ── Impact stats banner ── */
+.hp-impact{background:linear-gradient(135deg,#103178 0%,#1a449f 100%);padding:16px 20px;position:relative;overflow:hidden;margin:4px 0 18px;border-radius:14px;box-shadow:0 6px 20px rgba(16,49,120,.18)}
+.hp-impact::before{content:'';position:absolute;right:-70px;top:-70px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.045)}
+.hp-impact::after{content:'';position:absolute;left:-60px;bottom:-60px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.03)}
+.hp-impact__inner{display:flex;align-items:center;justify-content:space-around;flex-wrap:wrap;position:relative;gap:6px}
+.hp-impact__stat{display:flex;align-items:center;gap:11px;text-align:left;padding:2px 18px}
+.hp-impact__stat+.hp-impact__stat{border-left:1px solid rgba(255,255,255,.16)}
+.hp-impact__icon{width:34px;height:34px;flex-shrink:0;border-radius:10px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center}
+.hp-impact__icon svg{width:17px;height:17px}
+.hp-impact__num{font-size:19px;font-weight:800;color:#fff;line-height:1.2;white-space:nowrap}
+.hp-impact__lbl{font-size:11px;color:rgba(255,255,255,.85);font-weight:600;white-space:nowrap}
+.hp-impact__lbl .hp-impact__sub{color:#a8e6b8;font-weight:700}
+.hp-impact__lbl .hp-impact__sub::before{content:'· '}
+@media(max-width:767px){
+    .hp-impact{padding:14px 14px}
+    .hp-impact__inner{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;gap:0}
+    .hp-impact__stat{padding:2px 16px;flex-shrink:0}
+}
+/* ── Testimonials ── */
+.hp-t-rating{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid #eef0f6;border-radius:14px;padding:9px 18px;box-shadow:0 4px 20px rgba(16,49,120,.06)}
+.hp-t-rating__num{font-size:15px;font-weight:800;color:#111}
+.hp-t-stars{color:#f5a623;font-size:13px;letter-spacing:2px}
+.hp-t-rating__count{font-size:12px;color:#888}
+.testimonial-carousel .owl-item{display:flex;height:auto;padding:4px 2px}
+.hp-t-card{background:#f8f9fc;border:1px solid #eef0f6;border-radius:16px;padding:24px 22px;flex:1;display:flex;flex-direction:column}
+.hp-t-card .hp-t-stars{display:block;margin-bottom:12px}
+.hp-t-quote{font-size:13.5px;color:#444;line-height:1.7;margin:0 0 18px;flex:1}
+.hp-t-foot{display:flex;align-items:center;gap:11px}
+.hp-t-avatar{width:38px;height:38px;border-radius:50%;background:#103178;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0}
+.hp-t-name{font-size:13px;font-weight:700;color:#111;margin:0}
+.hp-t-role{font-size:11px;color:#888;margin-top:1px}
+/* ── Team ── */
+.hp-team__card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 6px 20px rgba(16,49,120,.08);text-align:center;height:100%;transition:transform .15s,box-shadow .15s}
+.hp-team__card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(16,49,120,.14)}
+.hp-team__photo{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:#eef2ff}
+.hp-team__body{padding:14px 12px 18px}
+.hp-team__name{font-size:13.5px;font-weight:800;color:#111;margin:0 0 2px}
+.hp-team__cred{font-size:10.5px;color:#103178;font-weight:700;letter-spacing:.3px;margin-bottom:5px;text-transform:uppercase}
+.hp-team__role{font-size:11.5px;color:#777;margin:0}
 </style>
 @endsection
 
@@ -161,6 +200,37 @@ different continent, Africa, Europe, Asia, Middle-East, Australia, America,
 Uk and Canada. Browse over 2,000 products across 30+ categories
 and order online or via WhatsApp for fast, discreet delivery.
 </p>
+<div class="hp-impact">
+    <div class="hp-impact__inner">
+        <div class="hp-impact__stat">
+            <div class="hp-impact__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div>
+                <div class="hp-impact__num">320K+</div>
+                <div class="hp-impact__lbl">Lives Impacted <span class="hp-impact__sub">and still counting</span></div>
+            </div>
+        </div>
+        <div class="hp-impact__stat">
+            <div class="hp-impact__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/></svg>
+            </div>
+            <div>
+                <div class="hp-impact__num">460K+</div>
+                <div class="hp-impact__lbl">Medications Delivered <span class="hp-impact__sub">and still counting</span></div>
+            </div>
+        </div>
+        <div class="hp-impact__stat">
+            <div class="hp-impact__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div>
+                <div class="hp-impact__num">23</div>
+                <div class="hp-impact__lbl">Countries Reached <span class="hp-impact__sub">and still counting</span></div>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="ps-noti p-2" style="border-radius:5px">
         <div class="container">
             <p class="m-0" style="color:#fff;font-weight:bold;text-align:left">Shop By Category</p>
@@ -257,6 +327,105 @@ and order online or via WhatsApp for fast, discreet delivery.
 </section>
 @endforeach
 
+{{-- Testimonials --}}
+<section class="ps-section" style="padding:44px 0 8px">
+    <div class="container">
+        <div style="text-align:center;margin-bottom:26px">
+            <h2 style="font-size:20px;font-weight:800;color:#111;margin:0 0 10px">Why People Trust Sanlive Pharmacy</h2>
+            <div class="hp-t-rating">
+                <span class="hp-t-rating__num">5.0</span>
+                <span class="hp-t-stars">★★★★★</span>
+                <span class="hp-t-rating__count">from 19+ Google Reviews</span>
+            </div>
+        </div>
+        <div class="owl-carousel testimonial-carousel"
+             data-owl-auto="true" data-owl-loop="true" data-owl-speed="3500"
+             data-owl-gap="20" data-owl-nav="true" data-owl-dots="true"
+             data-owl-item="3" data-owl-item-xs="1" data-owl-item-sm="1"
+             data-owl-item-md="2" data-owl-item-lg="3" data-owl-item-xl="3"
+             data-owl-duration="1000" data-owl-mousedrag="on">
+            <div>
+                <div class="hp-t-card">
+                    <span class="hp-t-stars">★★★★★</span>
+                    <p class="hp-t-quote">"At Sanlive, no records for fake and substandard drugs. Sanlive Pharmacy gives you hope in standard and affordability of all their drugs."</p>
+                    <div class="hp-t-foot">
+                        <div class="hp-t-avatar">A</div>
+                        <div>
+                            <p class="hp-t-name">Adeyanju Samson</p>
+                            <div class="hp-t-role">Google Review</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="hp-t-card">
+                    <span class="hp-t-stars">★★★★★</span>
+                    <p class="hp-t-quote">"Great pharmaceutical services. Sanlive pharmacy, your first and best choice of med store and care services. I recommend Sanlive any day anytime."</p>
+                    <div class="hp-t-foot">
+                        <div class="hp-t-avatar">J</div>
+                        <div>
+                            <p class="hp-t-name">Joyi Joseph</p>
+                            <div class="hp-t-role">Google Review</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="hp-t-card">
+                    <span class="hp-t-stars">★★★★★</span>
+                    <p class="hp-t-quote">"Best store you can get authentic/original products, will definitely keep recommending my friends and family. 100%"</p>
+                    <div class="hp-t-foot">
+                        <div class="hp-t-avatar">S</div>
+                        <div>
+                            <p class="hp-t-name">Sylvia Uche</p>
+                            <div class="hp-t-role">Google Review</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="hp-t-card">
+                    <span class="hp-t-stars">★★★★★</span>
+                    <p class="hp-t-quote">"I had a really quick delivery than expected. Their customer service too is one of the best. Can't wait to purchase from them."</p>
+                    <div class="hp-t-foot">
+                        <div class="hp-t-avatar">J</div>
+                        <div>
+                            <p class="hp-t-name">Juliet Hetty Abrokwah</p>
+                            <div class="hp-t-role">Google Review</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="hp-t-card">
+                    <span class="hp-t-stars">★★★★★</span>
+                    <p class="hp-t-quote">"The service is fast and I got my order right away. Amazing customer service. Great job!"</p>
+                    <div class="hp-t-foot">
+                        <div class="hp-t-avatar">P</div>
+                        <div>
+                            <p class="hp-t-name">Pretty Princess</p>
+                            <div class="hp-t-role">Google Review</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="hp-t-card">
+                    <span class="hp-t-stars">★★★★★</span>
+                    <p class="hp-t-quote">"Reliable services and affordable."</p>
+                    <div class="hp-t-foot">
+                        <div class="hp-t-avatar">M</div>
+                        <div>
+                            <p class="hp-t-name">Machine Gun</p>
+                            <div class="hp-t-role">Google Review</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="ps-section--featured">
     <div class="container">
 
@@ -271,7 +440,69 @@ and order online or via WhatsApp for fast, discreet delivery.
                     <p style="font-size:13.5px; color:#666; line-height:1.8;">
                         We are licensed and regulated by the Pharmacists' Council of Nigeria (PCN) and stock only NAFDAC-approved products. Whether you need prescription medications, chronic disease management drugs, baby and infant health products, skincare, vitamins, or medical equipment — we have it all in one place. Order online or via WhatsApp for same-day delivery in Lagos, nationwide delivery across Nigeria, and reliable international shipping worldwide.
                     </p>
-   
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- Meet Our Team --}}
+<section class="ps-section" style="padding:16px 0 40px">
+    <div class="container">
+        <div style="text-align:center;margin-bottom:24px">
+            <h2 style="font-size:20px;font-weight:800;color:#111;margin:0 0 8px">Meet Our Pharmacists &amp; Nurses</h2>
+            <p style="font-size:13.5px;color:#666;max-width:520px;margin:0 auto;line-height:1.7">The licensed professionals behind every prescription review, dosage check, and delivery at Sanlive Pharmacy.</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <div class="col-6 col-md-4 col-lg">
+                <div class="hp-team__card">
+                    <img class="hp-team__photo" src="/frontend/team/sandra-vincent.jpeg" alt="Pharm. Sandra Vincent" loading="lazy">
+                    <div class="hp-team__body">
+                        <p class="hp-team__name">Pharm. Sandra Vincent</p>
+                        <div class="hp-team__cred">B.Pharm</div>
+                        <p class="hp-team__role">CEO, Sanlive Pharmacy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg">
+                <div class="hp-team__card">
+                    <img class="hp-team__photo" src="/frontend/team/nurse-victoria.jpeg" alt="Nurse Victoria" loading="lazy">
+                    <div class="hp-team__body">
+                        <p class="hp-team__name">Nurse Victoria</p>
+                        <div class="hp-team__cred">RN</div>
+                        <p class="hp-team__role">Nurse, Sanlive Pharmacy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg">
+                <div class="hp-team__card">
+                    <img class="hp-team__photo" src="/frontend/team/nurse-gift.jpeg" alt="Nurse Gift" loading="lazy">
+                    <div class="hp-team__body">
+                        <p class="hp-team__name">Nurse Gift</p>
+                        <div class="hp-team__cred">RN</div>
+                        <p class="hp-team__role">Nurse, Sanlive Pharmacy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg">
+                <div class="hp-team__card">
+                    <img class="hp-team__photo" src="/frontend/team/pharm-mo.jpeg" alt="Pharm. MO" loading="lazy">
+                    <div class="hp-team__body">
+                        <p class="hp-team__name">Pharm. MO</p>
+                        <div class="hp-team__cred">B.Pharm</div>
+                        <p class="hp-team__role">Pharmacist, Sanlive Pharmacy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg">
+                <div class="hp-team__card">
+                    <img class="hp-team__photo" src="/frontend/team/pharm-dominic.jpeg" alt="Pharm. Dominic" loading="lazy">
+                    <div class="hp-team__body">
+                        <p class="hp-team__name">Pharm. Dominic</p>
+                        <div class="hp-team__cred">B.Pharm</div>
+                        <p class="hp-team__role">Pharmacist, Sanlive Pharmacy</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -288,6 +519,11 @@ $(document).ready(function () {
     $('.category-carousel').owlCarousel({
         responsive: { 0:{items:2}, 600:{items:4}, 1000:{items:6} },
         loop:true, autoplay:true
+    });
+    $('.testimonial-carousel').owlCarousel({
+        responsive: { 0:{items:1}, 768:{items:2}, 992:{items:3} },
+        margin: 20, nav: true, dots: true,
+        loop:true, autoplay:true, autoplayTimeout:3500, autoplayHoverPause:true
     });
 });
 </script>
