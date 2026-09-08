@@ -85,6 +85,7 @@
 @include('frontend.partials.header-mobile')
 @include('frontend.partials.mobile-sidebar')
 @include('frontend.partials.header')
+@include('frontend.partials.floating-cart')
 
 <div class="ps-page">                                                                                                                                                                                                       
     @yield('content')
@@ -358,6 +359,12 @@ document.addEventListener('DOMContentLoaded', function () {
 @endguest
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
+Tawk_API.customStyle = {
+    visibility: {
+        desktop: { position: 'bl', xOffset: 20, yOffset: 20 },
+        mobile: { position: 'br', xOffset: 10, yOffset: 10 }
+    }
+};
 (function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
 s1.async=true;s1.src='https://embed.tawk.to/6575ebf907843602b800450a/default';
 s1.charset='UTF-8';s1.setAttribute('crossorigin','anonymous');s0.parentNode.insertBefore(s1,s0);})();

@@ -383,6 +383,31 @@ function changeQty(delta) {
     input.value = val;
 }
 
+// Add to cart via AJAX into the floating basket
+(function(){
+    var addForm = document.getElementById('add2cart') ? document.getElementById('add2cart').closest('form') : null;
+    if(!addForm || typeof window.floatingCartAjax !== 'function') return;
+
+    addForm.addEventListener('submit', function(e){
+        e.preventDefault();
+        var btn = document.getElementById('add2cart');
+        var originalText = btn.innerHTML;
+        btn.disabled = true;
+
+        window.floatingCartAjax(addForm.action, {
+            method: 'POST',
+            body: new FormData(addForm)
+        }).then(function(result){
+            if(result && result.data && result.data.success !== false && typeof window.showAddedToCartModal === 'function'){
+                window.showAddedToCartModal(result.data.item);
+            }
+        }).finally(function(){
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        });
+    });
+})();
+
 // Simple tab switcher
 document.querySelectorAll('[data-pd-tab]').forEach(function(link) {
     link.addEventListener('click', function(e) {
