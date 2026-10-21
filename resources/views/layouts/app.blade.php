@@ -106,6 +106,16 @@
 <script src="{{ asset('/frontend/plugins/noUiSlider/nouislider.min.js') }}" defer></script>
 <script src="{{ asset('/frontend/plugins/select2/dist/js/select2.full.min.js') }}" defer></script>
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TVXCCDXSLS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TVXCCDXSLS');
+</script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     if (typeof toastr !== 'undefined') {
