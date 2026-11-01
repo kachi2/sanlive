@@ -76,9 +76,18 @@
                         <li><a href="{{ route('contactUs') }}">Special Medication Request</a></li>
                         <li><a href="https://wa.me/+2348058885913" target="_blank" rel="noopener noreferrer">Chat a Pharmacist</a></li>
                     </ul>
-                    <a href="{{ route('user.prescription') }}" class="footer-cta">
-                        <i class="fa fa-upload"></i> Upload Your Prescription
+                    <a href="{{ route('user.prescription') }}" class="footer-cta footer-rx-cta">
+                        <span class="footer-rx-cta__icon">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 12 15 15"/></svg>
+                        </span>
+                        Upload Your Prescription
                     </a>
+                    <style>
+                    .footer-cta.footer-rx-cta { gap: 10px; padding: 6px 20px 6px 6px; background: #fff; color: #103178 !important; font-size: 14px; font-weight: 700; border-radius: 999px; box-shadow: 0 4px 14px rgba(0,0,0,.2); transition: box-shadow .15s, transform .15s; }
+                    .footer-cta.footer-rx-cta:hover { background: #fff; color: #103178 !important; transform: translateY(-2px); box-shadow: 0 8px 22px rgba(0,0,0,.3); }
+                    .footer-rx-cta__icon { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: #25a244; color: #fff; transition: background .15s; }
+                    .footer-rx-cta:hover .footer-rx-cta__icon { background: #1e8a38; }
+                    </style>
                 </div>
 
             </div>

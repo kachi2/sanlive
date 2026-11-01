@@ -93,6 +93,26 @@
                 .hdr-icon--wa { color: #25a244; background: #eaf7ee; }
                 .hdr-icon--wa:hover { background: #25d366; color: #fff; }
                 .hdr-icon--cart:hover { background: #103178; color: #fff; }
+                /* ── Main menu ── */
+                .sanlive-nav { background: linear-gradient(90deg, #0e2a6b 0%, #103178 50%, #14398a 100%); box-shadow: 0 2px 12px rgba(16,49,120,.18); }
+                /* white band so the menu doesn't merge into blue page banners below it */
+                .sanlive-nav { border-bottom: 10px solid #fff; }
+                .sanlive-nav .sanlive-nav__menu { gap: 4px; padding: 7px 0; }
+                .sanlive-nav .sanlive-nav__menu > li > a { padding: 8px 16px; border-radius: 999px; font-size: 14px; font-weight: 600; letter-spacing: .1px; color: rgba(255,255,255,.82) !important; transition: background .15s, color .15s; }
+                .sanlive-nav .sanlive-nav__menu > li > a::after { display: none; }
+                .sanlive-nav .sanlive-nav__menu > li > a:hover { background: rgba(255,255,255,.1); color: #fff !important; }
+                .sanlive-nav .sanlive-nav__menu > li > a.active { background: rgba(255,255,255,.16); color: #fff !important; box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); }
+                .sanlive-nav .sanlive-nav__menu > li > a .fa-chevron-down { transition: transform .2s; opacity: .8; }
+                .sanlive-nav .has-dropdown:hover > a .fa-chevron-down { transform: rotate(180deg); }
+                .sanlive-nav .has-dropdown:hover > a { background: rgba(255,255,255,.1); color: #fff !important; }
+                .sanlive-nav .sanlive-nav__dropdown { top: calc(100% + 4px); border-radius: 14px; border: 1px solid #eef1f8; box-shadow: 0 16px 40px rgba(16,49,120,.18); padding: 10px; animation: hdr-drop .18s ease; }
+                .sanlive-nav .sanlive-nav__dropdown::before { content: ""; position: absolute; left: 0; right: 0; top: -8px; height: 8px; } /* hover bridge */
+                .sanlive-nav .sanlive-nav__dropdown ul { padding: 0; }
+                .sanlive-nav .sanlive-nav__dropdown ul li a { padding: 9px 14px; border-radius: 8px; font-size: 13.5px; color: #2b3a55 !important; }
+                .sanlive-nav .sanlive-nav__dropdown ul li a:hover { background: #f0f4ff; color: #103178 !important; }
+                @keyframes hdr-drop { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+                @media (prefers-reduced-motion: reduce) { .sanlive-nav .sanlive-nav__dropdown { animation: none; } }
+
                 .sanlive-nav__cta.hdr-rx-cta { gap: 8px; padding: 5px 16px 5px 5px; margin: 6px 0; background: #fff; color: #103178 !important; font-size: 13px; font-weight: 700; border-radius: 999px; box-shadow: 0 2px 10px rgba(0,0,0,.12); transition: box-shadow .15s, transform .15s; }
                 .sanlive-nav__cta.hdr-rx-cta:hover { background: #fff; color: #103178 !important; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,.2); }
                 .hdr-rx-cta__icon { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: #25a244; color: #fff; transition: background .15s; }
