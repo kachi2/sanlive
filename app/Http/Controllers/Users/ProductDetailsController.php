@@ -28,28 +28,43 @@ class ProductDetailsController extends Controller
         return redirect()->to("/products/{$product->slug}", 301);
     }
 
-    $product = Product::with('productReviews')->where('slug', $slug)->firstOrFail();
-    $data['related'] = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->take(8)->get();
+    $product = Product::with(['productReviews' => fn ($q) => $q->where('is_approved', 1)->latest()])
+        ->where('slug', $slug)
+        ->firstOrFail();
+
+ 
+    $data['related'] = Product::where('category_id', $product->category_id)
+        ->whereKeyNot($product->id)
+        ->orderByRaw('status = 1')            // in-stock first
+        ->latest()
+        ->take(8)
+        ->get();
 
     $data['product'] = $product;
     $url = route('users.products', ['slug' => $product->slug]);
+    $approvedReviews = $product->productReviews;   // approved only
     $reviews = ProductReview::where(['product_id' => $product->id, 'is_approved' => 1])->latest();
 
-    $description = trim(strip_tags(html_entity_decode($product->description ?? '')));
-    $description = Str::words($description, 30, '');
-    $description = preg_replace('/[^A-Za-z0-9\s]/', '', $description);
-    $description = preg_replace('/\s+/', ' ', $description);
-    $plainDescription = "Buy $product->name in Nigeria. $description. Order online | Sanlive Pharmacy.";
+    $amount  = (float) ($product->sale_price ?: $product->price ?: 0);
+    $price   = '₦' . number_format($amount);
+    $inStock = (int) $product->status !== 1;
 
-    $metaTitle = 'Buy ' . $product->name . ' in Nigeria | Sanlive Pharmacy';
+    $metaTitle = $this->seoTitle($product->name);
+
+    $lead = "Buy genuine {$product->name} in Nigeria"
+          . ($amount > 0 ? " at {$price}. " : '. ')
+          . ($inStock ? 'In stock with delivery in Lagos, Abuja & nationwide.' : 'Currently out of stock.');
+    $room = 155 - mb_strlen($lead) - 1;
+    $plainDescription = $room > 30
+        ? rtrim($lead . ' ' . $this->excerpt($product->description, $room))
+        : $lead;
 
     $meta = [
             'url'      => $url,
             'title'    => $metaTitle,
             'metaTitle'=> $metaTitle,
             'description' => $plainDescription,
-            'keywords' => 'Buy '.$product->name.'in  Nigeria, online pharmacy in Nigeria',
-            'image_url'=> asset('images/products/'.$product->image_path),
+            'image_url'=> $product->image_path ? asset('images/products/'.$product->image_path) : null,
             'og_type'  => 'product',
             'robots'   => 'index, follow',
     ];
@@ -57,10 +72,10 @@ class ProductDetailsController extends Controller
     return view('frontend.product-details', [
         'data' => $data,
         'pageMeta' => $meta,
-        'schema' => $this->addTags($product, $reviews->get()),
+        'schema' => $this->addTags($product, $approvedReviews, $plainDescription, $inStock),
         'avatar' => 'https://i.pravatar.cc/40?u=1',
         'reviews' => $reviews->paginate(5),
-        'ratings' => ProductReview::where(['product_id' => $product->id, 'is_approved' => 1])->pluck('rating'),
+        'ratings' => $approvedReviews->pluck('rating'),
     ]);
       }catch(\Exception $e)
       {
@@ -101,7 +116,33 @@ class ProductDetailsController extends Controller
     }
 
 
-    public function addTags(Product $product, \Illuminate\Support\Collection $reviews): string
+    private function seoTitle(string $name): string
+    {
+        foreach ([
+            "{$name} Price in Nigeria – Genuine | Sanlive Pharmacy",
+            "{$name} Price in Nigeria | Sanlive Pharmacy",
+            "{$name} Price in Nigeria",
+        ] as $candidate) {
+            if (mb_strlen($candidate) <= 60) return $candidate;
+        }
+        return $name;
+    }
+
+    private function excerpt(?string $html, int $limit): string
+    {
+        // strip tags first, then decode — keeps text like "<5 years" and "500mg/5ml" intact
+        $text = html_entity_decode(strip_tags($html ?? ''), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $text = trim(preg_replace('/\s+/u', ' ', $text));
+
+        if (mb_strlen($text) <= $limit) return $text;
+
+        $cut  = mb_substr($text, 0, $limit - 1);
+        $last = mb_strrpos($cut, ' ');
+        return rtrim(mb_substr($cut, 0, $last ?: mb_strlen($cut)), " ,.;:-") . '…';
+    }
+
+
+    public function addTags(Product $product, \Illuminate\Support\Collection $reviews, string $description, bool $inStock = true): string
     {
         $reviewCount = $reviews->count();
         $avgRating   = $reviewCount > 0 ? round($reviews->avg('rating'), 1) : null;
@@ -117,8 +158,9 @@ class ProductDetailsController extends Controller
 
         $productNode = $graph->product()
             ->name($product->name)
+            ->url($productUrl)
             ->image(url("images/products/" . rawurlencode($product->image_path)))
-            ->description(Str::limit(strip_tags($product->description), 160))
+            ->description($description)
             ->sku($product->sku ?? (string) $product->id)
             ->itemCondition('https://schema.org/NewCondition')
             ->brand(
@@ -129,7 +171,7 @@ class ProductDetailsController extends Controller
         $offer = Schema::offer()
             ->url($productUrl)
             ->priceCurrency('NGN')
-            ->availability('https://schema.org/InStock')
+            ->availability($inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock')
             ->seller(
                 Schema::organization()->name('Sanlive Pharmacy')->url(url('/'))
             )
