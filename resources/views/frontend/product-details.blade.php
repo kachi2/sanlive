@@ -38,6 +38,13 @@
 .pd-price { font-size: 22px; font-weight: 800; color: #25a244; }
 .pd-price-original { font-size: 16px; color: #aaa; text-decoration: line-through; }
 .pd-divider { border: none; border-top: 1px solid #f0f2f8; margin: 16px 0; }
+.pd-rx-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #b42318; background: #fef3f2; border: 1.5px solid #f04438; border-radius: 8px; padding: 7px 12px; margin: 0 0 14px; animation: pd-rx-flash 1.6s ease-in-out infinite; }
+.pd-rx-badge svg { flex-shrink: 0; }
+@keyframes pd-rx-flash {
+    0%, 100% { background: #fef3f2; box-shadow: 0 0 0 0 rgba(240,68,56,.45); }
+    50%      { background: #fee4e2; box-shadow: 0 0 0 6px rgba(240,68,56,0); }
+}
+@media (prefers-reduced-motion: reduce) { .pd-rx-badge { animation: none; } }
 .pd-meta-row { font-size: 13.5px; color: #555; margin-bottom: 8px; line-height: 1.6; }
 .pd-meta-row strong { color: #333; font-weight: 600; }
 .pd-tagline { font-size: 13.5px; color: #555; line-height: 1.7; margin-bottom: 16px; }
@@ -75,10 +82,26 @@
 .pd-tab-nav__link.active { color: #103178; border-bottom-color: #103178; }
 .pd-tab-pane { display: none; padding: 24px 4px 8px; }
 .pd-tab-pane.active { display: block; }
-.pd-description { font-size: 14.5px; color: #444; line-height: 1.8; }
-.pd-description h1,.pd-description h2,.pd-description h3 { color: #103178; font-weight: 700; margin-bottom: 10px; }
-.pd-description p { margin-bottom: 12px; }
-.pd-description ul, .pd-description ol { padding-left: 20px; margin-bottom: 14px; }
+.pd-description {
+    font-size: 15px; color: #333; line-height: 1.6; letter-spacing: normal;
+}
+/* theme sets font-family on `*`, so children must be targeted directly */
+.pd-description, .pd-description * {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+.pd-description h1,.pd-description h2,.pd-description h3,.pd-description h4,.pd-description h5 {
+    font-family: inherit; color: #000; font-weight: 700; line-height: 1.3; letter-spacing: normal;
+    margin: 18px 0 8px;
+}
+.pd-description h1,.pd-description h2 { font-size: 20px; }
+.pd-description h3 { font-size: 17px; }
+.pd-description h4,.pd-description h5 { font-size: 15.5px; }
+.pd-description > :first-child { margin-top: 0; }
+.pd-description p { margin: 0 0 10px; font-size: inherit; line-height: inherit; color: inherit; }
+.pd-description ul, .pd-description ol { padding-left: 20px; margin: 0 0 12px; }
+.pd-description li { margin-bottom: 4px; }
+.pd-description li p { margin: 0; }
+.pd-description br + br { display: none; }
 
 /* ── Reviews ── */
 .pd-review-item { border-bottom: 1px solid #f0f2f8; padding: 16px 0; }
@@ -147,7 +170,7 @@
             <div class="col-12 col-lg-5">
                 <div class="pd-img-wrap">
                     <img src="{{ asset('images/products/'.$data['product']->image_path) }}"
-                         alt="{{ $data['product']->name }}"
+                         alt="{{ $data['product']->name }} – genuine pack, sold by Sanlive Pharmacy Nigeria"
                          width="600" height="600"
                          fetchpriority="high" loading="eager">
                 </div>
@@ -165,6 +188,13 @@
                 </a>
 
                 <h1 class="pd-title">{{ $data['product']->name }}</h1>
+
+                @if($data['product']->requires_prescription == 1)
+                <div class="pd-rx-badge" role="note">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    Doctor's prescription required
+                </div>
+                @endif
 
                 <div class="pd-price-row">
                     <span class="pd-price">{{ moneyFormat($data['product']->sale_price) }}</span>

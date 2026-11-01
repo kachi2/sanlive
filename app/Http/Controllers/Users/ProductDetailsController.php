@@ -49,11 +49,15 @@ class ProductDetailsController extends Controller
     $price   = '₦' . number_format($amount);
     $inStock = (int) $product->status !== 1;
 
-    $metaTitle = $this->seoTitle($product->name);
+    $metaTitle = $this->seoTitle($product->name, $amount > 0 ? $price : null);
 
-    $lead = "Buy genuine {$product->name} in Nigeria"
-          . ($amount > 0 ? " at {$price}. " : '. ')
-          . ($inStock ? 'In stock with delivery in Lagos, Abuja & nationwide.' : 'Currently out of stock.');
+    // Answer the "how much is X in Nigeria" intent up front, then stock + pack photo
+    $was  = (float) $product->price > $amount ? ' (was ₦' . number_format((float) $product->price) . ')' : '';
+    $name = $this->shortName($product->name, 50);
+    $lead = ($amount > 0
+                ? "{$name} price in Nigeria: {$price}{$was}. "
+                : "Buy genuine {$name} in Nigeria. ")
+          . ($inStock ? 'In stock, genuine pack shown. Delivery in Lagos, Abuja & nationwide.' : 'Currently out of stock.');
     $room = 155 - mb_strlen($lead) - 1;
     $plainDescription = $room > 30
         ? rtrim($lead . ' ' . $this->excerpt($product->description, $room))
@@ -66,7 +70,7 @@ class ProductDetailsController extends Controller
             'description' => $plainDescription,
             'image_url'=> $product->image_path ? asset('images/products/'.$product->image_path) : null,
             'og_type'  => 'product',
-            'robots'   => 'index, follow',
+            'robots'   => 'index, follow, max-image-preview:large',
     ];
 
     return view('frontend.product-details', [
@@ -116,16 +120,39 @@ class ProductDetailsController extends Controller
     }
 
 
-    private function seoTitle(string $name): string
+    private function seoTitle(string $name, ?string $price = null): string
     {
-        foreach ([
+        $year = date('Y');
+        $candidates = $price ? [
+            "{$name} Price in Nigeria {$year}: {$price} | Sanlive Pharmacy",
+            "{$name} Price in Nigeria {$year}: {$price} | Sanlive",
+            "{$name} Price in Nigeria: {$price} | Sanlive",
+            "{$name} Price in Nigeria: {$price}",
+        ] : [
             "{$name} Price in Nigeria – Genuine | Sanlive Pharmacy",
             "{$name} Price in Nigeria | Sanlive Pharmacy",
             "{$name} Price in Nigeria",
-        ] as $candidate) {
+        ];
+
+        foreach ($candidates as $candidate) {
             if (mb_strlen($candidate) <= 60) return $candidate;
         }
-        return $name;
+
+        // Long names: shorten the name, never the price
+        $suffix = $price ? " Price in Nigeria: {$price}" : ' Price in Nigeria';
+        return $this->shortName($name, 60 - mb_strlen($suffix)) . $suffix;
+    }
+
+    private function shortName(string $name, int $max): string
+    {
+        $name = trim(preg_replace('/\s+/u', ' ', $name));
+        if (mb_strlen($name) <= $max) return $name;
+
+        $cut  = mb_substr($name, 0, $max + 1);
+        $last = mb_strrpos($cut, ' ');
+        $cut  = rtrim(mb_substr($cut, 0, $last ?: $max), ' ,(-–');
+        // don't end on a connector like "of", "and", "&", "(" or "-"
+        return preg_replace('/(\s+(of|and|with|for|&|\(|-|–))+$/iu', '', $cut);
     }
 
     private function excerpt(?string $html, int $limit): string
