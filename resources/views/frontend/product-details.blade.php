@@ -61,6 +61,17 @@
 .pd-rx-label input[type=file] { display: none; }
 .pd-rx-label svg { flex-shrink: 0; }
 .pd-rx-filename { font-size: 11.5px; color: #888; margin-top: 4px; }
+.rx-modal { display: none; position: fixed; inset: 0; z-index: 1300; align-items: center; justify-content: center; padding: 20px; }
+.rx-modal.open { display: flex; }
+.rx-modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.45); }
+.rx-modal__box { position: relative; background: #fff; width: 100%; max-width: 400px; border-radius: 16px; box-shadow: 0 12px 40px rgba(0,0,0,.25); overflow: hidden; }
+.rx-modal__header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: #b42318; color: #fff; font-weight: 700; font-size: 15px; }
+.rx-modal__close { background: none; border: none; color: #fff; font-size: 22px; line-height: 1; cursor: pointer; padding: 0; }
+.rx-modal__body { padding: 18px 16px; font-size: 14px; color: #333; line-height: 1.55; }
+.rx-modal__actions { display: flex; gap: 10px; padding: 0 16px 16px; }
+.rx-modal__btn { flex: 1; padding: 12px; border-radius: 8px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; }
+.rx-modal__btn--cancel { background: #f1f1f1; color: #333; }
+.rx-modal__btn--upload { background: #103178; color: #fff; }
 .pd-btn-cart { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; font-size: 14px; font-weight: 700; color: #fff; background: #103178; border: none; border-radius: 10px; cursor: pointer; text-decoration: none; transition: background .15s, box-shadow .15s; flex: 1; }
 .pd-btn-cart:hover { background: #0c2660; box-shadow: 0 4px 16px rgba(16,49,120,.25); color: #fff; }
 .pd-btn-wa { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; font-size: 14px; font-weight: 700; color: #fff; background: #25d366; border: none; border-radius: 10px; text-decoration: none; transition: background .15s, box-shadow .15s; flex: 1; }
@@ -229,9 +240,27 @@
                     <label for="precription_upload" class="pd-rx-label">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                         Upload Prescription
-                        <input type="file" id="precription_upload" name="image" accept="image/*" required onchange="document.getElementById('rx-fname').textContent = this.files[0]?.name ?? ''">
+                        <input type="file" id="precription_upload" name="image" accept="image/*" onchange="document.getElementById('rx-fname').textContent = this.files[0]?.name ?? ''">
                     </label>
                     <div id="rx-fname" class="pd-rx-filename"></div>
+
+                    <div id="rx-modal" class="rx-modal" role="dialog" aria-modal="true" aria-labelledby="rx-modal-title">
+                        <div class="rx-modal__backdrop" data-rx-close></div>
+                        <div class="rx-modal__box">
+                            <div class="rx-modal__header">
+                                <span id="rx-modal-title">Prescription required</span>
+                                <button type="button" class="rx-modal__close" data-rx-close aria-label="Close">&times;</button>
+                            </div>
+                            <div class="rx-modal__body">
+                                <strong>{{ $data['product']->name }}</strong> needs a doctor's prescription.
+                                Please upload a clear photo of your prescription before adding it to your cart.
+                            </div>
+                            <div class="rx-modal__actions">
+                                <button type="button" class="rx-modal__btn rx-modal__btn--cancel" data-rx-close>Cancel</button>
+                                <button type="button" class="rx-modal__btn rx-modal__btn--upload" id="rx-modal-upload">Upload Prescription</button>
+                            </div>
+                        </div>
+                    </div>
                     @endif
 
                     {{-- Action buttons --}}
@@ -420,6 +449,13 @@ function changeQty(delta) {
 
     addForm.addEventListener('submit', function(e){
         e.preventDefault();
+
+        var rxInput = document.getElementById('precription_upload');
+        if(rxInput && !rxInput.files.length){
+            document.getElementById('rx-modal').classList.add('open');
+            return;
+        }
+
         var btn = document.getElementById('add2cart');
         var originalText = btn.innerHTML;
         btn.disabled = true;
@@ -436,6 +472,19 @@ function changeQty(delta) {
             btn.innerHTML = originalText;
         });
     });
+})();
+
+// Prescription required modal
+(function(){
+    var modal = document.getElementById('rx-modal');
+    if(!modal) return;
+    function close(){ modal.classList.remove('open'); }
+    modal.querySelectorAll('[data-rx-close]').forEach(function(el){ el.addEventListener('click', close); });
+    document.getElementById('rx-modal-upload').addEventListener('click', function(){
+        close();
+        document.getElementById('precription_upload').click();
+    });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
 })();
 
 // Simple tab switcher
