@@ -191,16 +191,16 @@
     padding: 8px 6px;
     font-size: 12px;
     font-weight: 600;
-    color: #fff;
-    background: #25d366;
-    border: 1.5px solid #25d366;
+    color: #1e8a38;
+    background: #eaf7ee;
+    border: 1.5px solid #c9ebd3;
     border-radius: 6px;
     text-decoration: none !important;
     white-space: nowrap;
     transition: background 0.15s;
     width: 100%;
 }
-.btn-sanlive-wa:hover { background: #1ebe5d; border-color: #1ebe5d; color: #fff; }
+.btn-sanlive-wa:hover { background: #25a244; border-color: #25a244; color: #fff; }
 /* On wider screens, put buttons side by side */
 @media(min-width: 480px) {
     .sanlive-product-card__actions { flex-direction: row; }
@@ -259,7 +259,7 @@
                                         </a>
                                         <a href="https://wa.me/+2348058885913?text={{ urlencode('Please I need '.$prod->name.', the price on your website is '.moneyFormat($prod->sale_price)) }}"
                                            target="_blank" rel="noopener noreferrer" class="btn-sanlive-wa">
-                                            <img src="{{ asset('/frontend/whatsapp.png') }}" style="width:14px;height:14px;object-fit:contain;filter:brightness(0) invert(1)" alt="">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.12 1.532 5.845L.053 23.25a.75.75 0 0 0 .916.98l5.604-1.474A11.953 11.953 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.71 9.71 0 0 1-4.953-1.352l-.355-.211-3.668.965.977-3.567-.232-.367A9.712 9.712 0 0 1 2.25 12C2.25 6.59 6.59 2.25 12 2.25S21.75 6.59 21.75 12 17.41 21.75 12 21.75z"/></svg>
                                             WhatsApp
                                         </a>
                                     </div>

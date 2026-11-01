@@ -150,8 +150,8 @@
 .sanlive-product-card__actions { display: flex; flex-direction: column; gap: 6px; padding: 0 10px 12px; }
 .btn-sanlive-cart { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 6px; font-size: 12px; font-weight: 600; color: #333; background: #fff; border: 1.5px solid #ccc; border-radius: 6px; text-decoration: none !important; white-space: nowrap; transition: border-color .15s, color .15s; width: 100%; }
 .btn-sanlive-cart:hover { border-color: #103178; color: #103178; }
-.btn-sanlive-wa { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 6px; font-size: 12px; font-weight: 600; color: #fff; background: #25d366; border: 1.5px solid #25d366; border-radius: 6px; text-decoration: none !important; white-space: nowrap; transition: background .15s; width: 100%; }
-.btn-sanlive-wa:hover { background: #1ebe5d; border-color: #1ebe5d; color: #fff; }
+.btn-sanlive-wa { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 6px; font-size: 12px; font-weight: 600; color: #1e8a38; background: #eaf7ee; border: 1.5px solid #c9ebd3; border-radius: 6px; text-decoration: none !important; white-space: nowrap; transition: background .15s; width: 100%; }
+.btn-sanlive-wa:hover { background: #25a244; border-color: #25a244; color: #fff; }
 @media(min-width:480px) {
     .sanlive-product-card__actions { flex-direction: row; }
     .btn-sanlive-cart, .btn-sanlive-wa { width: auto; flex: 1; }
