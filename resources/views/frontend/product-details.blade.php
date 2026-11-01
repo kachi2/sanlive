@@ -143,6 +143,8 @@
 .sanlive-product-card__name a { color: inherit; text-decoration: none; }
 .sanlive-product-card__name a:hover { color: #103178; }
 .sanlive-product-card__price { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.sanlive-product-card__rx { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 600; letter-spacing: .2px; color: #b42318; background: #fef3f2; border: 1px solid #fecdca; border-radius: 999px; padding: 2px 7px 2px 3px; margin: -2px 0 10px; }
+.sanlive-product-card__rx::before { content: "℞"; display: inline-flex; align-items: center; justify-content: center; width: 13px; height: 13px; border-radius: 50%; background: #d92d20; color: #fff; font-size: 8px; font-weight: 700; }
 .sanlive-product-card__sale { font-size: 15px; font-weight: 700; color: #25a244; }
 .sanlive-product-card__original { font-size: 13px; color: #aaa; text-decoration: line-through; }
 .sanlive-product-card__actions { display: flex; flex-direction: column; gap: 6px; padding: 0 10px 12px; }
@@ -409,6 +411,9 @@
                             <span class="sanlive-product-card__original">{{ moneyFormat($rel->price) }}</span>
                             @endif
                         </div>
+                        @if($rel->requires_prescription == 1)
+                        <div class="sanlive-product-card__rx">Prescription required</div>
+                        @endif
                     </div>
                     <div class="sanlive-product-card__actions">
                         <a href="{{ route('users.products', $rel->slug) }}" class="btn-sanlive-cart">
