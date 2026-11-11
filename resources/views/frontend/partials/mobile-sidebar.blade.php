@@ -36,7 +36,7 @@
         </a>
         @if(!empty($categories) && $categories->count())
         @foreach($categories->take(6) as $cat)
-        <a href="{{ route('products.search', ['category' => $cat->slug]) }}" style="padding-left:32px; font-size:.85rem; color:#5b6c8f;">
+        <a href="{{ route('products.search', $cat->slug) }}" style="padding-left:32px; font-size:.85rem; color:#5b6c8f;">
             <span>{{ $cat->name }}</span>
         </a>
         @endforeach
@@ -87,13 +87,13 @@
         drawer.classList.add('open');
         overlay.classList.add('open');
         document.body.style.overflow='hidden';
-        if(openBtn) openBtn.classList.add('is-open');
+        if(openBtn){ openBtn.classList.add('is-open'); openBtn.setAttribute('aria-expanded','true'); }
     }
     function closeDrawer(){
         drawer.classList.remove('open');
         overlay.classList.remove('open');
         document.body.style.overflow='';
-        if(openBtn) openBtn.classList.remove('is-open');
+        if(openBtn){ openBtn.classList.remove('is-open'); openBtn.setAttribute('aria-expanded','false'); }
     }
 
     if(openBtn)  openBtn.addEventListener('click', openDrawer);

@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
             if (!isset($shared)) {
                 $shared = [
                     'settings'      => Cache::remember('site_settings', 3600, function() { return Setting::latest()->first(); }),
-                    'categories'    => Cache::remember('site_categories', 300,  function() { return Category::inRandomOrder()->get(); }),
+                    'categories'    => Cache::remember('site_categories', 300,  function() { return Category::orderBy('name')->get(); }),
                     'site_menu'     => Cache::remember('site_menu', 3600,       function() { return Menu::get(); }),
                     'advert_top'    => Cache::remember('advert_top', 3600,      function() { return Advert::where('placement', 'top')->first(); }),
                     'announcment'   => Cache::remember('site_announcement', 600, function() { return Annoucement::latest()->first(); }),

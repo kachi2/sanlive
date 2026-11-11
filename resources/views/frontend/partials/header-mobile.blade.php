@@ -9,7 +9,7 @@
 
     <div class="mob-topbar">
         <a href="/" class="mob-logo">
-            <img src="{{ asset('images/'.$settings->site_logo) }}" alt="{{ $settings->site_name }}" width="120" height="40" loading="lazy">
+            <img src="{{ asset('images/'.$settings->site_logo) }}" alt="{{ $settings->site_name }}" width="120" height="40">
         </a>
 
         <div class="mob-actions">

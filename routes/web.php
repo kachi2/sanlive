@@ -62,12 +62,14 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/generate/sitemap.xml', [SiteMapController::class, 'SiteMap'])->name('sitemap')
-  ->middleware([]);
-
 Route::get('/sitemap.xml', [ControllersSiteMapController::class, 'SiteMap']);
-Route::get('generate/slugs', [UpdateProductTest::class, 'Index']);
-Route::get('generate/category/slugs', [UpdateProductTest::class, 'categorySlug']);
+
+// Maintenance tools — admin only (these rewrite data / files)
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/generate/sitemap.xml', [SiteMapController::class, 'SiteMap'])->name('sitemap');
+    Route::get('generate/slugs', [UpdateProductTest::class, 'Index']);
+    Route::get('generate/category/slugs', [UpdateProductTest::class, 'categorySlug']);
+});
 
 
 Route::get('/get/product/reviews', [UserReviewController::class, 'getReviews']);

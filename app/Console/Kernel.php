@@ -21,6 +21,12 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->runInBackground()
             ->appendOutputTo(storage_path('logs/google-indexing.log'));
+
+        // Rebuild public/sitemap.xml daily so new products/blogs are listed
+        $schedule->call(fn () => app(\App\Services\SitemapService::class)->generate())
+            ->name('generate-sitemap')
+            ->dailyAt('03:00')
+            ->withoutOverlapping();
     }
 
     /**
