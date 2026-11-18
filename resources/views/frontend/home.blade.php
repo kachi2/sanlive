@@ -322,7 +322,7 @@ and order online or via WhatsApp for fast, discreet delivery.
                     <div class="sanlive-product-card w-100">
                         <a href="{{ route('users.products', $product->slug) }}">
                             <img class="sanlive-product-card__img"
-                                 src="{{ productImage($product->image_path) }}"
+                                 src="{{ asset('images/products/'.$product->image_path) }}"
                                  alt="{{ $product->name }}" width="280" height="280"
                                  style="aspect-ratio:auto 280/280" loading="lazy">
                         </a>

@@ -87,7 +87,7 @@
                     <input type="hidden" name="cartId" value="{{ $cart->id }}">
                     <input type="hidden" name="qty" value="{{ $cart->quantity }}">
                     <div class="cart-item__img">
-                        <img src="{{ productImage(($cart->associatedModel->image_path ?? '')) }}" alt="{{ $cart->associatedModel->name ?? 'Product image' }}" loading="lazy">
+                        <img src="{{ asset('images/products/'.($cart->associatedModel->image_path ?? '')) }}" alt="{{ $cart->associatedModel->name ?? 'Product image' }}" loading="lazy">
                     </div>
                     <div class="cart-item__info">
                         <span class="cart-item__category">{{ $cart->associatedModel->category->name ?? '' }}</span>
@@ -152,7 +152,7 @@
                 <div class="sanlive-product-card w-100">
                     <a href="{{ route('users.products', $prod->slug) }}">
                         <img class="sanlive-product-card__img"
-                             src="{{ productImage($prod->image_path) }}"
+                             src="{{ asset('images/products/'.$prod->image_path) }}"
                              alt="{{ $prod->name }}" loading="lazy">
                     </a>
                     <div class="sanlive-product-card__body">

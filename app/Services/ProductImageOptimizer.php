@@ -6,63 +6,62 @@ use Intervention\Image\Facades\Image;
 use Throwable;
 
 /**
- * Creates small WebP copies of product images for fast mobile loading.
+ * Creates a WebP copy of each product image at the SAME width/height (no resizing,
+ * so no blur) for faster loading:
  *
- *   public/images/products/{file}                 original (untouched)
- *   public/images/products/webp/card/{name}.webp  300px – listings, cart, related
- *   public/images/products/webp/full/{name}.webp  600px – product page main image
+ *   public/images/products/{file}              original (untouched, URL unchanged)
+ *   public/images/products/webp/{file}.webp    WebP copy, e.g. "aquacef.png.webp"
  *
- * Views use productImage($file, 'card'|'full'), which falls back to the
- * original when the WebP copy doesn't exist yet.
+ * Pages keep using the original URL. A rule in public/.htaccess serves the WebP
+ * copy at that same URL to browsers that support WebP; others get the original.
  */
 class ProductImageOptimizer
 {
-    public const SIZES = ['card' => 300, 'full' => 600];
-    public const QUALITY = 80;
+    public const QUALITY = 85;
 
-    private const EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp'];
+    private const EXTENSIONS = ['jpg', 'jpeg', 'png'];
 
-    public static function webpRelativePath(string $file, string $size): string
+    public static function webpPath(string $file): string
     {
-        return 'images/products/webp/' . $size . '/' . pathinfo($file, PATHINFO_FILENAME) . '.webp';
+        return public_path('images/products/webp/' . $file . '.webp');
     }
 
     /**
-     * Generate the WebP copies for one product image.
-     * Returns the number of files written (0 if skipped or already present).
+     * Create the WebP copy for one product image.
+     * Returns true if a copy was written.
      */
-    public function optimize(string $file, bool $force = false): int
+    public function optimize(string $file, bool $force = false): bool
     {
         $source = public_path('images/products/' . $file);
         $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 
         if ($file === '' || !is_file($source) || !in_array($ext, self::EXTENSIONS, true)) {
-            return 0;
+            return false;
         }
 
-        $written = 0;
-        foreach (self::SIZES as $size => $px) {
-            $target = public_path(self::webpRelativePath($file, $size));
-            if (!$force && is_file($target)) {
-                continue;
-            }
-            if (!is_dir(dirname($target))) {
-                mkdir(dirname($target), 0755, true);
-            }
-
-            try {
-                $img = Image::make($source);
-                $img->resize($px, $px, function ($c) {
-                    $c->aspectRatio();
-                    $c->upsize();
-                })->encode('webp', self::QUALITY)->save($target);
-                $img->destroy();
-                $written++;
-            } catch (Throwable $e) {
-                report($e);
-            }
+        $target = self::webpPath($file);
+        if (!$force && is_file($target)) {
+            return false;
+        }
+        if (!is_dir(dirname($target))) {
+            mkdir(dirname($target), 0755, true);
         }
 
-        return $written;
+        try {
+            $img = Image::make($source);           // no resize: same dimensions as the original
+            $img->encode('webp', self::QUALITY)->save($target);
+            $img->destroy();
+        } catch (Throwable $e) {
+            report($e);
+            return false;
+        }
+
+        // Only keep the copy if it actually saves bytes; otherwise the original is served.
+        if (filesize($target) >= filesize($source)) {
+            @unlink($target);
+            return false;
+        }
+
+        return true;
     }
 }

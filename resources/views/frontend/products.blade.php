@@ -244,7 +244,7 @@
                                 <div class="sanlive-product-card w-100">
                                     <a href="{{ route('users.products', $prod->slug) }}">
                                         <img class="sanlive-product-card__img"
-                                             src="{{ productImage($prod->image_path) }}"
+                                             src="{{ asset('images/products/'.$prod->image_path) }}"
                                              alt="{{ $prod->name }}" width="280" height="280"
                                              style="aspect-ratio:auto 280/280" loading="lazy">
                                     </a>

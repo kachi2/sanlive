@@ -7,7 +7,7 @@
 @endif
 
 @section('preload')
-<link rel="preload" as="image" href="{{ productImage($data['product']->image_path, 'full') }}" fetchpriority="high">
+<link rel="preload" as="image" href="{{ asset('images/products/'.$data['product']->image_path) }}" fetchpriority="high">
 @endsection
 
 @section('styles')
@@ -188,7 +188,7 @@
             {{-- Image --}}
             <div class="col-12 col-lg-5">
                 <div class="pd-img-wrap">
-                    <img src="{{ productImage($data['product']->image_path, 'full') }}"
+                    <img src="{{ asset('images/products/'.$data['product']->image_path) }}"
                          alt="{{ $data['product']->name }} – genuine pack, sold by Sanlive Pharmacy Nigeria"
                          width="600" height="600"
                          fetchpriority="high" loading="eager">
@@ -403,7 +403,7 @@
                 <div class="sanlive-product-card w-100">
                     <a href="{{ route('users.products', $rel->slug) }}">
                         <img class="sanlive-product-card__img"
-                             src="{{ productImage($rel->image_path) }}"
+                             src="{{ asset('images/products/'.$rel->image_path) }}"
                              alt="{{ $rel->name }}" width="280" height="280"
                              style="aspect-ratio:auto 280/280" loading="lazy">
                     </a>

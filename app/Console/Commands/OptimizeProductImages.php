@@ -6,8 +6,9 @@ use App\Services\ProductImageOptimizer;
 use Illuminate\Console\Command;
 
 /**
- * One-off (and safe to re-run): creates 300px and 600px WebP copies of every
- * product image so mobile pages load small files instead of the originals.
+ * Creates a full-size WebP copy of every product image (same dimensions, no blur).
+ * Image URLs on the site do not change: public/.htaccess serves the WebP copy at
+ * the original URL to browsers that support it. Safe to re-run.
  *
  *   php artisan images:optimize-products           — only creates missing copies
  *   php artisan images:optimize-products --force   — regenerate all copies
@@ -16,7 +17,7 @@ class OptimizeProductImages extends Command
 {
     protected $signature = 'images:optimize-products {--force : Regenerate copies that already exist}';
 
-    protected $description = 'Create small WebP copies of product images for faster mobile pages';
+    protected $description = 'Create full-size WebP copies of product images (served at the original URL via .htaccess)';
 
     public function handle(ProductImageOptimizer $optimizer): int
     {
@@ -29,13 +30,15 @@ class OptimizeProductImages extends Command
         $written = 0;
 
         foreach ($files as $file) {
-            $written += $optimizer->optimize($file, (bool) $this->option('force'));
+            if ($optimizer->optimize($file, (bool) $this->option('force'))) {
+                $written++;
+            }
             $bar->advance();
         }
 
         $bar->finish();
         $this->newLine();
-        $this->info("Done. {$written} WebP files written to public/images/products/webp/.");
+        $this->info("Done. {$written} WebP copies written to public/images/products/webp/.");
 
         return self::SUCCESS;
     }
