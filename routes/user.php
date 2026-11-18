@@ -67,6 +67,44 @@ Route::controller(UserController::class)->group(function(){
     Route::put('/accounts/settings/update', 'UpdateAccountSettings')->name('users.settings.update');
 });
 
+// 301 redirects for renamed category slugs (old => new)
+$renamedCategories = [
+    'reproductive-solution-for-men'      => 'mens-fertility-reproductive-health',
+    'eye-and-ear-solution'               => 'eye-drops-ear-drops-vision-care',
+    'blood-sugar-regulators'             => 'diabetes-blood-sugar-medications',
+    'immune-boosters'                    => 'immune-system-boosters-vitamin-c',
+    'anti-fungi'                         => 'antifungal-creams-tablets-pessaries',
+    'clinical-laboratory-tools'          => 'diagnostic-test-kits-lab-supplies',
+    'anti-biotics'                       => 'antibiotics-antibacterial-medications',
+    'injectables'                        => 'injectable-medications-infusions',
+    'infant-wellness'                    => 'baby-childrens-health-vitamins',
+    'anti-malaria'                       => 'antimalarial-drugs-treatments',
+    'vaccines'                           => 'vaccines-immunization-supplies',
+    'chronic-health-conditions'          => 'chronic-illness-management-refills',
+    'healthcare-equipment'               => 'home-medical-equipment-bp-monitors',
+    'multivitamins'                      => 'daily-multivitamins-for-adults-kids',
+    'cough-cold-and-catarrh'             => 'cough-cold-flu-allergy-relief',
+    'elderly-health-solution'            => 'senior-citizen-geriatric-care',
+    'sexual-health-for-women'            => 'womens-intimate-care-sexual-wellness',
+    'blood-enrichmentiron-rich-elixirs'  => 'blood-tonics-iron-supplements',
+    'physical-wellness-mass-builders'    => 'bodybuilding-whey-protein-mass-gainers',
+    'digestive-wellness'                 => 'stomach-ulcer-digestive-health',
+    'controlled-prescription-medication' => 'prescription-only-controlled-medicines',
+    'household-hygiene-support'          => 'antiseptics-disinfectants-home-hygiene',
+    'sexual-health-for-men'              => 'mens-sexual-health-performance',
+    'cancer-fighting-therapies'          => 'oncology-specialty-cancer-medications',
+    'skin-rejuvenation-lotions'          => 'skin-repair-anti-aging-body-lotions',
+    'skin-care'                          => 'dermatological-skincare-acne-treatments',
+    'general-wellness'                   => 'first-aid-everyday-health-wellness',
+    'reproductive-solution-for-women'    => 'womens-fertility-conception-support',
+    'heart-care-solutions'               => 'blood-pressure-heart-care-medications',
+    'supplements'                        => 'dietary-nutritional-supplements',
+    'pain-relief-medications'            => 'pain-relief-migraine-joint-care',
+];
+foreach ($renamedCategories as $old => $new) {
+    Route::permanentRedirect("/catalogs/{$old}", "/catalogs/{$new}");
+}
+
 Route::controller(SearchController::class)->group(function(){
     Route::get('/catalogs/{hashid}/{slug}', '__invoke'); // redirect old two-segment catalog URLs
     Route::get('/catalogs/{id?}', '__invoke')->name('products.search');
