@@ -22,24 +22,10 @@
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
-    # Product images: serve the full-size WebP copy at the ORIGINAL URL when the
-    # browser supports WebP and a copy exists (created by: php artisan images:optimize-products).
-    # e.g. /images/products/aquacef.png  ->  file images/products/webp/aquacef.png.webp
-    # The URL never changes; browsers without WebP support get the original file.
-    RewriteCond %{HTTP_ACCEPT} image/webp
-    RewriteCond %{REQUEST_FILENAME} ^(.*)/images/products/[^/]+$
-    RewriteCond %1/images/products/webp/$1.webp -f
-    RewriteRule ^images/products/([^/]+\.(?:png|jpe?g))$ images/products/webp/$1.webp [NC,T=image/webp,L]
-
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-</IfModule>
-
-# WebP copies are named "file.png.webp": make sure they are sent as image/webp
-<IfModule mod_mime.c>
-    AddType image/webp .webp
 </IfModule>
 
 # ── GZIP Compression ──────────────────────────────────────────────────────────
@@ -91,11 +77,6 @@
     <FilesMatch "\.(ico|jpg|jpeg|png|gif|webp|svg)$">
         Header set Cache-Control "public, max-age=15552000"
     </FilesMatch>
-    # Same image URL can return WebP or PNG/JPG depending on the browser,
-    # so tell caches (Cloudflare, browsers) to keep them separate.
-    <FilesMatch "\.(jpg|jpeg|png|webp)$">
-        Header merge Vary Accept
-    </FilesMatch>
     # Cache fonts for 1 year
     <FilesMatch "\.(woff|woff2|ttf|otf|eot)$">
         Header set Cache-Control "public, max-age=31536000, immutable"
@@ -108,8 +89,3 @@
     Header always unset Server
     Header always unset X-Powered-By
 </IfModule>
-
-<Files 403.shtml>
-order allow,deny
-allow from all
-</Files>
