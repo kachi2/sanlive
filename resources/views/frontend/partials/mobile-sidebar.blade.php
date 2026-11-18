@@ -7,7 +7,7 @@
     {{-- Header --}}
     <div class="mob-drawer__head">
         <div class="mob-drawer__logo">
-            {{-- <img src="{{ asset('images/'.$settings->site_logo) }}" alt="{{ $settings->site_name }}"> --}}
+            <img src="{{ asset('images/'.$settings->site_logo) }}" alt="{{ $settings->site_name }}" loading="lazy">
         </div>
         <button class="mob-drawer__close" id="close-menus" aria-label="Close menu">&times;</button>
     </div>
@@ -19,6 +19,9 @@
         <div class="mob-drawer__user-links">
             <a href="{{ route('users.account.index') }}" rel="nofollow">My Account</a>
             <a href="{{ route('users.orders') }}" rel="nofollow">My Orders</a>
+            <a href="{{ route('users.account.address') }}" rel="nofollow">Address Book</a>
+            <a href="{{ route('users.order.payments') }}" rel="nofollow">Payments</a>
+            <a href="{{ route('users.account.settings') }}" rel="nofollow">Settings</a>
         </div>
     </div>
     @endauth
@@ -30,17 +33,17 @@
         </a>
         <div class="nav-divider"></div>
 
-        {{-- Categories accordion --}}
-        <a href="{{ route('products.search') }}" class="{{ request()->routeIs('products.*') ? 'active' : '' }}">
-            <span>Products</span><i class="fa fa-chevron-right nav-arrow"></i>
-        </a>
-        @if(!empty($categories) && $categories->count())
-        @foreach($categories->take(6) as $cat)
-        <a href="{{ route('products.search', $cat->slug) }}" style="padding-left:32px; font-size:.85rem; color:#5b6c8f;">
-            <span>{{ $cat->name }}</span>
-        </a>
-        @endforeach
-        @endif
+        {{-- Products: tap to expand the category list --}}
+        <button type="button" class="mob-nav-toggle {{ request()->routeIs('products.*') ? 'active' : '' }}"
+                id="mob-products-toggle" aria-expanded="false" aria-controls="mob-products-list">
+            <span>Products</span><i class="fa fa-chevron-down nav-arrow"></i>
+        </button>
+        <div class="mob-nav-sub" id="mob-products-list" hidden>
+            <a href="{{ route('products.search') }}"><span>All Products</span></a>
+            @foreach($categories ?? [] as $cat)
+            <a href="{{ route('products.search', $cat->slug) }}"><span>{{ $cat->name }}</span></a>
+            @endforeach
+        </div>
         <div class="nav-divider"></div>
 
         <a href="/page/services"><span>Our Services</span><i class="fa fa-chevron-right nav-arrow"></i></a>
@@ -94,6 +97,16 @@
         overlay.classList.remove('open');
         document.body.style.overflow='';
         if(openBtn){ openBtn.classList.remove('is-open'); openBtn.setAttribute('aria-expanded','false'); }
+    }
+
+    var prodToggle = document.getElementById('mob-products-toggle');
+    var prodList   = document.getElementById('mob-products-list');
+    if(prodToggle && prodList){
+        prodToggle.addEventListener('click', function(){
+            var open = prodList.hidden;
+            prodList.hidden = !open;
+            prodToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
     }
 
     if(openBtn)  openBtn.addEventListener('click', openDrawer);

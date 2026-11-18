@@ -228,6 +228,15 @@
                             <h1 style="font-size:15px">{{ $pageH1 ?? ($searchterm ?: 'Shop All Health Products – Sanlive Pharmacy') }}</h1>
                         </div>
                     </div>
+                    {{-- Mobile: horizontal category chips (desktop uses the sidebar) --}}
+                    <nav class="mob-cat-chips d-md-none" aria-label="Categories">
+                        <a href="{{ route('products.search') }}"
+                           class="mob-cat-chip {{ !($activeCategory ?? null) && !request('q') ? 'is-active' : '' }}">All Products</a>
+                        @foreach($categories as $cat)
+                        <a href="{{ route('products.search', $cat->slug) }}"
+                           class="mob-cat-chip {{ ($activeCategory ?? null) === $cat->slug ? 'is-active' : '' }}">{{ $cat->name }}</a>
+                        @endforeach
+                    </nav>
                     <div class="ps-categogy--grid">
                         <div class="row m-0">
                             @forelse($products as $prod)
@@ -235,7 +244,7 @@
                                 <div class="sanlive-product-card w-100">
                                     <a href="{{ route('users.products', $prod->slug) }}">
                                         <img class="sanlive-product-card__img"
-                                             src="{{ asset('images/products/'.$prod->image_path) }}"
+                                             src="{{ productImage($prod->image_path) }}"
                                              alt="{{ $prod->name }}" width="280" height="280"
                                              style="aspect-ratio:auto 280/280" loading="lazy">
                                     </a>
@@ -287,7 +296,7 @@
                 </div>
 
                 {{-- Category Sidebar --}}
-                <div class="col-12 col-md-3" style="top:-40px">
+                <div class="col-12 col-md-3 d-none d-md-block" style="top:-40px">
                     <div class="sanlive-category-sidebar">
                         <div class="sidebar-header">
                             <i class="fa fa-th-list" style="margin-right:8px;opacity:0.85"></i> Categories

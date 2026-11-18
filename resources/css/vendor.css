@@ -4,5 +4,4 @@
    ═══════════════════════════════════════════════════════════════ */
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'toastr/build/toastr.min.css';
-@import 'select2/dist/css/select2.min.css';
-@import 'nouislider/dist/nouislider.min.css';
+/* select2 + nouislider removed: not used on any frontend page */

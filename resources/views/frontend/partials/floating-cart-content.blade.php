@@ -8,7 +8,7 @@
         @foreach($floatingCarts as $item)
         <div class="fcart__item" data-cart-id="{{ $item->id }}">
             <div class="fcart__item-img">
-                <img src="{{ asset('images/products/'.($item->associatedModel->image_path ?? '')) }}" alt="{{ $item->name }}" loading="lazy">
+                <img src="{{ productImage(($item->associatedModel->image_path ?? '')) }}" alt="{{ $item->name }}" loading="lazy">
             </div>
             <div class="fcart__item-info">
                 <div class="fcart__item-name">{{ $item->name }}</div>

@@ -19,7 +19,7 @@
                         @foreach($orders as $order)
                         <a href="/account/orders/details/{{ $order->Order_no }}" class="acct-order-card">
                             <img class="acct-order-card__img"
-                                 src="{{ asset('images/products/'.$order->image) }}"
+                                 src="{{ productImage($order->image) }}"
                                  alt="{{ $order->product_name }}">
                             <div class="acct-order-card__info">
                                 <div class="acct-order-card__name">{{ $order->product_name }}</div>

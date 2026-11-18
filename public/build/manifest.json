@@ -1,11 +1,11 @@
 {
   "resources/css/frontend.css": {
-    "file": "assets/frontend-f70ed7d6.css",
+    "file": "assets/frontend-50207179.css",
     "isEntry": true,
     "src": "resources/css/frontend.css"
   },
   "resources/css/vendor.css": {
-    "file": "assets/vendor-7277e29c.css",
+    "file": "assets/vendor-a87c59ac.css",
     "isEntry": true,
     "src": "resources/css/vendor.css"
   }

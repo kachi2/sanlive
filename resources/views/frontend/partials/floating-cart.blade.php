@@ -87,6 +87,7 @@
     function applyResponse(data){
         if(typeof data.cartCount !== 'undefined'){
             document.querySelectorAll('.cartReload').forEach(function(el){ el.textContent = data.cartCount; });
+            document.querySelectorAll('.mob-cart-badge').forEach(function(el){ el.hidden = !(data.cartCount > 0); });
             root.classList.toggle('has-items', data.cartCount > 0);
         }
         if(typeof data.html !== 'undefined'){

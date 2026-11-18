@@ -33,12 +33,11 @@
     <link rel="manifest" href="/manifest.json">
 
     {{-- DNS prefetch for remaining third-party origins --}}
-    <link rel="dns-prefetch" href="https://embed.tawk.to">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
     {{-- Fonts: local copy of Jost (400–700) --}}
-    <link rel="preload" as="style" href="{{ asset('/frontend/fonts/jost/jost.css') }}" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ asset('/frontend/fonts/jost/jost.css') }}"></noscript>
+    {{-- Tiny file, loaded normally so text doesn't re-flow when it arrives late --}}
+    <link rel="stylesheet" href="{{ asset('/frontend/fonts/jost/jost.css') }}">
 
     {{-- Critical CSS: vendor + main style --}}
     @vite(['resources/css/vendor.css'])
@@ -49,16 +48,11 @@
     {{-- Non-critical CSS: loaded async to remove render-blocking --}}
     <link rel="preload" as="style" fetchpriority="low" href="{{ asset('/frontend/plugins/font-awesome/css/font-awesome.min.css') }}" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" as="style" fetchpriority="low" href="{{ asset('/frontend/fonts/Linearicons/Font/demo-files/demo.css') }}" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" as="style" fetchpriority="low" href="{{ asset('/frontend/plugins/owl-carousel/assets/owl.carousel.css') }}" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" as="style" fetchpriority="low" href="{{ asset('/frontend/plugins/slick/slick/slick.css') }}" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" as="style" fetchpriority="low" href="{{ asset('/frontend/plugins/lightGallery/dist/css/lightgallery.min.css') }}" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="{{ asset('/frontend/plugins/font-awesome/css/font-awesome.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/frontend/fonts/Linearicons/Font/demo-files/demo.css') }}">
-        <link rel="stylesheet" href="{{ asset('/frontend/plugins/owl-carousel/assets/owl.carousel.css') }}">
-        <link rel="stylesheet" href="{{ asset('/frontend/plugins/slick/slick/slick.css') }}">
-        <link rel="stylesheet" href="{{ asset('/frontend/plugins/lightGallery/dist/css/lightgallery.min.css') }}">
     </noscript>
+    {{-- Owl carousel CSS/JS now load only on pages that use it (home) --}}
 
     {{-- Page-specific preloads (e.g. LCP image) --}}
     @yield('preload')
@@ -87,19 +81,14 @@
     @include('frontend.partials.footer')
 </div>
 
-{{-- Core: loaded normally — jQuery + UI libs needed for first-paint carousel/navigation --}}
+{{-- Core: jQuery + Bootstrap (account dropdown, page scripts) --}}
 <script src="{{ asset('/frontend/plugins/jquery.min.js') }}"></script>
 <script src="{{ asset('/frontend/plugins/popper.min.js') }}"></script>
 <script src="{{ asset('/frontend/plugins/bootstrap4/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('/frontend/plugins/owl-carousel/owl.carousel.min.js') }}"></script>
-<script src="{{ asset('/frontend/plugins/slick/slick/slick.min.js') }}"></script>
 
 {{-- Deferred: not needed until after first paint --}}
 <script src="{{ asset('/frontend/plugins/toastr/toastr.min.js') }}" defer></script>
-<script src="{{ asset('/frontend/plugins/jquery-bar-rating/dist/jquery.barrating.min.js') }}" defer></script>
-<script src="{{ asset('/frontend/plugins/lightGallery/dist/js/lightgallery-all.min.js') }}" defer></script>
-<script src="{{ asset('/frontend/plugins/noUiSlider/nouislider.min.js') }}" defer></script>
-<script src="{{ asset('/frontend/plugins/select2/dist/js/select2.full.min.js') }}" defer></script>
+{{-- Removed (unused on frontend): slick, lightGallery, bar-rating, noUiSlider, select2 --}}
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVXCCDXSLS"></script>
@@ -362,17 +351,12 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 </script>
 @endguest
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
-Tawk_API.customStyle = {
-    visibility: {
-        desktop: { position: 'bl', xOffset: 20, yOffset: 20 },
-        mobile: { position: 'br', xOffset: 10, yOffset: 10 }
-    }
-};
-(function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;s1.src='https://embed.tawk.to/6575ebf907843602b800450a/default';
-s1.charset='UTF-8';s1.setAttribute('crossorigin','anonymous');s0.parentNode.insertBefore(s1,s0);})();
-</script>
+{{-- WhatsApp chat button (replaces Tawk.to — no third-party script, faster pages) --}}
+<a class="wa-float" target="_blank" rel="noopener"
+   href="https://wa.me/2348058885913?text={{ rawurlencode('Hello Sanlive Pharmacy, I need help with: '.url()->current()) }}"
+   aria-label="Chat with a pharmacist on WhatsApp">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.12 1.532 5.845L.053 23.25a.75.75 0 0 0 .916.98l5.604-1.474A11.953 11.953 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.71 9.71 0 0 1-4.953-1.352l-.355-.211-3.668.965.977-3.567-.232-.367A9.712 9.712 0 0 1 2.25 12C2.25 6.59 6.59 2.25 12 2.25S21.75 6.59 21.75 12 17.41 21.75 12 21.75z"/></svg>
+    <span class="wa-float__label">Chat with a pharmacist</span>
+</a>
 </body>
 </html>

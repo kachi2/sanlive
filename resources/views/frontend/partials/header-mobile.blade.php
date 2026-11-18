@@ -25,9 +25,7 @@
 
             <a href="{{ route('carts.index') }}" class="mob-icon-btn" rel="nofollow" title="Cart">
                 <i class="icon-cart"></i>
-                @if(($cartItem ?? 0) > 0)
-                <span class="mob-cart-badge">{{ $cartItem }}</span>
-                @endif
+                <span class="mob-cart-badge cartReload" @if(($cartItem ?? 0) < 1) hidden @endif>{{ $cartItem ?? 0 }}</span>
             </a>
 
             <button class="mob-hamburger" id="open-menus" aria-label="Open menu" aria-expanded="false">

@@ -7,7 +7,7 @@
 @endif
 
 @section('preload')
-<link rel="preload" as="image" href="{{ asset('images/products/'.$data['product']->image_path) }}" fetchpriority="high">
+<link rel="preload" as="image" href="{{ productImage($data['product']->image_path, 'full') }}" fetchpriority="high">
 @endsection
 
 @section('styles')
@@ -91,6 +91,12 @@
 .pd-tab-nav__link { display: block; padding: 11px 22px; font-size: 13.5px; font-weight: 600; color: #777; text-decoration: none; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; white-space: nowrap; cursor: pointer; }
 .pd-tab-nav__link:hover { color: #103178; }
 .pd-tab-nav__link.active { color: #103178; border-bottom-color: #103178; }
+/* Phones: three tabs share one row instead of wrapping */
+@media (max-width: 480px) {
+    .pd-tab-nav { flex-wrap: nowrap; }
+    .pd-tab-nav__item { flex: 1 1 0; min-width: 0; }
+    .pd-tab-nav__link { padding: 11px 4px; text-align: center; font-size: 13px; }
+}
 .pd-tab-pane { display: none; padding: 24px 4px 8px; }
 .pd-tab-pane.active { display: block; }
 .pd-description {
@@ -182,7 +188,7 @@
             {{-- Image --}}
             <div class="col-12 col-lg-5">
                 <div class="pd-img-wrap">
-                    <img src="{{ asset('images/products/'.$data['product']->image_path) }}"
+                    <img src="{{ productImage($data['product']->image_path, 'full') }}"
                          alt="{{ $data['product']->name }} – genuine pack, sold by Sanlive Pharmacy Nigeria"
                          width="600" height="600"
                          fetchpriority="high" loading="eager">
@@ -397,7 +403,7 @@
                 <div class="sanlive-product-card w-100">
                     <a href="{{ route('users.products', $rel->slug) }}">
                         <img class="sanlive-product-card__img"
-                             src="{{ asset('images/products/'.$rel->image_path) }}"
+                             src="{{ productImage($rel->image_path) }}"
                              alt="{{ $rel->name }}" width="280" height="280"
                              style="aspect-ratio:auto 280/280" loading="lazy">
                     </a>

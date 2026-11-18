@@ -54,7 +54,7 @@
                     </div>
                     @foreach($order_items as $item)
                     <div style="background:#fff;border:1.5px solid #eef0f8;border-radius:14px;padding:16px 18px;margin-bottom:12px;display:flex;align-items:center;gap:16px">
-                        <img src="{{ asset('images/products/'.$item->image) }}"
+                        <img src="{{ productImage($item->image) }}"
                              alt="{{ $item->product_name }}"
                              style="width:72px;height:72px;object-fit:contain;border-radius:10px;background:#f8f9ff;padding:6px;flex-shrink:0">
                         <div style="flex:1;min-width:0">

@@ -185,3 +185,22 @@ if(!function_exists('getCountryCurrency'))
     return (bool) config('services.recaptcha.site_key');
    }
 }
+
+if(!function_exists('productImage'))
+{
+   /**
+    * URL of a product image, preferring the small WebP copy
+    * (see App\Services\ProductImageOptimizer). $size: 'card' (300px) or 'full' (600px).
+    */
+   function productImage($file, $size = 'card')
+   {
+    $file = (string) $file;
+    if ($file !== '') {
+        $webp = \App\Services\ProductImageOptimizer::webpRelativePath($file, $size);
+        if (is_file(public_path($webp))) {
+            return asset($webp);
+        }
+    }
+    return asset('images/products/'.$file);
+   }
+}

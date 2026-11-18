@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Traits\imageUpload;
+use App\Services\ProductImageOptimizer;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -128,6 +129,7 @@ class ProductController extends Controller
             if ($request->file('image')) {
                 $image =  $this->UploadImage($request, 'images/products/', 500,500);
                 $prod->image_path = $image;
+                app(ProductImageOptimizer::class)->optimize($image);
             }
             if ($request->file('images')) {
                 $images = $this->UploadImages($request, 'images/products/',500,500);
@@ -213,6 +215,7 @@ class ProductController extends Controller
             if ($request->file('image')) {
                 $image =  $this->UploadImage($request, 'images/products/', 500,500);
                 $prod->image_path = $image;
+                app(ProductImageOptimizer::class)->optimize($image);
             }
             if ($request->file('images')) {
                 $images = $this->UploadImages($request, 'images/products/', 500,500);

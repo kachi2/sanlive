@@ -14,6 +14,8 @@
 @endif
 
 @section('styles')
+{{-- Loaded normally (not async) so the carousels don't jump when CSS arrives --}}
+<link rel="stylesheet" href="{{ asset('/frontend/plugins/owl-carousel/assets/owl.carousel.css') }}">
 <style>
 /* ── Product Card (shared) ── */
 .sanlive-product-card {
@@ -320,7 +322,7 @@ and order online or via WhatsApp for fast, discreet delivery.
                     <div class="sanlive-product-card w-100">
                         <a href="{{ route('users.products', $product->slug) }}">
                             <img class="sanlive-product-card__img"
-                                 src="{{ asset('images/products/'.$product->image_path) }}"
+                                 src="{{ productImage($product->image_path) }}"
                                  alt="{{ $product->name }}" width="280" height="280"
                                  style="aspect-ratio:auto 280/280" loading="lazy">
                         </a>
@@ -543,6 +545,7 @@ and order online or via WhatsApp for fast, discreet delivery.
 @endsection
 
 @section('scripts')
+<script src="{{ asset('/frontend/plugins/owl-carousel/owl.carousel.min.js') }}"></script>
 <script>
 $(document).ready(function () {
     $('.slider-carousel').owlCarousel({ items:1, loop:true, autoplay:true, autoplayTimeout:4000 });

@@ -211,6 +211,45 @@
     display: flex; align-items: center; justify-content: center;
     border: 2px solid #fff;
 }
+.mob-cart-badge[hidden] { display: none; }
+
+/* Floating WhatsApp button. Desktop: bottom-left (floating cart is bottom-right).
+   Sits below modals (auth 99999, add-to-cart 1200) so it never covers them. */
+.wa-float {
+    position: fixed; left: 20px; bottom: 20px; z-index: 1000;
+    display: inline-flex; align-items: center; gap: 10px;
+    height: 56px; padding: 0 20px 0 14px; border-radius: 999px;
+    background: #25d366; color: #fff !important; text-decoration: none !important;
+    font-size: 14px; font-weight: 700;
+    box-shadow: 0 6px 20px rgba(37,211,102,.4);
+    transition: transform .15s, box-shadow .15s;
+}
+.wa-float:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(37,211,102,.5); }
+@media (max-width: 991px) {
+    /* Phones/tablets: icon-only circle, bottom-right */
+    .wa-float {
+        left: auto; right: 14px; bottom: calc(14px + env(safe-area-inset-bottom));
+        width: 56px; padding: 0; justify-content: center;
+    }
+    .wa-float__label { display: none; }
+}
+@media print { .wa-float { display: none; } }
+
+/* Products page: mobile category chips */
+.mob-cat-chips {
+    display: flex; gap: 8px; overflow-x: auto;
+    padding: 4px 2px 12px; margin-bottom: 8px;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.mob-cat-chips::-webkit-scrollbar { display: none; }
+.mob-cat-chip {
+    flex: 0 0 auto; white-space: nowrap;
+    padding: 7px 14px; border-radius: 999px;
+    border: 1.5px solid #e0e4f0; background: #fff;
+    color: #2b3a55; font-size: 13px; font-weight: 600;
+    text-decoration: none !important;
+}
+.mob-cat-chip.is-active { background: #103178; border-color: #103178; color: #fff; }
 .mob-hamburger {
     display: flex; flex-direction: column; justify-content: center;
     gap: 5px; width: 40px; height: 40px; padding: 10px;
@@ -269,7 +308,7 @@
     display: flex; align-items: center; justify-content: space-between;
     flex-shrink: 0;
 }
-.mob-drawer__logo img { height: 36px; object-fit: contain; filter: brightness(0) invert(1); }
+.mob-drawer__logo img { height: 36px; width: auto; object-fit: contain; display: block; background: #fff; padding: 4px 10px; border-radius: 8px; box-sizing: content-box; }
 .mob-drawer__close {
     background: rgba(255,255,255,.15); border: none;
     width: 34px; height: 34px; border-radius: 8px;
@@ -308,6 +347,24 @@
     background: #f0f4ff; border-left-color: #25d366; color: #103178;
 }
 .mob-drawer__nav a .nav-arrow { color: #b0bdd0; font-size: .75rem; }
+
+/* Products accordion */
+.mob-nav-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%; padding: 13px 20px; background: none; border: none;
+    border-left: 3px solid transparent; cursor: pointer; text-align: left;
+    font: inherit; font-size: .95rem; font-weight: 500; color: #1a2a4a;
+}
+.mob-nav-toggle.active { background: #f0f4ff; border-left-color: #25d366; color: #103178; }
+.mob-nav-toggle .nav-arrow { color: #b0bdd0; font-size: .75rem; transition: transform .2s; }
+.mob-nav-toggle[aria-expanded="true"] .nav-arrow { transform: rotate(180deg); }
+.mob-nav-sub { background: #f8f9fd; padding: 4px 0; }
+.mob-nav-sub[hidden] { display: none; }
+.mob-drawer__nav .mob-nav-sub a {
+    padding: 10px 20px 10px 36px;
+    font-size: .85rem; font-weight: 500; color: #5b6c8f;
+}
+.mob-drawer__nav .mob-nav-sub a:first-child { color: #103178; font-weight: 600; }
 .mob-drawer__nav .nav-divider {
     height: 1px; background: #f0f2f8; margin: 4px 20px;
 }
@@ -613,8 +670,14 @@
 .auth-modal {
     background: #fff; border-radius: 16px; width: 100%; max-width: 440px;
     margin: 16px; box-shadow: 0 24px 72px rgba(16,49,120,.22);
-    overflow: hidden; animation: authSlideIn .25s ease;
+    animation: authSlideIn .25s ease;
     position: relative;
+}
+/* Popup only (the /login and /register pages reuse .auth-modal as a normal card):
+   never taller than the screen; the form scrolls inside */
+#auth-modal-overlay .auth-modal {
+    max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px);
+    overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
 }
 @keyframes authSlideIn {
     from { opacity:0; transform:translateY(-18px) scale(.97); }
@@ -622,21 +685,48 @@
 }
 
 .auth-modal__close {
-    position: absolute; top: 14px; right: 16px; background: none; border: none;
-    font-size: 1.4rem; color: #8a9bb5; cursor: pointer; line-height: 1; z-index: 1;
+    position: absolute; top: 10px; right: 10px; z-index: 2;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: #f3f5fa; border: none;
+    font-size: 1.4rem; color: #5b6c8f; cursor: pointer; line-height: 1;
 }
-.auth-modal__close:hover { color: #103178; }
+.auth-modal__close:hover { color: #103178; background: #e8edf8; }
 
 .auth-tabs { display: flex; border-bottom: 2px solid #eef1f8; }
+/* Popup: tabs stay visible while the form scrolls; right padding leaves room for the × */
+#auth-modal-overlay .auth-tabs {
+    padding-right: 52px;
+    position: sticky; top: 0; background: #fff; z-index: 1;
+}
 .auth-tab {
     flex: 1; padding: 18px 0 14px; text-align: center; font-weight: 600;
     font-size: .95rem; color: #8a9bb5; cursor: pointer; letter-spacing: .02em;
+    background: none; border: none; border-radius: 0;
     border-bottom: 3px solid transparent; margin-bottom: -2px; transition: color .2s;
 }
 .auth-tab.active { color: #103178; border-bottom-color: #25d366; }
 
 .auth-panel { display: none; padding: 28px 30px 30px; }
 .auth-panel.active { display: block; }
+
+/* Phones: full-screen sheet, tighter spacing, reCAPTCHA scaled to fit */
+@media (max-width: 480px) {
+    #auth-modal-overlay { align-items: stretch; }
+    #auth-modal-overlay .auth-modal {
+        margin: 0; max-width: none; border-radius: 0;
+        max-height: 100vh; max-height: 100dvh; height: 100dvh;
+    }
+    /* /login and /register page card: no side margin so it fits the screen */
+    .auth-modal { margin: 0; }
+    .auth-panel { padding: 18px 18px calc(24px + env(safe-area-inset-bottom)); }
+    .auth-brand { margin-bottom: 12px; }
+    .auth-brand img { height: 36px; }
+    .auth-field { margin-bottom: 14px; }
+    /* 16px stops iOS from zooming in when an input is tapped */
+    .auth-field input { font-size: 16px !important; }
+    .auth-field .g-recaptcha { transform: scale(.9); transform-origin: 0 0; height: 70px; }
+}
 
 .auth-brand { text-align: center; margin-bottom: 18px; }
 .auth-brand img { height: 46px; object-fit: contain; }
