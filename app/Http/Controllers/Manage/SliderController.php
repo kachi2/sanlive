@@ -8,6 +8,7 @@ use App\Models\Slider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\imageUpload;
+use App\Services\ProductImageOptimizer;
 
 class SliderController extends Controller
 {
@@ -41,6 +42,7 @@ class SliderController extends Controller
             $name = pathinfo($image, PATHINFO_FILENAME);
             $fileName = $name.time().'.'.$ext;
             $image->move('images/sliders/',$fileName);
+            app(ProductImageOptimizer::class)->optimize($fileName, false, 'sliders');
     }
         $data = [
             'image_path' =>   $fileName,
@@ -76,6 +78,7 @@ class SliderController extends Controller
             $name = pathinfo($image, PATHINFO_FILENAME);
             $fileName = $name.time().'.'.$ext;
             $image->move('images/sliders/',$fileName);
+            app(ProductImageOptimizer::class)->optimize($fileName, false, 'sliders');
     }else{
         $fileName = $sl->image_path;
     }

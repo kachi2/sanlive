@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\imageUpload;
+use App\Services\ProductImageOptimizer;
 use Vinkla\Hashids\Facades\Hashids;
 
 class CategoryController extends Controller
@@ -73,6 +74,7 @@ class CategoryController extends Controller
 
         if ($request->file('image')) {
             $fileName = $this->UploadImage($request, 'images/category/');
+            app(ProductImageOptimizer::class)->optimize($fileName, false, 'category');
         }
         //  dd($fileName);
         $data = [
@@ -145,6 +147,7 @@ class CategoryController extends Controller
         $category->inflated = $request->inflated;
         if($request->file('image')){
             $category->image_path = $this->UploadImage($request, 'images/category/');
+            app(ProductImageOptimizer::class)->optimize($category->image_path, false, 'category');
         }else{
             $category->image_path =  $category->image;  
         }

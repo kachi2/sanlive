@@ -6,40 +6,43 @@ use Intervention\Image\Facades\Image;
 use Throwable;
 
 /**
- * Creates a WebP copy of each product image at the SAME width/height (no resizing,
- * so no blur) for faster loading:
+ * Creates a WebP copy of each image at the SAME width/height (no resizing,
+ * so no blur) for faster loading. Works for these folders under public/images/:
  *
- *   public/images/products/{file}              original (untouched, URL unchanged)
- *   public/images/products/webp/{file}.webp    WebP copy, e.g. "aquacef.png.webp"
+ *   images/{folder}/{file}              original (untouched, URL unchanged)
+ *   images/{folder}/webp/{file}.webp    WebP copy, e.g. "aquacef.png.webp"
  *
  * Pages keep using the original URL. A rule in public/.htaccess serves the WebP
  * copy at that same URL to browsers that support WebP; others get the original.
  */
 class ProductImageOptimizer
 {
+    /** Folders under public/images/ that get WebP copies (must match public/.htaccess). */
+    public const FOLDERS = ['products', 'sliders', 'category'];
+
     public const QUALITY = 85;
 
     private const EXTENSIONS = ['jpg', 'jpeg', 'png'];
 
-    public static function webpPath(string $file): string
+    public static function webpPath(string $file, string $folder = 'products'): string
     {
-        return public_path('images/products/webp/' . $file . '.webp');
+        return public_path('images/' . $folder . '/webp/' . $file . '.webp');
     }
 
     /**
-     * Create the WebP copy for one product image.
+     * Create the WebP copy for one image.
      * Returns true if a copy was written.
      */
-    public function optimize(string $file, bool $force = false): bool
+    public function optimize(string $file, bool $force = false, string $folder = 'products'): bool
     {
-        $source = public_path('images/products/' . $file);
+        $source = public_path('images/' . $folder . '/' . $file);
         $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 
         if ($file === '' || !is_file($source) || !in_array($ext, self::EXTENSIONS, true)) {
             return false;
         }
 
-        $target = self::webpPath($file);
+        $target = self::webpPath($file, $folder);
         if (!$force && is_file($target)) {
             return false;
         }

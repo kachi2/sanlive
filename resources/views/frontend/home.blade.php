@@ -17,6 +17,12 @@
 {{-- Loaded normally (not async) so the carousels don't jump when CSS arrives --}}
 <link rel="stylesheet" href="{{ asset('/frontend/plugins/owl-carousel/assets/owl.carousel.css') }}">
 <style>
+/* Hero slider: Owl's CSS hides the carousel until its JavaScript runs, which delayed
+   the banner (the page's LCP image). Show the first slide straight away; Owl takes
+   over once loaded (it adds .owl-loaded). */
+.slider-carousel:not(.owl-loaded) { display: block; }
+.slider-carousel:not(.owl-loaded) > div:not(:first-child) { display: none; }
+.slider-carousel .ps-banner__image { width: 100%; height: auto; display: block; }
 /* ── Product Card (shared) ── */
 .sanlive-product-card {
     background: #fff;
@@ -186,7 +192,6 @@
 
 {{-- Hero Slider --}}
 <section class="ps-section--banner ps-banner--container">
-    <div class="ps-section__overlay"><div class="ps-section__loading"></div></div>
     <div class="owl-carousel slider-carousel"
          data-owl-auto="true" data-owl-loop="true" data-owl-speed="4000"
          data-owl-gap="0" data-owl-nav="true" data-owl-dots="true"
@@ -203,7 +208,7 @@
                                 <img class="ps-banner__image"
                                      src="{{ asset('images/sliders/'.$slide->image_path) }}"
                                      alt="{{ $slide->title ?? 'Sanlive Pharmacy | Buy prescription medicines online in Nigeria — Sanlive Pharmacy' }}"
-                                     width="1200" height="480"
+                                     width="1820" height="560"
                                      @if($i === 0) fetchpriority="high" loading="eager" @else loading="lazy" @endif>
                             </a>
                         </div>

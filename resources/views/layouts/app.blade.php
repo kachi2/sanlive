@@ -60,9 +60,7 @@
 
     <meta name="google-site-verification" content="S7jnu8AWZFcOOYIKhw_EWy2ieNVUEwzSkgldPg1aMZ4">
 
-    @if(recaptchaEnabled())
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    @endif
+    {{-- reCAPTCHA is loaded on demand (see loadRecaptcha() before </body>), not on every page --}}
 
     @yield('schema')
     @yield('head')
@@ -89,6 +87,29 @@
 {{-- Deferred: not needed until after first paint --}}
 <script src="{{ asset('/frontend/plugins/toastr/toastr.min.js') }}" defer></script>
 {{-- Removed (unused on frontend): slick, lightGallery, bar-rating, noUiSlider, select2 --}}
+
+@if(recaptchaEnabled())
+<script>
+// Load Google reCAPTCHA (~400 KB) only when a form that needs it is on screen:
+// the sign-in/register popup (called from openModal) or a page with a visible form.
+(function () {
+    var loaded = false;
+    window.loadRecaptcha = function () {
+        if (loaded) return; loaded = true;
+        var s = document.createElement('script');
+        s.src = 'https://www.google.com/recaptcha/api.js';
+        s.async = true; s.defer = true;
+        document.head.appendChild(s);
+    };
+    document.addEventListener('DOMContentLoaded', function () {
+        var onPage = [].some.call(document.querySelectorAll('.g-recaptcha'), function (el) {
+            return !el.closest('#auth-modal-overlay');
+        });
+        if (onPage) window.loadRecaptcha();
+    });
+})();
+</script>
+@endif
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVXCCDXSLS"></script>
@@ -241,6 +262,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function openModal(tab) {
         switchTab(tab || 'login');
+        if (window.loadRecaptcha) window.loadRecaptcha();
         overlay.classList.add('open');
         document.body.style.overflow = 'hidden';
     }
